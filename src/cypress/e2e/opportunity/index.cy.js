@@ -95,7 +95,13 @@ describe("Opportunity Page", () => {
 
         cy.contains("60 Oportunidades encontradas");
 
-        cy.get(":nth-child(17) > .item > .input").click();
+        cy.wait(1000);
+
+        cy.get(':nth-child(2) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input').click();
+
+        cy.wait(1000);
+        
+        cy.get(':nth-child(12) > .mc-multiselect__option').click();
 
         cy.wait(1000);
 

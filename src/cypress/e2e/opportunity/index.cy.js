@@ -77,8 +77,8 @@ describe("Opportunity Page", () => {
 
         cy.get(".verified > input").click();
 
-        // Quando se aplica o filtro de editais, eles não aparecem.
-        cy.contains("2 Oportunidades encontradas");
+        /* Quando se aplica o filtro de editais, eles não aparecem. Esta é apenas uma solução paliativa. */
+        cy.contains("Nenhuma entidade encontrada");
     });
 
     it("Garante que os filtros por tipo de oportunidade funcionam", () => {

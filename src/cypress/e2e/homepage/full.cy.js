@@ -1,74 +1,81 @@
-import { backHomepageCompact } from "../../commands/backHomepageCompact";
+import { backHomepage } from "../../commands/backHomepage";
 
-describe("Homepage compactada", () => {
+describe("Homepage", () => {
     beforeEach(() => {
-        cy.viewport(1000, 768);
+        cy.viewport(1920, 1080);
         cy.visit("/");
     });
 
     it("Garante o funcionamento do home", () => {
-        backHomepageCompact();
+        backHomepage();
+    });
+
+    it("Acessa \"Ver todos\" de Oportunidades", () => {
+        cy.get(":nth-child(1) > .card__right > .button").click();
+        cy.url().should("include", "/oportunidades/");
+        backHomepage();
     });
 
     it("Acessa \"Ver todos\" de Eventos", () => {
         cy.get(":nth-child(2) > .card__right > .button").click();
         cy.url().should("include", "/eventos/");
-        backHomepageCompact();
+        backHomepage();
     });
+
     it("Acessa \"Ver todos\" de Espaços", () => {
         cy.get(":nth-child(3) > .card__right > .button").click();
         cy.url().should("include", "/espacos/");
-        backHomepageCompact();
+        backHomepage();
     });
+
     it("Acessa \"Ver todos\" de Agentes", () => {
         cy.get(":nth-child(4) > .card__right > .button").click();
         cy.url().should("include", "/agentes/");
-        backHomepageCompact();
+        backHomepage();
     });
+
     it("Acessa \"Ver todos\" de Projetos", () => {
         cy.get(":nth-child(5) > .card__right > .button").click();
         cy.url().should("include", "/projetos/");
-        backHomepageCompact();
+        backHomepage();
     });
 
-    it("Navegação entre os cards da seção \"Em destaque\"", () => {
+    it("Navegação entre os cards da seção \"Em desteaque\"", () => {
         cy.get(".carousel__next").click();
         cy.wait(1000);
         cy.get(".carousel__prev").click();
     });
 
-    it("Acessa o navbar e o botão \"Acessar\" dos cards da seção \"Em destaque\"", () => {
+    it("Acessa o navbar e o botão \"Acessar\" dos cards da seção \"Em desteaque\"", () => {
         cy.get(".agents > a > span").click();
         cy.wait(1000);
-        cy.get('.carousel__slide--next > .entity-card > .entity-card__footer > .entity-card__footer--action > .button').click();
-        cy.url().should("include", "/agente/2/#info");
-        cy.contains("h1", "Uirá Porã");
-        backHomepageCompact();
+        cy.get(".carousel__slide--active > .entity-card > .entity-card__footer > .entity-card__footer--action > .button").click();
+        cy.url().should("include", "/agente/27/#info");
+        cy.contains("Anne Elisa");
+        backHomepage();
 
         cy.get(".agents > a > span").click();
         cy.wait(1000);
         cy.get('.carousel__next').click();
-        cy.get('.carousel__slide--next > .entity-card > .entity-card__footer > .entity-card__footer--action > .button').click();
+        cy.get('[style="width: 31.25%; order: 3;"] > .entity-card > .entity-card__footer > .entity-card__footer--action > .button').click();
         cy.url().should("include", "/agente/1/#info");
         cy.contains("a", "https://pt.wikipedia.org/wiki/Cleodon_Silva");
-        backHomepageCompact();
-
+        backHomepage();
+        
         /*
         cy.get(".spaces > a > span").click();
         cy.wait(1000);
-        cy.get("[style=\"width: 35.7143%; order: 0;\"] > .entity-card > .entity-card__footer > .entity-card__footer--action > .button").click();
+        cy.get("[style=\"width: 31.25%; order: 0;\"] > .entity-card > .entity-card__footer > .entity-card__footer--action > .button").click();
         cy.url().should("include", "/espaco/25/#info");
         cy.contains("Quatro pixels");
-        backHomepageCompact();
-        */
+        backHomepage();
 
-        /*
         cy.get(".projects > a > span").click();
         cy.wait(1000);
         cy.get(".entity-card__footer--action > .button").click();
         cy.url().should("include", "/projeto/12/#info");
         cy.contains("12");
-        backHomepageCompact();
+        backHomepage();
         */
     });
 
@@ -76,7 +83,7 @@ describe("Homepage compactada", () => {
         cy.get(".home-register__content--button").click();
         cy.url().should("include", "autenticacao/register/");
         cy.contains("Novo cadastro");
-        backHomepageCompact();
+        backHomepage();
     });
 
     it("Acessa o botões de zoom do mapa", () => {

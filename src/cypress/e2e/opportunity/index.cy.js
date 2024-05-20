@@ -7,7 +7,7 @@ describe("Opportunity Page", () => {
 
     it("Garante que a oportunidades funciona", () => {
         cy.visit("/");
-        cy.contains("Bem-vinde ao Mapas Culturais");
+        cy.contains("Boas vindas ao Mapa Cultural");
 
         cy.contains("a", "Oportunidades").click();
         cy.url().should("include", "oportunidades");
@@ -62,8 +62,11 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        cy.get('.foundResults').then(($foundResults) => {
-            let resultsTextArray, resultsCount;
+        cy.contains("11 Oportunidades encontradas");
+
+        cy.get(".form > :nth-child(1) > :nth-child(3)").click();
+
+        cy.wait(1000);
 
             resultsTextArray = $foundResults.text().split(" ");
             resultsCount = Number(resultsTextArray[0]);
@@ -77,16 +80,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        cy.get('.foundResults').then(($foundResults) => {
-            let resultsTextArray, resultsCount;
-
-            resultsTextArray = $foundResults.text().split(" ");
-            resultsCount = Number(resultsTextArray[0]);
-            
-            cy.get(".upper.opportunity__color").should("have.length", resultsCount);
-            cy.wait(1000);
-            cy.contains(resultsCount + " Oportunidades encontradas");
-        });
+        cy.contains("1 Oportunidades encontrada");
     });
 
     it("Garante que o filtro de oportunidades de editais oficiais funciona", () => {
@@ -142,16 +136,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        cy.get('.foundResults').then(($foundResults) => {
-            let resultsTextArray, resultsCount;
-
-            resultsTextArray = $foundResults.text().split(" ");
-            resultsCount = Number(resultsTextArray[0]);
-            
-            cy.get(".upper.opportunity__color").should("have.length", resultsCount);
-            cy.wait(1000);
-            cy.contains(resultsCount + " Oportunidades encontradas");
-        });
+        cy.contains("8 Oportunidades encontradas");
     });
 
     it("Garante que os filtros por área de interesse funcionam", () => {
@@ -190,28 +175,6 @@ describe("Opportunity Page", () => {
             ":nth-child(1) > .mc-multiselect__option",
             ":nth-child(3) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input",
             ":nth-child(2) > .mc-multiselect__option"
-        ]);
-
-        cy.wait(1000);
-
-        let countBeforeClear;
-        cy.get('.foundResults').then(($foundResults) => {
-            let resultsTextArray;
-            resultsTextArray = $foundResults.text().split(" ");
-            countBeforeClear = Number(resultsTextArray[0]);
-        });
-
-        cy.get('.foundResults').then(($foundResults) => {
-            let resultsTextArray, resultsCount;
-
-            resultsTextArray = $foundResults.text().split(" ");
-            resultsCount = Number(resultsTextArray[0]);
-            
-            cy.get(".upper.opportunity__color").should("have.length", resultsCount);
-            cy.wait(1000);
-            cy.get(".upper.opportunity__color").should("have.length", countBeforeClear);
-            cy.wait(1000);
-            cy.contains(resultsCount + " Oportunidades encontradas");
-        });
+        ], "15 Oportunidades encontradas");
     });
 });

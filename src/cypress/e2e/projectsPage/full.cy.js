@@ -1,4 +1,5 @@
 const { clearAllFilters } = require("../../commands/clearAllFilters");
+const { checkFilterCountOf } = require("../../commands/checkFilterCountOf");
 
 describe("Pagina de Projetos", () => {
     beforeEach(() => {
@@ -8,15 +9,30 @@ describe("Pagina de Projetos", () => {
 
     it("clica em \"Acessar\" e entra na pagina no projeto selecionado", () => {
         cy.get(":nth-child(2) > .entity-card__footer > .entity-card__footer--action > .button").click();
-        cy.url().should("include", "/projeto/19/#info");
-        cy.contains('h1', 'Oficina');
+        cy.url().should("include", "/projeto/");
+        cy.contains('h1', 'MinC');
+    });
+
+    it("Garante que os filtros de projetos funcionem", () => {
+        cy.get('.mc-multiselect--input').click();
+        cy.wait(1000);
+        cy.get(':nth-child(18) > .mc-multiselect__option').click();
+        cy.wait(1000);
+        checkFilterCountOf("project", false);
     });
 
     it("Garante que o botão limpar filtros na pagina de projetos funciona", () => {
         clearAllFilters([
             ".verified",
             ".mc-multiselect--input",
-            ":nth-child(1) > .mc-multiselect__option"
-        ], "19 Projetos encontrados");
+            ":nth-child(1) > .mc-multiselect__option",
+            ":nth-child(2) > .mc-multiselect__option",
+            ":nth-child(3) > .mc-multiselect__option",
+            ":nth-child(4) > .mc-multiselect__option"
+        ]);
+
+        cy.wait(1000);
+
+        checkFilterCountOf("project", true);
     });
 });

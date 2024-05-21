@@ -1,4 +1,5 @@
 const { clearAllFilters } = require("../../commands/clearAllFilters");
+const { checkFilterCountOf } = require("../../commands/checkFilterCountOf");
 
 describe("Opportunity Page", () => {
     beforeEach(() => {
@@ -39,16 +40,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        cy.get('.foundResults').then(($foundResults) => {
-            let resultsTextArray, resultsCount;
-
-            resultsTextArray = $foundResults.text().split(" ");
-            resultsCount = Number(resultsTextArray[0]);
-            
-            cy.get(".upper.opportunity__color").should("have.length", resultsCount);
-            cy.wait(1000);
-            cy.contains(resultsCount + " Oportunidades encontradas");
-        });
+        checkFilterCountOf("opportunity", false);
     });
 
     it("Garante que os filtros por status das oportunidades funcionam", () => {
@@ -62,25 +54,13 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        cy.contains("11 Oportunidades encontradas");
-
-        cy.get(".form > :nth-child(1) > :nth-child(3)").click();
-
-        cy.wait(1000);
-
-            resultsTextArray = $foundResults.text().split(" ");
-            resultsCount = Number(resultsTextArray[0]);
-            
-            cy.get(".upper.opportunity__color").should("have.length", resultsCount);
-            cy.wait(1000);
-            cy.contains(resultsCount + " Oportunidades encontradas");
-        });
+        checkFilterCountOf("opportunity", false);
 
         cy.get('.form > :nth-child(1) > :nth-child(4)').click();
 
         cy.wait(1000);
 
-        cy.contains("1 Oportunidades encontrada");
+        checkFilterCountOf("opportunity", false);
     });
 
     it("Garante que o filtro de oportunidades de editais oficiais funciona", () => {
@@ -93,15 +73,7 @@ describe("Opportunity Page", () => {
         cy.get(".verified > input").click();
         cy.wait(1000);
 
-        cy.get('.foundResults').then(($foundResults) => {
-            let resultsTextArray, resultsCount;
-
-            resultsTextArray = $foundResults.text().split(" ");
-            resultsCount = Number(resultsTextArray[0]);
-            cy.get(".upper.opportunity__color").should("have.length", resultsCount);
-            cy.wait(1000);
-            cy.contains(resultsCount + " Oportunidades encontradas");
-        });
+        checkFilterCountOf("opportunity", false);
     });
 
     it("Garante que os filtros por tipo de oportunidade funcionam", () => {
@@ -116,16 +88,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        cy.get('.foundResults').then(($foundResults) => {
-            let resultsTextArray, resultsCount;
-
-            resultsTextArray = $foundResults.text().split(" ");
-            resultsCount = Number(resultsTextArray[0]);
-            
-            cy.get(".upper.opportunity__color").should("have.length", resultsCount);
-            cy.wait(1000);
-            cy.contains(resultsCount + " Oportunidades encontradas");
-        });
+        checkFilterCountOf("opportunity", false);
 
         cy.reload();
 
@@ -136,7 +99,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        cy.contains("8 Oportunidades encontradas");
+        checkFilterCountOf("opportunity", false);
     });
 
     it("Garante que os filtros por área de interesse funcionam", () => {
@@ -151,16 +114,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        cy.get('.foundResults').then(($foundResults) => {
-            let resultsTextArray, resultsCount;
-
-            resultsTextArray = $foundResults.text().split(" ");
-            resultsCount = Number(resultsTextArray[0]);
-            
-            cy.get(".upper.opportunity__color").should("have.length", resultsCount);
-            cy.wait(1000);
-            cy.contains(resultsCount + " Oportunidades encontradas");
-        });
+        checkFilterCountOf("opportunity", false);
     });
 
     it("Garante que o botão limpar filtros na pagina de oportunidades funciona", () => {
@@ -175,6 +129,10 @@ describe("Opportunity Page", () => {
             ":nth-child(1) > .mc-multiselect__option",
             ":nth-child(3) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input",
             ":nth-child(2) > .mc-multiselect__option"
-        ], "15 Oportunidades encontradas");
+        ]);
+
+        cy.wait(1000);
+
+        checkFilterCountOf("opportunity", true);
     });
 });

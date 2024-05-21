@@ -1,5 +1,6 @@
 const { clearAllFilters } = require("../../commands/clearAllFilters");
-const { checkFilterCountOf } = require("../../commands/checkFilterCountOf");
+const { checkOpportunityCount } = require("../../commands/checkOpportunityCount");
+const { checkOpportunityCountWithClear } = require("../../commands/checkOpportunityCountWithClear");
 
 describe("Opportunity Page", () => {
     beforeEach(() => {
@@ -40,7 +41,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        checkFilterCountOf("opportunity", false);
+        checkOpportunityCount();
     });
 
     it("Garante que os filtros por status das oportunidades funcionam", () => {
@@ -54,13 +55,13 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        checkFilterCountOf("opportunity", false);
+        checkOpportunityCount();
 
         cy.get('.form > :nth-child(1) > :nth-child(4)').click();
 
         cy.wait(1000);
 
-        checkFilterCountOf("opportunity", false);
+        checkOpportunityCount();
     });
 
     it("Garante que o filtro de oportunidades de editais oficiais funciona", () => {
@@ -73,7 +74,7 @@ describe("Opportunity Page", () => {
         cy.get(".verified > input").click();
         cy.wait(1000);
 
-        checkFilterCountOf("opportunity", false);
+        checkOpportunityCount();
     });
 
     it("Garante que os filtros por tipo de oportunidade funcionam", () => {
@@ -88,7 +89,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        checkFilterCountOf("opportunity", false);
+        checkOpportunityCount();
 
         cy.reload();
 
@@ -99,7 +100,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        checkFilterCountOf("opportunity", false);
+        checkOpportunityCount();
     });
 
     it("Garante que os filtros por área de interesse funcionam", () => {
@@ -114,7 +115,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        checkFilterCountOf("opportunity", false);
+        checkOpportunityCount();
     });
 
     it("Garante que o botão limpar filtros na pagina de oportunidades funciona", () => {
@@ -133,6 +134,6 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        checkFilterCountOf("opportunity", true);
+        checkOpportunityCountWithClear();
     });
 });

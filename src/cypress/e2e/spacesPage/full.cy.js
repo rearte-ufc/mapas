@@ -1,10 +1,12 @@
 const { clearAllFilters } = require("../../commands/clearAllFilters");
-const { checkFilterCountOf } = require("../../commands/checkFilterCountOf");
+const { checkSpaceCount } = require("../../commands/checkSpaceCount");
+const { checkSpaceCountWithClear } = require("../../commands/checkSpaceCountWithClear");
 
 describe("Pagina de Espaços", () => {
     beforeEach(() => {
         cy.viewport(1920, 1080);
         cy.visit("/espacos/#list");
+        cy.wait(1000);
     });
 
     it("clica em \"Acessar\" e entra na pagina no espaço selecionado", () => {
@@ -13,9 +15,12 @@ describe("Pagina de Espaços", () => {
         cy.contains('h1', 'Teatro Deodoro');
     });
 
-    it("Garante que o botão limpar filtros na pagina de espaços funciona", () => {
+    it("Garante que os filtros de tipos de espaços funcionem", () => {
+        cy.contains("Tipos de espaços");
+        cy.get(':nth-child(2) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input').click();
+        cy.get(':nth-child(86) > .mc-multiselect__option').click();
         cy.wait(1000);
-        checkFilterCountOf("space", false);
+        checkSpaceCount();
     });
 
     it("Garante que o botão limpar filtros na pagina de espaços funciona", () => {        
@@ -29,6 +34,6 @@ describe("Pagina de Espaços", () => {
         ]);
 
         cy.wait(1000);
-        checkFilterCountOf("space", true);
+        checkSpaceCountWithClear();
     });
 });

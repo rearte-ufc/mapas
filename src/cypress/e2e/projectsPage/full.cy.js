@@ -1,10 +1,12 @@
 const { clearAllFilters } = require("../../commands/clearAllFilters");
-const { checkFilterCountOf } = require("../../commands/checkFilterCountOf");
+const { checkProjectCount } = require("../../commands/checkProjectCount");
+const { checkProjectCountWithClear } = require("../../commands/checkProjectCountWithClear");
 
 describe("Pagina de Projetos", () => {
     beforeEach(() => {
         cy.viewport(1920, 1080);
         cy.visit("/projetos");
+        cy.wait(1000);
     });
 
     it("clica em \"Acessar\" e entra na pagina no projeto selecionado", () => {
@@ -18,7 +20,7 @@ describe("Pagina de Projetos", () => {
         cy.wait(1000);
         cy.get(':nth-child(18) > .mc-multiselect__option').click();
         cy.wait(1000);
-        checkFilterCountOf("project", false);
+        checkProjectCount();
     });
 
     it("Garante que o botão limpar filtros na pagina de projetos funciona", () => {
@@ -33,6 +35,6 @@ describe("Pagina de Projetos", () => {
 
         cy.wait(1000);
 
-        checkFilterCountOf("project", true);
+        checkProjectCountWithClear();
     });
 });

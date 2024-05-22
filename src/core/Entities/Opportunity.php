@@ -14,6 +14,8 @@ use MapasCulturais\i;
 use MapasCulturais\Utils;
 
 /**
+ *
+ *
  * Opportunity
  *
  * @property-read int $id
@@ -25,8 +27,8 @@ use MapasCulturais\Utils;
  * @property \DateTime $publishTimestamp
  * @property-read boolean $publishedRegistrations
  * @property-read int $totalRegistrations 
- * 
- * 
+ *
+ *
  * @property string $name
  * @property string $shortDescription
  * @property \DateTime $registrationFrom
@@ -36,13 +38,13 @@ use MapasCulturais\Utils;
  * @property array $registrationRanges
  * @property self $parent
  * @property Agent $owner
- * 
- * 
+ *
+ *
  * @property EvaluationMethodConfiguration $evaluationMethodConfiguration
  * @property RegistrationFileConfiguration[] $registrationFileConfigurations
  * @property RegistrationFieldConfiguration[] $registrationFieldConfigurations
  * @property \MapasCulturais\Entity $ownerEntity
- * 
+ *
  *
  * @ORM\Table(name="opportunity", indexes={
  *      @ORM\Index(name="opportunity_entity_idx", columns={"object_type", "object_id"}),
@@ -82,7 +84,7 @@ abstract class Opportunity extends \MapasCulturais\Entity
         Traits\EntityArchive{
             Traits\EntityNested::setParent as nestedSetParent;
         }
-        
+
     protected $__enableMagicGetterHook = true;
     protected $__enableMagicSetterHook = true;
 
@@ -490,7 +492,7 @@ abstract class Opportunity extends \MapasCulturais\Entity
     }
 
     static function getClassName() {
-        return Opportunity::class;
+        return static::class;
     }
 
     function getExtraPermissionCacheUsers(){

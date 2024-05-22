@@ -13,7 +13,7 @@ foreach($config_files as $config_file) {
 $folders = glob(CONFIG_PATH . '*.d/');
 $folders_dev = glob(PROTECTED_PATH . 'containers/config.d/');
 
-if (getenv('APP_MODE') === APPMODE_DEVELOPMENT) {
+if ($_ENV['APP_MODE'] === APPMODE_DEVELOPMENT) {
   $folders = array_merge($folders, $folders_dev);
 }
 sort($folders);

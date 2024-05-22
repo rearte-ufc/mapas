@@ -32,7 +32,9 @@ jobs:
 
       - name: Run migrations
         run: |
-            php src/tools/apply-updates.php
+          php src/tools/apply-updates.php
+        env:
+          APP_MODE: development
 
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3

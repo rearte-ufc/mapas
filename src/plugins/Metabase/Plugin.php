@@ -18,10 +18,10 @@ class Plugin extends \MapasCulturais\Plugin
                     'panelLink'=> 'painel-espacos',
                     'data'=> [
                         [
-                            'label' => 'espaços cadastrados',
-                            'entity' => 'MapasCulturais\\Entities\\Space',
-                            'query' => [],
-                            'value' => null
+                            "label" => "espaços cadastrados",
+                            "entity" => "MApasCulturais\\Entities\\Space",
+                            "query" => [],
+                            "value" => null
                         ],
                         [
                             'label'=> 'espaços certificados',
@@ -29,7 +29,7 @@ class Plugin extends \MapasCulturais\Plugin
                             'query'=> [
                                 '@verified'=> 1
                             ],
-                            'value'=> null
+                            "value"=> null
                         ]
                     ]
                 ],
@@ -40,32 +40,10 @@ class Plugin extends \MapasCulturais\Plugin
                     'panelLink'=> 'painel-agentes',
                     'data'=> [
                         [
-                            'label' => 'agentes individuais cadastrados',
-                            'entity' => 'MapasCulturais\\Entities\\Agent',
-                            'query' => [],
-                            'value' => null
-                        ],
-                    ]
-                ],
-                [
-                    'label' => 'Oportunidades',
-                    'icon'=> 'opportunity',
-                    'iconClass'=> 'opportunity__color',
-                    'panelLink'=> 'painel-oportunidades',
-                    'data'=> [
-                        [
-                            'label' => 'Oportunidades criadas',
-                            'entity' => 'MapasCulturais\\Entities\\Opportunity',
-                            'query' => [],
-                            'value' => null
-                        ],
-                        [
-                            'label' => 'Oportunidades certificadas',
-                            'entity' => 'MapasCulturais\\Entities\\Opportunity',
-                            'query'=> [
-                                '@verified'=> 1
-                            ],
-                            'value' => null
+                            "label" => "agentes individuais cadastrados",
+                            "entity" => "MApasCulturais\\Entities\\Agent",
+                            "query" => [],
+                            "value" => 0
                         ],
                     ]
                 ]

@@ -20,19 +20,19 @@ jobs:
         run: |
             sudo echo "127.0.0.1 db" | sudo tee -a /etc/hosts
 
-      - uses: hoverkraft-tech/compose-action@v1.5.1
+      - uses: hoverkraft-tech/compose-action@v0.0.0
         with:
           compose-file: "dev/docker-compose.yml"
           services: "db"
           up-flags: "-d"
           down-flags: "-v"
 
-      - name: Install composer and dependencies
-        uses: php-actions/composer@v6
-
       - name: Run migrations
         run: |
             php src/tools/apply-updates.php
+
+      - name: Install composer and dependencies
+        uses: php-actions/composer@v6
 
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3

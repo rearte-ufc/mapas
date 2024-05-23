@@ -7,7 +7,7 @@ describe("Projeto", () => {
         cy.get(".search-filter__actions--form-input").type("projeto");
         cy.get(".search-filter__actions--form-button").click();
         cy.wait(1000);
-        cy.get(`[href="${Cypress.config().baseUrl}/projeto/9/"]`).last().click();
+        cy.get('.entity-card__footer--action > .button').click();
         cy.wait(1000);
         cy.contains('p', 'teste projeto concurso');
     });

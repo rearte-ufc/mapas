@@ -115,7 +115,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        checkFilterCountOf("opportunity");
+        checkFilterCountOf("opportunity", false);
 
         cy.reload();
         cy.wait(1000);
@@ -125,7 +125,7 @@ describe("Opportunity Page", () => {
 
         cy.wait(1000);
 
-        checkFilterCountOf("opportunity");
+        checkFilterCountOf("opportunity", false);
     });
 
     it("Garante que o botão limpar filtros na pagina de oportunidades funciona", () => {

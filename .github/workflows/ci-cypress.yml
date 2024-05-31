@@ -1,5 +1,11 @@
-name: End-to-end tests
-on: push
+name: cypress-ci
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+      - 'feature/upgrade-cypress'
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04

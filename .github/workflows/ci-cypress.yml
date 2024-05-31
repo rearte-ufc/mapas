@@ -12,13 +12,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-      
-      - uses: actions/upload-artifact@v4
-        # add the line below to store screenshots only on failures
+
+      - name: Instala as dependências, cria configs e executa testes
+        run: cd src/ && npm install && npx cypress run --spec "cypress/e2e/**/*.js"
+
+      - name: Cypress Screenshots
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
             name: cypress-screenshots

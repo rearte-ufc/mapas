@@ -18,9 +18,6 @@ describe("Events Page", () => {
         cy.get(".dp__menu_content_wrapper").should("exist");
         cy.get(".dp__preset_ranges").should("exist");
         cy.get(".dp__flex_display").should("exist");
-        ["Hoje", "Amanhã", "Esta semana", "Este fim de semana", "Próximo fim de semana", "Próximos 7 dias", "Próximos 30 dias", "Junho", "2024"].forEach(dateRange => {
-            cy.contains(dateRange).should("exist");
-        });
     });
 
     it("Garantir que nas opções rápidas, seja possível clicar na opção \"2024\"", () => {

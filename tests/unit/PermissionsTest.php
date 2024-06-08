@@ -26,7 +26,7 @@ class PermissionsTest extends TestCase
 
     function testCanUserCreate()
     {
-        $this->app->disableWorkflow();
+        // $this->app->disableWorkflow();
         $this->resetTransactions();
         $app = MapasCulturais\App::i();
 
@@ -114,7 +114,7 @@ class PermissionsTest extends TestCase
 
     function testCanUserModify()
     {
-        $this->app->disableWorkflow();
+        // $this->app->disableWorkflow();
         $this->resetTransactions();
         /*
          * Asserting thar guest users cannot modify entities
@@ -174,19 +174,9 @@ class PermissionsTest extends TestCase
         $this->app->enableWorkflow();
     }
 
-    // function testCanUserRemove(){
-    //     $this->app->disableWorkflow();
-    //     $this->app->enableWorkflow();
-    // }
-
-    // function testCanUserViewPrivateData(){
-    //     $this->app->disableWorkflow();
-    //     $this->app->enableWorkflow();
-    // }
-
     function testAgentRelationsPermissions()
     {
-        $this->app->disableWorkflow();
+        // $this->app->disableWorkflow();
         $this->resetTransactions();
         // create agent relation without control
 
@@ -687,7 +677,7 @@ class PermissionsTest extends TestCase
 
     function testEventOccurrencePermissions()
     {
-        $this->app->disableWorkflow();
+        // $this->app->disableWorkflow();
         $this->resetTransactions();
 
         $rule = array(
@@ -769,7 +759,7 @@ class PermissionsTest extends TestCase
 
     function testProjectEventCreation()
     {
-        $this->app->disableWorkflow();
+        // $this->app->disableWorkflow();
         $this->resetTransactions();
         // assert that users WITHOUT control of a project CANNOT create events to this project
         $user1 = $this->getUser('normal', 0);
@@ -818,19 +808,9 @@ class PermissionsTest extends TestCase
         $this->app->enableWorkflow();
     }
 
-    // function testFilesPermissions(){
-    //     $this->app->disableWorkflow();
-    //     $this->app->enableWorkflow();
-    // }
-
-    // function testMetalistPermissions(){
-    //     $this->app->disableWorkflow();
-    //     $this->app->enableWorkflow();
-    // }
-
     function testCanUserAddRemoveRole()
     {
-        $this->app->disableWorkflow();
+        // $this->app->disableWorkflow();
         $this->resetTransactions();
         $roles = ['admin', 'superAdmin'];
 

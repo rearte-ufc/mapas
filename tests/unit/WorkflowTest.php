@@ -13,7 +13,6 @@ class WorkflowTest extends TestCase
 
         $this->app->enableWorkflow();
         $this->assertTrue($this->app->isWorkflowEnabled(), 'Asserting that App::enableWorkflow() works.');
-
     }
 
     function testAuthorityRequestCreation()

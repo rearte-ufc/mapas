@@ -34,13 +34,55 @@ class Plugin extends \MapasCulturais\Plugin
                     ]
                 ],
                 [
-                    'label' => 'Agentes',
-                    'icon'=> 'agent-1',
+                    'label' => '',
+                    'icon'=> '',
                     'iconClass'=> 'agent__color',
                     'panelLink'=> 'painel-agentes',
                     'data'=> [
                         [
-                            'label' => 'agentes individuais cadastrados',
+                            'label' => 'Agentes cadastrados',
+                            'entity' => 'MapasCulturais\\Entities\\Agent',
+                            'query' => [],
+                            'value' => null
+                        ],
+                    ]
+                ],
+                [
+                    'label' => '',
+                    'icon'=> '',
+                    'iconClass'=> 'agent__color',
+                    'panelLink'=> 'painel-agentes',
+                    'data'=> [
+                        [
+                            'label' => 'Agentes individuais',
+                            'entity' => 'MapasCulturais\\Entities\\Agent',
+                            'query' => ['type' => 'EQ(1)'],
+                            'value' => null
+                        ],
+                    ]
+                ], 
+                [
+                    'label' => '',
+                    'icon'=> '',
+                    'iconClass'=> 'agent__color',
+                    'panelLink'=> 'painel-agentes',
+                    'data'=> [
+                        [
+                            'label' => 'Agentes coletivos',
+                            'entity' => 'MapasCulturais\\Entities\\Agent',
+                            'query' => ['type' => 'EQ(2)'],
+                            'value' => null
+                        ],
+                    ]
+                ],
+                [
+                    'label' => '',
+                    'icon'=> '',
+                    'iconClass'=> 'agent__color',
+                    'panelLink'=> 'painel-agentes',
+                    'data'=> [
+                        [
+                            'label' => 'Cadastrados nos últimos 7 dias',
                             'entity' => 'MapasCulturais\\Entities\\Agent',
                             'query' => [],
                             'value' => null
@@ -87,9 +129,18 @@ class Plugin extends \MapasCulturais\Plugin
             $this->part('home-metabase');
         });
 
+
+        $app->hook('template(search.agents.agent-search-tabs):after', function(){
+            $this->part('search-tabs/agent');
+        });
+
         $self= $this;
         $app->hook('app.init:after', function() use ($self){
             $this->view->metabasePlugin = $self;
+        });
+
+        $app->hook('component(mc-icon).iconset', function(&$iconset) {
+            $iconset['indicator'] = 'cil:chart-line';
         });
 
     }

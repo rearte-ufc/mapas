@@ -21,7 +21,7 @@ $this->import('
                         <strong class="entity-cards-cards__number" :class="lengthClass(data.value)">{{data.value}}</strong>
                         <label class="entity-cards-cards__label">{{data.label}}</label>                    
                     </div>
-                    <div class="entity-cards-cards__icon"><mc-icon name="agent"></mc-icon></div>
+                    <div class="entity-cards-cards__icon"><mc-icon :name="data.icon"></mc-icon></div>
                 </div>
             </div>
         </div>

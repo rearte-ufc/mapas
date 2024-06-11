@@ -16,6 +16,7 @@ foreach ($cards as &$card) {
         $data['value'] = $api_query->getCountResult();
     }
 }
+
 $this->jsObject['config']['homeMetabase'] = $cards;
 
 return;

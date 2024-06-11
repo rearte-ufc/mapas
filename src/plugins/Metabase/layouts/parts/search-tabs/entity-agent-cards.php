@@ -8,11 +8,7 @@
 use MapasCulturais\i;
 
 $this->import('
-    mc-icon
-    mc-link
+    entity-cards
 ');
-
 ?>
-<div>
-    <iframe width="100%" :src="link"></iframe>
-</div>
+<entity-cards type="agent"></entity-cards>

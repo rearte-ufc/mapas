@@ -23,6 +23,132 @@ return [
                     'entity' => 'Opportunity'
                 ],
             ],
+            'cards' => [
+                    // spaces
+                    [
+                        'type' => 'space',
+                        'label' => '',
+                        'icon'=> 'space',
+                        'iconClass'=> 'space__color',
+                        'panelLink'=> 'painel-espacos',
+                        'data'=> [
+                            [
+                                'icon'=> 'space',
+                                'label' => 'Espaços cadastrados',
+                                'entity' => 'MapasCulturais\\Entities\\Space',
+                                'query' => [],
+                                'value' => null
+                            ],
+                        ]
+                    ],
+                    [
+                        'type' => 'space',
+                        'label' => '',
+                        'icon'=> 'space',
+                        'iconClass'=> 'space__color',
+                        'panelLink'=> 'painel-espacos',
+                        'data'=> [
+                            [
+                                'icon'=> 'space',
+                                'label'=> 'Espaços certificados',
+                                'entity'=> 'MapasCulturais\\Entities\\Space',
+                                'query'=> [
+                                    '@verified'=> 1
+                                ],
+                                'value'=> null
+                            ]
+                        ]
+                    ],
+                    // agents
+                    [
+                        'type' => 'agent',
+                        'label' => '',
+                        'icon'=> 'agent',
+                        'iconClass'=> 'agent__color',
+                        'panelLink'=> 'painel-agentes',
+                        'data'=> [
+                            [
+                                'icon'=> 'agent',
+                                'label' => 'Agentes cadastrados',
+                                'entity' => 'MapasCulturais\\Entities\\Agent',
+                                'query' => [],
+                                'value' => null
+                            ],
+                        ]
+                    ],
+                    [
+                        'type' => 'agent',
+                        'label' => '',
+                        'icon'=> 'agent',
+                        'iconClass'=> 'agent__color',
+                        'panelLink'=> 'painel-agentes',
+                        'data'=> [
+                            [
+                                'icon'=> 'agent',
+                                'label' => 'Agentes individuais',
+                                'entity' => 'MapasCulturais\\Entities\\Agent',
+                                'query' => ['type' => 'EQ(1)'],
+                                'value' => null
+                            ],
+                        ]
+                    ], 
+                    [
+                        'type' => 'agent',
+                        'label' => '',
+                        'icon'=> 'agent',
+                        'iconClass'=> 'agent__color',
+                        'panelLink'=> 'painel-agentes',
+                        'data'=> [
+                            [
+                                'icon'=> 'agent',
+                                'label' => 'Agentes coletivos',
+                                'entity' => 'MapasCulturais\\Entities\\Agent',
+                                'query' => ['type' => 'EQ(2)'],
+                                'value' => null
+                            ],
+                        ]
+                    ],
+                    [
+                        'type' => 'agent',
+                        'label' => '',
+                        'icon'=> 'agent',
+                        'iconClass'=> 'agent__color',
+                        'panelLink'=> 'painel-agentes',
+                        'data'=> [
+                            [
+                                'icon'=> 'agent',
+                                'label' => 'Cadastrados nos últimos 7 dias',
+                                'entity' => 'MapasCulturais\\Entities\\Agent',
+                                'query' => [],
+                                'value' => null
+                            ],
+                        ]
+                    ],
+                    // opportunity
+                    [
+                        'type' => 'opportunity',
+                        'label' => 'Oportunidades',
+                        'icon'=> 'opportunity',
+                        'iconClass'=> 'opportunity__color',
+                        'panelLink'=> 'painel-oportunidades',
+                        'data'=> [
+                            [
+                                'label' => 'Oportunidades criadas',
+                                'entity' => 'MapasCulturais\\Entities\\Opportunity',
+                                'query' => [],
+                                'value' => null
+                            ],
+                            [
+                                'label' => 'Oportunidades certificadas',
+                                'entity' => 'MapasCulturais\\Entities\\Opportunity',
+                                'query'=> [
+                                    '@verified'=> 1
+                                ],
+                                'value' => null
+                            ],
+                        ]
+                    ]
+            ]
         ]
     ]
 ];

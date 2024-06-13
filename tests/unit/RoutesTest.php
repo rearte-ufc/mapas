@@ -30,7 +30,6 @@ class RoutesTest extends TestCase
     function test404()
     {
         $this->user = null;
-
         $this->assertGet404('/' . uniqid('404-'), 'assert that code is 404');
     }
 

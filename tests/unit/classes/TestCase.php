@@ -94,7 +94,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     function assertStatus($method, $status, $url, $message)
     {
         $c = $this->$method($url);
-        $this->assertEquals($status, $c->http_status_code, $message);
+        $this->assertEquals($status, $c->httpStatusCode, $message);
         return $c;
     }
 
@@ -222,7 +222,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     // slim environment
     public function request($method, $path, $options = array())
     {
-        $baseUrl = 'http://localhost:8888';
+        $baseUrl = 'http://localhost';
         if (strpos($path, $baseUrl) !== 0) {
             $url = $baseUrl . $path;
         } else {

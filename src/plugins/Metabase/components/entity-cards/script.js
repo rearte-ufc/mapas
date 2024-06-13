@@ -22,6 +22,26 @@ app.component('entity-cards', {
         const cards = $MAPAS.config.homeMetabase.filter((c) => {
             return c.type == this.type
         });
+
+        cards.map((c) => {
+            c.data.map((d) => {
+                if (d.label == 'Cadastrados nos últimos 7 dias') {
+                    const today = new Date();
+                    const sevenDaysBefore = new Date();
+                    sevenDaysBefore.setDate(today.getDate() - 7);
+
+                    const newData = d.data.filter(dd => {
+                        const dateObject = new Date(dd.createTimestamp.date);
+                        return dateObject >= sevenDaysBefore && dateObject <= today;
+                    });
+
+                    d.value = newData.length;
+                    return d;
+                }
+
+                return d;
+            });
+        });
         
         return {
             cards: cards,

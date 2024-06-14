@@ -1,6 +1,6 @@
 <?php 
 use \MapasCulturais\i;
-// $_ENV['APP_MODE'] = 'development';
+$_ENV['APP_MODE'] = 'development';
 
 return [
     /*

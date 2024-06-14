@@ -24,7 +24,7 @@ return [
 
 
     */
-    'mailer.transport'  => env('MAILER_TRANSPORT'),
+    'mailer.transport'  => 'smtp://mailhog:1025',
     'mailer.from'       => env('MAILER_FROM', 'suporte@mapasculturais.org'),
     'mailer.alwaysTo'   => env('MAILER_ALWAYSTO', false),
     'mailer.bcc'        => env('MAILER_BCC', ''),

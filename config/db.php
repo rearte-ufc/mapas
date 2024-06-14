@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'db.host'           => env('DB_HOST', 'db'),
+    'db.host'           => env('DB_HOST', 'database'),
     'db.dbname'         => env('DB_NAME', 'mapas'),
     'db.user'           => env('DB_USER', 'mapas'),
     'db.password'       => env('DB_PASS', 'mapas'),

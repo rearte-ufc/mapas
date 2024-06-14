@@ -7,8 +7,8 @@ define('DAY_IN_SECONDS', HOUR_IN_SECONDS * 24);
 define('WEEK_IN_SECONDS', DAY_IN_SECONDS * 7);
 define('MONTH_IN_SECONDS', DAY_IN_SECONDS * 30);
 define('YEAR_IN_SECONDS', DAY_IN_SECONDS * 365 );
-
-define('PROTECTED_PATH', realpath(__DIR__ . '/..') . '/');
+// var_dump(realpath(__DIR__));
+define('PROTECTED_PATH', realpath(__DIR__ ) . '/../');
 define('PUBLIC_PATH', PROTECTED_PATH . 'public/');
 define('BASE_PATH', PUBLIC_PATH);
 define('APPLICATION_PATH', realpath(__DIR__) . '/');
@@ -63,4 +63,4 @@ if(!isset($_SERVER['HTTP_HOST'])) {
     $_SERVER['HTTP_HOST'] = 'localhost';
 }
 
-require_once PROTECTED_PATH . 'vendor/autoload.php';
+require_once PROTECTED_PATH . '../vendor/autoload.php';

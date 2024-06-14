@@ -1,8 +1,8 @@
-[submodule "src/plugins/MultipleLocalAuth"]
-	path = src/plugins/MultipleLocalAuth
-	url = https://github.com/mapasculturais/plugin-MultipleLocalAuth
-	branch = master
-[submodule "src/themes/MapasCE"]
-	path = src/themes/MapasCE
-	url = https://github.com/secultce/theme-MapasCE
+[submodule "api/mapas/src/plugins/plugin-Metabase"]
+	path = api/mapas/src/plugins/plugin-Metabase
+	url = https://github.com/RedeMapas/plugin-Metabase
+	branch = main
+[submodule "api/mapas/src/plugins/plugin-MultipleLocalAuth"]
+	path = api/mapas/src/plugins/plugin-MultipleLocalAuth
+	url = https://github.com/RedeMapas/plugin-MultipleLocalAuth
 	branch = main

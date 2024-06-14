@@ -10,8 +10,8 @@ return array_merge(
     $config,
     array(
         'themes.active' => '\MapasCulturais\Themes\BaseV2',
-        'base.url' => 'http://localhost:8888/',
-        'site.url' => 'http://localhost:8888/',
+        'base.url' => 'http://localhost/',
+        'site.url' => 'http://localhost/',
         'app.log.translations' => false,
         'slim.log.level' => 3,
         'slim.log.enabled' => false,

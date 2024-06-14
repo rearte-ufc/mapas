@@ -41,11 +41,10 @@ class RoutesTest extends TestCase
             $entities = $this->app->repo($class)->findAll();
 
             $e = $entities[0];
-            // foreach($entities as $e){
+            
             $this->assertGet200($e->singleUrl, "assert that the status code of single of {$class} with id {$e->id} is 200 for guest users");
             $this->assertGet403($e->deleteUrl, "assert that the status code of delete url of {$class} with id {$e->id} is 401 for guest users");
             $this->assertGet401($e->editUrl, "assert that the status code of edit url of {$class} with id {$e->id} is 401 for guest users");
-            // }
         }
     }
 

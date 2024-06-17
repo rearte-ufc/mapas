@@ -142,6 +142,7 @@ return [
                             'panelLink'=> 'painel-espacos',
                             'data'=> [
                                 [
+                                    'id' => 'espacos-cadastrados',
                                     'icon'=> 'space',
                                     'label' => 'Espaços cadastrados',
                                     'entity' => 'MapasCulturais\\Entities\\Space',
@@ -158,6 +159,7 @@ return [
                             'panelLink'=> 'painel-espacos',
                             'data'=> [
                                 [
+                                    'id' => 'espacos-certificados',
                                     'icon'=> 'space',
                                     'label'=> 'Espaços certificados',
                                     'entity'=> 'MapasCulturais\\Entities\\Space',
@@ -176,6 +178,7 @@ return [
                             'panelLink'=> 'painel-agentes',
                             'data'=> [
                                 [
+                                    'id' => 'agentes-cadastrados',
                                     'icon'=> 'agent',
                                     'label' => 'Agentes cadastrados',
                                     'entity' => 'MapasCulturais\\Entities\\Agent',
@@ -192,6 +195,7 @@ return [
                             'panelLink'=> 'painel-agentes',
                             'data'=> [
                                 [
+                                    'id' => 'agentes-individuais',
                                     'icon'=> 'agent',
                                     'label' => 'Agentes individuais',
                                     'entity' => 'MapasCulturais\\Entities\\Agent',
@@ -208,6 +212,7 @@ return [
                             'panelLink'=> 'painel-agentes',
                             'data'=> [
                                 [
+                                    'id' => 'agentes-coletivos',
                                     'icon'=> 'agent',
                                     'label' => 'Agentes coletivos',
                                     'entity' => 'MapasCulturais\\Entities\\Agent',
@@ -224,6 +229,7 @@ return [
                             'panelLink'=> 'painel-agentes',
                             'data'=> [
                                 [
+                                    'id' => 'agentes-cadastrados-7-dias',
                                     'icon'=> 'agent',
                                     'label' => 'Cadastrados nos últimos 7 dias',
                                     'entity' => 'MapasCulturais\\Entities\\Agent',

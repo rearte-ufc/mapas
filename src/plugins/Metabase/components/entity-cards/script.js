@@ -25,7 +25,7 @@ app.component('entity-cards', {
 
         cards.map((c) => {
             c.data.map((d) => {
-                if (d.label == 'Cadastrados nos últimos 7 dias') {
+                if (d.id == 'agentes-cadastrados-7-dias') {
                     const today = new Date();
                     const sevenDaysBefore = new Date();
                     sevenDaysBefore.setDate(today.getDate() - 7);

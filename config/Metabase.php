@@ -135,6 +135,7 @@ return [
                     ],
                     'entities' => [
                         [
+                            'id' => 'espacos-cadastrados',
                             'type' => 'space',
                             'label' => '',
                             'icon'=> 'space',
@@ -151,6 +152,7 @@ return [
                             ]
                         ],
                         [
+                            'id' => 'espacos-certificados',
                             'type' => 'space',
                             'label' => '',
                             'icon'=> 'space',
@@ -169,6 +171,7 @@ return [
                             ]
                         ],
                         [
+                            'id' => 'agentes-cadastrados',
                             'type' => 'agent',
                             'label' => '',
                             'icon'=> 'agent',
@@ -185,6 +188,7 @@ return [
                             ]
                         ],
                         [
+                            'id' => 'agentes-individuais',
                             'type' => 'agent',
                             'label' => '',
                             'icon'=> 'agent',
@@ -201,6 +205,7 @@ return [
                             ]
                         ], 
                         [
+                            'id' => 'agentes-coletivos',
                             'type' => 'agent',
                             'label' => '',
                             'icon'=> 'agent',
@@ -217,6 +222,7 @@ return [
                             ]
                         ],
                         [
+                            'id' => 'agentes-cadastrados-7-dias',
                             'type' => 'agent',
                             'label' => '',
                             'icon'=> 'agent',

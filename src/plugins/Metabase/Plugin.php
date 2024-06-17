@@ -27,17 +27,17 @@ class Plugin extends \MapasCulturais\Plugin
             $this->part('search-tabs/agent');
         });
 
-        $app->hook('template(search.spaces.search-tabs):after', function(){
-            $this->part('search-tabs/space');
-        });
+        // $app->hook('template(search.spaces.search-tabs):after', function(){
+        //     $this->part('search-tabs/space');
+        // });
 
         $app->hook('template(search.agents.search-header):after', function(){
             $this->part('search-tabs/entity-agent-cards');
         });
 
-        $app->hook('template(search.spaces.search-header):after', function(){
-            $this->part('search-tabs/entity-space-cards');
-        });
+        // $app->hook('template(search.spaces.search-header):after', function(){
+        //     $this->part('search-tabs/entity-space-cards');
+        // });
 
         $self= $this;
         $app->hook('app.init:after', function() use ($self){

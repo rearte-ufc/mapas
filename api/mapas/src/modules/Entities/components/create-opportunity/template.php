@@ -16,16 +16,14 @@ $this->import('
 ?>
 <mc-modal :title="modalTitle" classes="create-modal create-opportunity-modal" button-label="<?php i::_e('Criar Oportunidade')?>" @open="createEntity()" @close="destroyEntity()">
     <template v-if="entity && !entity.id" #default="modal">
-        <label><?php i::_e('Crie uma oportunidade com informações básicas') ?><br><?php i::_e('e de forma rápida.') ?><br><br></label>
-        <label style="color: red"><?php i::_e('os campos com * são obrigatórios.') ?></label>
+        <label><?php i::_e('Crie uma oportunidade com informações básicas') ?><br><?php i::_e('e de forma rápida') ?></label>
         <form @submit.prevent="handleSubmit" class="create-modal__fields">
             <entity-field :entity="entity" hide-required :editable="true" label="<?php i::esc_attr_e("Selecione o tipo da oportunidade") ?>" prop="type"></entity-field>
-            <entity-field :entity="entity" hide-required label prop="name"><?php i::esc_attr_e("Título")?><span style="color: red;"> <?php i::_e('*') ?></span></entity-field>
+            <entity-field :entity="entity" hide-required label=<?php i::esc_attr_e("Título") ?> prop="name"></entity-field>
 
-                <div class="create-modal__fields">
-                    <entity-terms :entity="entity" hide-required :editable="true" title="<?php i::_e('Área de Interesse')?>" taxonomy="area"></entity-terms>
-                </div>
-
+            <div class="create-modal__fields">
+                <entity-terms :entity="entity" hide-required :editable="true" title="<?php i::_e('Área de Interesse') ?>" taxonomy="area"></entity-terms>
+            </div>
 
             <div v-if="!entity.ownerEntity" class="select-list">
                 <label class="select-list__label"><?php i::_e('Vincule a oportunidade a uma entidade: ') ?><br></label>
@@ -36,7 +34,6 @@ $this->import('
                                 <span class="itemLabel">
                                     <input v-model="entityTypeSelected" @click="toggle()" type="radio" name="inputName" value="project" />
                                     <span><?php i::_e('Projeto') ?> </span>
-                                    <span v-if="!entity.ownerEntity || entityTypeSelected === ''" style="color: red;"><?php i::_e('*') ?></span>
                                 </span>
 
                                 <a :class="{'disabled': entityTypeSelected!='project'}" class="selectButton"><?php i::_e('Selecionar') ?> </a>
@@ -51,7 +48,6 @@ $this->import('
                                 <span class="itemLabel">
                                     <input v-model="entityTypeSelected" @click="toggle()" type="radio" name="inputName" value="event" />
                                     <span><?php i::_e('Evento') ?> </span>
-                                    <span v-if="!entity.ownerEntity || entityTypeSelected === ''" style="color: red;"><?php i::_e('*') ?></span>
                                 </span>
 
                                 <a :class="{'disabled': entityTypeSelected!='event'}" class="selectButton"><?php i::_e('Selecionar') ?> </a>
@@ -66,7 +62,6 @@ $this->import('
                                 <span class="itemLabel">
                                     <input v-model="entityTypeSelected" @click="toggle()" type="radio" name="inputName" value="space" />
                                     <span><?php i::_e('Espaço') ?> </span>
-                                    <span v-if="!entity.ownerEntity || entityTypeSelected === ''" style="color: red;"><?php i::_e('*') ?></span>
                                 </span>
 
                                 <a :class="{'disabled': entityTypeSelected!='space'}" class="selectButton"><?php i::_e('Selecionar') ?> </a>
@@ -81,7 +76,6 @@ $this->import('
                                 <span class="itemLabel">
                                     <input v-model="entityTypeSelected" @click="toggle()" type="radio" name="inputName" value="agent" />
                                     <span><?php i::_e('Agente') ?> </span>
-                                    <span v-if="!entity.ownerEntity || entityTypeSelected === ''" style="color: red;"><?php i::_e('*') ?></span>
                                 </span>
 
                                 <a :class="{'disabled': entityTypeSelected!='agent'}" class="selectButton"><?php i::_e('Selecionar') ?> </a>

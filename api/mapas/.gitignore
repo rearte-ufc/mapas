@@ -1,4 +1,4 @@
-vendor
+./vendor
 var
 public/router.php
 vendor

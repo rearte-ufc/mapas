@@ -20,15 +20,18 @@ services:
       BUILD_ASSETS: 0
       PENDING_PCACHE_RECREATION_INTERVAL: 5
       JOBS_INTERVAL: 5
-      REDIS_CACHE: redis
+      # REDIS_CACHE: redis
       MAILER_TRANSPORT: smtp://mailhog:1025
-      MAILER_DSN: smtp://mailhog:1025
       MAILER_FROM: sysadmin@localhost
-      NUM_PROCESSES: 2
-      MC_UPDATES_PROCESSES: 4
+      NUM_PROCESSES: 1
+      MC_UPDATES_PROCESSES: 1
+      GOOGLE_RECAPTCHA_SITEKEY: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+      GOOGLE_RECAPTCHA_SECRET: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+      # SESSIONS_SAVE_PATH: tcp://sessions:6379
     volumes:
       - caddy_data:/data
       - caddy_config:/config
+      - private-files:/app/var/private-files
     ports:
       # HTTP
       - target: 80
@@ -42,6 +45,85 @@ services:
       - target: 443
         published: ${HTTP3_PORT:-443}
         protocol: udp
+ 
+  recreate-pending-pcache:
+    # <<: *base-override
+    command: sh ./mapas/docker/recreate-pending-pcache-cron.sh
+    depends_on:
+      - php
+    extends: php
+    ports: !override
+      - "8443:443" 
+    volumes:
+      - ./api:/app
+      - /app/var
+      # - ./api/frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
+      # - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
+
+  execute-job:
+    # <<: *base-override
+    extends:
+      service: php
+    # extends: php
+    command: sh ./mapas/docker/jobs-cron.sh
+    depends_on:
+      - php
+    ports: !override
+      - "8444:443" 
+    volumes:
+      - ./api:/app
+      - /app/var
+      # - ./api/frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
+      # - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
+
+  db-update:
+    # <<: *base-override
+    extends:
+      service: php
+    # extends: php
+    command: php /app/mapas/src/tools/apply-updates.php
+    depends_on:
+      - database
+    ports: !override
+      - "8445:443" 
+    volumes:
+      - ./api:/app
+      - /app/var
+
+  frontend-build:
+    image: "node"
+    # user: "node"
+    working_dir: /app
+    # environment:
+    #   - NODE_ENV=production
+    volumes:
+      - ./api/mapas/src:/app
+    # expose:
+    #   - "8081"
+    # ports: # use if it is necessary to expose the container to the host machine
+    #   - "8001:8001"
+    command: sh -c "npm i -g pnpm && pnpm i && pnpm run dev"
+    depends_on:
+      - php
+
+  redis:
+    image: redis:6
+    restart: unless-stopped
+    command: --maxmemory 128Mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis:/data
+
+  sessions:
+    image: redis:6
+    restart: unless-stopped
+    command: --maxmemory 128Mb --maxmemory-policy allkeys-lru
+    volumes:
+      - sessions:/data
+
+  mailhog: 
+    image: mailhog/mailhog
+    # ports:
+    #   - "8025:8025"
 
   pwa:
     image: redemapas/mapas-pwa
@@ -56,8 +138,9 @@ services:
       # You should definitely change the password in production
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-!ChangeMe!}
       - POSTGRES_USER=${POSTGRES_USER:-app}
+      - DATADIR=/opt/postgres/data
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/opt/postgres/data
       - ./api/mapas/dev/db:/docker-entrypoint-initdb.d
       # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./api/docker/db/data:/var/lib/postgresql/data
@@ -72,8 +155,11 @@ services:
 volumes:
   caddy_data:
   caddy_config:
+  private-files:
   ###> doctrine/doctrine-bundle ###
   db_data:
+  sessions:
+  redis:
 ###< doctrine/doctrine-bundle ###
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###

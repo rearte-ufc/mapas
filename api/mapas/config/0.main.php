@@ -1,4 +1,4 @@
-<?php 
+<?php
 use \MapasCulturais\i;
 $_ENV['APP_MODE'] = 'development';
 
@@ -10,7 +10,7 @@ return [
     */
     'themes.active' => env('ACTIVE_THEME', 'MapasCulturais\Themes\BaseV2'),
 
-    
+
     /*
     Define a url do site
 
@@ -19,51 +19,52 @@ return [
     'base.url' => env('BASE_URL', ''),
 
     /* Nome do site. É utilizado para a formação dos títulos das páginas. */
-    'app.siteName' => env('SITE_NAME', i::__('Mapas Culturais')),
+    'app.siteName' => env('SITE_NAME', i::__('Mapa das Periferias')),
 
     /* Breve descrição do site. É utilizado como texto de compartilhamento da página principal do site. */
-    'app.siteDescription' => env('SITE_DESCRIPTION', i::__('O Mapas Culturais é uma plataforma livre para mapeamento cultural.')),
-    
+    'app.siteDescription' => env('SITE_DESCRIPTION', i::__('As comunidades no Brasil são territórios de potência. Esta plataforma nasceu para reunir e sistematizar dados e informações sobre as periferias do Brasil, com a missão de fortalecer as políticas públicas voltadas para territórios periféricos.')),
+
+
     /* Ids dos selos verificadores. Para utilizar múltiplos selos informe os ids separados por vírgula. */
     'app.verifiedSealsIds' => explode(',', env('VERIFIED_SEALS', '1')),
-    
-    /* 
-    Define a linguagem a ser utilizada. 
+
+    /*
+    Define a linguagem a ser utilizada.
     É possível definir mais de um valor e desta forma a linguagem será escolhida baseado na configuração do navegador do usuário
 
-    ex: `pt_BR,es_ES` ou `es_ES` 
+    ex: `pt_BR,es_ES` ou `es_ES`
     */
     'app.lcode' => env('APP_LCODE', 'pt_BR'),
 
-    /* 
+    /*
     Define o valor padrão para o metadado En_pais
-    
-    ex: `BR` ou `AR` 
+
+    ex: `BR` ou `AR`
     */
     'app.defaultCountry' => env('APP_DEFAULT_COUNTRY', "BR"),
-    
-    /* 
-    Define o modo em que a aplicação está rodando. 
+
+    /*
+    Define o modo em que a aplicação está rodando.
     Os valores possíveis são as constantes `APPMODE_PRODUCTION`, `APPMODE_STAGING` e `APPMODE_DEVELOPMENT`.
     */
     'app.mode' => env('APP_MODE', APPMODE_PRODUCTION),
 
-    /* 
-    Define a moeda a ser utilizada. 
+    /*
+    Define a moeda a ser utilizada.
     É possível definir mais de uma moeda e desta forma a moeda será escolhida com base na configuração do navegador do usuário.
 
-    Exemplo: 'BRL,EUR' ou 'EUR' 
+    Exemplo: 'BRL,EUR' ou 'EUR'
     */
     'app.currency' => env('APP_CURRENCY', 'BRL'),
 
-    /* 
+    /*
     Define se o Doctrine está rodando em modo de desenvolvimento, o que basicamente evita o cacheamento dos metadados do mapeamento do ORM.
     [Mais informações na documentação do Doctrine](https://www.doctrine-project.org/projects/doctrine-orm/en/2.6/reference/advanced-configuration.html#development-vs-production-configuration)
 
     Por padrão o valor é verdadeiro quando o app.mode for `APPMODE_DEVELOPMENT`.
     */
     'doctrine.isDev' => env('DOCTRINE_ISDEV', env('APP_MODE', APPMODE_PRODUCTION) == APPMODE_DEVELOPMENT),
-    
+
     /* Valor do header Access-Control-Allow-Origin da api de leitura. */
     'api.accessControlAllowOrigin' => env('API_ACCESS_CONTROL_ALLOW_ORIGIN', '*'),
 
@@ -74,8 +75,8 @@ return [
 
     /*
     Define valores de inicialização do PHP para rotas específicas
-    
-    para usar como variável de ambiente deve ser passado um json 
+
+    para usar como variável de ambiente deve ser passado um json
     ex: [{"API agent/find":{"memory_limit":"1024M"}}]
 
     configurando via PHP:
@@ -97,7 +98,7 @@ return [
 
     /*Define mensagem padrão :
         Ex: 'Precisa de ajuda? Clique para falar com nossa equipe de suporte por chat. Ou envie um email para ',
-        
+
     */
     'footer.supportMessage' => '',
 

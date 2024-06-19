@@ -2,8 +2,9 @@
 
 .main-footer {
     align-items: flex-start;
-    background: #FFFFFF;
+    background: var(--mc-primary-500);
     box-shadow: var(--mc-shadow-lv1-up);
+    color: var(--mc-high-500);
     display: flex;
     gap: size(40);
     justify-content: center;
@@ -19,11 +20,11 @@
     &__msgspt {
         text-align: center;
     }
-    
+
     @include mobile {
         gap: 0;
     }
-    
+
     &__content {
         margin: 0 auto;
         max-width: size(1440);
@@ -97,14 +98,14 @@
                 font-size: size(20);
                 a, a:hover, a:active, a:focus, a:visited
                 {
-                    color: var(--mc-low-700);
+                    color: var(--mc-high-500);
                     text-decoration: none;
                 }
             }
 
             @include mobile {
                 align-items: center;
-            }    
+            }
         }
 
         &--links {
@@ -112,7 +113,7 @@
             justify-content: space-evenly;
             gap: size(40);
             padding: 0 size(56);
-            
+
             @include mobile {
                 gap: 0;
             }
@@ -134,7 +135,7 @@
 
                     a {
                         align-items: center;
-                        color: var(--mc-low-500);
+                        color: var(--mc-high-500);
                         display: flex;
                         gap: size(13);
                         text-decoration: none;
@@ -146,10 +147,10 @@
                     font-size: size(24);
                     line-height: size(28);
                     font-weight: 600;
-                    padding-bottom: size(24);    
-                    
+                    padding-bottom: size(24);
+
                     a {
-                        color: var(--mc-primary-500);
+                        color: var(--mc-high-500);
                     }
                 }
             }
@@ -157,8 +158,8 @@
     }
 
     &__reg {
-        background: #042A2B;    
-        padding: size(14) size(16);    
+        background: #042A2B;
+        padding: size(14) size(16);
         width: 100%;
 
         &-content {

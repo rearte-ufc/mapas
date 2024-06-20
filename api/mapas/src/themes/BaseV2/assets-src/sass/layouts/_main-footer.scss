@@ -158,18 +158,15 @@
     }
 
     &__reg {
-        background: #042A2B;
+        background: #F5C800;
         padding: size(14) size(16);
         width: 100%;
 
         &-content {
             align-items: center;
-            color: var(--mc-high-500);
-            display: flex;
+            color: var(--mc-primary-500);
             font-weight: 400;
             font-size: size(14);
-            flex-wrap: wrap;
-            justify-content: space-between;
             line-height: size(19);
             margin: 0 auto;
             max-width: size(1150);

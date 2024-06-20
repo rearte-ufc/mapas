@@ -4,7 +4,8 @@ use MapasCulturais\ApiQuery;
 use MapasCulturais\App;
 
 $app = App::i();
-$cards = $this->metabasePlugin->config['cards'];
+
+$cards = $app->config['Metabase']['config']['cards']['home'];
 
 $app->applyHook('component(home-metabase).data', [&$cards]);
 

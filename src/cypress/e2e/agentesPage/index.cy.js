@@ -50,7 +50,7 @@ describe("Agents Page", () => {
             expectedCount = parseInt(text.match(/\d+/)[0], 10);
             
             // Agora, verifique se o número de imagens encontradas é igual ao esperado
-            cy.get('div[title="Selo Mapas AQUI"] img[src="https://mapas.tec.br/files/seal/1/file/111/121e2341ab665183b487c72f92636b59-a4537a4646cadc981f44f03c5021652f.jpg"]')
+            cy.get('div[title="Selo Mapas"] img[src="https://mapas.tec.br/files/seal/1/file/111/121e2341ab665183b487c72f92636b59-a4537a4646cadc981f44f03c5021652f.jpg"]')
               .should('have.length', expectedCount);
             cy.contains(expectedCount + " Agentes encontrados");
         });

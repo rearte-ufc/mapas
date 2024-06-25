@@ -1,4 +1,5 @@
 <?php
+
 namespace MapasCulturais\Middlewares;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -6,8 +7,10 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 use MapasCulturais\App;
 
-class Redirect {
-    public function __invoke(Request $request, RequestHandler $handler) {
+class Redirect
+{
+    public function __invoke(Request $request, RequestHandler $handler)
+    {
         $app = App::i();
 
         $response = $handler->handle($request);
@@ -17,17 +20,20 @@ class Redirect {
         $mem = memory_get_usage(true) / 1024 / 1024;
 
         $route = $app->request->route;
-        if ($route !== 'image.vendor' && !str_contains($route, 'auth.')) {
-            if (!str_contains($route, 'opportunity.single')) {
-              $response = $response->withStatus(302);
-              return $response->withHeader('Location', '/oportunidade/1');
-            }
+        if (str_contains($route, 'site.index')) {
+            $response = $response->withStatus(302);
+            return $response->withHeader('Location', '/oportunidade/1');
+        }
+        if (str_contains($route, 'panel.index')) {
+            $response = $response->withStatus(302);
+            return $response->withHeader('Location', '/minhas-inscricoes');
         }
         return $response;
     }
 
-    function rutime($ru, $rus, $index) {
-        return ($ru["ru_$index.tv_sec"]*1000 + intval($ru["ru_$index.tv_usec"]/1000))
-         -  ($rus["ru_$index.tv_sec"]*1000 + intval($rus["ru_$index.tv_usec"]/1000));
+    function rutime($ru, $rus, $index)
+    {
+        return ($ru["ru_$index.tv_sec"] * 1000 + intval($ru["ru_$index.tv_usec"] / 1000))
+            -  ($rus["ru_$index.tv_sec"] * 1000 + intval($rus["ru_$index.tv_usec"] / 1000));
     }
 }

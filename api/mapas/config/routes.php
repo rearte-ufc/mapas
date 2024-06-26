@@ -1,4 +1,5 @@
 <?php
+
 use MapasCulturais\i;
 
 return [
@@ -20,9 +21,9 @@ return [
             'espaco'            => ['space', 'single'],
             'projeto'           => ['project', 'single'],
             'selo'              => ['seal', 'single'],
-            'oportunidade'      => ['opportunity', 'single'],
+            'edital'      => ['opportunity', 'single'],
             'instalacao'        => ['subsite', 'single'],
-            
+
             'edicao-de-evento'            => ['event', 'edit'],
             'edicao-de-usuario'           => ['user', 'edit'],
             'edicao-de-agente'            => ['agent', 'edit'],
@@ -35,7 +36,7 @@ return [
             'configuracao-de-formulario'  => ['opportunity', 'formBuilder'],
             'lista-de-inscricoes'  => ['opportunity', 'registrations'],
             'lista-de-avaliacoes'  => ['opportunity', 'allEvaluations'],
-            
+
             'avaliacoes'  => ['opportunity', 'userEvaluations'],
 
             'suporte/lista-de-inscricoes'  => ['support', 'list'],
@@ -48,18 +49,18 @@ return [
             'avaliacao' => ['registration', 'evaluation'],
 
 
-            'historico'         => ['entityRevision','history'],
-            
+            'historico'         => ['entityRevision', 'history'],
+
             'sair'              => ['auth', 'logout'],
             'busca'             => ['site', 'search'],
             'sobre'             => ['site', 'page', ['sobre']],
             'como-usar'         => ['site', 'page', ['como-usar']],
-            
+
             // LGPD
-            'termos-de-uso'             => ['lgpd', 'view', ['termsOfUsage']], 
-            'politica-de-privacidade'   => ['lgpd','view', ['privacyPolicy']],
-            'uso-de-imagem'             =>['lgpd', 'view', ['termsUse']],
-            'termos-e-condicoes'        => ['lgpd','accept'],
+            'termos-de-uso'             => ['lgpd', 'view', ['termsOfUsage']],
+            'politica-de-privacidade'   => ['lgpd', 'view', ['privacyPolicy']],
+            'uso-de-imagem'             => ['lgpd', 'view', ['termsUse']],
+            'termos-e-condicoes'        => ['lgpd', 'accept'],
 
             // painel
             'meus-agentes'             => ['panel', 'agents'],
@@ -81,7 +82,7 @@ return [
 
             'gestao-de-usuarios' => ['panel', 'user-management'],
 
-            'certificado' => ['relatedSeal','single'],
+            'certificado' => ['relatedSeal', 'single'],
 
             'perguntas-frequentes' => ['faq', 'index'],
 
@@ -118,27 +119,27 @@ return [
         'readableNames' => [
             //controllers
 
-            'panel'         => i::__('Painel'),
-            'auth'          => i::__('Autenticação'),
-            'site'          => i::__('Site'),
-            'event'         => i::__('Evento'),       'events'        => i::__('Eventos'),
-            'agent'         => i::__('Agente'),       'agents'        => i::__('Agentes'),
-            'space'         => i::__('Espaço'),       'spaces'        => i::__('Espaços'),
-            'project'       => i::__('Projeto'),      'projects'      => i::__('Projetos'),
-            'opportunity'   => i::__('Oportunidade'), 'opportunities' => i::__('Oportunidades'),
-            'registration'  => i::__('Inscrição'),    'registrations' => i::__('Inscrições'),
-            'file'          => i::__('Arquivo'),      'files'         => i::__('Arquivos'),
-            'seal'          => i::__('Selo'),         'seals'         => i::__('Selos'),
-            'entityRevision'=> i::__('Histórico'),    'revisions'     => i::__('Revisões'),
-            'sealrelation'  => i::__('Certificado'),
+            'panel'          => i::__('Painel'),
+            'auth'           => i::__('Autenticação'),
+            'site'           => i::__('Site'),
+            'event'          => i::__('Evento'),       'events'        => i::__('Eventos'),
+            'agent'          => i::__('Agente'),       'agents'        => i::__('Agentes'),
+            'space'          => i::__('Espaço'),       'spaces'        => i::__('Espaços'),
+            'project'        => i::__('Projeto'),      'projects'      => i::__('Projetos'),
+            'opportunity'    => i::__('Oportunidade'), 'opportunities' => i::__('Oportunidades'),
+            'registration'   => i::__('Inscrição'),    'registrations' => i::__('Inscrições'),
+            'file'           => i::__('Arquivo'),      'files'         => i::__('Arquivos'),
+            'seal'           => i::__('Selo'),         'seals'         => i::__('Selos'),
+            'entityRevision' => i::__('Histórico'),    'revisions'     => i::__('Revisões'),
+            'sealrelation'   => i::__('Certificado'),
             //actions
-            'subsite'       => i::__('Subsite'),
-            'list'          => i::__('Listando'),
-            'index'         => i::__('Índice'),
-            'delete'        => i::__('Apagando'),
-            'edit'          => i::__('Editando'),
-            'create'        => i::__('Criando novo'),
-            'search'        => i::__('Busca')
+            'subsite'        => i::__('Subsite'),
+            'list'           => i::__('Listando'),
+            'index'          => i::__('Índice'),
+            'delete'         => i::__('Apagando'),
+            'edit'           => i::__('Editando'),
+            'create'         => i::__('Criando novo'),
+            'search'         => i::__('Busca')
         ]
     ]
 ];

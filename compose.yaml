@@ -37,6 +37,10 @@ services:
       # - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       - caddy_data:/data
       - caddy_config:/config
+
+  web:
+    extends:
+      service: php
     ports:
       # HTTP
       - target: 80
@@ -57,7 +61,7 @@ services:
       #   depends_on:
       #     - php
       #   extends: php
-      #   ports: !override
+      #   ports:
       #     - "8443:443"
       #   volumes:
       # - ./api:/app

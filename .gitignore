@@ -15,8 +15,3 @@ src/themes/BaseV1/assets/css/main.css.map
 .php-cs-fixer.cache
 docker-data
 media-query.js.LICENSE.txt
-public/assets/
-src/.phpdoc
-.phpunit*
-.phpdocs*
-.env

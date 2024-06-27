@@ -7,8 +7,8 @@ define('DAY_IN_SECONDS', HOUR_IN_SECONDS * 24);
 define('WEEK_IN_SECONDS', DAY_IN_SECONDS * 7);
 define('MONTH_IN_SECONDS', DAY_IN_SECONDS * 30);
 define('YEAR_IN_SECONDS', DAY_IN_SECONDS * 365 );
-// var_dump(realpath(__DIR__));
-define('PROTECTED_PATH', realpath(__DIR__ ) . '/../');
+
+define('PROTECTED_PATH', realpath(__DIR__ . '/..') . '/');
 define('PUBLIC_PATH', PROTECTED_PATH . 'public/');
 define('BASE_PATH', PUBLIC_PATH);
 define('APPLICATION_PATH', realpath(__DIR__) . '/');
@@ -16,7 +16,7 @@ define('LANGUAGES_PATH', APPLICATION_PATH . 'translations/');
 define('THEMES_PATH', APPLICATION_PATH . 'themes/');
 define('PLUGINS_PATH', APPLICATION_PATH . 'plugins/');
 define('MODULES_PATH', APPLICATION_PATH . 'modules/');
-define('VAR_PATH', PROTECTED_PATH . 'var/');
+define('VAR_PATH', PROTECTED_PATH . '../var/');
 define('CONFIG_PATH', PROTECTED_PATH . 'config/');
 
 define('DOCTRINE_PROXIES_PATH', VAR_PATH . 'DoctrineProxies/');

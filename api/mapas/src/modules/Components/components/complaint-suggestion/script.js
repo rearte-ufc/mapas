@@ -26,7 +26,6 @@ app.component('complaint-suggestion', {
         let sitekey = $MAPAS.complaintSuggestionConfig.recaptcha.sitekey;
         let definitions = $MAPAS.notification_type;
         let recaptchaResponse = '';
-        let sendSuccess = false;
         let formData = {
             name: $MAPAS.complaintSuggestionConfig.senderName,
             email: $MAPAS.complaintSuggestionConfig.email,
@@ -41,7 +40,7 @@ app.component('complaint-suggestion', {
             suggestion: definitions.suggestion_type.config.options,
         }
 
-        return { definitions, options, typeMessage, sitekey, sendSuccess, recaptchaResponse, formData, isAuth }
+        return { definitions, options, typeMessage, sitekey, recaptchaResponse, formData, isAuth }
     },
 
     methods: {
@@ -75,7 +74,6 @@ app.component('complaint-suggestion', {
 
             await api.POST(url, objt).then(res => res.json()).then(data => {
                 this.messages.success(this.text('Dados enviados com suscesso'));
-                this.sendSuccess = true;
             });
         },
         async verifyCaptcha(response) {
@@ -117,7 +115,6 @@ app.component('complaint-suggestion', {
                 anonimous: false,
                 copy: false,
             }
-            this.sendSuccess = false;
         }
     },
 });

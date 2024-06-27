@@ -348,7 +348,7 @@ class Event extends \MapasCulturais\Repository{
 
         $rs = $rs ?: [];
         
-        $ids = array_column($rs, 'id');
+        $ids = array_map(function($e){ return $e['id']; }, $rs);
         
         return $ids;
     }

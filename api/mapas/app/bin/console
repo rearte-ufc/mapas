@@ -4,12 +4,18 @@
 require dirname(__DIR__, 2).'/vendor/autoload.php';
 require dirname(__DIR__, 2).'/public/bootstrap.php';
 
+use App\Application\Environment;
 use App\Command\CodeStyleCommand;
 use App\Command\DebugRouterCommand;
 use App\Command\FixturesCommand;
 use App\Command\TestsCommand;
 use App\Command\WelcomeCommand;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Dotenv\Dotenv;
+
+$env = Environment::getEnvData();
+$dotenv = new Dotenv();
+$dotenv->load($env);
 
 $application = new Application();
 $entityManager = $app->em ?? null;
@@ -18,8 +24,11 @@ $application->addCommands([
     new WelcomeCommand(),
     new TestsCommand(),
     new CodeStyleCommand(),
-    new FixturesCommand($entityManager),
     new DebugRouterCommand(),
 ]);
+
+if (true === Environment::isLocal()) {
+    $application->addCommands([new FixturesCommand($entityManager)]);
+}
 
 $application->run();

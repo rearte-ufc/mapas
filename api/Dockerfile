@@ -2,6 +2,17 @@
 
 # Adapted from https://github.com/dunglas/symfony-docker
 
+# FROM node:20 as frontend_build
+
+# # user: "node"
+# WORKDIR /app
+# # environment:
+# ENV NODE_ENV=development
+# COPY . /app
+# WORKDIR /app/mapas/src
+# RUN npm i -g pnpm
+# RUN pnpm i
+# RUN pnpm run dev
 
 # Versions
 FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
@@ -17,10 +28,14 @@ FROM frankenphp_upstream AS frankenphp_base
 
 WORKDIR /app
 
+# COPY --link . /app
+# COPY --link --from=frontend_build /app /app
+
 # persistent / runtime deps
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install --no-install-recommends -y \
 	acl \
+	procps \
 	file \
 	gettext \
 	git \

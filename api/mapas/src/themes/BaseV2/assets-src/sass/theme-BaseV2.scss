@@ -199,3 +199,13 @@
 @import 'pages/form-preview';
 @import 'pages/system-roles';
 @import 'pages/system-roles-modal';
+
+.panel-nav :nth-child(2) li:first-child,
+.panel-nav :nth-child(2) li:last-child {
+    display: none;
+}
+
+.container.opportunity .entity-terms,
+.single-opportunity .mc-breadcrumb {
+    display: none;
+}

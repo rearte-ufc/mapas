@@ -10,9 +10,6 @@ app.component('opportunity-list', {
                 opportunities.push(entity);
             });
             return opportunities;
-        },
-        countOpportunities() {
-            return $MAPAS.opportunityList.opportunity.length;
         }
     }
 });

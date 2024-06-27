@@ -2,12 +2,13 @@
 return [
     // 'auth.provider' => 'Fake',
     // 'auth.config' => [],
-   
+
     // https://github.com/kterva/MultipleLocalAuth
     'auth.provider' => '\MultipleLocalAuth\Provider',
     'auth.config' => [
         'salt' => env('AUTH_SALT', null),
         'timeout' => '24 hours',
+        'enableLoginByCPF' => false,
         'strategies' => [
             'Facebook' => [
                 'app_id' => env('AUTH_FACEBOOK_APP_ID', null),

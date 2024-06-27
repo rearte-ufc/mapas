@@ -80,7 +80,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
+            "App\\": "mapas/app/src/",
             "MapasCulturais\\": "mapas/src/core",
             "MapasCulturais\\Modules\\": "mapas/src/modules",
             "MapasCulturais\\Themes\\": "mapas/src/themes",

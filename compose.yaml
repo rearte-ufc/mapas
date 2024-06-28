@@ -46,28 +46,16 @@ services:
       - target: 80
         published: 5020
         protocol: tcp
-      #   # HTTPS
-      #   - target: 443
-      #     published: ${HTTPS_PORT:-443}
-      #     protocol: tcp
-      #   # HTTP/3
-      #   - target: 443
-      #     published: ${HTTP3_PORT:-443}
-      #     protocol: udp
 
-      # recreate-pending-pcache:
-      #   # <<: *base-override
-      #   command: sh ./mapas/docker/recreate-pending-pcache-cron.sh
-      #   depends_on:
-      #     - php
-      #   extends: php
-      #   ports:
-      #     - "8443:443"
-      #   volumes:
+  recreate-pending-pcache:
+    extends:
+      service: php
+    command: sh ./mapas/docker/recreate-pending-pcache.sh
+    depends_on:
+      - php
+    volumes:
       # - ./api:/app
-  #     - var-files:/app/var
-  #     # - ./api/frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
-  #     # - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
+      - var-files:/app/var
 
   execute-job:
     extends:

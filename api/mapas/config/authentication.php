@@ -5,10 +5,13 @@ return [
 
     // https://github.com/kterva/MultipleLocalAuth
     'auth.provider' => '\MultipleLocalAuth\Provider',
+    'auth.redirect_path' => '/edital/4',
     'auth.config' => [
         'salt' => env('AUTH_SALT', null),
         'timeout' => '24 hours',
         'enableLoginByCPF' => false,
+        'loginOnRegister' => true,
+        'statusCreateAgent' => '1',
         'strategies' => [
             'Facebook' => [
                 'app_id' => env('AUTH_FACEBOOK_APP_ID', null),

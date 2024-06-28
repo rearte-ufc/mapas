@@ -22,7 +22,7 @@ class Redirect
         $route = $app->request->route;
         if (str_contains($route, 'site.index')) {
             $response = $response->withStatus(302);
-            return $response->withHeader('Location', '/edital/1');
+            return $response->withHeader('Location', '/edital/4');
         }
         if (str_contains($route, 'panel.index')) {
             $response = $response->withStatus(302);

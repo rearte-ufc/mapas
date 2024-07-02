@@ -50,7 +50,7 @@ services:
   recreate-pending-pcache:
     extends:
       service: php
-    command: sh ./mapas/docker/recreate-pending-pcache.sh
+    command: sh ./mapas/docker/recreate-pending-pcache-cron.sh
     depends_on:
       - php
     volumes:
@@ -67,15 +67,15 @@ services:
       # - ./api:/app
       - var-files:/app/var
 
-  db-update:
-    extends:
-      service: php
-    command: php /app/mapas/src/tools/apply-updates.php
-    depends_on:
-      - database
-    volumes:
-      # - ./api:/app
-      - var-files:/app/var
+  # db-update:
+  #   extends:
+  #     service: php
+  #   command: php /app/mapas/src/tools/apply-updates.php
+  #   depends_on:
+  #     - database
+  #   volumes:
+  #     # - ./api:/app
+  #     - var-files:/app/var
 
   redis:
     image: redis:6

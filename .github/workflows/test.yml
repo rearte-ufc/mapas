@@ -29,10 +29,10 @@ jobs:
 
       - name: Run migrations
         run: |
-            php src/tools/apply-updates.php
-
-      - name: Install composer and dependencies
-        uses: php-actions/composer@v6
+          mkdir var/private-files/dbupdate_documento
+          php src/tools/apply-updates.php
+        env:
+          APP_MODE: development
 
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
@@ -40,7 +40,7 @@ jobs:
           XDEBUG_MODE: coverage
         with:
           configuration: phpunit.xml
-          php_extensions: xdebug mbstring curl xml
+          php_extensions: pdo_pgsql xdebug mbstring curl xml
           args: tests --coverage-clover ./coverage.xml
 
       - name: Upload to Codecov

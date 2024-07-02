@@ -34,8 +34,7 @@ jobs:
 
       - name: Run migrations
         run: |
-          pwd
-          ls -la
+          mkdir var/private-files/dbupdate_documento
           php src/tools/apply-updates.php
         env:
           APP_MODE: development
@@ -46,7 +45,7 @@ jobs:
           XDEBUG_MODE: coverage
         with:
           configuration: phpunit.xml
-          php_extensions: xdebug mbstring curl xml
+          php_extensions: pdo_pgsql xdebug mbstring curl xml
           args: tests --coverage-clover ./coverage.xml
 
       - name: Upload to Codecov

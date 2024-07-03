@@ -32,7 +32,7 @@ $this->import('
 				<?= i::__('Selecione as opções abaixo e clique no botão para se inscrever') ?>
 			</p>
 			<p v-if="numberFields == 1" class="logged__description">
-				<?= i::__('Selecione uma opções abaixo e clique no botão para se inscrever') ?>
+				<?= i::__('Selecione o eixo') ?>
 			</p>
 			<p v-if="numberFields == 0" class="logged__description">
 				<?= i::__('Clique no botão para se inscrever') ?>

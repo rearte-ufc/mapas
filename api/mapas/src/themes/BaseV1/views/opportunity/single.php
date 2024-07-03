@@ -99,9 +99,8 @@ $child_entity_request = isset($child_entity_request) ? $child_entity_request : n
 <article id="sidebars">
     <div class="sidebar-left sidebar opportunity">
         <?php $this->applyTemplateHook('sidebar-left','begin'); ?>
-        
+
         <!-- Related Seals BEGIN -->
-        <?php $this->part('related-seals.php', array('entity'=>$entity)); ?>
         <!-- Related Seals END -->
         <?php $this->part('widget-tags', array('entity'=>$entity)); ?>
         <?php $this->part('redes-sociais', array('entity'=>$entity)); ?>

@@ -20,7 +20,7 @@ use MapasCulturais\i;
             <h4 class="registration-info__data__info bold">{{registration?.createTimestamp?.date('2-digit year')}}</h4>
         </div>
         <div v-if="registration.category" class="registration-info__data">
-            <h5 class="registration-info__data__title semibold"> <?= i::__('Categoria') ?> </h5>
+            <h5 class="registration-info__data__title semibold"> <?= i::__('Eixo') ?> </h5>
             <h4 class="registration-info__data__info bold">{{registration.category}}</h4>
         </div>
     </div>

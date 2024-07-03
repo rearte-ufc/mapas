@@ -1140,28 +1140,28 @@ class Theme extends MapasCulturais\Theme {
 
     /**
      * Hooks específicos do módulo de fases de oportunidades
-     * @return void 
+     * @return void
      */
     public function initOpportunityPhases() {
         $app = App::i();
-    
+
         // redireciona para a página do oportunidade após deletar uma fase
         $app->hook('DELETE(opportunity):beforeRedirect', function($entity, &$redirect_url){
             if($entity->isOpportunityPhase){
                 $redirect_url = $entity->parent->singleUrl;
             }
         });
-    
+
         // action para criar uma nova fase no oportunidade
         $app->hook('POST(opportunity.createNextPhase)', function() use($app){
             $parent = $this->requestedEntity;
-    
+
             $last_phase = Phases::getLastCreatedPhase($parent);
-    
+
             if ($last_phase->isLastPhase) {
                 $this->errorJson(i::__('Já foi criada a última fase!'), 400);
             }
-    
+
             $_phases = [
                 \MapasCulturais\i::__('Segunda fase'),
                 \MapasCulturais\i::__('Terceira fase'),
@@ -1173,21 +1173,21 @@ class Theme extends MapasCulturais\Theme {
                 \MapasCulturais\i::__('Nona fase'),
                 \MapasCulturais\i::__('Décima fase')
             ];
-    
+
             $request = $this->data;
-    
+
             $phases = Phases::getPhases($parent);
-    
+
             $num_phases = count($phases);
-    
+
             $opportunity_class_name = $parent->getSpecializedClassName();
-    
+
             $phase = new $opportunity_class_name;
-    
+
             $phase->status = Entities\Opportunity::STATUS_DRAFT;
             $phase->parent = $parent;
             $phase->ownerEntity = $parent->ownerEntity;
-    
+
             $phase->name = $_phases[$num_phases];
             $phase->registrationCategories = $parent->registrationCategories;
             $phase->shortDescription = sprintf(i::__('Descrição da %s'), $_phases[$num_phases]);
@@ -1195,35 +1195,35 @@ class Theme extends MapasCulturais\Theme {
             $phase->owner = $parent->owner;
             $phase->useRegistrations = true;
             $phase->isOpportunityPhase = true;
-    
+
             $_from = $last_phase->registrationTo ? clone $last_phase->registrationTo : new \DateTime;
             $_to = $last_phase->registrationTo ? clone $last_phase->registrationTo : new \DateTime;
             $_to->add(date_interval_create_from_date_string('1 days'));
-    
+
             $phase->registrationFrom = $_from;
             $phase->registrationTo = $_to;
-    
+
             if (isset($this->postData['isLastPhase']) && $this->postData['isLastPhase']) {
                 $phase->isLastPhase = true;
             }
-    
+
             $phase->isDataCollection = (isset($request['phaseDataCollection']) && (filter_var($request['phaseDataCollection'], FILTER_SANITIZE_SPECIAL_CHARS) == "true")) ? true : false;
             $evaluation_method = $this->data['evaluationMethod'];
-    
+
             $app->applyHookBoundTo($phase, "module(OpportunityPhases).createNextPhase({$evaluation_method}):before", [&$evaluation_method]);
             $phase->save(true);
             $app->applyHookBoundTo($phase, "module(OpportunityPhases).createNextPhase({$evaluation_method}):after", [&$evaluation_method]);
-    
+
             $definition = $app->getRegisteredEvaluationMethodBySlug($evaluation_method);
-    
+
             $emconfig = new Entities\EvaluationMethodConfiguration;
-    
+
             $emconfig->opportunity = $phase;
-    
+
             $emconfig->type = $definition->slug;
-            
+
             $emconfig->save(true);
-        
+
             $this->json($phase);
         });
 
@@ -1231,7 +1231,7 @@ class Theme extends MapasCulturais\Theme {
         // registra os metadados das inscrićões das fases anteriores
         $app->hook('GET(registration.<<*>>):before', function() {
             /** @var \MapasCulturais\Controllers\Registration $this */
-            
+
             $registration = $this->getRequestedEntity();
 
 
@@ -1248,14 +1248,14 @@ class Theme extends MapasCulturais\Theme {
 
         $app->hook('GET(opportunity.edit):before', function() use ($app){
             $entity = $this->requestedEntity;
-         
+
             if($entity->canUser('@control')){
                 $previous_phases = $entity->previousPhases;
 
                 if($entity->firstPhase->id != $entity->id){
                     $previous_phases[] = $entity;
                 }
-    
+
                 foreach($previous_phases as $phase)
                 {
                     foreach($phase->registrationFieldConfigurations as $field){
@@ -1269,60 +1269,60 @@ class Theme extends MapasCulturais\Theme {
 
             }
         });
-    
+
         $app->hook('view.render(<<*>>):before', function() use($app) {
             $this->jsObject['angularAppDependencies'][] = 'OpportunityPhases';
             $app->view->enqueueScript('app', 'ng.opportunityPhases', 'js/ng.opportunityPhases.js', ['mapasculturais']);
         },1000);
-    
-    
+
+
         $app->hook('view.partial(singles/registration-single--<<header|categories|agents>>).params', function(&$params, &$template) use ($app) {
             if($params['opportunity']->isOpportunityPhase){
                 $entity = $params['entity'];
                 while($entity = Phases::getPreviousPhaseRegistration($entity)){
                     $first = $entity;
                 }
-    
+
                 $params['opportunity'] = $first->opportunity;
                 $params['entity'] = $first;
             }
         });
-    
+
         // desabilita o modo de edição das partes abaixo
         $app->hook('view.partial(<<singles/type|entity-parent>>).params', function(&$data, &$template){
             $opportunity = $this->controller->requestedEntity;
-    
+
             if(!$opportunity){
                 return;
             }
-    
+
             if($opportunity->isOpportunityPhase){
                 $data['disable_editable'] = true;
             }
-    
+
             if($opportunity instanceof \MapasCulturais\Entities\Project && $opportunity->isAccountability && $template == 'entity-parent') {
                 $data['disable_editable'] = true;
             }
-    
+
         });
-    
+
         // adiciona o botão de importar inscrições da fase anterior
         $app->hook('view.partial(singles/opportunity-registrations--tables--manager):before', function(){
             if($this->controller->action === 'create'){
                 return;
             }
-    
+
             $opportunity = $this->controller->requestedEntity;
-    
+
             if($opportunity->isOpportunityPhase){
                 $this->part('opportunity-phases/import-last-phase-button', ['entity' => $opportunity]);
             }
         });
-    
+
         // adiciona na ficha de inscrição das fases o link para a inscrição anterior
         $app->hook('view.partial(singles/registration-<<edit|single>>--header):before', function() use($app){
             $registration = $this->controller->requestedEntity;
-    
+
             if($registration) {
                 if($next_id = $registration->nextPhaseRegistrationId){
                     $next_phase_registration = $app->repo('Registration')->find($next_id);
@@ -1334,171 +1334,171 @@ class Theme extends MapasCulturais\Theme {
                 }
             }
         });
-    
+
         // desliga a edição do campo principal de data quando vendo uma fase
         $app->hook('view.partial(singles/opportunity-about--registration-dates).params', function(&$params){
             $opportunity = Phases::getRequestedOpportunity();
             $base_opportunity = Phases::getBaseOpportunity();
-    
+
             if(!$opportunity) {
                 return;
             }
-    
+
             if($opportunity->isOpportunityPhase){
                 $params['entity'] = $base_opportunity;
                 $params['disable_editable'] = true;
             }
         });
-    
+
         // subsitui a mensagem de oportunidade rascunho quando for uma fase de oportunidade
         $app->hook('view.partial(singles/entity-status).params', function(&$params, &$template_name){
             $opportunity = Phases::getRequestedOpportunity();
-    
+
             if(!$opportunity){
                 return;
             }
-    
+
             if($opportunity->isOpportunityPhase){
                 $template_name = 'opportunity-phases/opportunity-phase-status';
             }
         });
-    
+
         // remove alguns campos da configuracao da oportunidade
         $app->hook('view.partial(singles/opportunity-registrations--<<fields--project-name|(agent|space)-relations|categories>>).params', function (&$params, &$template) use ($app) {
             $opportunity = Phases::getRequestedOpportunity();
-    
+
             if($opportunity->isOpportunityPhase){
                 $template = '_empty';
                 return;
             }
         });
-    
+
         // adiciona a lista e botão para criar novas fases
         $app->hook('view.partial(singles/widget-opportunities).params', function(&$params, &$template) use ($app){
             if($this->controller->action === 'create'){
                 return;
             }
-    
+
             $opportunity = Phases::getRequestedOpportunity();
-    
+
             if($opportunity->isOpportunityPhase){
                 $template = '_empty';
                 return;
             }
-    
+
             $params['opportunities'] = array_filter($params['opportunities'], function($e){
                 if(! (bool) $e->isOpportunityPhase){
                     return $e;
                 }
             });
-    
+
             if($opportunity->isOpportunityPhase){
                 $opportunity = $opportunity->parent;
             }
-    
+
             if(!$opportunity->useRegistrations || !$opportunity->canUser('@control')){
                 return;
             }
-    
+
         });
-    
+
         // remove form de fazer inscrição das fases
         $app->hook('view.partial(singles/opportunity-registrations--form).params', function(&$data, &$template){
             $opportunity = Phases::getRequestedOpportunity();
-    
+
             if(!$opportunity){
                 return;
             }
-    
+
             if($opportunity->isOpportunityPhase){
                 echo '<br>';
                 $template = '_empty';
             }
         });
-    
+
         // remove a aba agenda de um oportunidade que é uma fase de outro oportunidade
         $app->hook('view.partial(<<agenda|singles/opportunity-events>>).params', function(&$data, &$template){
             $opportunity = $this->controller->requestedEntity;
-    
+
             if(!$opportunity){
                 return;
             }
-    
+
             if($opportunity->isOpportunityPhase){
                 $template = '_empty';
             }
         });
-    
-    
+
+
         // adiciona a lista de fases e o botão 'adicionar fase'
         $app->hook('template(opportunity.<<single|edit>>.tab-about--highlighted-message):end', function() use($app){
             $opportunity = Phases::getBaseOpportunity();
-    
+
             $phases = Phases::getPhases($opportunity);
-    
+
             $app->view->part('opportunity-phases/widget-opportunity-phases', ['opportunity' => $opportunity, 'phases' => $phases]);
         });
-    
-    
+
+
         $app->hook('template(panel.<<*>>.panel-evaluation-title):end', function ($opportunity) {
             if ($opportunity->isOpportunityPhase) {
                 $this->part('opportunity-phases/opportunity-phase-base-name', ['entity' => $opportunity]);
             }
         });
-    
+
         $app->hook('template(panel.<<*>>.panel-registration-title):end', function ($registration) {
             if ($registration->opportunity->isOpportunityPhase) {
                 $this->part('opportunity-phases/opportunity-phase-base-name', ['entity' => $registration->opportunity]);
             }
-        });        
+        });
     }
-    
+
 
     function mergeRegistrationPhases(Registration $entity) {
-        {    
+        {
             $app = App::i();
-            
+
             $current_registration = $entity;
-    
+
             if($entity->status == Entities\Registration::STATUS_DRAFT){
                 return;
             }
-    
+
             $registrations = [$entity];
-    
+
             $first = $entity;
-    
+
             while($entity = Phases::getPreviousPhaseRegistration($entity)){
                 $registrations[] = $entity;
                 $first = $entity;
             }
-    
+
             $registrations = array_reverse($registrations);
     //
             $this->addEntityToJs($first);
             $this->addRegistrationToJs($first);
             $this->addOpportunityToJs($first->opportunity);
-    
+
             $this->jsObject['evaluation'] = $this->getCurrentRegistrationEvaluation($current_registration);
             $this->jsObject['evaluationConfiguration'] = $current_registration->opportunity->evaluationMethodConfiguration;
-    
+
             $this->jsObject['entity']['registrationFieldConfigurations'] = [];
             $this->jsObject['entity']['registrationFileConfigurations'] = [];
-    
+
             foreach($registrations as $i => $reg){
-    
+
                 $this->jsObject['registration'] = $reg;
-    
+
                 $opportunity = $reg->opportunity;
-    
+
                 if (count($opportunity->registrationFieldConfigurations) || count($opportunity->registrationFileConfigurations)) {
                     $empty = new Entities\RegistrationFieldConfiguration;
                     $empty->owner = $opportunity;
                     $empty->title = '';
                     $empty->fieldType = 'section';
                     $empty->displayOrder = $i * 1000 -2;
-    
-    
+
+
                     $section_divisor = new Entities\RegistrationFieldConfiguration;
                     $section_divisor->owner = $opportunity;
                     $section_divisor->fieldType = 'section';
@@ -1506,14 +1506,14 @@ class Theme extends MapasCulturais\Theme {
                     $section_divisor->displayOrder = $i * 1000 -1;
                     $this->jsObject['entity']['registrationFieldConfigurations'][] = $section_divisor;
                 }
-    
+
                 foreach($opportunity->registrationFieldConfigurations as $field){
                     // faz um shift de 1000 * $i na ordem do campo
                     $field->displayOrder += $i * 1000;
                     $this->jsObject['entity']['registrationFieldConfigurations'][] = $field;
-    
+
                     $field_name = $field->fieldName;
-                    
+
                     if($reg->canUser("viewUserEvaluation") && !$reg->canUser("@control")){
                         if(isset($opportunity->avaliableEvaluationFields[$field_name])){
                             $this->jsObject['entity']['object']->$field_name = $reg->$field_name;
@@ -1521,40 +1521,40 @@ class Theme extends MapasCulturais\Theme {
                     }else{
                         $this->jsObject['entity']['object']->$field_name = $reg->$field_name;
                     }
-    
-    
+
+
                 }
-    
+
                 foreach($opportunity->registrationFileConfigurations as $file){
                     // faz um shift de 1000 * $i na ordem do campo
                     $file->displayOrder += $i * 1000;
-    
+
                     $this->jsObject['entity']['registrationFileConfigurations'][] = $file;
                 }
-    
+
                 if(!is_array($this->jsObject['entity']['registrationFiles'])){
                     $this->jsObject['entity']['registrationFiles'] = [];
                 }
-    
+
                 foreach($reg->files as $key => $value){
                     $this->jsObject['entity']['registrationFiles'][$key] = $value;
                 }
-    
+
             }
-    
+
             $this->jsObject['entity']['id'] = $current_registration->id;
-            $this->jsObject['entity']['status'] = $current_registration->status;            
+            $this->jsObject['entity']['status'] = $current_registration->status;
             $this->jsObject['entity']['object']->id = $current_registration->id;
             $this->jsObject['entity']['object']->opportunity = $current_registration->opportunity;
             $this->jsObject['entity']['canUserEvaluate'] = $current_registration->canUser('evaluate');
             $this->jsObject['entity']['canUserModify'] = $current_registration->canUser('modify');
             $this->jsObject['entity']['canUserSend'] = $current_registration->canUser('send');
             $this->jsObject['entity']['canUserViewUserEvaluations'] = $current_registration->canUser('viewUserEvaluations');
-    
-            
+
+
             $this->jsObject['registration']->id = $current_registration->id;
-            $this->jsObject['registration']->opportunity = $current_registration->opportunity;            
-    
+            $this->jsObject['registration']->opportunity = $current_registration->opportunity;
+
         }
     }
 
@@ -1594,7 +1594,7 @@ class Theme extends MapasCulturais\Theme {
             'location',
 
         ];
-        
+
         $props = [
             'agent' => \MapasCulturais\Entities\Agent::getPropertiesMetadata(),
             'space' => \MapasCulturais\Entities\Space::getPropertiesMetadata(),
@@ -1610,7 +1610,7 @@ class Theme extends MapasCulturais\Theme {
         }
 
         return $_fields;
-        
+
     }
 
     function head() {
@@ -1772,7 +1772,7 @@ class Theme extends MapasCulturais\Theme {
 
     function includeCommonAssets() {
         $app = App::i();
-        
+
         $this->getAssetManager()->publishFolder('fonts/');
 
         $this->enqueueStyle('app', 'main', 'css/main.css');
@@ -1990,7 +1990,7 @@ class Theme extends MapasCulturais\Theme {
         $this->jsObject['geoDivisionsHierarchy'] = $app->config['app.geoDivisionsHierarchy'];
 
         $this->jsObject['defaultCountry'] = $app->config['app.defaultCountry'];
-        
+
         $this->enqueueScript('app', 'map', 'js/map.js');
     }
 
@@ -2079,7 +2079,7 @@ class Theme extends MapasCulturais\Theme {
         ]);
 
         $this->jsObject['registrationAutosaveTimeout'] = $app->config['registration.autosaveTimeout'];
-        
+
         $this->enqueueScript('app', 'entity.module.opportunity', 'js/ng.entity.module.opportunity.js', array('ng-mapasculturais'));
         $this->localizeScript('moduleOpportunity', [
             'unexpectedError'    => i::__('Um erro inesperado aconteceu.'),
@@ -2131,7 +2131,7 @@ class Theme extends MapasCulturais\Theme {
             'applyEvaluations' => i::__('Deseja aplicar o resultado de todas as avaliações como o status das respectivas inscrições?'),
 
             'Inscrição' => i::__('Inscrição'),
-            'Categorias' => i::__('Categorias'),
+            'Categorias' => i::__('Eixo'),
             'Agentes' => i::__('Agentes'),
             'Anexos' => i::__('Anexos'),
             'Avaliação' => i::__('Avaliação'),
@@ -2140,7 +2140,7 @@ class Theme extends MapasCulturais\Theme {
 
             'conditionMandatory' => i::__('Informe a qual campo quer condicionar a obrigatoriedade'),
             'fieldCondition' => i::__('Informe o valor condicionante do campo'),
-            'category' => i::__('Categoria'),
+            'category' => i::__('Eixo'),
             'removeField' => i::__('Deseja remover este campo?'),
             'projectName' => i::__('Nome do projeto'),
             'agentSummaries' => i::__('Resumo dos agentes'),
@@ -2187,7 +2187,7 @@ class Theme extends MapasCulturais\Theme {
     function printJsObject($var_name = 'MapasCulturais', $print_script_tag = true) {
         parent::printJsObject($var_name, $print_script_tag);
     }
-    
+
     function includeSealAssets(){
         $this->enqueueScript("app","seal-locked-conf","js/seal-locked-conf.js");
         $this->enqueueStyle("app","seal-locked-conf","css/seal-locked-conf.css");
@@ -2228,7 +2228,7 @@ class Theme extends MapasCulturais\Theme {
 
     protected function _populateJsObject() {
         $app = App::i();
-        
+
         $this->jsObject['vectorLayersURL'] = $app->baseUrl . 'geojson';
 
         $this->jsObject['request'] = array(
@@ -2974,7 +2974,7 @@ class Theme extends MapasCulturais\Theme {
 
     private function isHome() {
         $app = \MapasCulturais\App::i();
-        
+
         return ( $this->template === "site/index" && $this->controller->action === "index" );
     }
 

@@ -94,15 +94,15 @@ $app->applyHookBoundTo($this, 'opportunity.blockedFields', [$entity]);
                 <div ng-if="field.fieldType !== 'file'" ng-class="{'section' : field.fieldType==='section'}">
                     <div class="js-open-editbox item">
                         <div class="label">
-                            <code onclick="copyToClipboard(this)" class="hltip field-id" title="<?php i::esc_attr_e('Clique para copiar') ?>">{{field.id}}</code> {{field.title}} 
+                            <code onclick="copyToClipboard(this)" class="hltip field-id" title="<?php i::esc_attr_e('Clique para copiar') ?>">{{field.id}}</code> {{field.title}}
                             <em ng-if="field.fieldType !== 'section'"><small>({{field.required.toString() === 'true' ? data.fieldsRequiredLabel : data.fieldsOptionalLabel }})</small></em>
                         </div>
-                        
+
                         <span class="attachment-description">
                             <?php i::_e("Campo disponível somente para:"); ?>
                         </span>
                         <span ng-if="field.categories.length" class="attachment-description">
-                            <?php i::_e("Categorias: "); ?> <strong>{{field.categories.join(', ')}}</strong>
+                            <?php i::_e("Eixos: "); ?> <strong>{{field.categories.join(', ')}}</strong>
                             <br>
                         </span>
                         <span ng-if="field.proponentTypes.length" class="attachment-description">

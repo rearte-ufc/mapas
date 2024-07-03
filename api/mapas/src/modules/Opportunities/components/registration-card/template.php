@@ -12,7 +12,7 @@ $this->import('
 ');
 ?>
 <div :class="['registration-card', {'border': hasBorder}, {'picture': pictureCard}]">
-    <div class="registration-card__content">    
+    <div class="registration-card__content">
 
         <div v-if="pictureCard" class="left">
             <div class="registerImage">
@@ -20,7 +20,7 @@ $this->import('
             </div>
         </div>
 
-        <div class="right">            
+        <div class="right">
             <div class="header">
                 <div v-if="pictureCard" class="title"> <strong>{{entity.opportunity?.name}}</strong> </div>
                 <div v-if="!pictureCard" class="title"> <?= i::__('Número de inscrição:') ?> <strong>{{entity.number}}</strong> </div>
@@ -34,7 +34,7 @@ $this->import('
                 </div>
 
                 <div v-if="!pictureCard && entity.category" class="registerData">
-                    <p class="title"> <?= i::__("Categoria") ?> </p>
+                    <p class="title"> <?= i::__("Eixo") ?> </p>
                     <p class="data"> {{entity.category}} </p>
                 </div>
 

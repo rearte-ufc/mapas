@@ -1,46 +1,117 @@
-name: ci
+name: CI
 
 on:
-  pull_request:
+  push:
     branches:
-      - homolog
+      - develop
+  pull_request: ~
+  workflow_dispatch: ~
 
-  workflow_dispatch:
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 jobs:
-  BUILD:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Environment Variables
+        run: cp api/.env.sample api/.env && cp api/.env.sample .env
+      -
+        name: Submodules
+        run: git submodule init && git submodule update --remote
+      -
+        name: Build Frontend
+        run: cd api/mapas/src && npm i -g pnpm && pnpm i && pnpm run dev
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      -
+        name: Build Docker images
+        id: push
+        uses: docker/build-push-action@v4
+        with:
+          context: api
+          load: true
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # files: |
+          #   compose.yaml
+          #   compose.override.yaml
+          # set: |
+          #   *.cache-from=type=gha,scope=${{github.ref}}
+          #   *.cache-from=type=gha,scope=refs/heads/main
+          #   *.cache-to=type=gha,scope=${{github.ref}},mode=max
+
+      # - name: Generate artifact attestation
+      #   uses: actions/attest-build-provenance@v1
+      #   with:
+      #     subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+      #     subject-digest: ${{ steps.push.outputs.digest }}
+      #     push-to-registry: true
+      -
+        name: Create private-files folder
+        run: docker compose run --rm web mkdir var/private-files
+      -
+        name: Start services
+        run: docker compose up database redis mailhog web --wait --no-build
+      -
+        name: Check HTTP reachability
+        run: curl -v --fail-with-body http://localhost:5020
+      # -
+      #   name: Check API reachability
+      #   run: curl -vk --fail-with-body https://localhost
+      # -
+      #   name: Check PWA reachability
+      #   run: "curl -vk --fail-with-body -H 'Accept: text/html' https://localhost"
+      -
+        name: Create test database
+        run: docker compose exec -T web bin/console -e test doctrine:database:create
+      -
+        name: Run db-updates
+        run: docker compose exec -T web php mapas/src/tools/apply-updates.php
+      -
+        name: Run migrations
+        run: docker compose exec -T web bin/console -e test doctrine:migrations:migrate --no-interaction
+      # -
+      #   name: Run PHPUnit
+      #   run: docker compose exec -T web bin/phpunit
+      -
+        name: Doctrine Schema Validator
+        run: docker compose exec -T web bin/console -e test doctrine:schema:validate
+  lint:
+    name: Docker Lint
     runs-on: ubuntu-latest
     steps:
-
-      - uses: actions/checkout@v4.1.1
-
-      - name: Docker Login
-        uses: docker/login-action@v3.0.0
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Lint Dockerfiles
+        uses: hadolint/hadolint-action@v3.1.0
         with:
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: Checkout submodules
-        run: git submodule update --init --recursive
-
-      - name: Ajusta branch do MultipleLocalAuth
-        run: cd src/plugins/MultipleLocalAuth && git checkout v3.0.0
-
-      - name: Criação da Imagem docker
-        uses: docker/build-push-action@v5.0.0
-        with:
-          context: ./
-          file: ./Dockerfile
-          push: true
-          tags: |
-            secultceara/mapascultural:7.3.7
-            secultceara/mapascultural:latest
-
-  DEPLOY:
-    needs: BUILD
-    runs-on: mapahomolog
-    steps:
-      - name: Pull das imagens docker
-        run: cd /opt/docker/mapa7 && sudo docker-compose pull
-      - name: Restart do docker-compose para atualizar o container com a nova imagem
-        run: cd /opt/docker/mapa7 && sudo docker-compose down && sudo docker-compose up -d
+          recursive: true

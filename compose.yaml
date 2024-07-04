@@ -1,6 +1,6 @@
 services:
   php:
-    image: redemapas/mapas-api
+    image: ${DOCKER_IMAGE:-ghcr.io/redemapas/mapas:feat-new-theme}
     depends_on:
       - database
     restart: unless-stopped
@@ -33,8 +33,8 @@ services:
       - ./api:/app
       # - /app/var
       - var-files:/app/var
-      # - ./api/frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
-      # - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
+      - ./api/frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       - caddy_data:/data
       - caddy_config:/config
 
@@ -46,6 +46,17 @@ services:
       - target: 80
         published: 5020
         protocol: tcp
+
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+  #     PGADMIN_CONFIG_SERVER_MODE: 'False'
+  #   volumes:
+  #     - pgadmin:/var/lib/pgadmin
+  #   ports:
+  #     - 5050:80
 
   recreate-pending-pcache:
     extends:
@@ -96,19 +107,18 @@ services:
     # ports:
     #   - "8025:8025"
 
-  # pwa:
-  #   image: redemapas/mapas-pwa
-  #   build:
-  #     context: ./pwa
-  #     target: dev
-  #   volumes:
-  #     - ./pwa:/srv/app
-  #   environment:
-  #     API_PLATFORM_CREATE_CLIENT_ENTRYPOINT: http://php
-  #     API_PLATFORM_CREATE_CLIENT_OUTPUT: .
-  #     NEXT_PUBLIC_ENTRYPOINT: http://php
+  pwa:
+    image: redemapas/mapas-pwa
+    build:
+      context: ./pwa
+      target: dev
+    volumes:
+      - ./pwa:/srv/app
+    environment:
+      API_PLATFORM_CREATE_CLIENT_ENTRYPOINT: http://php
+      API_PLATFORM_CREATE_CLIENT_OUTPUT: .
+      NEXT_PUBLIC_ENTRYPOINT: http://php
 
-  ###> doctrine/doctrine-bundle ###
   database:
     image: kartoza/postgis:14
     environment:
@@ -131,3 +141,4 @@ volumes:
   db_data:
   sessions:
   redis:
+  pgadmin:

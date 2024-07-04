@@ -30,8 +30,8 @@
         "acelaya/doctrine-enum-type": "^2.3",
         "akrabat/ip-address-middleware": "^2.1",
         "doctrine/annotations": "^2.0",
-        "doctrine/dbal": "^3.6",
-        "doctrine/orm": "2.16.*",
+        "doctrine/dbal": "^3",
+        "doctrine/orm": "^2",
         "firebase/php-jwt": "^6.4",
         "michelf/php-markdown": "1.*",
         "monolog/monolog": "^3.4",
@@ -80,9 +80,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "mapas/app/src/",
+            "App\\": "src/",
             "MapasCulturais\\": "mapas/src/core",
-            "MapasCulturais\\Modules\\": "mapas/src/modules",
             "MapasCulturais\\Themes\\": "mapas/src/themes",
             "MultipleLocalAuth\\": "mapas/src/plugins/plugin-MultipleLocalAuth"
         }
@@ -134,13 +133,7 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ]
+        }
     },
     "conflict": {
         "symfony/symfony": "*"

@@ -58,28 +58,37 @@ services:
   #     - pgadmin:/var/lib/pgadmin
   #   ports:
   #     - 5050:80
+  crontab:
+    image: rancher/container-crontab:v0.5.0
+    restart: '${DOCKER_RESTART_POLICY:-always}'
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   recreate-pending-pcache:
     image: ghcr.io/redemapas/mapas:feat-new-theme
     extends:
       service: php
-    command: sh ./mapas/docker/recreate-pending-pcache-cron.sh
+    command: php ./mapas/src/tools/recreate-pending-pcache.php
     depends_on:
       - php
     volumes:
       # - ./api:/app
       - var-files:/app/var/private-files
+    labels:
+      - "cron.schedule=* * * ? * *"
 
   execute-job:
     image: ghcr.io/redemapas/mapas:feat-new-theme
     extends:
       service: php
-    command: sh ./mapas/docker/jobs-cron.sh
+    command: php ./mapas/src/tools/execute-job.php
     depends_on:
       - php
     volumes:
       # - ./api:/app
       - var-files:/app/var/private-files
+    labels:
+      - "cron.schedule=* * * ? * *"
 
   # db-update:
   #   extends:

@@ -5,4 +5,4 @@
 [submodule "api/mapas/src/plugins/plugin-MultipleLocalAuth"]
 	path = api/mapas/src/plugins/plugin-MultipleLocalAuth
 	url = https://github.com/RedeMapas/plugin-MultipleLocalAuth
-	branch = main
+	branch = feature/register-minimal

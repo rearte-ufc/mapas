@@ -33,6 +33,7 @@ services:
       # - ./api:/app
       # - /app/var
       - var-files:/app/var/private-files
+      - user-public-files:/app/mapas/public/files
       # - ./api/frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
       # - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       - caddy_data:/data
@@ -164,3 +165,4 @@ volumes:
   sessions:
   redis:
   pgadmin:
+  user-public-files:

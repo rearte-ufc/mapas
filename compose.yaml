@@ -1,6 +1,6 @@
 services:
   php:
-    image: ${DOCKER_IMAGE:-ghcr.io/redemapas/mapas:feat-new-theme}
+    image: ghcr.io/redemapas/mapas:feat-new-theme
     depends_on:
       - database
     restart: unless-stopped
@@ -26,19 +26,20 @@ services:
       GOOGLE_RECAPTCHA_SITEKEY: ${GOOGLE_RECAPTCHA_SITEKEY}
       GOOGLE_RECAPTCHA_SECRET: ${GOOGLE_RECAPTCHA_SECRET}
       SESSIONS_SAVE_PATH: ${SESSIONS_SAVE_PATH}
-    build:
-      context: ./api
-      target: frankenphp_dev
+    # build:
+      # context: ./api
+      # target: frankenphp_dev
     volumes:
-      - ./api:/app
+      # - ./api:/app
       # - /app/var
-      - var-files:/app/var
-      - ./api/frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
+      - var-files:/app/var/private-files
+      # - ./api/frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
+      # - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       - caddy_data:/data
       - caddy_config:/config
 
   web:
+    image: ghcr.io/redemapas/mapas:feat-new-theme
     extends:
       service: php
     ports:
@@ -59,6 +60,7 @@ services:
   #     - 5050:80
 
   recreate-pending-pcache:
+    image: ghcr.io/redemapas/mapas:feat-new-theme
     extends:
       service: php
     command: sh ./mapas/docker/recreate-pending-pcache-cron.sh
@@ -66,9 +68,10 @@ services:
       - php
     volumes:
       # - ./api:/app
-      - var-files:/app/var
+      - var-files:/app/var/private-files
 
   execute-job:
+    image: ghcr.io/redemapas/mapas:feat-new-theme
     extends:
       service: php
     command: sh ./mapas/docker/jobs-cron.sh
@@ -76,17 +79,27 @@ services:
       - php
     volumes:
       # - ./api:/app
-      - var-files:/app/var
+      - var-files:/app/var/private-files
 
   # db-update:
   #   extends:
   #     service: php
-  #   command: php /app/mapas/src/tools/apply-updates.php
+  #   command: php mapas/src/tools/apply-updates.php
   #   depends_on:
   #     - database
   #   volumes:
   #     # - ./api:/app
-  #     - var-files:/app/var
+  #     - var-files:/app/var/private-files
+
+  # mc-update:
+  #   extends:
+  #     service: php
+  #   command: php mapas/src/tools/apply-multicore-db-update.php
+  #   depends_on:
+  #     - database
+  #   volumes:
+  #     # - ./api:/app
+  #     - var-files:/app/var/private-files
 
   redis:
     image: redis:6
@@ -107,17 +120,17 @@ services:
     # ports:
     #   - "8025:8025"
 
-  pwa:
-    image: redemapas/mapas-pwa
-    build:
-      context: ./pwa
-      target: dev
-    volumes:
-      - ./pwa:/srv/app
-    environment:
-      API_PLATFORM_CREATE_CLIENT_ENTRYPOINT: http://php
-      API_PLATFORM_CREATE_CLIENT_OUTPUT: .
-      NEXT_PUBLIC_ENTRYPOINT: http://php
+    # pwa:
+    #   image: redemapas/mapas-pwa
+    #   build:
+    #     context: ./pwa
+    #     target: dev
+    #   volumes:
+    #     - ./pwa:/srv/app
+    #   environment:
+    #     API_PLATFORM_CREATE_CLIENT_ENTRYPOINT: http://php
+    #     API_PLATFORM_CREATE_CLIENT_OUTPUT: .
+    #     NEXT_PUBLIC_ENTRYPOINT: http://php
 
   database:
     image: kartoza/postgis:14
@@ -128,7 +141,7 @@ services:
       DATADIR: ${DATADIR}
     volumes:
       - db_data:/opt/postgres/data
-      - ./api/mapas/dev/db:/docker-entrypoint-initdb.d
+      #- ./api/mapas/dev/db:/docker-entrypoint-initdb.d
       # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./api/docker/db/data:/var/lib/postgresql/data
     healthcheck:

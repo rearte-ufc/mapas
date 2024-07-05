@@ -6,10 +6,22 @@ require dirname(__DIR__, 2) . '/public/bootstrap.php';
 
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
+use Doctrine\Migrations\Tools\Console\Command;
 
 $entityManager = $app->em ?? null;
 
-$commands = [];
+$commands = [
+    new Command\DumpSchemaCommand(),
+    new Command\ExecuteCommand(),
+    new Command\GenerateCommand(),
+    new Command\LatestCommand(),
+    new Command\ListCommand(),
+    new Command\MigrateCommand(),
+    new Command\RollupCommand(),
+    new Command\StatusCommand(),
+    new Command\SyncMetadataCommand(),
+    new Command\VersionCommand(),
+];
 
 ConsoleRunner::run(
     new SingleManagerProvider($entityManager),

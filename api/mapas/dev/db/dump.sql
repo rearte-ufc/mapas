@@ -33,21 +33,6 @@ CREATE SCHEMA tiger_data;
 
 ALTER SCHEMA tiger_data OWNER TO mapas;
 
---
--- Name: topology; Type: SCHEMA; Schema: -; Owner: mapas
---
-
-CREATE SCHEMA topology;
-
-
-ALTER SCHEMA topology OWNER TO mapas;
-
---
--- Name: SCHEMA topology; Type: COMMENT; Schema: -; Owner: mapas
---
-
-COMMENT ON SCHEMA topology IS 'PostGIS Topology schema';
-
 
 --
 -- Name: fuzzystrmatch; Type: EXTENSION; Schema: -; Owner: 
@@ -2489,580 +2474,580 @@ ALTER TABLE ONLY public.term_relation ALTER COLUMN id SET DEFAULT nextval('publi
 -- Data for Name: _mesoregiao; Type: TABLE DATA; Schema: public; Owner: mapas
 --
 
-COPY public._mesoregiao (gid, id, nm_meso, cd_geocodu, geom) FROM stdin;
-\.
-
-
---
--- Data for Name: _microregiao; Type: TABLE DATA; Schema: public; Owner: mapas
---
-
-COPY public._microregiao (gid, id, nm_micro, cd_geocodu, geom) FROM stdin;
-\.
-
-
---
--- Data for Name: _municipios; Type: TABLE DATA; Schema: public; Owner: mapas
---
-
-COPY public._municipios (gid, id, cd_geocodm, nm_municip, geom) FROM stdin;
-\.
-
-
---
--- Data for Name: agent; Type: TABLE DATA; Schema: public; Owner: mapas
---
-
-COPY public.agent (id, parent_id, user_id, type, name, location, _geo_location, short_description, long_description, create_timestamp, status, is_verified, public_location, update_timestamp, subsite_id) FROM stdin;
-1	\N	1	1	Admin@local	\N	\N	\N	\N	2019-03-07 00:00:00	1	f	\N	2019-03-07 00:00:00	\N
-\.
-
-
---
--- Data for Name: agent_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
-
-COPY public.agent_meta (object_id, key, value, id) FROM stdin;
-\.
-
-
---
--- Data for Name: agent_relation; Type: TABLE DATA; Schema: public; Owner: mapas
---
-
-COPY public.agent_relation (id, agent_id, object_type, object_id, type, has_control, create_timestamp, status) FROM stdin;
-\.
-
-
---
--- Data for Name: db_update; Type: TABLE DATA; Schema: public; Owner: mapas
---
-
-COPY public.db_update (name, exec_time) FROM stdin;
-alter tablel term taxonomy type	2019-03-07 23:54:06.885661
-new random id generator	2019-03-07 23:54:06.885661
-migrate gender	2019-03-07 23:54:06.885661
-create table user apps	2019-03-07 23:54:06.885661
-create table user_meta	2019-03-07 23:54:06.885661
-create seal and seal relation tables	2019-03-07 23:54:06.885661
-resize entity meta key columns	2019-03-07 23:54:06.885661
-create registration field configuration table	2019-03-07 23:54:06.885661
-alter table registration_file_configuration add categories	2019-03-07 23:54:06.885661
-create saas tables	2019-03-07 23:54:06.885661
-rename saas tables to subsite	2019-03-07 23:54:06.885661
-remove parent_url and add alias_url	2019-03-07 23:54:06.885661
-verified seal migration	2019-03-07 23:54:06.885661
-create update timestamp entities	2019-03-07 23:54:06.885661
-alter table role add column subsite_id	2019-03-07 23:54:06.885661
-Fix field options field type from registration field configuration	2019-03-07 23:54:06.885661
-ADD columns subsite_id	2019-03-07 23:54:06.885661
-remove subsite slug column	2019-03-07 23:54:06.885661
-add subsite verified_seals column	2019-03-07 23:54:06.885661
-update entities last_update_timestamp with user last log timestamp	2019-03-07 23:54:06.885661
-Created owner seal relation field	2019-03-07 23:54:06.885661
-create table pcache	2019-03-07 23:54:06.885661
-function create pcache id sequence 2	2019-03-07 23:54:06.885661
-Add field for maximum size from registration field configuration	2019-03-07 23:54:06.885661
-Add notification type for compliant and suggestion messages	2019-03-07 23:54:06.885661
-create entity revision tables	2019-03-07 23:54:06.885661
-ALTER TABLE file ADD COLUMN path	2019-03-07 23:54:06.885661
-*_meta drop all indexes again	2019-03-07 23:54:06.885661
-recreate *_meta indexes	2019-03-07 23:54:06.885661
-create permission cache pending table2	2019-03-07 23:54:06.885661
-create opportunity tables	2019-03-07 23:54:06.885661
-DROP CONSTRAINT registration_project_fk");	2019-03-07 23:54:06.885661
-fix opportunity parent FK	2019-03-07 23:54:06.885661
-fix opportunity type 35	2019-03-07 23:54:06.885661
-create opportunity sequence	2019-03-07 23:54:06.885661
-update opportunity_meta_id sequence	2019-03-07 23:54:06.885661
-rename opportunity_meta key isProjectPhase to isOpportunityPhase	2019-03-07 23:54:06.885661
-migrate introInscricoes value to shortDescription	2019-03-07 23:54:06.885661
-ALTER TABLE registration ADD consolidated_result	2019-03-07 23:54:06.885661
-create evaluation methods tables	2019-03-07 23:54:06.885661
-create registration_evaluation table	2019-03-07 23:54:06.885661
-ALTER TABLE opportunity ALTER type DROP NOT NULL;	2019-03-07 23:54:06.885661
-create seal relation renovation flag field	2019-03-07 23:54:06.885661
-create seal relation validate date	2019-03-07 23:54:06.885661
-update seal_relation set validate_date	2019-03-07 23:54:06.885661
-refactor of entity meta keky value indexes	2019-03-07 23:54:06.885661
-DROP index registration_meta_value_idx	2019-03-07 23:54:06.885661
-altertable registration_file_and_files_add_order	2019-03-07 23:54:06.885661
-replace subsite entidades_habilitadas values	2019-03-07 23:54:06.885661
-replace subsite cor entidades values	2019-03-07 23:54:06.885661
-ALTER TABLE file ADD private and update	2019-03-07 23:54:06.885661
-move private files	2019-03-07 23:54:06.885661
-create permission cache sequence	2019-03-07 23:54:06.885661
-create evaluation methods sequence	2019-03-07 23:54:06.885661
-change opportunity field agent_id not null	2019-03-07 23:54:06.885661
-alter table registration add column number	2019-03-07 23:54:06.885661
-update registrations set number fixed	2019-03-07 23:54:06.885661
-alter table registration add column valuers_exceptions_list	2019-03-07 23:54:06.885661
-update taxonomy slug tag	2019-03-07 23:54:06.885661
-update taxonomy slug area	2019-03-07 23:54:06.885661
-update taxonomy slug linguagem	2019-03-07 23:54:06.885661
-recreate pcache	2019-03-07 23:54:19.344941
-generate file path	2019-03-07 23:54:19.352266
-create entities history entries	2019-03-07 23:54:19.357385
-create entities updated revision	2019-03-07 23:54:19.362878
-fix update timestamp of revisioned entities	2019-03-07 23:54:19.367904
-consolidate registration result	2019-03-07 23:54:19.3728
-create avatar thumbs	2019-03-07 23:55:16.963658
-CREATE SEQUENCE REGISTRATION SPACE RELATION registration_space_relation_id_seq	2021-02-04 13:50:37.698794
-CREATE TABLE spacerelation	2021-02-04 13:50:37.698794
-ALTER TABLE registration	2021-02-04 13:50:37.698794
-create event attendance table	2021-02-04 13:50:37.698794
-create procuration table	2021-02-04 13:50:37.698794
-alter table registration_field_configuration add column config	2021-02-04 13:50:37.698794
-recreate ALL FKs	2021-02-04 13:50:37.698794
-create object_type enum type	2021-02-04 13:50:37.698794
-create permission_action enum type	2021-02-04 13:50:37.698794
-alter tables to use enum types	2021-02-04 13:50:37.698794
-alter table permission_cache_pending add column status	2021-02-04 13:50:37.698794
-CREATE VIEW evaluation	2021-02-04 13:50:37.698794
-valuer disabling refactor	2021-02-04 13:50:37.698794
-\.
-
-
---
--- Data for Name: entity_revision; Type: TABLE DATA; Schema: public; Owner: mapas
---
-
-COPY public.entity_revision (id, user_id, object_id, object_type, create_timestamp, action, message) FROM stdin;
-1	1	1	MapasCulturais\\Entities\\Agent	2019-03-07 00:00:00	created	Registro criado.
-\.
-
-
---
--- Data for Name: entity_revision_data; Type: TABLE DATA; Schema: public; Owner: mapas
---
-
-COPY public.entity_revision_data (id, "timestamp", key, value) FROM stdin;
-1	2019-03-07 23:54:19	_type	1
-2	2019-03-07 23:54:19	name	"Admin@local"
-3	2019-03-07 23:54:19	publicLocation	null
-4	2019-03-07 23:54:19	location	{"latitude":0,"longitude":0}
-5	2019-03-07 23:54:19	shortDescription	null
-6	2019-03-07 23:54:19	longDescription	null
-7	2019-03-07 23:54:19	createTimestamp	{"date":"2019-03-07 00:00:00.000000","timezone_type":3,"timezone":"UTC"}
-8	2019-03-07 23:54:19	status	1
-9	2019-03-07 23:54:19	updateTimestamp	{"date":"2019-03-07 00:00:00.000000","timezone_type":3,"timezone":"UTC"}
-10	2019-03-07 23:54:19	_subsiteId	null
-\.
+-- COPY public._mesoregiao (gid, id, nm_meso, cd_geocodu, geom) FROM stdin;
+-- \.
+
+
+-- --
+-- -- Data for Name: _microregiao; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
+
+-- COPY public._microregiao (gid, id, nm_micro, cd_geocodu, geom) FROM stdin;
+-- \.
+
+
+-- --
+-- -- Data for Name: _municipios; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
+
+-- COPY public._municipios (gid, id, cd_geocodm, nm_municip, geom) FROM stdin;
+-- \.
+
+
+-- --
+-- -- Data for Name: agent; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
+
+-- COPY public.agent (id, parent_id, user_id, type, name, location, _geo_location, short_description, long_description, create_timestamp, status, is_verified, public_location, update_timestamp, subsite_id) FROM stdin;
+-- 1	\N	1	1	Admin@local	\N	\N	\N	\N	2019-03-07 00:00:00	1	f	\N	2019-03-07 00:00:00	\N
+-- \.
+
+
+-- --
+-- -- Data for Name: agent_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
+
+-- COPY public.agent_meta (object_id, key, value, id) FROM stdin;
+-- \.
+
+
+-- --
+-- -- Data for Name: agent_relation; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
+
+-- COPY public.agent_relation (id, agent_id, object_type, object_id, type, has_control, create_timestamp, status) FROM stdin;
+-- \.
+
+
+-- --
+-- -- Data for Name: db_update; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
+
+-- COPY public.db_update (name, exec_time) FROM stdin;
+-- alter tablel term taxonomy type	2019-03-07 23:54:06.885661
+-- new random id generator	2019-03-07 23:54:06.885661
+-- migrate gender	2019-03-07 23:54:06.885661
+-- create table user apps	2019-03-07 23:54:06.885661
+-- create table user_meta	2019-03-07 23:54:06.885661
+-- create seal and seal relation tables	2019-03-07 23:54:06.885661
+-- resize entity meta key columns	2019-03-07 23:54:06.885661
+-- create registration field configuration table	2019-03-07 23:54:06.885661
+-- alter table registration_file_configuration add categories	2019-03-07 23:54:06.885661
+-- create saas tables	2019-03-07 23:54:06.885661
+-- rename saas tables to subsite	2019-03-07 23:54:06.885661
+-- remove parent_url and add alias_url	2019-03-07 23:54:06.885661
+-- verified seal migration	2019-03-07 23:54:06.885661
+-- create update timestamp entities	2019-03-07 23:54:06.885661
+-- alter table role add column subsite_id	2019-03-07 23:54:06.885661
+-- Fix field options field type from registration field configuration	2019-03-07 23:54:06.885661
+-- ADD columns subsite_id	2019-03-07 23:54:06.885661
+-- remove subsite slug column	2019-03-07 23:54:06.885661
+-- add subsite verified_seals column	2019-03-07 23:54:06.885661
+-- update entities last_update_timestamp with user last log timestamp	2019-03-07 23:54:06.885661
+-- Created owner seal relation field	2019-03-07 23:54:06.885661
+-- create table pcache	2019-03-07 23:54:06.885661
+-- function create pcache id sequence 2	2019-03-07 23:54:06.885661
+-- Add field for maximum size from registration field configuration	2019-03-07 23:54:06.885661
+-- Add notification type for compliant and suggestion messages	2019-03-07 23:54:06.885661
+-- create entity revision tables	2019-03-07 23:54:06.885661
+-- ALTER TABLE file ADD COLUMN path	2019-03-07 23:54:06.885661
+-- *_meta drop all indexes again	2019-03-07 23:54:06.885661
+-- recreate *_meta indexes	2019-03-07 23:54:06.885661
+-- create permission cache pending table2	2019-03-07 23:54:06.885661
+-- create opportunity tables	2019-03-07 23:54:06.885661
+-- DROP CONSTRAINT registration_project_fk");	2019-03-07 23:54:06.885661
+-- fix opportunity parent FK	2019-03-07 23:54:06.885661
+-- fix opportunity type 35	2019-03-07 23:54:06.885661
+-- create opportunity sequence	2019-03-07 23:54:06.885661
+-- update opportunity_meta_id sequence	2019-03-07 23:54:06.885661
+-- rename opportunity_meta key isProjectPhase to isOpportunityPhase	2019-03-07 23:54:06.885661
+-- migrate introInscricoes value to shortDescription	2019-03-07 23:54:06.885661
+-- ALTER TABLE registration ADD consolidated_result	2019-03-07 23:54:06.885661
+-- create evaluation methods tables	2019-03-07 23:54:06.885661
+-- create registration_evaluation table	2019-03-07 23:54:06.885661
+-- ALTER TABLE opportunity ALTER type DROP NOT NULL;	2019-03-07 23:54:06.885661
+-- create seal relation renovation flag field	2019-03-07 23:54:06.885661
+-- create seal relation validate date	2019-03-07 23:54:06.885661
+-- update seal_relation set validate_date	2019-03-07 23:54:06.885661
+-- refactor of entity meta keky value indexes	2019-03-07 23:54:06.885661
+-- DROP index registration_meta_value_idx	2019-03-07 23:54:06.885661
+-- altertable registration_file_and_files_add_order	2019-03-07 23:54:06.885661
+-- replace subsite entidades_habilitadas values	2019-03-07 23:54:06.885661
+-- replace subsite cor entidades values	2019-03-07 23:54:06.885661
+-- ALTER TABLE file ADD private and update	2019-03-07 23:54:06.885661
+-- move private files	2019-03-07 23:54:06.885661
+-- create permission cache sequence	2019-03-07 23:54:06.885661
+-- create evaluation methods sequence	2019-03-07 23:54:06.885661
+-- change opportunity field agent_id not null	2019-03-07 23:54:06.885661
+-- alter table registration add column number	2019-03-07 23:54:06.885661
+-- update registrations set number fixed	2019-03-07 23:54:06.885661
+-- alter table registration add column valuers_exceptions_list	2019-03-07 23:54:06.885661
+-- update taxonomy slug tag	2019-03-07 23:54:06.885661
+-- update taxonomy slug area	2019-03-07 23:54:06.885661
+-- update taxonomy slug linguagem	2019-03-07 23:54:06.885661
+-- recreate pcache	2019-03-07 23:54:19.344941
+-- generate file path	2019-03-07 23:54:19.352266
+-- create entities history entries	2019-03-07 23:54:19.357385
+-- create entities updated revision	2019-03-07 23:54:19.362878
+-- fix update timestamp of revisioned entities	2019-03-07 23:54:19.367904
+-- consolidate registration result	2019-03-07 23:54:19.3728
+-- create avatar thumbs	2019-03-07 23:55:16.963658
+-- CREATE SEQUENCE REGISTRATION SPACE RELATION registration_space_relation_id_seq	2021-02-04 13:50:37.698794
+-- CREATE TABLE spacerelation	2021-02-04 13:50:37.698794
+-- ALTER TABLE registration	2021-02-04 13:50:37.698794
+-- create event attendance table	2021-02-04 13:50:37.698794
+-- create procuration table	2021-02-04 13:50:37.698794
+-- alter table registration_field_configuration add column config	2021-02-04 13:50:37.698794
+-- recreate ALL FKs	2021-02-04 13:50:37.698794
+-- create object_type enum type	2021-02-04 13:50:37.698794
+-- create permission_action enum type	2021-02-04 13:50:37.698794
+-- alter tables to use enum types	2021-02-04 13:50:37.698794
+-- alter table permission_cache_pending add column status	2021-02-04 13:50:37.698794
+-- CREATE VIEW evaluation	2021-02-04 13:50:37.698794
+-- valuer disabling refactor	2021-02-04 13:50:37.698794
+-- \.
+
+
+-- --
+-- -- Data for Name: entity_revision; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
+
+-- COPY public.entity_revision (id, user_id, object_id, object_type, create_timestamp, action, message) FROM stdin;
+-- 1	1	1	MapasCulturais\\Entities\\Agent	2019-03-07 00:00:00	created	Registro criado.
+-- \.
+
+
+-- --
+-- -- Data for Name: entity_revision_data; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
+
+-- COPY public.entity_revision_data (id, "timestamp", key, value) FROM stdin;
+-- 1	2019-03-07 23:54:19	_type	1
+-- 2	2019-03-07 23:54:19	name	"Admin@local"
+-- 3	2019-03-07 23:54:19	publicLocation	null
+-- 4	2019-03-07 23:54:19	location	{"latitude":0,"longitude":0}
+-- 5	2019-03-07 23:54:19	shortDescription	null
+-- 6	2019-03-07 23:54:19	longDescription	null
+-- 7	2019-03-07 23:54:19	createTimestamp	{"date":"2019-03-07 00:00:00.000000","timezone_type":3,"timezone":"UTC"}
+-- 8	2019-03-07 23:54:19	status	1
+-- 9	2019-03-07 23:54:19	updateTimestamp	{"date":"2019-03-07 00:00:00.000000","timezone_type":3,"timezone":"UTC"}
+-- 10	2019-03-07 23:54:19	_subsiteId	null
+-- \.
 
 
---
--- Data for Name: entity_revision_revision_data; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: entity_revision_revision_data; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.entity_revision_revision_data (revision_id, revision_data_id) FROM stdin;
-1	1
-1	2
-1	3
-1	4
-1	5
-1	6
-1	7
-1	8
-1	9
-1	10
-\.
+-- COPY public.entity_revision_revision_data (revision_id, revision_data_id) FROM stdin;
+-- 1	1
+-- 1	2
+-- 1	3
+-- 1	4
+-- 1	5
+-- 1	6
+-- 1	7
+-- 1	8
+-- 1	9
+-- 1	10
+-- \.
 
 
---
--- Data for Name: evaluation_method_configuration; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: evaluation_method_configuration; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.evaluation_method_configuration (id, opportunity_id, type) FROM stdin;
-\.
+-- COPY public.evaluation_method_configuration (id, opportunity_id, type) FROM stdin;
+-- \.
 
 
---
--- Data for Name: evaluationmethodconfiguration_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: evaluationmethodconfiguration_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.evaluationmethodconfiguration_meta (id, object_id, key, value) FROM stdin;
-\.
+-- COPY public.evaluationmethodconfiguration_meta (id, object_id, key, value) FROM stdin;
+-- \.
 
 
---
--- Data for Name: event; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: event; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.event (id, project_id, name, short_description, long_description, rules, create_timestamp, status, agent_id, is_verified, type, update_timestamp, subsite_id) FROM stdin;
-\.
+-- COPY public.event (id, project_id, name, short_description, long_description, rules, create_timestamp, status, agent_id, is_verified, type, update_timestamp, subsite_id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: event_attendance; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: event_attendance; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.event_attendance (id, user_id, event_occurrence_id, event_id, space_id, type, reccurrence_string, start_timestamp, end_timestamp, create_timestamp) FROM stdin;
-\.
+-- COPY public.event_attendance (id, user_id, event_occurrence_id, event_id, space_id, type, reccurrence_string, start_timestamp, end_timestamp, create_timestamp) FROM stdin;
+-- \.
 
 
---
--- Data for Name: event_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: event_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.event_meta (key, object_id, value, id) FROM stdin;
-\.
+-- COPY public.event_meta (key, object_id, value, id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: event_occurrence; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: event_occurrence; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.event_occurrence (id, space_id, event_id, rule, starts_on, ends_on, starts_at, ends_at, frequency, separation, count, until, timezone_name, status) FROM stdin;
-\.
+-- COPY public.event_occurrence (id, space_id, event_id, rule, starts_on, ends_on, starts_at, ends_at, frequency, separation, count, until, timezone_name, status) FROM stdin;
+-- \.
 
 
---
--- Data for Name: event_occurrence_cancellation; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: event_occurrence_cancellation; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.event_occurrence_cancellation (id, event_occurrence_id, date) FROM stdin;
-\.
+-- COPY public.event_occurrence_cancellation (id, event_occurrence_id, date) FROM stdin;
+-- \.
 
 
---
--- Data for Name: event_occurrence_recurrence; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: event_occurrence_recurrence; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.event_occurrence_recurrence (id, event_occurrence_id, month, day, week) FROM stdin;
-\.
+-- COPY public.event_occurrence_recurrence (id, event_occurrence_id, month, day, week) FROM stdin;
+-- \.
 
 
---
--- Data for Name: file; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: file; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.file (id, md5, mime_type, name, object_type, object_id, create_timestamp, grp, description, parent_id, path, private) FROM stdin;
-\.
+-- COPY public.file (id, md5, mime_type, name, object_type, object_id, create_timestamp, grp, description, parent_id, path, private) FROM stdin;
+-- \.
 
 
---
--- Data for Name: geo_division; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: geo_division; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.geo_division (id, parent_id, type, cod, name, geom) FROM stdin;
-\.
+-- COPY public.geo_division (id, parent_id, type, cod, name, geom) FROM stdin;
+-- \.
 
 
---
--- Data for Name: metadata; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: metadata; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.metadata (object_id, object_type, key, value) FROM stdin;
-\.
+-- COPY public.metadata (object_id, object_type, key, value) FROM stdin;
+-- \.
 
 
---
--- Data for Name: metalist; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: metalist; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.metalist (id, object_type, object_id, grp, title, description, value, create_timestamp, "order") FROM stdin;
-\.
+-- COPY public.metalist (id, object_type, object_id, grp, title, description, value, create_timestamp, "order") FROM stdin;
+-- \.
 
 
---
--- Data for Name: notification; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: notification; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.notification (id, user_id, request_id, message, create_timestamp, action_timestamp, status) FROM stdin;
-\.
+-- COPY public.notification (id, user_id, request_id, message, create_timestamp, action_timestamp, status) FROM stdin;
+-- \.
 
 
---
--- Data for Name: notification_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: notification_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.notification_meta (id, object_id, key, value) FROM stdin;
-\.
+-- COPY public.notification_meta (id, object_id, key, value) FROM stdin;
+-- \.
 
 
---
--- Data for Name: opportunity; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: opportunity; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.opportunity (id, parent_id, agent_id, type, name, short_description, long_description, registration_from, registration_to, published_registrations, registration_categories, create_timestamp, update_timestamp, status, subsite_id, object_type, object_id) FROM stdin;
-\.
+-- COPY public.opportunity (id, parent_id, agent_id, type, name, short_description, long_description, registration_from, registration_to, published_registrations, registration_categories, create_timestamp, update_timestamp, status, subsite_id, object_type, object_id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: opportunity_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: opportunity_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.opportunity_meta (id, object_id, key, value) FROM stdin;
-\.
+-- COPY public.opportunity_meta (id, object_id, key, value) FROM stdin;
+-- \.
 
 
---
--- Data for Name: pcache; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: pcache; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.pcache (id, user_id, action, create_timestamp, object_type, object_id) FROM stdin;
-\.
+-- COPY public.pcache (id, user_id, action, create_timestamp, object_type, object_id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: permission_cache_pending; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: permission_cache_pending; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.permission_cache_pending (id, object_id, object_type, status) FROM stdin;
-\.
+-- COPY public.permission_cache_pending (id, object_id, object_type, status) FROM stdin;
+-- \.
 
 
---
--- Data for Name: procuration; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: procuration; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.procuration (token, usr_id, attorney_user_id, action, create_timestamp, valid_until_timestamp) FROM stdin;
-\.
+-- COPY public.procuration (token, usr_id, attorney_user_id, action, create_timestamp, valid_until_timestamp) FROM stdin;
+-- \.
 
 
---
--- Data for Name: project; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: project; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.project (id, name, short_description, long_description, create_timestamp, status, agent_id, is_verified, type, parent_id, registration_from, registration_to, update_timestamp, subsite_id) FROM stdin;
-\.
+-- COPY public.project (id, name, short_description, long_description, create_timestamp, status, agent_id, is_verified, type, parent_id, registration_from, registration_to, update_timestamp, subsite_id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: project_event; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: project_event; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.project_event (id, event_id, project_id, type, status) FROM stdin;
-\.
+-- COPY public.project_event (id, event_id, project_id, type, status) FROM stdin;
+-- \.
 
 
---
--- Data for Name: project_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: project_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.project_meta (object_id, key, value, id) FROM stdin;
-\.
+-- COPY public.project_meta (object_id, key, value, id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: registration; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: registration; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.registration (id, opportunity_id, category, agent_id, create_timestamp, sent_timestamp, status, agents_data, subsite_id, consolidated_result, number, valuers_exceptions_list, space_data) FROM stdin;
-\.
+-- COPY public.registration (id, opportunity_id, category, agent_id, create_timestamp, sent_timestamp, status, agents_data, subsite_id, consolidated_result, number, valuers_exceptions_list, space_data) FROM stdin;
+-- \.
 
 
---
--- Data for Name: registration_evaluation; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: registration_evaluation; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.registration_evaluation (id, registration_id, user_id, result, evaluation_data, status) FROM stdin;
-\.
+-- COPY public.registration_evaluation (id, registration_id, user_id, result, evaluation_data, status) FROM stdin;
+-- \.
 
 
---
--- Data for Name: registration_field_configuration; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: registration_field_configuration; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.registration_field_configuration (id, opportunity_id, title, description, categories, required, field_type, field_options, max_size, display_order, config) FROM stdin;
-\.
+-- COPY public.registration_field_configuration (id, opportunity_id, title, description, categories, required, field_type, field_options, max_size, display_order, config) FROM stdin;
+-- \.
 
 
---
--- Data for Name: registration_file_configuration; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: registration_file_configuration; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.registration_file_configuration (id, opportunity_id, title, description, required, categories, display_order) FROM stdin;
-\.
+-- COPY public.registration_file_configuration (id, opportunity_id, title, description, required, categories, display_order) FROM stdin;
+-- \.
 
 
---
--- Data for Name: registration_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: registration_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.registration_meta (object_id, key, value, id) FROM stdin;
-\.
+-- COPY public.registration_meta (object_id, key, value, id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: request; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: request; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.request (id, request_uid, requester_user_id, origin_type, origin_id, destination_type, destination_id, metadata, type, create_timestamp, action_timestamp, status) FROM stdin;
-\.
+-- COPY public.request (id, request_uid, requester_user_id, origin_type, origin_id, destination_type, destination_id, metadata, type, create_timestamp, action_timestamp, status) FROM stdin;
+-- \.
 
 
---
--- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.role (id, usr_id, name, subsite_id) FROM stdin;
-2	1	saasSuperAdmin	\N
-\.
+-- COPY public.role (id, usr_id, name, subsite_id) FROM stdin;
+-- 2	1	saasSuperAdmin	\N
+-- \.
 
 
---
--- Data for Name: seal; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: seal; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.seal (id, agent_id, name, short_description, long_description, valid_period, create_timestamp, status, certificate_text, update_timestamp, subsite_id) FROM stdin;
-1	1	Selo Mapas	Descrição curta Selo Mapas	Descrição longa Selo Mapas	0	2019-03-07 23:54:04	1	\N	2019-03-07 00:00:00	\N
-\.
+-- COPY public.seal (id, agent_id, name, short_description, long_description, valid_period, create_timestamp, status, certificate_text, update_timestamp, subsite_id) FROM stdin;
+-- 1	1	Selo Mapas	Descrição curta Selo Mapas	Descrição longa Selo Mapas	0	2019-03-07 23:54:04	1	\N	2019-03-07 00:00:00	\N
+-- \.
 
 
---
--- Data for Name: seal_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: seal_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.seal_meta (id, object_id, key, value) FROM stdin;
-\.
+-- COPY public.seal_meta (id, object_id, key, value) FROM stdin;
+-- \.
 
 
---
--- Data for Name: seal_relation; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: seal_relation; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.seal_relation (id, seal_id, object_id, create_timestamp, status, object_type, agent_id, owner_id, validate_date, renovation_request) FROM stdin;
-\.
+-- COPY public.seal_relation (id, seal_id, object_id, create_timestamp, status, object_type, agent_id, owner_id, validate_date, renovation_request) FROM stdin;
+-- \.
 
 
---
--- Data for Name: space; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: space; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.space (id, parent_id, location, _geo_location, name, short_description, long_description, create_timestamp, status, type, agent_id, is_verified, public, update_timestamp, subsite_id) FROM stdin;
-\.
+-- COPY public.space (id, parent_id, location, _geo_location, name, short_description, long_description, create_timestamp, status, type, agent_id, is_verified, public, update_timestamp, subsite_id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: space_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: space_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.space_meta (object_id, key, value, id) FROM stdin;
-\.
+-- COPY public.space_meta (object_id, key, value, id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: space_relation; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: space_relation; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.space_relation (id, space_id, object_id, create_timestamp, status, object_type) FROM stdin;
-\.
+-- COPY public.space_relation (id, space_id, object_id, create_timestamp, status, object_type) FROM stdin;
+-- \.
 
 
---
--- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
-\.
+-- COPY public.spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
+-- \.
 
 
---
--- Data for Name: subsite; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: subsite; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.subsite (id, name, create_timestamp, status, agent_id, url, namespace, alias_url, verified_seals) FROM stdin;
-\.
+-- COPY public.subsite (id, name, create_timestamp, status, agent_id, url, namespace, alias_url, verified_seals) FROM stdin;
+-- \.
 
 
---
--- Data for Name: subsite_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: subsite_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.subsite_meta (object_id, key, value, id) FROM stdin;
-\.
+-- COPY public.subsite_meta (object_id, key, value, id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: term; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: term; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.term (id, taxonomy, term, description) FROM stdin;
-\.
+-- COPY public.term (id, taxonomy, term, description) FROM stdin;
+-- \.
 
 
---
--- Data for Name: term_relation; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: term_relation; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.term_relation (term_id, object_type, object_id, id) FROM stdin;
-\.
+-- COPY public.term_relation (term_id, object_type, object_id, id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: user_app; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: user_app; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.user_app (public_key, private_key, user_id, name, status, create_timestamp, subsite_id) FROM stdin;
-\.
+-- COPY public.user_app (public_key, private_key, user_id, name, status, create_timestamp, subsite_id) FROM stdin;
+-- \.
 
 
---
--- Data for Name: user_meta; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: user_meta; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.user_meta (object_id, key, value, id) FROM stdin;
-1	deleteAccountToken	54cd760dfca39f8e8c8332d7499bdb44f921dc16	1
-1	localAuthenticationPassword	$2y$10$iIXeqhX.4fEAAVZPsbtRde7CFw1ChduCi8NsnXGnJc6TlelY6gf3e	2
-\.
+-- COPY public.user_meta (object_id, key, value, id) FROM stdin;
+-- 1	deleteAccountToken	54cd760dfca39f8e8c8332d7499bdb44f921dc16	1
+-- 1	localAuthenticationPassword	$2y$10$iIXeqhX.4fEAAVZPsbtRde7CFw1ChduCi8NsnXGnJc6TlelY6gf3e	2
+-- \.
 
 
---
--- Data for Name: usr; Type: TABLE DATA; Schema: public; Owner: mapas
---
+-- --
+-- -- Data for Name: usr; Type: TABLE DATA; Schema: public; Owner: mapas
+-- --
 
-COPY public.usr (id, auth_provider, auth_uid, email, last_login_timestamp, create_timestamp, status, profile_id) FROM stdin;
-1	1	1	Admin@local	2019-03-08 19:03:34	2019-03-07 00:00:00	1	1
-\.
+-- COPY public.usr (id, auth_provider, auth_uid, email, last_login_timestamp, create_timestamp, status, profile_id) FROM stdin;
+-- 1	1	1	Admin@local	2019-03-08 19:03:34	2019-03-07 00:00:00	1	1
+-- \.
 
 
---
--- Data for Name: geocode_settings; Type: TABLE DATA; Schema: tiger; Owner: mapas
---
+-- --
+-- -- Data for Name: geocode_settings; Type: TABLE DATA; Schema: tiger; Owner: mapas
+-- --
 
-COPY tiger.geocode_settings (name, setting, unit, category, short_desc) FROM stdin;
-\.
+-- COPY tiger.geocode_settings (name, setting, unit, category, short_desc) FROM stdin;
+-- \.
 
 
---
--- Data for Name: pagc_gaz; Type: TABLE DATA; Schema: tiger; Owner: mapas
---
+-- --
+-- -- Data for Name: pagc_gaz; Type: TABLE DATA; Schema: tiger; Owner: mapas
+-- --
 
-COPY tiger.pagc_gaz (id, seq, word, stdword, token, is_custom) FROM stdin;
-\.
+-- COPY tiger.pagc_gaz (id, seq, word, stdword, token, is_custom) FROM stdin;
+-- \.
 
 
---
--- Data for Name: pagc_lex; Type: TABLE DATA; Schema: tiger; Owner: mapas
---
+-- --
+-- -- Data for Name: pagc_lex; Type: TABLE DATA; Schema: tiger; Owner: mapas
+-- --
 
-COPY tiger.pagc_lex (id, seq, word, stdword, token, is_custom) FROM stdin;
-\.
+-- COPY tiger.pagc_lex (id, seq, word, stdword, token, is_custom) FROM stdin;
+-- \.
 
 
---
--- Data for Name: pagc_rules; Type: TABLE DATA; Schema: tiger; Owner: mapas
---
+-- --
+-- -- Data for Name: pagc_rules; Type: TABLE DATA; Schema: tiger; Owner: mapas
+-- --
 
-COPY tiger.pagc_rules (id, rule, is_custom) FROM stdin;
-\.
+-- COPY tiger.pagc_rules (id, rule, is_custom) FROM stdin;
+-- \.
 
 
---
--- Data for Name: topology; Type: TABLE DATA; Schema: topology; Owner: mapas
---
+-- --
+-- -- Data for Name: topology; Type: TABLE DATA; Schema: topology; Owner: mapas
+-- --
 
-COPY topology.topology (id, name, srid, "precision", hasz) FROM stdin;
-\.
+-- COPY topology.topology (id, name, srid, "precision", hasz) FROM stdin;
+-- \.
 
 
---
--- Data for Name: layer; Type: TABLE DATA; Schema: topology; Owner: mapas
---
+-- --
+-- -- Data for Name: layer; Type: TABLE DATA; Schema: topology; Owner: mapas
+-- --
 
-COPY topology.layer (topology_id, layer_id, schema_name, table_name, feature_column, feature_type, level, child_id) FROM stdin;
-\.
+-- COPY topology.layer (topology_id, layer_id, schema_name, table_name, feature_column, feature_type, level, child_id) FROM stdin;
+-- \.
 
 
 --

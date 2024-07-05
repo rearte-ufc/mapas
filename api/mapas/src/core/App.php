@@ -438,13 +438,60 @@ class App {
 
         $this->_initStorage();
 
-        if(defined('DB_UPDATES_FILE') && file_exists(DB_UPDATES_FILE))
+        if (defined('DB_UPDATES_FILE') && file_exists(DB_UPDATES_FILE)) {
+            $this->_firstDbUpdate();
             $this->_dbUpdates();
+        }
 
         $this->applyHookBoundTo($this, 'app.init:after');
         return $this;
     }
 
+    function _firstDbUpdate()
+    {
+        try {
+            // Conectar ao banco de dados usando Doctrine DBAL
+            $connection = $this->em->getConnection();
+
+            // Verificar a existência da tabela system_role
+            $schemaManager = $connection->createSchemaManager();
+            $tables = $schemaManager->listTableNames();
+
+            if (in_array('system_role', $tables)) {
+                echo 'A tabela "system_role" já existe. Nenhuma ação necessária.';
+            } else {
+                // Ler o arquivo SQL
+                $sqlFile = PROTECTED_PATH . 'dev/db/dump.sql';
+                $sql = file_get_contents($sqlFile);
+
+                if ($sql === false) {
+                    throw new Exception("Erro ao ler o arquivo SQL.");
+                }
+
+                // Filtrar linhas específicas do psql
+                // $sqlLines = explode("\n", $sql);
+                // $filteredSqlLines = array_filter($sqlLines, function ($line) {
+                //     // Remover linhas que começam com '\'
+                //     return !preg_match('/^\\\/', trim($line));
+                // });
+
+                // $filteredSql = implode("\n", $filteredSqlLines);
+
+                // Registrar SQL filtrado para depuração
+                // file_put_contents('filtered_sql.sql', $filteredSql);
+
+                // Dividir o SQL por ';' para assegurar a execução correta de múltiplas queries
+                $connection->executeStatement($sql);
+                echo 'Arquivo SQL executado com sucesso.';
+            }
+        } catch (Exception $e) {
+            // Reverter a transação em caso de erro
+            if (isset($connection) && $connection->isTransactionActive()) {
+                $connection->rollBack();
+            }
+            echo 'Erro ao executar o arquivo SQL: ' . $e->getMessage();
+        }
+    }
     /**
      * Executa a aplicação
      * 

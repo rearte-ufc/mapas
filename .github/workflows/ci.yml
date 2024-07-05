@@ -74,9 +74,6 @@ jobs:
       #     subject-digest: ${{ steps.push.outputs.digest }}
       #     push-to-registry: true
       -
-        name: Create private-files folder
-        run: docker compose run --rm web mkdir var/private-files
-      -
         name: Start services
         run: docker compose up database redis mailhog web --wait --no-build
       -
@@ -94,6 +91,9 @@ jobs:
       -
         name: Run db-updates
         run: docker compose exec -T web php mapas/src/tools/apply-updates.php
+      -
+        name: Run db-updates
+        run: docker compose exec -T web php mapas/src/tools/apply-multicore-db-update.php
       -
         name: Run migrations
         run: docker compose exec -T web bin/console -e test doctrine:migrations:migrate --no-interaction

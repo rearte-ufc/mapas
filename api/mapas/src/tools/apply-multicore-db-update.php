@@ -1,11 +1,11 @@
 <?php
 $start_time = date('H:i:s');
 $start_microtime = microtime(true);
-$NUMBER_OF_PROCESSES = $argv[1];
-$PROCESS_NUM = $argv[2];
-define('NUMBER_OF_PROCESSES', intval($argv[1]));
-define('PROCESS_NUM', $argv[2]);
-define('UPDATE_NAME', $argv[3]);
+$NUMBER_OF_PROCESSES = 1;
+$PROCESS_NUM = 1;
+define('NUMBER_OF_PROCESSES', intval(1));
+define('PROCESS_NUM', 1);
+define('UPDATE_NAME', $argv[1]);
 
 
 require __DIR__ . '/../../public/bootstrap.php';
@@ -67,7 +67,7 @@ class DB_UPDATE {
     
     static function loadUpdates(){
         $app = App::i();
-        $updates = include __DIR__ . '/../mc-updates.php';
+        $updates = include __DIR__ . '/../' . '/mc-updates.php';
 
         foreach($app->view->path as $path){
             $db_update_file = $path . 'mc-updates.php';

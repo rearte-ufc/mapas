@@ -1,34 +1,41 @@
+x-defaults: &defaults
+  environment: &environment
+    PWA_UPSTREAM: ${PWA_UPSTREAM}
+    SERVER_NAME: ${SERVER_NAME}
+    MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY}
+    MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY}
+    TRUSTED_PROXIES: ${TRUSTED_PROXIES}
+    TRUSTED_HOSTS: ${TRUSTED_HOSTS}
+    DATABASE_URL: ${DATABASE_URL}
+    MERCURE_URL: ${MERCURE_URL}
+    MERCURE_PUBLIC_URL: ${MERCURE_PUBLIC_URL}
+    MERCURE_JWT_SECRET: ${MERCURE_JWT_SECRET}
+    BUILD_ASSETS: ${BUILD_ASSETS}
+    PENDING_PCACHE_RECREATION_INTERVAL: ${PENDING_PCACHE_RECREATION_INTERVAL}
+    JOBS_INTERVAL: ${JOBS_INTERVAL}
+    REDIS_CACHE: ${REDIS_CACHE}
+    MAILER_TRANSPORT: ${MAILER_TRANSPORT}
+    MAILER_FROM: ${MAILER_FROM}
+    NUM_PROCESSES: ${NUM_PROCESSES}
+    MC_UPDATES_PROCESSES: ${MC_UPDATES_PROCESSES}
+    GOOGLE_RECAPTCHA_SITEKEY: ${GOOGLE_RECAPTCHA_SITEKEY}
+    GOOGLE_RECAPTCHA_SECRET: ${GOOGLE_RECAPTCHA_SECRET}
+    SESSIONS_SAVE_PATH: ${SESSIONS_SAVE_PATH}
+
 services:
-  php:
+  web:
+    <<: *defaults
     image: ghcr.io/redemapas/mapas:feat-new-theme
-    depends_on:
-      - database
     restart: unless-stopped
+    depends_on:
+      - db-update
     environment:
-      PWA_UPSTREAM: ${PWA_UPSTREAM}
-      SERVER_NAME: ${SERVER_NAME}
-      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY}
-      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY}
-      TRUSTED_PROXIES: ${TRUSTED_PROXIES}
-      TRUSTED_HOSTS: ${TRUSTED_HOSTS}
-      DATABASE_URL: ${DATABASE_URL}
-      MERCURE_URL: ${MERCURE_URL}
-      MERCURE_PUBLIC_URL: ${MERCURE_PUBLIC_URL}
-      MERCURE_JWT_SECRET: ${MERCURE_JWT_SECRET}
-      BUILD_ASSETS: ${BUILD_ASSETS}
-      PENDING_PCACHE_RECREATION_INTERVAL: ${PENDING_PCACHE_RECREATION_INTERVAL}
-      JOBS_INTERVAL: ${JOBS_INTERVAL}
-      REDIS_CACHE: ${REDIS_CACHE}
-      MAILER_TRANSPORT: ${MAILER_TRANSPORT}
-      MAILER_FROM: ${MAILER_FROM}
-      NUM_PROCESSES: ${NUM_PROCESSES}
-      MC_UPDATES_PROCESSES: ${MC_UPDATES_PROCESSES}
-      GOOGLE_RECAPTCHA_SITEKEY: ${GOOGLE_RECAPTCHA_SITEKEY}
-      GOOGLE_RECAPTCHA_SECRET: ${GOOGLE_RECAPTCHA_SECRET}
-      SESSIONS_SAVE_PATH: ${SESSIONS_SAVE_PATH}
+      <<: *environment
     # build:
-      # context: ./api
-      # target: frankenphp_dev
+    #   context: ./api
+    #   target: frankenphp_dev
+    ports:
+      - 5020:80
     volumes:
       # - ./api:/app
       # - /app/var
@@ -38,17 +45,6 @@ services:
       # - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       - caddy_data:/data
       - caddy_config:/config
-
-  web:
-    image: ghcr.io/redemapas/mapas:feat-new-theme
-    extends:
-      service: php
-    ports:
-      # HTTP
-      - target: 80
-        published: 5020
-        protocol: tcp
-
   # pgadmin:
   #   image: dpage/pgadmin4
   #   environment:
@@ -66,12 +62,13 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   recreate-pending-pcache:
+    <<: *defaults
     image: ghcr.io/redemapas/mapas:feat-new-theme
-    extends:
-      service: php
-    command: php ./mapas/src/tools/recreate-pending-pcache.php
     depends_on:
-      - php
+      - web
+    environment:
+      <<: *environment
+    command: php ./mapas/src/tools/recreate-pending-pcache.php
     volumes:
       # - ./api:/app
       - var-files:/app/var/private-files
@@ -79,36 +76,30 @@ services:
       - "cron.schedule=* * * ? * *"
 
   execute-job:
+    <<: *defaults
     image: ghcr.io/redemapas/mapas:feat-new-theme
-    extends:
-      service: php
-    command: php ./mapas/src/tools/execute-job.php
     depends_on:
-      - php
+      - web
+    environment:
+      <<: *environment
+    command: php ./mapas/src/tools/execute-job.php
     volumes:
-      # - ./api:/app
       - var-files:/app/var/private-files
     labels:
       - "cron.schedule=* * * ? * *"
 
-  # db-update:
-  #   extends:
-  #     service: php
-  #   command: php mapas/src/tools/apply-updates.php
-  #   depends_on:
-  #     - database
-  #   volumes:
-  #     # - ./api:/app
-  #     - var-files:/app/var/private-files
+  db-update:
+    <<: *defaults
+    image: ghcr.io/redemapas/mapas:feat-new-theme
+    command: php mapas/src/tools/apply-updates.php
+    depends_on:
+      - database
+    volumes:
+      - var-files:/app/var/private-files
 
   # mc-update:
-  #   extends:
-  #     service: php
   #   command: php mapas/src/tools/apply-multicore-db-update.php
-  #   depends_on:
-  #     - database
   #   volumes:
-  #     # - ./api:/app
   #     - var-files:/app/var/private-files
 
   redis:

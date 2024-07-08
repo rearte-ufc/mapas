@@ -1,5 +1,5 @@
 **/*.log
-**/*.md
+# **/*.md
 **/*.php~
 **/*.dist.php
 **/*.dist
@@ -31,3 +31,4 @@ var/
 .env.local
 .env.local.php
 .env.test
+.env

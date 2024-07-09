@@ -1,4 +1,5 @@
 <?php
+
 use \MapasCulturais\i;
 
 return [
@@ -24,7 +25,7 @@ return [
 
 
     */
-    'mailer.transport'  => 'smtp://mailhog:1025',
+    'mailer.transport'  => env('MAILER_TRANSPORT', 'smtp://mailhog:1025'),
     'mailer.from'       => env('MAILER_FROM', 'suporte@mapasculturais.org'),
     'mailer.alwaysTo'   => env('MAILER_ALWAYSTO', false),
     'mailer.bcc'        => env('MAILER_BCC', ''),

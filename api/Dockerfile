@@ -2,17 +2,17 @@
 
 # Adapted from https://github.com/dunglas/symfony-docker
 
-# FROM node:20 as frontend_build
+FROM node:20 as frontend_build
 
-# # user: "node"
-# WORKDIR /app
-# # environment:
-# ENV NODE_ENV=development
-# COPY . /app
-# WORKDIR /app/mapas/src
-# RUN npm i -g pnpm
-# RUN pnpm i
-# RUN pnpm run dev
+# user: "node"
+WORKDIR /app
+# environment:
+ENV NODE_ENV=development
+COPY --link . /app
+WORKDIR /app/mapas/src
+RUN npm i -g pnpm
+RUN pnpm i
+RUN pnpm run dev
 
 # Versions
 FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
@@ -29,7 +29,7 @@ FROM frankenphp_upstream AS frankenphp_base
 WORKDIR /app
 
 # COPY --link . /app
-# COPY --link --from=frontend_build /app /app
+COPY --link --from=frontend_build /app /app
 
 # persistent / runtime deps
 # hadolint ignore=DL3008
@@ -67,7 +67,7 @@ FROM frankenphp_base AS frankenphp_dev
 
 ENV APP_ENV=dev XDEBUG_MODE=off
 # VOLUME /app/var/
-COPY --link . /app
+# COPY --link . /app
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 

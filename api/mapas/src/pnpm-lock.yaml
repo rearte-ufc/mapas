@@ -101,6 +101,9 @@ importers:
 
   plugins/Metabase:
     devDependencies:
+      '@babel/plugin-syntax-dynamic-import':
+        specifier: '*'
+        version: 7.8.3(@babel/core@7.24.7)
       '@mapas/scripts':
         specifier: workspace:0.0.0
         version: link:../../node_scripts

@@ -1,4 +1,11 @@
 x-defaults: &defaults
+  build:
+    context: ./api
+    target: frankenphp_dev
+
+  # volumes:
+  #   - ./api:/app
+
   environment: &environment
     PWA_UPSTREAM: ${PWA_UPSTREAM}
     SERVER_NAME: ${SERVER_NAME}
@@ -31,11 +38,8 @@ services:
       - db-update
     environment:
       <<: *environment
-    # build:
-    #   context: ./api
-    #   target: frankenphp_dev
     ports:
-      - 5020:80
+      - 80
     volumes:
       # - ./api:/app
       # - /app/var
@@ -45,16 +49,18 @@ services:
       # - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       - caddy_data:/data
       - caddy_config:/config
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-  #     PGADMIN_CONFIG_SERVER_MODE: 'False'
-  #   volumes:
-  #     - pgadmin:/var/lib/pgadmin
-  #   ports:
-  #     - 5050:80
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - 80
+
   crontab:
     image: rancher/container-crontab:v0.5.0
     restart: '${DOCKER_RESTART_POLICY:-always}'
@@ -108,19 +114,20 @@ services:
     command: --maxmemory 128Mb --maxmemory-policy allkeys-lru
     volumes:
       - redis:/data
-
+    ports:
+      - 6379
   sessions:
     image: redis:6
     restart: unless-stopped
     command: --maxmemory 128Mb --maxmemory-policy allkeys-lru
     volumes:
       - sessions:/data
-
+    ports:
+      - 6379
   mailhog:
     image: mailhog/mailhog
-    # ports:
-    #   - "8025:8025"
-
+    ports:
+      - 8025
     # pwa:
     #   image: redemapas/mapas-pwa
     #   build:
@@ -145,6 +152,8 @@ services:
       #- ./api/mapas/dev/db:/docker-entrypoint-initdb.d
       # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./api/docker/db/data:/var/lib/postgresql/data
+    ports:
+      - 5432
     healthcheck:
       test: "PGPASSWORD=${POSTGRES_PASSWORD} pg_isready -h 127.0.0.1 -U ${POSTGRES_USER} -d ${POSTGRES_DB}"
 

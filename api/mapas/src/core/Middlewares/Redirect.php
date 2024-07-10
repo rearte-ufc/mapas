@@ -20,14 +20,15 @@ class Redirect
         $mem = memory_get_usage(true) / 1024 / 1024;
 
         $route = $app->request->route;
-        if (str_contains($route, 'site.index')) {
+        if (
+            str_contains($route, 'site.index') ||
+            str_contains($route, 'panel.index') ||
+            str_contains($route, 'panel.registration')
+        ) {
             $response = $response->withStatus(302);
             return $response->withHeader('Location', '/edital/4');
         }
-        if (str_contains($route, 'panel.index')) {
-            $response = $response->withStatus(302);
-            return $response->withHeader('Location', '/minhas-inscricoes');
-        }
+
         return $response;
     }
 

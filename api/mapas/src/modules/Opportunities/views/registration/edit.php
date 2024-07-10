@@ -79,7 +79,7 @@ $this->breadcrumb = $breadcrumb;
                     <div class="section__content">                         
                         <div class="card owner">                            
                             <h3 class="card__title"> 
-                                <?= i::__('Agente responsável') ?> 
+                                <?= i::__('Agente') ?> 
                             </h3>
 
                             <div class="card__content">

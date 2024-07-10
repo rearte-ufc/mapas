@@ -8,6 +8,7 @@ return [
     'auth.redirect_path' => '/edital/4',
     'auth.config' => [
         'salt' => env('AUTH_SALT', null),
+        'urlImageToUseInEmails' => 'https://iniciativas-mapadasperiferias.cidades.gov.br/files/opportunity/4/file/30/logo-ppv2024-f33ccbf81a4f55ec30ccb6c03264c7a7-23.jpg',
         'timeout' => '24 hours',
         'enableLoginByCPF' => false,
         'loginOnRegister' => true,

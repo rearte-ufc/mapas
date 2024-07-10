@@ -10,9 +10,7 @@ WORKDIR /app
 ENV NODE_ENV=development
 COPY --link . /app
 WORKDIR /app/mapas/src
-RUN npm i -g pnpm
-RUN pnpm i
-RUN pnpm run dev
+RUN npm i -g pnpm && pnpm i && pnpm run dev
 
 # Versions
 FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream

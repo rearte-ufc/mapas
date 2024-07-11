@@ -1,16 +1,18 @@
-<?php 
+<?php
+
 /**
  * @var MapasCulturais\App $app
  * @var MapasCulturais\Themes\BaseV2\Theme $this
  */
 
 use MapasCulturais\i;
+
 $this->import('
     entity-field
 ');
 ?>
 <div :class="classes" v-if="editable || show" class="entity-social-media">
-    <mc-title v-if="!editable" tag="h4" :short-length="0" size="medium" class="bold"><?= i::__("Redes sociais") ?></mc-title>
+    <mc-title v-if="!editable" tag="h4" :short-length="0" size="medium" class="bold" text="<?= i::__("Redes sociais") ?>"><?= i::__("Redes sociais") ?></mc-title>
 
     <div v-if="!editable" class="entity-social-media__links">
         <div v-if="entity.instagram" class="entity-social-media__links--link">
@@ -55,7 +57,7 @@ $this->import('
     </div>
 
 
-    <mc-title v-if="editable" tag="h4" :short-length="0" size="medium" class="bold"><?= i::__("Adicionar redes sociais") ?></mc-title>
+    <mc-title v-if="editable" tag="h4" :short-length="0" size="medium" class="bold" text="<?= i::__("Adicionar redes sociais") ?>"><?= i::__("Adicionar redes sociais") ?></mc-title>
 
     <div v-if="editable" class="entity-social-media__edit">
         <div class="entity-social-media__edit--link">

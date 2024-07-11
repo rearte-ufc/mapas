@@ -2,7 +2,7 @@
 
 .entity-cover {
     align-items: center;    
-    border: size(1) dashed var(--mc-gray-500);
+    border: size(1) solid var(--mc-gray-500);
     border-radius: var(--mc-border-radius-sm);
     cursor: pointer;
     display: flex;
@@ -23,8 +23,6 @@
     }
 
     &__cover{
-        margin-bottom: size(25);
-        
         &--img {
             align-items: center;
             aspect-ratio: 3/1;

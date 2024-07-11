@@ -58,19 +58,21 @@ $this->breadcrumb = [
                             <div class="grid-12 v-bottom">
                                 <entity-cover :entity="entity" classes="col-12"></entity-cover>
 
-                                <div class="col-12 grid-12">
-                                    <?php $this->applyTemplateHook('entity-info','begin') ?>
+                                <div class="col-12 grid-12" style="margin-top: -65px;">
                                     <div class="col-3 sm:col-12">
-                                        <entity-profile :entity="entity"></entity-profile>
+                                        <entity-profile :entity="entity" :label="false"></entity-profile>
                                     </div>
-                                    <div class="col-9 sm:col-12 grid-12 v-bottom">
+                                    <!-- <div class="col-9 sm:col-12 grid-12 v-bottom">
                                         <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome do Agente') ?>"></entity-field>
-                                    </div>
-                                    <?php $this->applyTemplateHook('entity-info','end') ?>
+                                    </div> -->
                                 </div>
+
+                                <?php $this->applyTemplateHook('entity-info','begin') ?>
+                                <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome do Agente') ?>"></entity-field>
+                                <?php $this->applyTemplateHook('entity-info','end') ?>
                                 
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','before') ?>
-                                <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Áreas de atuação'); ?>"></entity-terms>
+                                <!-- <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Áreas de atuação'); ?>"></entity-terms> -->
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','after') ?>
 
                                 <?php $this->applyTemplateHook('edit1-entity-info-shortDescription','before') ?>

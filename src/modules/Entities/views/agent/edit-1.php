@@ -63,23 +63,32 @@ $this->breadcrumb = [
                                     <div class="col-3 sm:col-12">
                                         <entity-profile :entity="entity"></entity-profile>
                                     </div>
-                                    <div class="col-9 sm:col-12 grid-12 v-bottom">
-                                        <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome do Agente') ?>"></entity-field>
-                                    </div>
-                                    <?php $this->applyTemplateHook('entity-info','end') ?>
                                 </div>
+
+                                <?php $this->applyTemplateHook('entity-info','begin') ?>
+                                <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome do Agente') ?>"></entity-field>
+                                <?php $this->applyTemplateHook('entity-info','end') ?>
                                 
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','before') ?>
-                                <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Áreas de atuação'); ?>"></entity-terms>
+                                <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Área(s) de atuação *'); ?>"></entity-terms>
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','after') ?>
 
+                                <div class="grid-12">
+                                    <entity-terms :entity="entity" taxonomy="funcao" editable classes="col-12" title="<?php i::_e('Função na cultura'); ?>"></entity-terms>
+                                    <entity-terms :entity="entity" taxonomy="tag" classes="col-12" title="Tags" editable></entity-terms>                                
+                                </div>
+                           
                                 <?php $this->applyTemplateHook('edit1-entity-info-shortDescription','before') ?>
-                                <entity-field :entity="entity" classes="col-12" prop="shortDescription" label="<?php i::_e('Mini bio') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-12" prop="shortDescription" label="<?php i::_e('Descrição curta') ?>"></entity-field>
                                 <?php $this->applyTemplateHook('edit1-entity-info-shortDescription','after') ?>
+
+                                <entity-field :entity="entity" classes="col-12" prop="longDescription" editable></entity-field>
 
                                 <?php $this->applyTemplateHook('edit1-entity-info-site','before') ?>
                                 <entity-field :entity="entity" classes="col-12" prop="site"></entity-field>
                                 <?php $this->applyTemplateHook('edit1-entity-info-site','after') ?>
+
+                                <entity-field :entity="entity" classes="col-12" prop="emailPublico" label="<?= i::__('E-mail público') ?>"></entity-field>
                             </div>
                         </div>
                         <div class="divider"></div>
@@ -106,7 +115,6 @@ $this->breadcrumb = [
                                 <entity-field :entity="entity" classes="col-12" prop="cnpj" label="<?= i::__('MEI (CNPJ do MEI)') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-12" prop="emailPrivado" label="<?= i::__('E-mail pessoal') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-12" prop="telefonePublico" label="<?= i::__('Telefone público com DDD') ?>"></entity-field>
-                                <entity-field :entity="entity" classes="col-12" prop="emailPublico" label="<?= i::__('E-mail público') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="telefone1" label="<?= i::__('Telefone privado 1 com DDD') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="telefone2" label="<?= i::__('Telefone privado 2 com DDD') ?>"></entity-field>
                                 <div class="col-12 divider"></div>
@@ -141,7 +149,7 @@ $this->breadcrumb = [
                         </template>
                         <template #content>
                             <div class="grid-12">
-                                <entity-field :entity="entity" classes="col-12" prop="longDescription" editable></entity-field>
+                                
                                 <entity-files-list :entity="entity" classes="col-12" group="downloads" title="<?php i::_e('Adicionar arquivos para download'); ?>" editable></entity-files-list>
                                 <entity-links :entity="entity" classes="col-12" title="<?php i::_e('Adicionar links'); ?>" editable></entity-links>
                                 <entity-gallery-video :entity="entity" classes="col-12" title="<?php i::_e('Adicionar vídeos') ?>" editable></entity-gallery-video>

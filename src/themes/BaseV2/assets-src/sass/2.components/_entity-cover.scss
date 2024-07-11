@@ -90,6 +90,9 @@
             flex-direction: column;
             gap: size(10);
             padding: size(25) 0;
+            color: var(--mc-primary-500);
+            font-weight: bold;
+
             & > * {
                 cursor: pointer;
             }

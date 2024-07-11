@@ -66,15 +66,15 @@ $this->breadcrumb = [
                                 </div>
 
                                 <?php $this->applyTemplateHook('entity-info','begin') ?>
-                                <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome do Agente') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
                                 <?php $this->applyTemplateHook('entity-info','end') ?>
                                 
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','before') ?>
-                                <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Área(s) de atuação *'); ?>"></entity-terms>
+                                <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Áreas de atuação'); ?>"></entity-terms>
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','after') ?>
 
                                 <div class="grid-12">
-                                    <entity-terms :entity="entity" taxonomy="funcao" editable classes="col-12" title="<?php i::_e('Função na cultura'); ?>"></entity-terms>
+                                    <entity-terms :entity="entity" taxonomy="funcao" editable classes="col-12" title="<?php i::_e('Informe sua função na cultura'); ?>"></entity-terms>
                                     <entity-terms :entity="entity" taxonomy="tag" classes="col-12" title="Tags" editable></entity-terms>                                
                                 </div>
                            
@@ -164,7 +164,7 @@ $this->breadcrumb = [
                             <div class="grid-12">
                                 <entity-admins :entity="entity" classes="col-12" editable></entity-admins>
                                 <entity-related-agents :entity="entity" classes="col-12" editable></entity-related-agents>
-                                <entity-terms :entity="entity" taxonomy="tag" classes="col-12" title="Tags" editable></entity-terms>
+
                                 <entity-owner :entity="entity" classes="col-12" title="Publicado por" editable></entity-owner>
                             </div>
                         </template>

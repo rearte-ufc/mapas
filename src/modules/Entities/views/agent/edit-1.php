@@ -47,7 +47,8 @@ $this->breadcrumb = [
         <mc-tab label="<?= i::_e('Informações') ?>" slug="info">
             <mc-container>
                 <entity-status :entity="entity"></entity-status>
-                <mc-card class="feature">
+                <label><?php i::_e("Campos marcados com <span style='color:red;'>*</span> são de preenchimento obrigatório.") ?></label>
+                <mc-card class="feature__full">
                     <template #title>
                         <label><?php i::_e("Informações de Apresentação") ?></label>
                         <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
@@ -81,17 +82,16 @@ $this->breadcrumb = [
                                 <?php $this->applyTemplateHook('edit1-entity-info-site','after') ?>
                             </div>
                         </div>
-                        <div class="divider"></div>
+                        <!-- <div class="divider"></div>
                         <div class="right">
                             <div class="grid-12">
                                 <entity-terms :entity="entity" taxonomy="funcao" editable classes="col-12" title="<?php i::_e('Informe sua função na cultura'); ?>"></entity-terms>
                                 <entity-social-media :entity="entity" editable classes="col-12"></entity-social-media>
                             </div>
-                        </div>
+                        </div> -->
                     </template>
                 </mc-card>
-                <main>
-                    <mc-card>
+                    <mc-card class="feature__full">
                         <template #title>
                             <h3 class="bold"><?php i::_e("Dados Pessoais"); ?></h3>
                             <p><?php i::_e("Não se preocupe, esses dados não serão exibidos publicamente."); ?></p>
@@ -113,7 +113,7 @@ $this->breadcrumb = [
                             </div>
                         </template>
                     </mc-card>
-                    <mc-card>
+                    <mc-card class="feature__full">
                         <template #title>
                             <h3 class="bold"><?php i::_e("Dados pessoais sensíveis"); ?></h3>
                             <p class="data-subtitle"><?php i::_e("Os dados inseridos abaixo serão registrados apenas no sistemas e não serão exibidos publicamente"); ?></p>
@@ -142,7 +142,7 @@ $this->breadcrumb = [
                             </div>
                         </template>
                     </mc-card>
-                    <mc-card>
+                    <mc-card class="feature__full">
                         <template #title>
                             <label><?php i::_e("Informações públicas"); ?></label>
                             <p><?php i::_e("Os dados inseridos abaixo assim como as informações de apresentação também são exibidos publicamente"); ?></p>
@@ -157,8 +157,8 @@ $this->breadcrumb = [
                             </div>
                         </template>
                     </mc-card>
-                </main>
-                <aside>
+
+                <!-- <aside>
                     <mc-card>
                         <template #content>
                             <div class="grid-12">
@@ -169,7 +169,7 @@ $this->breadcrumb = [
                             </div>
                         </template>
                     </mc-card>
-                </aside>
+                </aside> -->
             </mc-container>
         </mc-tab>
         <?php $this->applyTemplateHook('tabs','end') ?>

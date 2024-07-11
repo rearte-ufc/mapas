@@ -43,7 +43,7 @@ $this->breadcrumb = [
     <entity-header :entity="entity" editable></entity-header>
 
     <mc-tabs class="tabs" sync-hash>
-        <?php $this->applyTemplateHook('tabs','begin') ?>
+        <?php $this->applyTemplateHook('tabs', 'begin') ?>
         <mc-tab label="<?= i::_e('Informações') ?>" slug="info">
             <mc-container>
                 <entity-status :entity="entity"></entity-status>
@@ -58,27 +58,27 @@ $this->breadcrumb = [
                                 <entity-cover :entity="entity" classes="col-12"></entity-cover>
 
                                 <div class="col-12 grid-12">
-                                    <?php $this->applyTemplateHook('entity-info','begin') ?>
+                                    <?php $this->applyTemplateHook('entity-info', 'begin') ?>
                                     <div class="col-3 sm:col-12">
                                         <entity-profile :entity="entity"></entity-profile>
                                     </div>
                                     <div class="col-9 sm:col-12 grid-12 v-bottom">
                                         <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome do Agente') ?>"></entity-field>
                                     </div>
-                                    <?php $this->applyTemplateHook('entity-info','end') ?>
+                                    <?php $this->applyTemplateHook('entity-info', 'end') ?>
                                 </div>
-                                
-                                <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','before') ?>
+
+                                <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area', 'before') ?>
                                 <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Áreas de atuação'); ?>"></entity-terms>
-                                <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','after') ?>
+                                <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area', 'after') ?>
 
-                                <?php $this->applyTemplateHook('edit1-entity-info-shortDescription','before') ?>
+                                <?php $this->applyTemplateHook('edit1-entity-info-shortDescription', 'before') ?>
                                 <entity-field :entity="entity" classes="col-12" prop="shortDescription" label="<?php i::_e('Mini bio') ?>"></entity-field>
-                                <?php $this->applyTemplateHook('edit1-entity-info-shortDescription','after') ?>
+                                <?php $this->applyTemplateHook('edit1-entity-info-shortDescription', 'after') ?>
 
-                                <?php $this->applyTemplateHook('edit1-entity-info-site','before') ?>
+                                <?php $this->applyTemplateHook('edit1-entity-info-site', 'before') ?>
                                 <entity-field :entity="entity" classes="col-12" prop="site"></entity-field>
-                                <?php $this->applyTemplateHook('edit1-entity-info-site','after') ?>
+                                <?php $this->applyTemplateHook('edit1-entity-info-site', 'after') ?>
                             </div>
                         </div>
                         <div class="divider"></div>
@@ -124,7 +124,7 @@ $this->breadcrumb = [
                                 <div class="field col-6">
                                     <label>{{entity.$PROPERTIES['idoso'].label}}</label>
                                     <input type="text" disabled :value="entity.idoso ? 'Sim' : 'Não'" />
-                                </div>    
+                                </div>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="genero" label="<?= i::__('Selecione o Gênero') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="orientacaoSexual" label="<?= i::__('Selecione a Orientação Sexual') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="raca" label="<?= i::__('Selecione a Raça/Cor') ?>"></entity-field>
@@ -172,9 +172,58 @@ $this->breadcrumb = [
                 </aside>
             </mc-container>
         </mc-tab>
-        <?php $this->applyTemplateHook('tabs','end') ?>
+        <mc-tab label="<?= i::_e('Selos') ?>" slug="selos">
+            <mc-container>
+                <mc-tabs class="tabs" sync-hash>
+                    <mc-tab label="<?= i::_e('Válidos') ?>" slug="validos">
+                        <mc-card class="feature">
+                            <template #title>
+                                <label><?php i::_e("Selos válidos") ?></label>
+                                <p><?php i::_e("Esses são os selos que foram atribuídos à você e estão atualmente válidos. Esses selos são apresentados publicamente na plataforma.") ?></p>
+                            </template>
+                            <template #content>
+                                <div class="left">
+                                    <div class="grid-12 v-bottom">
+                                        Válidos
+                                    </div>
+                                </div>
+                            </template>
+                        </mc-card>
+                    </mc-tab>
+                    <!-- <mc-tab label="<?= i::_e('Pendentes') ?>" slug="pendentes">
+                            <mc-container>
+                                <main>
+                                    Pendentes
+                                </main>
+                            </mc-container>
+                        </mc-tab> -->
+                    <mc-tab label="<?= i::_e('Expirados') ?>" slug="expirados">
+                        <mc-card class="feature">
+                            <template #title>
+                                <label><?php i::_e("Selos Expirados") ?></label>
+                                <p><?php i::_e("x.") ?></p>
+                            </template>
+                            <template #content>
+                                <div class="left">
+                                    <div class="grid-12 v-bottom">
+                                        Expirados
+                                    </div>
+                                </div>
+                            </template>
+                        </mc-card>
+                    </mc-tab>
+                    <!-- <mc-tab label="<?= i::_e('Excluídos') ?>" slug="excluidos">
+                            <mc-container>
+                                <main>
+                                    Excluídos
+                                </main>
+                            </mc-container>
+                        </mc-tab> -->
+                </mc-tabs>
+            </mc-container>
+        </mc-tab>
+        <?php $this->applyTemplateHook('tabs', 'end') ?>
     </mc-tabs>
-    
     <entity-actions :entity="entity" editable></entity-actions>
 </div>
 <confirm-before-exit :entity="entity"></confirm-before-exit>

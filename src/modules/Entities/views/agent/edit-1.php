@@ -59,9 +59,8 @@ $this->breadcrumb = [
                                 <entity-cover :entity="entity" classes="col-12"></entity-cover>
 
                                 <div class="col-12 grid-12">
-                                    <?php $this->applyTemplateHook('entity-info','begin') ?>
-                                    <div class="col-3 sm:col-12">
-                                        <entity-profile :entity="entity"></entity-profile>
+                                    <div class="col-3 sm:col-12" style="margin-top: -65px;">
+                                        <entity-profile :entity="entity" :label="false"></entity-profile>
                                     </div>
                                 </div>
 

@@ -427,11 +427,17 @@ return array(
         ],
 
         'site' => array(
-            'label' => \MapasCulturais\i::__('Site'),
+            'label' => \MapasCulturais\i::__('Link (URL)'),
             'validations' => array(
                 "v::url()" => \MapasCulturais\i::__("A URL informada é inválida. Informe no formato https://www.site.com e tente novamente."),
             ),
             'available_for_opportunities' => true
+        ),
+        'siteDescription' => array(
+            'label' => \MapasCulturais\i::__('Descrição do link'),
+            'validations' => array(
+                "v::url()" => \MapasCulturais\i::__("A URL informada é inválida. Informe no formato https://www.site.com e tente novamente."),
+            ),
         ),
         'facebook' => array(
             'type' => "socialMedia",

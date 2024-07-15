@@ -164,7 +164,7 @@ $this->breadcrumb = [
                     </mc-card>
                     <mc-card class="feature__full">
                         <template #title>
-                            <h3><?php i::_e("Anexos"); ?></h3>
+                            <label><?php i::_e("Anexos"); ?></label>
                             <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
                         </template>
                         <template #content>

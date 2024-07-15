@@ -453,7 +453,7 @@ return array(
         ),
         'twitter' => array(
             'type' => "socialMedia",
-            'label' => \MapasCulturais\i::__('Twitter'),
+            'label' => \MapasCulturais\i::__('X (antigo twitter)'),
             'serialize' =>function($value){
                 return Utils::parseSocialMediaUser('x.com', $value);
             },

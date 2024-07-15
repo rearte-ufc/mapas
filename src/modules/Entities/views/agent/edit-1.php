@@ -173,16 +173,15 @@ $this->breadcrumb = [
                     </mc-card>
                     <mc-card class="feature__full">
                         <template #title>
-                            <label><?php i::_e("Informações públicas"); ?></label>
-                            <p><?php i::_e("Os dados inseridos abaixo assim como as informações de apresentação também são exibidos publicamente"); ?></p>
+                            <label><?php i::_e("Anexos"); ?></label>
+                            <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
                         </template>
                         <template #content>
                             <div class="grid-12">
-                                
-                                <entity-files-list :entity="entity" classes="col-12" group="downloads" title="<?php i::_e('Adicionar arquivos para download'); ?>" editable></entity-files-list>
-                                <entity-links :entity="entity" classes="col-12" title="<?php i::_e('Adicionar links'); ?>" editable></entity-links>
-                                <entity-gallery-video :entity="entity" classes="col-12" title="<?php i::_e('Adicionar vídeos') ?>" editable></entity-gallery-video>
-                                <entity-gallery :entity="entity" classes="col-12" title="<?php i::_e('Adicionar fotos na galeria') ?>" editable></entity-gallery>
+                                <entity-files-list :entity="entity" classes="col-12" group="downloads" title="<?php i::_e('Arquivos para download'); ?>" editable></entity-files-list>
+                                <entity-links :entity="entity" classes="col-12" title="<?php i::_e('Links'); ?>" editable></entity-links>
+                                <entity-gallery-video :entity="entity" classes="col-12" title="<?php i::_e('Vídeos') ?>" editable></entity-gallery-video>
+                                <entity-gallery :entity="entity" classes="col-12" title="<?php i::_e('Imagens') ?>" editable></entity-gallery>
                             </div>
                         </template>
                     </mc-card>

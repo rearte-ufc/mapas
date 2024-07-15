@@ -51,7 +51,7 @@ $this->breadcrumb = [
                 <label><?php i::_e("Campos marcados com <span style='color:red;'>*</span> são de preenchimento obrigatório.") ?></label>
                 <mc-card class="feature__full">
                     <template #title>
-                        <label><?php i::_e("Informações de Apresentação") ?></label>
+                        <h3><?php i::_e("Informações de Apresentação") ?></h3>
                         <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
                     </template>
                     <template #content>
@@ -159,24 +159,23 @@ $this->breadcrumb = [
                     <template #content>
                         <div class="grid-12">
                             <entity-social-media :entity="entity" editable></entity-social-media>
-                        </div>
-                    </template>
-                </mc-card>
-                
-                <mc-card class="feature__full">
-                    <template #title>
-                        <h3><?php i::_e("Anexos"); ?></h3>
-                        <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
-                    </template>
-                    <template #content>
-                        <div class="grid-12">
-                            <entity-files-list :entity="entity" classes="col-12" group="downloads" title="<?php i::_e('Arquivos para download'); ?>" editable></entity-files-list>
-                            <entity-links :entity="entity" classes="col-12" title="<?php i::_e('Links'); ?>" editable></entity-links>
-                            <entity-gallery-video :entity="entity" classes="col-12" title="<?php i::_e('Vídeos') ?>" editable></entity-gallery-video>
-                            <entity-gallery :entity="entity" classes="col-12" title="<?php i::_e('Imagens') ?>" editable></entity-gallery>
-                        </div>
-                    </template>
-                </mc-card>
+                            </div>
+                        </template>
+                    </mc-card>
+                    <mc-card class="feature__full">
+                        <template #title>
+                            <h3><?php i::_e("Anexos"); ?></h3>
+                            <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
+                        </template>
+                        <template #content>
+                            <div class="grid-12">
+                                <entity-files-list :entity="entity" classes="col-12" group="downloads" title="<?php i::_e('Arquivos para download'); ?>" editable></entity-files-list>
+                                <entity-links :entity="entity" classes="col-12" title="<?php i::_e('Links'); ?>" editable></entity-links>
+                                <entity-gallery-video :entity="entity" classes="col-12" title="<?php i::_e('Vídeos') ?>" editable></entity-gallery-video>
+                                <entity-gallery :entity="entity" classes="col-12" title="<?php i::_e('Imagens') ?>" editable></entity-gallery>
+                            </div>
+                        </template>
+                    </mc-card>
 
                 <!-- <aside>
                     <mc-card>

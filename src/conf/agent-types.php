@@ -547,13 +547,13 @@ return array(
         ),
         'payment_bank_account_number' => array(
             'private' => true,
-            'label' => \MapasCulturais\i::__('Número da conta bancária para pagamentos'),
+            'label' => \MapasCulturais\i::__('Número da conta bancária'),
             'type' => 'text',
             'dafault' => '[]',
         ),
         'payment_bank_branch' => array(
             'private' => true,
-            'label' => \MapasCulturais\i::__('Agência bancária para pagamentos'),
+            'label' => \MapasCulturais\i::__('Número da agência bancária'),
             'type' => 'text',
             'dafault' => '[]',
         ),
@@ -780,13 +780,13 @@ return array(
         ),
         'payment_bank_dv_branch' => array(
             'private' => true,
-            'label' => \MapasCulturais\i::__('Dígito verificador da agéncia bancária'),
+            'label' => \MapasCulturais\i::__('Dígito verificador'),
             'type' => 'text',
             'dafault' => '[]',
         ),
         'payment_bank_dv_account_number' => array(
             'private' => true,
-            'label' => \MapasCulturais\i::__('Dígito verificador da conta bancária'),
+            'label' => \MapasCulturais\i::__('Dígito verificador'),
             'type' => 'text',
             'dafault' => '[]',
         ),

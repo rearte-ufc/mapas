@@ -105,20 +105,32 @@ $this->breadcrumb = [
                     <mc-card class="feature__full">
                         <template #title>
                             <h3 class="bold"><?php i::_e("Dados Pessoais"); ?></h3>
-                            <p><?php i::_e("Não se preocupe, esses dados não serão exibidos publicamente."); ?></p>
+                            <p><?php i::_e("Os dados inseridos abaixo não serão exibidos publicamente, exceto os casos em que forem selecionadas as opções ”Mostrar no perfil”."); ?></p>
                         </template>
                         <template #content>
                             <div class="grid-12">
-                                <entity-field :entity="entity" classes="col-12" prop="nomeSocial" label="<?= i::__('Nome Social') ?>"></entity-field>
-                                <entity-field :entity="entity" classes="col-12" prop="nomeCompleto" label="<?= i::__('Nome Completo') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-6" prop="nomeSocial" label="<?= i::__('Nome Social') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-6" prop="nomeCompleto" label="<?= i::__('Nome Completo') ?>"></entity-field>
                                 <entity-field v-if="global.auth.is('admin')" :entity="entity" prop="type" @change="entity.save(true).then(() => global.reload())" classes="col-12"></entity-field>
-                                <entity-field :entity="entity" classes="col-12" prop="cpf"></entity-field>
-                                <entity-field :entity="entity" classes="col-12" prop="cnpj" label="<?= i::__('MEI (CNPJ do MEI)') ?>"></entity-field>
-                                <entity-field :entity="entity" classes="col-12" prop="emailPrivado" label="<?= i::__('E-mail pessoal') ?>"></entity-field>
-                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="telefone1" label="<?= i::__('Telefone privado 1 com DDD') ?>"></entity-field>
-                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="telefone2" label="<?= i::__('Telefone privado 2 com DDD') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-4" prop="cpf"></entity-field>
+                                <!-- <entity-field :entity="entity" classes="col-12" prop="cnpj" label="<?= i::__('MEI (CNPJ do MEI)') ?>"></entity-field> -->
+                                <entity-field :entity="entity" classes="col-4" prop="emailPrivado" label="<?= i::__('E-mail pessoal') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-4" prop="telefone1" label="<?= i::__('Telefone pessoal (com DDD)') ?>"></entity-field>
+                                <!-- <entity-field :entity="entity" classes="col-6 sm:col-12" prop="telefone2" label="<?= i::__('Telefone privado 2 com DDD') ?>"></entity-field> -->
                                 <div class="col-12 divider"></div>
                                 <entity-location :entity="entity" classes="col-12" editable></entity-location>
+                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="agenteItinerante" label="<?= i::__('É agente itinerante?') ?>"></entity-field>
+                            </div>
+                            <div class="col-12">
+                                <h3>Dados bancário</h3>
+                            </div>
+                            <div class="grid-12">
+                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="payment_bank_account_type"></entity-field>
+                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="payment_bank_number"></entity-field>
+                                <entity-field :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_account_number"></entity-field>
+                                <entity-field :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_dv_account_number"></entity-field>
+                                <entity-field :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_branch"></entity-field>
+                                <entity-field :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_dv_branch"></entity-field>
                             </div>
                         </template>
                     </mc-card>
@@ -138,13 +150,7 @@ $this->breadcrumb = [
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="orientacaoSexual" label="<?= i::__('Selecione a Orientação Sexual') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="raca" label="<?= i::__('Selecione a Raça/Cor') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="escolaridade" label="<?= i::__('Selecione a sua Escolaridade') ?>"></entity-field>
-                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="agenteItinerante" label="<?= i::__('É agente itinerante?') ?>"></entity-field>
-                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="payment_bank_account_type"></entity-field>
-                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="payment_bank_number"></entity-field>
-                                <entity-field :entity="entity" classes="col-7 sm:col-12" prop="payment_bank_account_number"></entity-field>
-                                <entity-field :entity="entity" classes="col-5 sm:col-12" prop="payment_bank_dv_account_number"></entity-field>
-                                <entity-field :entity="entity" classes="col-7 sm:col-12" prop="payment_bank_branch"></entity-field>
-                                <entity-field :entity="entity" classes="col-5 sm:col-12" prop="payment_bank_dv_branch"></entity-field>
+                              
                                 <entity-field :entity="entity" classes="col-12" prop="pessoaDeficiente" class="pcd col-12" label="<?= i::__('Pessoa com Deficiência') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-12" prop="comunidadesTradicional" label="<?= i::__('Comunidades tradicionais') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-12" prop="comunidadesTradicionalOutros" label="<?= i::__('Não encontrou sua comunidade Tradicional') ?>"></entity-field>

@@ -50,7 +50,7 @@ $this->breadcrumb = [
                 <label><?php i::_e("Campos marcados com <span style='color:red;'>*</span> são de preenchimento obrigatório.") ?></label>
                 <mc-card class="feature__full">
                     <template #title>
-                        <label><?php i::_e("Informações de Apresentação") ?></label>
+                        <h3><?php i::_e("Informações de Apresentação") ?></h3>
                         <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
                     </template>
                     <template #content>
@@ -173,7 +173,7 @@ $this->breadcrumb = [
                     </mc-card>
                     <mc-card class="feature__full">
                         <template #title>
-                            <label><?php i::_e("Anexos"); ?></label>
+                            <h3><?php i::_e("Anexos"); ?></h3>
                             <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
                         </template>
                         <template #content>

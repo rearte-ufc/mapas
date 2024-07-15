@@ -10,8 +10,20 @@
     }
 }
 
+.dvd {
+    padding: size(20);
+    border-bottom: 1px solid #bbbbbb;
+}
+
 .controller-agent.action-edit {
     .mc-card__title {
+        h3 {
+            color: var(--mc-primary-500);   
+            border-bottom: 1px solid #bbbbbb;  
+            padding-bottom: size(15);  
+        }
+
+
         p {
             font-family: 'Open Sans';
             font-style: normal;

@@ -65,13 +65,10 @@ $this->breadcrumb = [
                             </div>
 
                             <?php $this->applyTemplateHook('entity-info','begin') ?>
-                            <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome do Agente') ?>"></entity-field>
+                            <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
                             <?php $this->applyTemplateHook('entity-info','end') ?>
 
-                            <!-- <div class="grid-12"> -->
-                                <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','before') ?>
-                                <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Área(s) de atuação *'); ?>"></entity-terms>
-                                <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','after') ?>
+                            <div class="grid-12">
                                 <entity-terms :entity="entity" taxonomy="funcao" editable classes="col-12" title="<?php i::_e('Função(ões) na cultura'); ?>"></entity-terms>
                                 <entity-terms :entity="entity" taxonomy="tag" classes="col-12" title="Tags" editable></entity-terms>                                
                             <!-- </div> -->
@@ -89,7 +86,7 @@ $this->breadcrumb = [
                             <?php $this->applyTemplateHook('edit1-entity-info-site','after') ?>
 
                             <entity-field :entity="entity" classes="col-5 sm:col-12" prop="emailPublico" label="<?= i::__('E-mail público') ?>"></entity-field>
-                            <entity-field :entity="entity" classes="col-7 sm:col-12" prop="telefonePublico" label="<?= i::__('Telefone público com DDD') ?>"></entity-field>
+                            <entity-field :entity="entity" classes="col-7 sm:col-12" prop="telefonePublico" label="<?= i::__('Telefone público (com DDD)') ?>"></entity-field>
 
                         </div>
                     </template>

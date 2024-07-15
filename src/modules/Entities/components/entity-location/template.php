@@ -16,15 +16,15 @@ $this->import('
 <div :class="classes" class="entity-location grid-12">
     <?php $this->applyTemplateHook('entity-location','begin'); ?>
     <div v-if="!hideLabel" class="entity-location__title col-12">
-        <label v-if="verifiedAdress()"><?= i::__('Endereço')?></label>
+        <label v-if="verifiedAdress()"><?= i::__('Dados de endereço')?></label>
     </div>
     <div class="col-12" v-if="editable">
         <div class="grid-12">
             <entity-field @change="address(); pesquisacep(entity.En_CEP);" classes="col-4 sm:col-12" :entity="entity" prop="En_CEP"></entity-field>
             <entity-field @change="address()" classes="col-8 sm:col-12" :entity="entity" prop="En_Nome_Logradouro"></entity-field>
-            <entity-field @change="address()" classes="col-2 sm:col-12" :entity="entity" prop="En_Num"></entity-field>
-            <entity-field @change="address()" classes="col-4 sm:col-12" :entity="entity" prop="En_Bairro"></entity-field>
-            <entity-field @change="address()" classes="col-6 sm:col-12" :entity="entity" prop="En_Complemento" label="<?php i::_e('Complemento ou ponto de referência')?>"></entity-field>
+            <entity-field @change="address()" classes="col-2 sm:col-4" :entity="entity" prop="En_Num"></entity-field>
+            <entity-field @change="address()" classes="col-4 sm:col-4" :entity="entity" prop="En_Bairro"></entity-field>
+            <entity-field @change="address()" classes="col-6" :entity="entity" prop="En_Complemento" label="<?php i::_e('Complemento ou ponto de referência')?>"></entity-field>
             <entity-field v-if="statesAndCitiesCountryCode != 'BR'" @change="address()" classes="col-12" :entity="entity" prop="En_Pais" label="<?php i::_e('País') ?>"></entity-field>
         </div>
     </div>
@@ -79,12 +79,7 @@ $this->import('
         </div>
     </div>
 
-    <div class="col-12" v-if="editable && hasPublicLocation">
-        <div class="col-6 sm:col-12 public-location">
-            <entity-field  @change="address()" type="checkbox" classes="public-location__field col-6" :entity="entity" prop="publicLocation" label="<?php i::esc_attr_e('Localização pública')?>"></entity-field>
-            <label class="public-location__label col-12"><?php i::_e('Marque o campo acima para tornar o endereço público ou deixe desmarcado para manter o endereço privado.')?></label>
-        </div>
-    </div>
+   
     <div v-if="verifiedAdress()" class="col-12">
         <p class="entity-location__address">
             <span v-if="entity.endereco">{{entity.endereco}}</span>
@@ -92,6 +87,13 @@ $this->import('
         </p>
         <entity-map  :entity="entity" :editable="editable"></entity-map>
     </div>
+    
     <?php $this->applyTemplateHook('entity-location','end'); ?>
+    <div class="col-12" v-if="editable && hasPublicLocation">
+        <div class="col-6 sm:col-12 public-location">
+            <entity-field  @change="address()" type="checkbox" classes="public-location__field col-6" :entity="entity" prop="publicLocation" label="<?php i::esc_attr_e('Mostrar no perfil')?>"></entity-field>
+            <!-- <label class="public-location__label col-12"><?php i::_e('Marque o campo acima para tornar o endereço público ou deixe desmarcado para manter o endereço privado.')?></label> -->
+        </div>
+    </div>
 </div>
 <?php $this->applyTemplateHook('entity-location','after'); ?>

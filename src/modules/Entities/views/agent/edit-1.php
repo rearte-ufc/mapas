@@ -137,11 +137,11 @@ $this->breadcrumb = [
                                 <!-- <div class="field col-6">
                                     <label>{{entity.$PROPERTIES['idoso'].label}}</label>
                                     <input type="text" disabled :value="entity.idoso ? 'Sim' : 'Não'" />
-                                </div>     -->
-                                <entity-field :entity="entity" classes="col-4 sm:col-12" prop="genero" label="<?= i::__('Gênero') ?>"></entity-field>
-                                <entity-field :entity="entity" classes="col-4 sm:col-12" prop="orientacaoSexual" label="<?= i::__('Orientação Sexual') ?>"></entity-field>
-                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="raca" label="<?= i::__('Raça/Cor') ?>"></entity-field>
-                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="escolaridade" label="<?= i::__('Escolaridade') ?>"></entity-field>
+                                </div>    
+                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="genero" label="<?= i::__('Selecione o Gênero') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="orientacaoSexual" label="<?= i::__('Selecione a Orientação Sexual') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="raca" label="<?= i::__('Selecione a Raça/Cor') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="escolaridade" label="<?= i::__('Selecione a sua Escolaridade') ?>"></entity-field>
                               
                                 <entity-field :entity="entity" classes="col-12" prop="pessoaDeficiente" class="pcd col-12" label="<?= i::__('Pessoa com Deficiência') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-12" prop="comunidadesTradicional" label="<?= i::__('Pertence a comunidade tradicional') ?>"></entity-field>

@@ -75,7 +75,7 @@ $this->import('
 
         <template v-if="entity.__objectType == 'opportunity'">
             <span v-if="entity.status == 0">
-                <strong><?= i::__('Esta oportunidade está em rascunho.'); ?></strong>
+                <strong><?= i::__('Este oportunidade está em rascunho.'); ?></strong>
                 <?= i::__('Você precisa <strong>publicar</strong> para exibir para todas as pessoas.') ?>
             </span>
             <span v-if="entity.status == -10">

@@ -10,22 +10,85 @@
     }
 }
 
-.dvd {
-    padding: size(20);
-    border-bottom: 1px solid #bbbbbb;
-}
-
 .controller-agent.action-edit {
-    .mc-card__title {
-        h3 {
-            color: var(--mc-primary-500);   
-            border-bottom: 1px solid #bbbbbb;  
-            padding-bottom: size(15);  
+    .mc-card {
+        padding: 0;
+        background-color: var(--mc-white);
+        border-radius: var(--mc-border-radius-sm);
+        width: 100%;
+
+        &__title {
+            margin-bottom: 0;
+            padding-bottom: 0;
+
+            h3 {
+                padding: size(25);
+                color: var(--mc-primary-500);   
+                border-bottom: 1px solid #bbbbbb;  
+            }
+    
+            label {
+                font-weight: 700;
+                font-size: size(24);
+                line-height: size(28);
+            }
+    
+            p {
+                margin: size(8) 0 0;
+                font-size: size(14);
+                line-height: size(19);
+            }
         }
 
-        .divider {
-            padding: size(10);
-            border-bottom: 1px solid #bbbbbb;
+        &.feature__full {
+            grid-column-start: 1;
+            grid-column-end: 3;
+            
+            @media (max-width: size(800)) {
+                grid-template-columns: 100%;
+                grid-column-end: 2;
+            }
+    
+            .mc-card__content {
+                display: grid;
+                flex-wrap: wrap;
+                padding-left: size(24);
+                padding-right: size(24);
+    
+                @media (max-width: size(800)) {
+                    grid-template-columns: 100%;
+                    gap: size(20);
+                }
+    
+                .card_profile {
+                    margin-top: -65px;
+                }
+                
+                .left {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                }
+        
+                .divider {
+                    padding: size(30) 0 0 size(30);
+                    border-bottom: 1px solid #bbbbbb;
+                }
+
+                h4 {
+                    font-size: 1.125rem;
+                    line-height: 1.5625rem;
+                    margin-top: size(25);
+                    margin-bottom: size(25);
+                }
+        
+                .right {
+                    display: flex;
+                    flex-direction: column;
+                    gap: size(40);
+                    width: 100%;
+                }
+            }  
         }
 
         p {
@@ -70,6 +133,10 @@
             margin: 0;
         }
     } */
+
+    .field__longdescription {
+        height: size(150);
+    }
 }
 
 .agent-data {

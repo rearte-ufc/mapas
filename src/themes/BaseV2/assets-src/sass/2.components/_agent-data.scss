@@ -22,7 +22,7 @@
             padding-bottom: 0;
 
             h3 {
-                padding: size(25);
+                padding: size(18) size(18) size(18) size(25);
                 color: var(--mc-primary-500);   
                 border-bottom: 1px solid #bbbbbb;  
             }
@@ -71,15 +71,16 @@
                 }
         
                 .divider {
-                    padding: size(30) 0 0 size(30);
-                    border-bottom: 1px solid #bbbbbb;
-                }
-
-                h4 {
-                    font-size: 1.125rem;
-                    line-height: 1.5625rem;
-                    margin-top: size(25);
-                    margin-bottom: size(25);
+                    border-right: size(1) solid var(--mc-gray-300);
+                    margin: 0 auto;
+                    width: size(1);
+                    height: 100%;
+        
+                    @media (max-width: size(800)) {
+                        border-bottom: 1px solid var(--mc-gray-300);
+                        height: size(1);
+                        width: 100%;
+                    }
                 }
         
                 .right {
@@ -90,23 +91,24 @@
                 }
             }  
         }
+    
+    }
 
-        p {
-            font-family: 'Open Sans';
-            font-style: normal;
-            font-size: size(14);
-            line-height: size(19);
-            margin-top: size(15);
-            color: #1E1E1E;
-            border-bottom: 1px solid #bbbbbb;  
-            padding-bottom: size(15);  
-        }
+    .mc-card__card_info {
+        padding-top: size(18);
+        padding-bottom: size(18);
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-size: size(14);
+        line-height: size(19);
+        color: #1E1E1E;
+        border-bottom: 1px solid #bbbbbb;  
     }
 
     .content {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: size(21) 0;
+        gap: size(25);
         justify-items: start;
     }
 

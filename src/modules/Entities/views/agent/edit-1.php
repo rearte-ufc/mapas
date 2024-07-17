@@ -59,7 +59,7 @@ $this->breadcrumb = [
                             <entity-cover :entity="entity" classes="col-12"></entity-cover>
 
                             <div class="col-12 grid-12">
-                                <div class="col-3 sm:col-12" style="margin-top: -65px;">
+                                <div class="col-2 sm:col-12 card_profile">
                                     <entity-profile :entity="entity" :label="false"></entity-profile>
                                 </div>
                             </div>

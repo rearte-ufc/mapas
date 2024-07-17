@@ -56,9 +56,8 @@ $this->breadcrumb = [
                     <template #content>
                         <div class="grid-12">
                             <entity-cover :entity="entity" classes="col-12"></entity-cover>
-
                             <div class="col-12 grid-12">
-                                <div class="col-3 sm:col-12" style="margin-top: -65px;">
+                                <div class="col-3 sm:col-12 card_profile">
                                     <entity-profile :entity="entity" :label="false"></entity-profile>
                                 </div>
                             </div>
@@ -83,12 +82,12 @@ $this->breadcrumb = [
                                                         
                             <div class="col-12">Site</div>
                             <?php $this->applyTemplateHook('edit1-entity-info-site','before') ?>
-                            <entity-field :entity="entity" classes="col-5 sm:col-12" prop="site"></entity-field>
-                            <entity-field :entity="entity" classes="col-7 sm:col-12" prop="siteDescription"></entity-field>
+                            <entity-field :entity="entity" classes="col-6 sm:col-12" prop="site"></entity-field>
+                            <entity-field :entity="entity" classes="col-6 sm:col-12" prop="siteDescription"></entity-field>
                             <?php $this->applyTemplateHook('edit1-entity-info-site','after') ?>
 
-                            <entity-field :entity="entity" classes="col-5 sm:col-12" prop="emailPublico" label="<?= i::__('E-mail público') ?>"></entity-field>
-                            <entity-field :entity="entity" classes="col-7 sm:col-12" prop="telefonePublico" label="<?= i::__('Telefone público (com DDD)') ?>"></entity-field>
+                            <entity-field :entity="entity" classes="col-6 sm:col-12" prop="emailPublico" label="<?= i::__('E-mail público') ?>"></entity-field>
+                            <entity-field :entity="entity" classes="col-6 sm:col-12" prop="telefonePublico" label="<?= i::__('Telefone público (com DDD)') ?>"></entity-field>
 
                         </div>
                     </template>

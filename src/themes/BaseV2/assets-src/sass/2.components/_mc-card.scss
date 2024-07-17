@@ -87,6 +87,8 @@
             grid-template-columns: 100%;
             grid-column-end: 2;
         }
+
+        
         
         .mc-card__content {
             display: grid;
@@ -95,6 +97,10 @@
             @media (max-width: size(800)) {
                 grid-template-columns: 100%;
                 gap: size(20);
+            }
+
+            .card_profile {
+                margin-top: -65px;
             }
             
             .left {

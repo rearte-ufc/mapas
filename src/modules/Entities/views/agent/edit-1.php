@@ -51,10 +51,10 @@ $this->breadcrumb = [
                 <mc-card class="feature__full">
                     <template #title>
                         <h3><?php i::_e("Informações de Apresentação") ?></h3>
-                        <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
                     </template>
                     <template #content>
                         <div class="grid-12">
+                            <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
                             <entity-cover :entity="entity" classes="col-12"></entity-cover>
                             <div class="col-12 grid-12">
                                 <div class="col-3 sm:col-12 card_profile">
@@ -96,10 +96,11 @@ $this->breadcrumb = [
                 <mc-card class="feature__full">
                     <template #title>
                         <h3 class="bold"><?php i::_e("Dados Pessoais"); ?></h3>
-                        <p><?php i::_e("Os dados inseridos abaixo não serão exibidos publicamente, exceto os casos em que forem selecionadas as opções ”Mostrar no perfil”."); ?></p>
+                        
                     </template>
                     <template #content>
                         <div class="grid-12">
+                            <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo não serão exibidos publicamente, exceto os casos em que forem selecionadas as opções ”Mostrar no perfil”."); ?></p>
                             <entity-field :entity="entity" classes="col-6 sm:col-12" prop="nomeSocial" label="<?= i::__('Nome Social') ?>"></entity-field>
                             <entity-field :entity="entity" classes="col-6 sm:col-12" prop="nomeCompleto" label="<?= i::__('Nome Completo') ?>"></entity-field>
                             <entity-field v-if="global.auth.is('admin')" :entity="entity" prop="type" @change="entity.save(true).then(() => global.reload())" classes="col-12 sm:col-12"></entity-field>
@@ -128,10 +129,11 @@ $this->breadcrumb = [
                 <mc-card class="feature__full">
                     <template #title>
                         <h3 class="bold"><?php i::_e("Dados sensíveis"); ?></h3>
-                        <p class="data-subtitle"><?php i::_e("Os campos em que não forem selecionadas a opção ”Ocultar do perfil” serão exibidos para todos os usuários da plataforma."); ?></p>
                     </template>
                     <template #content>
                         <div class="grid-12">
+                            <p class="col-12 mc-card__card_info"><?php i::_e("Os campos em que não forem selecionadas a opção ”Ocultar do perfil” serão exibidos para todos os usuários da plataforma."); ?></p>
+
                             <entity-field :entity="entity" classes="col-4 sm:col-12" prop="dataDeNascimento" label="<?= i::__('Data de Nascimento') ?>"></entity-field>
                             <!-- <div class="field col-6">
                                 <label>{{entity.$PROPERTIES['idoso'].label}}</label>
@@ -152,10 +154,10 @@ $this->breadcrumb = [
                 <mc-card class="feature__full">
                     <template #title>
                         <h3 class="bold"><?php i::_e("Redes sociais"); ?></h3>
-                        <p class="data-subtitle"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
                     </template>
                     <template #content>
                         <div class="grid-12">
+                            <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
                             <entity-social-media :entity="entity" editable></entity-social-media>
                         </div>
                     </template>
@@ -164,10 +166,10 @@ $this->breadcrumb = [
                 <mc-card class="feature__full">
                     <template #title>
                         <h3><?php i::_e("Anexos"); ?></h3>
-                        <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
                     </template>
                     <template #content>
                         <div class="grid-12">
+                            <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
                             <entity-files-list :entity="entity" classes="col-12" group="downloads" title="<?php i::_e('Arquivos para download'); ?>" editable></entity-files-list>
                             <entity-links :entity="entity" classes="col-12" title="<?php i::_e('Links'); ?>" editable></entity-links>
                             <entity-gallery-video :entity="entity" classes="col-12" title="<?php i::_e('Vídeos') ?>" editable></entity-gallery-video>

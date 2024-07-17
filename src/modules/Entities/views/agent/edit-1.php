@@ -57,7 +57,7 @@ $this->breadcrumb = [
                             <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
                             <entity-cover :entity="entity" classes="col-12"></entity-cover>
                             <div class="col-12 grid-12">
-                                <div class="col-3 sm:col-12 card_profile">
+                                <div class="col-2 sm:col-12 card_profile">
                                     <entity-profile :entity="entity" :label="false"></entity-profile>
                                 </div>
                             </div>

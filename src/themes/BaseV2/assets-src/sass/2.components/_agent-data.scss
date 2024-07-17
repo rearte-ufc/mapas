@@ -10,11 +10,6 @@
     }
 }
 
-.dvd {
-    padding: size(20);
-    border-bottom: 1px solid #bbbbbb;
-}
-
 .controller-agent.action-edit {
     .mc-card {
         padding: 0;
@@ -27,7 +22,7 @@
             padding-bottom: 0;
 
             h3 {
-                padding: size(18) size(18) size(18) size(25);
+                padding: size(25);
                 color: var(--mc-primary-500);   
                 border-bottom: 1px solid #bbbbbb;  
             }
@@ -76,16 +71,15 @@
                 }
         
                 .divider {
-                    border-right: size(1) solid var(--mc-gray-300);
-                    margin: 0 auto;
-                    width: size(1);
-                    height: 100%;
-        
-                    @media (max-width: size(800)) {
-                        border-bottom: 1px solid var(--mc-gray-300);
-                        height: size(1);
-                        width: 100%;
-                    }
+                    padding: size(30) 0 0 size(30);
+                    border-bottom: 1px solid #bbbbbb;
+                }
+
+                h4 {
+                    font-size: 1.125rem;
+                    line-height: 1.5625rem;
+                    margin-top: size(25);
+                    margin-bottom: size(25);
                 }
         
                 .right {
@@ -140,6 +134,10 @@
             margin: 0;
         }
     } */
+
+    .field__longdescription {
+        height: size(150);
+    }
 }
 
 .agent-data {

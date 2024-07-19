@@ -67,7 +67,7 @@ $this->breadcrumb = [
                                     </div>
                                     <?php $this->applyTemplateHook('entity-info','end') ?>
                                 </div>
-                                
+
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','before') ?>
                                 <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Áreas de atuação'); ?>"></entity-terms>
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','after') ?>
@@ -102,7 +102,7 @@ $this->breadcrumb = [
                                 <entity-field :entity="entity" classes="col-12" prop="nomeCompleto" label="<?= i::__('Nome Completo') ?>"></entity-field>
                                 <entity-field v-if="global.auth.is('admin')" :entity="entity" prop="type" @change="entity.save(true).then(() => global.reload())" classes="col-12"></entity-field>
                                 <entity-field :entity="entity" classes="col-12" prop="cpf"></entity-field>
-                                <entity-field :entity="entity" classes="col-12" prop="cnpj" label="<?= i::__('MEI (CNPJ do MEI)') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-12" prop="cnpj" label="<?= i::__('CNPJ') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-12" prop="emailPrivado" label="<?= i::__('E-mail pessoal') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-12" prop="telefonePublico" label="<?= i::__('Telefone público com DDD') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-12" prop="emailPublico" label="<?= i::__('E-mail público') ?>"></entity-field>
@@ -124,7 +124,7 @@ $this->breadcrumb = [
                                 <div class="field col-6">
                                     <label>{{entity.$PROPERTIES['idoso'].label}}</label>
                                     <input type="text" disabled :value="entity.idoso ? 'Sim' : 'Não'" />
-                                </div>    
+                                </div>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="genero" label="<?= i::__('Selecione o Gênero') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="orientacaoSexual" label="<?= i::__('Selecione a Orientação Sexual') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="raca" label="<?= i::__('Selecione a Raça/Cor') ?>"></entity-field>
@@ -174,7 +174,7 @@ $this->breadcrumb = [
         </mc-tab>
         <?php $this->applyTemplateHook('tabs','end') ?>
     </mc-tabs>
-    
+
     <entity-actions :entity="entity" editable></entity-actions>
 </div>
 <confirm-before-exit :entity="entity"></confirm-before-exit>

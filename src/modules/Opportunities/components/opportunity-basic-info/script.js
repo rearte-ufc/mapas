@@ -16,9 +16,6 @@ app.component("opportunity-basic-info", {
 			const api = new OpportunitiesAPI();
 			this.phases = await api.getPhases(this.entity.id);
 		}
-		console.log(this.entity.registrationTo?._date);
-		console.log(this.today);
-		console.log(this.registrationToMinDate);
 	},
 
 	props: {

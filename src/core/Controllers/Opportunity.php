@@ -12,6 +12,7 @@ use MapasCulturais\Entities\RegistrationEvaluation;
 use MapasCulturais\Entities\EvaluationMethodConfiguration;
 use MapasCulturais\Entities\Opportunity as EntitiesOpportunity;
 use MapasCulturais\Entities\Registration;
+use MapasCulturais\Entity;
 
 /**
  * Opportunity Controller
@@ -1317,22 +1318,17 @@ class Opportunity extends EntityController {
         $this->json($opportunity);
     }
 
-    /**
-     * Recria ponteiros entre fases das inscrições
-     * @return void 
-     */
-    public function ALL_fixNextPhaseRegistrationIds():void
-    {
+    function ALL_duplicate(){
+        $app = App::i();
+
         $this->requireAuthentication();
         $opportunity = $this->requestedEntity;
 
         $newOpportunity = clone $opportunity;
 
-        $dateTime = new \DateTime();
-        $now = $dateTime->format('d-m-Y H:i:s');
-
-        $newOpportunity->setName("$opportunity->name  - [Cópia][$now]");
+        $newOpportunity->setName("$opportunity->name  - [DUPLICADA]");
         $newOpportunity->setStatus(Entity::STATUS_DRAFT);
+        
         
         $app->em->persist($newOpportunity);
         $app->em->flush();
@@ -1346,15 +1342,14 @@ class Opportunity extends EntityController {
         $newOpportunity->setTerms(['area' => $opportunity->terms['area']]);
         $newOpportunity->saveTerms();
 
-        $opportunity = $this->requestedEntity;
 
-        $opportunity->fixNextPhaseRegistrationIds();
+        $newOpportunity->save();
 
         if($this->isAjax()){
-            $this->json($newOpportunity);
+            $this->json($opportunity);
         }else{
+            //e redireciona de volta para o referer
             $app->redirect($app->request->getReferer());
         }
     }
-    
 }

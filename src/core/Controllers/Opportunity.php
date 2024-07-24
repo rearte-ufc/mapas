@@ -1324,11 +1324,37 @@ class Opportunity extends EntityController {
     public function ALL_fixNextPhaseRegistrationIds():void
     {
         $this->requireAuthentication();
+        $opportunity = $this->requestedEntity;
+
+        $newOpportunity = clone $opportunity;
+
+        $dateTime = new \DateTime();
+        $now = $dateTime->format('d-m-Y H:i:s');
+
+        $newOpportunity->setName("$opportunity->name  - [Cópia][$now]");
+        $newOpportunity->setStatus(Entity::STATUS_DRAFT);
+        
+        $app->em->persist($newOpportunity);
+        $app->em->flush();
+
+        foreach ($opportunity->getMetadata() as $metadataKey => $metadataValue) {
+            if (!is_null($metadataValue) && $metadataValue != '') {
+                $newOpportunity->setMetadata($metadataKey, $metadataValue);
+            }
+        }
+        
+        $newOpportunity->setTerms(['area' => $opportunity->terms['area']]);
+        $newOpportunity->saveTerms();
 
         $opportunity = $this->requestedEntity;
 
         $opportunity->fixNextPhaseRegistrationIds();
 
+        if($this->isAjax()){
+            $this->json($newOpportunity);
+        }else{
+            $app->redirect($app->request->getReferer());
+        }
     }
     
 }

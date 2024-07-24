@@ -525,9 +525,8 @@ class Entity {
             return this.doPromise(res, (entity) => {
                 this.sendMessage(this.text('entidade duplicada'));
                 this.populate(entity);
-                if(removeFromLists) {
-                    this.removeFromLists();
-                }
+                
+                window.open('/minhas-oportunidades/#draft', '_blank').focus();
             });
         } catch (error) {
             return this.doCatch(error);

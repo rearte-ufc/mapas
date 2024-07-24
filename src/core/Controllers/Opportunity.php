@@ -12,6 +12,7 @@ use MapasCulturais\Entities\RegistrationEvaluation;
 use MapasCulturais\Entities\EvaluationMethodConfiguration;
 use MapasCulturais\Entities\Opportunity as EntitiesOpportunity;
 use MapasCulturais\Entities\Registration;
+use MapasCulturais\Entity;
 
 /**
  * Opportunity Controller
@@ -1291,5 +1292,40 @@ class Opportunity extends EntityController {
             }
         }
         $this->json($opportunity);
+    }
+
+    function ALL_duplicate(){
+        $app = App::i();
+
+        $this->requireAuthentication();
+        $opportunity = $this->requestedEntity;
+
+        $newOpportunity = clone $opportunity;
+
+        $newOpportunity->setName("$opportunity->name  - [DUPLICADA]");
+        $newOpportunity->setStatus(Entity::STATUS_DRAFT);
+        
+        
+        $app->em->persist($newOpportunity);
+        $app->em->flush();
+
+        foreach ($opportunity->getMetadata() as $metadataKey => $metadataValue) {
+            if (!is_null($metadataValue) && $metadataValue != '') {
+                $newOpportunity->setMetadata($metadataKey, $metadataValue);
+            }
+        }
+        
+        $newOpportunity->setTerms(['area' => $opportunity->terms['area']]);
+        $newOpportunity->saveTerms();
+
+
+        $newOpportunity->save();
+
+        if($this->isAjax()){
+            $this->json($opportunity);
+        }else{
+            //e redireciona de volta para o referer
+            $app->redirect($app->request->getReferer());
+        }
     }
 }

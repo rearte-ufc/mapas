@@ -521,6 +521,23 @@ class Entity {
         }
     }
 
+    async duplicate(removeFromLists) {
+        this.__processing = this.text('duplicando');
+
+        try {
+            const res = await this.API.duplicateEntity(this);
+            return this.doPromise(res, (entity) => {
+                this.sendMessage(this.text('entidade duplicada'));
+                this.populate(entity);
+                if(removeFromLists) {
+                    this.removeFromLists();
+                }
+            });
+        } catch (error) {
+            return this.doCatch(error);
+        }
+    }
+
     async archive(removeFromLists) {
         this.__processing = this.text('arquivando');
 

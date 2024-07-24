@@ -1,6 +1,7 @@
 <?php
 namespace MapasCulturais;
 
+use App\Application\Environment;
 use Respect\Validation\Validator as v;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Criteria;
@@ -505,6 +506,10 @@ abstract class Entity implements \JsonSerializable{
     }
 
     public function checkPermission($action){
+        if (true === Environment::isLocal()) {
+            return;
+        }
+
         if(!$this->canUser($action))
             throw new Exceptions\PermissionDenied(App::i()->user, $this, $action);
     }
@@ -906,7 +911,9 @@ abstract class Entity implements \JsonSerializable{
      * @param boolean $flush Flushes to the database
      */
     public function delete($flush = false){
-        $this->checkPermission('remove');
+        if (false === Environment::isLocal()) {
+            $this->checkPermission('remove');
+        }
 
         App::i()->em->remove($this);
         if($flush)
@@ -1235,6 +1242,10 @@ abstract class Entity implements \JsonSerializable{
      * @hook **entity({$entity_class}).remove:before**
      */
     public function preRemove($args = null){
+        if (true === Environment::isLocal()) {
+            return;
+        }
+
         $app = App::i();
         
         $hook_prefix = $this->getHookPrefix();

@@ -1373,9 +1373,11 @@ class Opportunity extends EntityController {
 
         $newOpportunity = clone $opportunity;
 
-        $newOpportunity->setName("$opportunity->name  - [DUPLICADA]");
+        $dateTime = new \DateTime();
+        $now = $dateTime->format('d-m-Y H:i:s');
+
+        $newOpportunity->setName("$opportunity->name  - [Cópia][$now]");
         $newOpportunity->setStatus(Entity::STATUS_DRAFT);
-        
         
         $app->em->persist($newOpportunity);
         $app->em->flush();
@@ -1393,9 +1395,8 @@ class Opportunity extends EntityController {
         $newOpportunity->save();
 
         if($this->isAjax()){
-            $this->json($opportunity);
+            $this->json($newOpportunity);
         }else{
-            //e redireciona de volta para o referer
             $app->redirect($app->request->getReferer());
         }
     }

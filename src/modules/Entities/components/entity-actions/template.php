@@ -44,7 +44,7 @@ $this->import('
                         <?php i::_e('Você está certo que deseja excluir?') ?>
                     </template>
                 </mc-confirm-button>
-                <mc-confirm-button v-if="entity.currentUserPermissions?.archive" @confirm="entity.duplicate()" no="Cancelar" yes="Continuar">
+                <mc-confirm-button v-if="entity.currentUserPermissions?.modify && entity.status != -2 && entity.__objectType == 'opportunity'" @confirm="entity.duplicate()" no="Cancelar" yes="Continuar">
                     <template #button="modal">
                         <button @click="modal.open()" class="button button--icon button--sm">
                             <?php i::_e("Salvar modelo") ?>

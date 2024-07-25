@@ -1343,6 +1343,15 @@ class Opportunity extends EntityController {
         $newOpportunity->saveTerms();
 
 
+        foreach ($opportunity->getMetaLists() as $metaList_) {
+            foreach ($metaList_ as $metaList__) {
+                $metalist = $metaList__;
+                $metalist->setOwner($newOpportunity);
+            
+                $metalist->save(true);
+            }
+        }
+
         $newOpportunity->save();
 
         if($this->isAjax()){

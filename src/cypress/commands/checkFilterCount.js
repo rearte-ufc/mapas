@@ -6,27 +6,27 @@ function checkFilterCount() {
         let resultsType = resultsTextArray[1];
         const resultsCountPerPage = resultsCount < countPerPage ? resultsCount : countPerPage;
 
-    	switch (resultsType) {
-        	case "Oportunidades":
-        	    cy.get('.upper').should("have.length", resultsCountPerPage);
-        	    cy.wait(1000);
-        	    cy.contains(resultsCount + " Oportunidades encontradas");
-			
-        	    break;
-			
-        	case "Projetos":
-        		cy.get('.upper').should("have.length", resultsCountPerPage);
-        		cy.wait(1000);
-        		cy.contains(resultsCount + " Projetos encontrados");
-			
-        	    break;
-			
-        	case "Espaços":
-        	    cy.get('.upper').should("have.length", resultsCountPerPage);
-        	    cy.wait(1000);
-        	    cy.contains(resultsCount + " Espaços encontrados");
-			
-        	    break;
+                switch (resultsType) {
+                        case "Oportunidades":
+                                cy.get('.upper').should("have.length", resultsCountPerPage);
+                                cy.wait(1000);
+                                cy.contains(resultsCount + " Oportunidades encontradas");
+                                
+                                break;
+                        
+                        case "Projetos":
+                                cy.get('.upper').should("have.length", resultsCountPerPage);
+                                cy.wait(1000);
+                                cy.contains(resultsCount + " Projetos encontrados");
+        
+                                break;
+                        
+                        case "Espaços":
+                                cy.get('.upper').should("have.length", resultsCountPerPage);
+                                cy.wait(1000);
+                                cy.contains(resultsCount + " Espaços encontrados");
+                
+                                break;
 
         	default:
         	    cy.log("checkFilterCount(): tipo inválido");

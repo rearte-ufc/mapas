@@ -46,20 +46,19 @@ describe("Homepage", () => {
         cy.get(".carousel__prev").click();
     });
 
-    it("Acessa o navbar e o botão \"Acessar\" dos cards da seção \"Em destaque\"", () => {
-        cy.get(".agents > a > span").click();
-        cy.wait(1000);
-        cy.get(".carousel__slide--active > .entity-card > .entity-card__footer > .entity-card__footer--action > .button").click();
-        cy.url().should("include", "/agente/");
+    it("Acessa o navbar e o botão \"Acessar\" dos cards da seção \"Em desteaque\"", () => {
+        cy.contains("Acessar").eq(0).click();
+        cy.wait(2000);
+        cy.url().should("include", "/agente/27/#info");
         cy.contains("Anne Elisa");
         backHomepage();
 
         cy.get(".agents > a > span").click();
         cy.wait(1000);
         cy.get('.carousel__next').click();
-        cy.get('[style="width: 31.25%; order: 3;"] > .entity-card > .entity-card__footer > .entity-card__footer--action > .button').click();
-        cy.url().should("include", "/agente/");
-        cy.contains("a", "https://pt.wikipedia.org/wiki/Cleodon_Silva");
+        cy.get('[style="width: 31.25%; order: 2;"] > .entity-card > .entity-card__footer > .entity-card__footer--action > .button').click();
+        cy.url().should("include", "/agente/16/#info");
+        cy.contains("Universidade de Brasília");
         backHomepage();
         
         /*

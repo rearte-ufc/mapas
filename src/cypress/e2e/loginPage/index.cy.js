@@ -5,11 +5,13 @@ describe("Loginpage", () => {
         cy.visit("/autenticacao/");
     });
 
-    it("Verifica se é possivel logar com email ou cpf e senha", () => {
-        loginWith("Admin@local", "mapas123");
-        cy.visit("/autenticacao/");
-        loginWith("12345678902", "mapas123");
-    });
+  it("Verifica se é possivel logar com email ou cpf e senha", () => {
+      loginWith("Admin@local", "mapas123");
+      cy.get(".exit > a").click();
+      cy.visit("/autenticacao/");
+      loginWith("555.132.590-36", "Mapas12345!");
+      cy.contains("Minha conta");
+  });
 
     it("Garantir que se as informações estiverem incorretas o usuário será avisado sobre", () => {
         loginWith("blablabla", "mapas123");

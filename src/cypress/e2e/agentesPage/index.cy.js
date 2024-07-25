@@ -53,14 +53,20 @@ describe("Agents Page", () => {
         cy.get(":nth-child(2) > select").select(2);
         cy.contains("Agente Coletivo");
         cy.wait(1000);
-
+        
+        //Pega o número de agentes totais depois de aplicar o filtro para 'Agente Coletivo'
         cy.get(".foundResults").invoke('text').then((text) => {
-            // Extraia o número da string
-            expectedCount = parseInt(text.match(/\d+/)[0], 10);
-            
-            // Agora, verifique se o número de agentes do tipo coletivo encontrados é igual ao esperado
-            cy.get('.entity-card__header.without-labels > .user-details > .user-info > a > .mc-title').should('have.length', expectedCount)
-            cy.contains(expectedCount + " Agentes encontrados")
+            // Extraia o número da string e converte para int
+            const expectedCount = parseInt(text.match(/\d+/)[0], 10);
+
+            // Pega o número de agentes totais na tabela de cima
+            cy.get(".entity-cards-cards__number").eq(2).invoke('text').then((text2) => {
+                          
+              // Converte o texto para int
+              const elementNumber = parseInt(text2, 10);
+              // Compara para ver se os números são iguais
+              expect(elementNumber).to.equal(expectedCount);
+            });
         });
 
         cy.get(":nth-child(2) > select").select(1);
@@ -71,10 +77,17 @@ describe("Agents Page", () => {
             // Extraia o número da string
             expectedCount = parseInt(text.match(/\d+/)[0], 10);
             
-            // Agora, verifique se o número de agentes do tipo individual encontrados é igual ao esperado
-            cy.get('.entity-card__header.without-labels > .user-details > .user-info > a > .mc-title').should('have.length', expectedCount)
-            cy.contains(expectedCount + " Agentes encontrados");
-        });
+            // Pega o número de agentes totais na tabela de cima
+            cy.get(".entity-cards-cards__number").eq(1).invoke('text').then((text2) => {
+
+          
+                // Converte o texto para int
+                const elementNumber = parseInt(text2, 10);
+                // Compara para ver se os números são iguais
+                expect(elementNumber).to.equal(expectedCount);
+              });
+          });
+
     });
 
     it("Garante que os filtros por área de atuação funcionam", () => {

@@ -1342,6 +1342,11 @@ class Opportunity extends EntityController {
         $newOpportunity->setTerms(['area' => $opportunity->terms['area']]);
         $newOpportunity->saveTerms();
 
+        foreach ($opportunity->getRegistrationFieldConfigurations() as $registrationFieldConfiguration) {
+            $fieldConfiguration = clone $registrationFieldConfiguration;
+            $fieldConfiguration->setOwnerId($newOpportunity->getId());
+            $fieldConfiguration->save(true);
+        }
 
         foreach ($opportunity->getMetaLists() as $metaList_) {
             foreach ($metaList_ as $metaList__) {

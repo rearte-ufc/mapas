@@ -1397,6 +1397,12 @@ class Opportunity extends EntityController {
             $fieldConfiguration->save(true);
         }
 
+        foreach ($opportunity->getRegistrationFileConfigurations() as $registrationFileConfiguration) {
+            $fileConfiguration = clone $registrationFileConfiguration;
+            $fileConfiguration->setOwnerId($newOpportunity->getId());
+            $fileConfiguration->save(true);
+        }
+
         $newOpportunity->save();
 
         if($this->isAjax()){

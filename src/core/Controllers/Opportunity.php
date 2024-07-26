@@ -1344,44 +1344,13 @@ class Opportunity extends EntityController {
             $newMethodConfiguration->setOpportunity($newOpportunity);
             $newMethodConfiguration->save(true);
 
-            // duplica os metadados das configurações do modelo de avaliação
             foreach ($evaluationMethodConfiguration->getMetadata() as $metadataKey => $metadataValue) {
                 $newMethodConfiguration->setMetadata($metadataKey, $metadataValue);
                 $newMethodConfiguration->save(true);
             }
         }
 
-        // Duplica as fases
-        $phases = $app->repo('Opportunity')->findBy([
-            'parent' => $opportunity
-        ]);
-        foreach ($phases as $phase) {
-            if (!$phase->getMetadata('isLastPhase')) {
-                $newPhase = clone $phase;
-                $newPhase->setParent($newOpportunity);
-
-                // duplica os metadados das fases
-                foreach ($phase->getMetadata() as $metadataKey => $metadataValue) {
-                    if (!is_null($metadataValue) && $metadataValue != '') {
-                        $newPhase->setMetadata($metadataKey, $metadataValue);
-                        $newPhase->save(true);
-                    }
-                }
-
-                $newPhase->save(true);
-
-                // duplica os modelos de avaliações das fases
-                $evaluationMethodConfigurations = $app->repo('EvaluationMethodConfiguration')->findBy([
-                    'opportunity' => $phase
-                ]);
-                foreach ($evaluationMethodConfigurations as $evaluationMethodConfiguration) {
-                    $newMethodConfiguration = clone $evaluationMethodConfiguration;
-                    $newMethodConfiguration->setOpportunity($newPhase);
-                    $newMethodConfiguration->save(true);
-                }
-            }
-        }
-
+       
         foreach ($opportunity->getMetadata() as $metadataKey => $metadataValue) {
             if (!is_null($metadataValue) && $metadataValue != '') {
                 $newOpportunity->setMetadata($metadataKey, $metadataValue);

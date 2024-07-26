@@ -1370,18 +1370,33 @@ class Opportunity extends EntityController {
 
         $this->requireAuthentication();
         $opportunity = $this->requestedEntity;
-
         $newOpportunity = clone $opportunity;
 
+        // duplica a oportunidade
         $dateTime = new \DateTime();
         $now = $dateTime->format('d-m-Y H:i:s');
-
         $newOpportunity->setName("$opportunity->name  - [Cópia][$now]");
         $newOpportunity->setStatus(Entity::STATUS_DRAFT);
-        
         $app->em->persist($newOpportunity);
         $app->em->flush();
 
+
+        // duplica o método de avaliação para a oportunidade primária
+        $evaluationMethodConfigurations = $app->repo('EvaluationMethodConfiguration')->findBy([
+            'opportunity' => $opportunity
+        ]);
+        foreach ($evaluationMethodConfigurations as $evaluationMethodConfiguration) {
+            $newMethodConfiguration = clone $evaluationMethodConfiguration;
+            $newMethodConfiguration->setOpportunity($newOpportunity);
+            $newMethodConfiguration->save(true);
+
+            foreach ($evaluationMethodConfiguration->getMetadata() as $metadataKey => $metadataValue) {
+                $newMethodConfiguration->setMetadata($metadataKey, $metadataValue);
+                $newMethodConfiguration->save(true);
+            }
+        }
+
+       
         foreach ($opportunity->getMetadata() as $metadataKey => $metadataValue) {
             if (!is_null($metadataValue) && $metadataValue != '') {
                 $newOpportunity->setMetadata($metadataKey, $metadataValue);

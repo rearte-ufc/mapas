@@ -1,8 +1,7 @@
 <?php
 namespace MapasCulturais\Traits;
-
 use MapasCulturais\App;
-use MapasCulturais\Entities\ProjectOpportunity;
+use MapasCulturais\Entities\User;
 use MapasCulturais\Entity;
 
 trait EntityOpportunityDuplicator {
@@ -28,7 +27,7 @@ trait EntityOpportunityDuplicator {
         }
     }
 
-    private function cloneOpportunity(ProjectOpportunity $opportunity) : ProjectOpportunity
+    private function cloneOpportunity($opportunity)
     {
         $app = App::i();
 
@@ -44,7 +43,7 @@ trait EntityOpportunityDuplicator {
         return $newOpportunity;
     }
 
-    private function duplicateEvaluationMethods(ProjectOpportunity $opportunity, ProjectOpportunity $newOpportunity) : void
+    private function duplicateEvaluationMethods($opportunity, $newOpportunity)
     {
         $app = App::i();
 
@@ -65,7 +64,7 @@ trait EntityOpportunityDuplicator {
         }
     }
 
-    private function duplicatePhases(ProjectOpportunity $opportunity, ProjectOpportunity $newOpportunity) : void
+    private function duplicatePhases($opportunity, $newOpportunity)
     {
         $app = App::i();
 
@@ -106,7 +105,7 @@ trait EntityOpportunityDuplicator {
         }
     }
 
-    private function duplicateMetadata(ProjectOpportunity $opportunity, ProjectOpportunity $newOpportunity) : void
+    private function duplicateMetadata($opportunity, $newOpportunity)
     {
         foreach ($opportunity->getMetadata() as $metadataKey => $metadataValue) {
             if (!is_null($metadataValue) && $metadataValue != '') {
@@ -118,7 +117,7 @@ trait EntityOpportunityDuplicator {
         $newOpportunity->saveTerms();
     }
    
-    private function duplicateRegistrationFieldsAndFiles(ProjectOpportunity $opportunity, ProjectOpportunity $newOpportunity) : void
+    private function duplicateRegistrationFieldsAndFiles($opportunity, $newOpportunity)
     {
         foreach ($opportunity->getRegistrationFieldConfigurations() as $registrationFieldConfiguration) {
             $fieldConfiguration = clone $registrationFieldConfiguration;
@@ -134,11 +133,11 @@ trait EntityOpportunityDuplicator {
 
     }
 
-    private function duplicateMetalist(ProjectOpportunity $opportunity, ProjectOpportunity $newOpportunity) : void
+    private function duplicateMetalist($opportunity, $newOpportunity)
     {
         foreach ($opportunity->getMetaLists() as $metaList_) {
             foreach ($metaList_ as $metaList__) {
-                $metalist = clone $metaList__;
+                $metalist = $metaList__;
                 $metalist->setOwner($newOpportunity);
             
                 $metalist->save(true);

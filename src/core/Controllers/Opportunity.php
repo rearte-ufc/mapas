@@ -33,6 +33,7 @@ class Opportunity extends EntityController {
         Traits\ControllerArchive,
         Traits\ControllerAPI,
         Traits\ControllerAPINested,
+        Traits\EntityOpportunityDuplicator,
         Traits\ControllerEntityActions {
             Traits\ControllerEntityActions::PATCH_single as _PATCH_single;
         }
@@ -1316,60 +1317,5 @@ class Opportunity extends EntityController {
             }
         }
         $this->json($opportunity);
-    }
-
-    function ALL_duplicate(){
-        $app = App::i();
-
-        $this->requireAuthentication();
-        $opportunity = $this->requestedEntity;
-
-        $newOpportunity = clone $opportunity;
-
-        $newOpportunity->setName("$opportunity->name  - [DUPLICADA]");
-        $newOpportunity->setStatus(Entity::STATUS_DRAFT);
-        
-        
-        $app->em->persist($newOpportunity);
-        $app->em->flush();
-
-        foreach ($opportunity->getMetadata() as $metadataKey => $metadataValue) {
-            if (!is_null($metadataValue) && $metadataValue != '') {
-                $newOpportunity->setMetadata($metadataKey, $metadataValue);
-            }
-        }
-        
-        $newOpportunity->setTerms(['area' => $opportunity->terms['area']]);
-        $newOpportunity->saveTerms();
-
-        foreach ($opportunity->getRegistrationFieldConfigurations() as $registrationFieldConfiguration) {
-            $fieldConfiguration = clone $registrationFieldConfiguration;
-            $fieldConfiguration->setOwnerId($newOpportunity->getId());
-            $fieldConfiguration->save(true);
-        }
-
-        foreach ($opportunity->getMetaLists() as $metaList_) {
-            foreach ($metaList_ as $metaList__) {
-                $metalist = $metaList__;
-                $metalist->setOwner($newOpportunity);
-            
-                $metalist->save(true);
-            }
-        }
-
-        foreach ($opportunity->getRegistrationFileConfigurations() as $registrationFileConfiguration) {
-            $fileConfiguration = clone $registrationFileConfiguration;
-            $fileConfiguration->setOwnerId($newOpportunity->getId());
-            $fileConfiguration->save(true);
-        }
-
-        $newOpportunity->save();
-
-        if($this->isAjax()){
-            $this->json($opportunity);
-        }else{
-            //e redireciona de volta para o referer
-            $app->redirect($app->request->getReferer());
-        }
     }
 }

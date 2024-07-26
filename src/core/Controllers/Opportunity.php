@@ -1319,6 +1319,7 @@ class Opportunity extends EntityController {
             $newMethodConfiguration->setOpportunity($newOpportunity);
             $newMethodConfiguration->save(true);
 
+            // duplica os metadados das configurações do modelo de avaliação
             foreach ($evaluationMethodConfiguration->getMetadata() as $metadataKey => $metadataValue) {
                 $newMethodConfiguration->setMetadata($metadataKey, $metadataValue);
                 $newMethodConfiguration->save(true);
@@ -1352,6 +1353,12 @@ class Opportunity extends EntityController {
                     $newMethodConfiguration = clone $evaluationMethodConfiguration;
                     $newMethodConfiguration->setOpportunity($newPhase);
                     $newMethodConfiguration->save(true);
+
+                    // duplica os metadados das configurações do modelo de avaliação para a fase
+                    foreach ($evaluationMethodConfiguration->getMetadata() as $metadataKey => $metadataValue) {
+                        $newMethodConfiguration->setMetadata($metadataKey, $metadataValue);
+                        $newMethodConfiguration->save(true);
+                    }
                 }
             }
         }

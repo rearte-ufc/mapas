@@ -13,11 +13,13 @@ trait EntityOpportunityDuplicator {
         $opportunity = $this->requestedEntity;
         
         $newOpportunity = $this->cloneOpportunity($opportunity);
+        
         $this->duplicateEvaluationMethods($opportunity, $newOpportunity);
         $this->duplicatePhases($opportunity, $newOpportunity);
         $this->duplicateMetadata($opportunity, $newOpportunity);
         $this->duplicateRegistrationFieldsAndFiles($opportunity, $newOpportunity);
         $this->duplicateMetalist($opportunity, $newOpportunity);
+        $this->duplicateFiles($opportunity, $newOpportunity);
 
         $newOpportunity->save();
        
@@ -143,6 +145,21 @@ trait EntityOpportunityDuplicator {
             
                 $metalist->save(true);
             }
+        }
+    }
+
+    private function duplicateFiles(ProjectOpportunity $opportunity, ProjectOpportunity $newOpportunity) : void
+    {
+        $app = App::i();
+
+        $opportunityFiles = $app->repo('OpportunityFile')->findBy([
+            'owner' => $opportunity
+        ]);
+
+        foreach ($opportunityFiles as $opportunityFile) {
+            $newMethodOpportunityFile = clone $opportunityFile;
+            $newMethodOpportunityFile->owner = $newOpportunity;
+            $newMethodOpportunityFile->save(true);
         }
     }
 }

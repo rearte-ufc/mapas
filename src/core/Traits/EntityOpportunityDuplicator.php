@@ -117,6 +117,7 @@ trait EntityOpportunityDuplicator {
         }
 
         $newOpportunity->setTerms(['area' => $opportunity->terms['area']]);
+        $newOpportunity->setTerms(['tag' => $opportunity->terms['tag']]);
         $newOpportunity->saveTerms();
     }
    

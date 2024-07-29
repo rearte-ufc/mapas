@@ -174,8 +174,7 @@ $this->breadcrumb = [
         </mc-tab>
         <mc-tab label="<?= i::_e('Selos') ?>" slug="seals">
             <mc-container>
-                {{entity.seals}}
-                <panel--seal-relations-tabs></panel--seal-relations-tabs>
+                <panel--seal-relations-tabs :entity="entity"></panel--seal-relations-tabs>
             </mc-container>
         </mc-tab>
         <?php $this->applyTemplateHook('tabs', 'end') ?>

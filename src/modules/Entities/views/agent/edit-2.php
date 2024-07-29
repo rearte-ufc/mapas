@@ -27,7 +27,7 @@ $this->import('
     mc-container
     mc-tabs
     mc-tab
-    panel--entity-tabs 
+    panel--seal-relations-tabs 
 ');
 
 $label = $this->isRequestedEntityMine() ? i::__('Meus agentes') : i::__('Agentes');
@@ -138,7 +138,7 @@ $this->breadcrumb = [
         </mc-tab>
         <mc-tab label="<?= i::_e('Selos') ?>" slug="seals">
             <mc-container>
-                <panel--entity-tabs type="seal"></panel--entity-tabs>
+                <panel--seal-relations-tabs :entity="entity"></panel--seal-relations-tabs>
             </mc-container>
         </mc-tab>
         <?php $this->applyTemplateHook('tabs', 'end') ?>

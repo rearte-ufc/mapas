@@ -120,9 +120,9 @@ trait EntityOpportunityDuplicator {
             }
         }
 
-        $this->newOpportunity->setTerms(['area' => $this->opportunity->terms['area']]);
-        $this->newOpportunity->setTerms(['tag' => $this->opportunity->terms['tag']]);
-        $this->newOpportunity->saveTerms();
+        $newOpportunity->setTerms(['area' => $opportunity->terms['area']]);
+        $newOpportunity->setTerms(['tag' => $opportunity->terms['tag']]);
+        $newOpportunity->saveTerms();
     }
    
     private function duplicateRegistrationFieldsAndFiles() : void

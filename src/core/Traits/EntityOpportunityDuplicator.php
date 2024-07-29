@@ -13,18 +13,18 @@ trait EntityOpportunityDuplicator {
         $app = App::i();
 
         $this->requireAuthentication();
-        $this->opportunity = $this->requestedEntity;
-        $this->newOpportunity = $this->cloneOpportunity();
+        $opportunity = $this->requestedEntity;
+        
+        $newOpportunity = $this->cloneOpportunity($opportunity);
+        
+        $this->duplicateEvaluationMethods($opportunity, $newOpportunity);
+        $this->duplicatePhases($opportunity, $newOpportunity);
+        $this->duplicateMetadata($opportunity, $newOpportunity);
+        $this->duplicateRegistrationFieldsAndFiles($opportunity, $newOpportunity);
+        $this->duplicateMetalist($opportunity, $newOpportunity);
+        $this->duplicateFiles($opportunity, $newOpportunity);
 
-        $this->duplicateEvaluationMethods();
-        $this->duplicatePhases();
-        $this->duplicateMetadata();
-        $this->duplicateRegistrationFieldsAndFiles();
-        $this->duplicateMetalist();
-        $this->duplicateFiles();
-        $this->duplicateAgentRelations();
-
-        $this->newOpportunity->save(true);
+        $newOpportunity->save();
        
         if($this->isAjax()){
             $this->json($this->opportunity);
@@ -153,27 +153,18 @@ trait EntityOpportunityDuplicator {
         }
     }
 
-    private function duplicateFiles() : void
+    private function duplicateFiles(ProjectOpportunity $opportunity, ProjectOpportunity $newOpportunity) : void
     {
         $app = App::i();
 
         $opportunityFiles = $app->repo('OpportunityFile')->findBy([
-            'owner' => $this->opportunity
+            'owner' => $opportunity
         ]);
 
         foreach ($opportunityFiles as $opportunityFile) {
             $newMethodOpportunityFile = clone $opportunityFile;
-            $newMethodOpportunityFile->owner = $this->newOpportunity;
+            $newMethodOpportunityFile->owner = $newOpportunity;
             $newMethodOpportunityFile->save(true);
-        }
-    }
-
-    private function duplicateAgentRelations() : void
-    {
-        foreach ($this->opportunity->getAgentRelations() as $agentRelation_) {
-            $agentRelation = clone $agentRelation_;
-            $agentRelation->owner = $this->newOpportunity;
-            $agentRelation->save(true);
         }
     }
 }

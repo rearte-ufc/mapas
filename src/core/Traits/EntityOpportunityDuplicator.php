@@ -184,4 +184,20 @@ trait EntityOpportunityDuplicator {
             $newMethodOpportunityFile->save(true);
         }
     }
+
+    private function duplicateAgentRelations() : void
+    {
+        foreach ($this->opportunity->getAgentRelations() as $agentRelation_) {
+            $agentRelation = clone $agentRelation_;
+            $agentRelation->owner = $this->newOpportunity;
+            $agentRelation->save(true);
+        }
+    }
+
+    private function duplicateSealsRelations() : void
+    {
+        foreach ($this->opportunity->getSealRelations() as $sealRelation) {
+            $this->newOpportunity->createSealRelation($sealRelation->seal, true, true);
+        }
+    }
 }

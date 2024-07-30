@@ -109,7 +109,24 @@ trait EntityOpportunityDuplicator {
                     }
                 }
             }
+
+            if ($phase->getMetadata('isLastPhase')) {
+                $publishDate = $phase->getPublishTimestamp();
+            }
         }
+
+        if (isset($publishDate)) {
+            $phases = $app->repo('Opportunity')->findBy([
+                'parent' => $this->newOpportunity
+            ]);
+    
+            foreach ($phases as $phase) {
+                if ($phase->getMetadata('isLastPhase')) {
+                    $phase->setPublishTimestamp($publishDate);
+                    $phase->save(true);
+                }
+            }
+        }       
     }
 
     private function duplicateMetadata() : void

@@ -17,6 +17,7 @@ trait EntityOpportunityDuplicator {
         $this->opportunity = $this->requestedEntity;
         $this->newOpportunity = $this->cloneOpportunity();
 
+
         $this->duplicateEvaluationMethods();
         $this->duplicatePhases();
         $this->duplicateMetadata();
@@ -24,6 +25,7 @@ trait EntityOpportunityDuplicator {
         $this->duplicateMetalist();
         $this->duplicateFiles();
         $this->duplicateAgentRelations();
+        $this->duplicateSealsRelations();
 
         $this->newOpportunity->save(true);
        
@@ -175,6 +177,13 @@ trait EntityOpportunityDuplicator {
             $agentRelation = clone $agentRelation_;
             $agentRelation->owner = $this->newOpportunity;
             $agentRelation->save(true);
+        }
+    }
+
+    private function duplicateSealsRelations() : void
+    {
+        foreach ($this->opportunity->getSealRelations() as $sealRelation) {
+            $this->newOpportunity->createSealRelation($sealRelation->seal, true, true);
         }
     }
 }

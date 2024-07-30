@@ -68,6 +68,12 @@ trait EntityOpportunityDuplicator {
                 $newMethodConfiguration->setMetadata($metadataKey, $metadataValue);
                 $newMethodConfiguration->save(true);
             }
+
+            foreach ($evaluationMethodConfiguration->getAgentRelations() as $agentRelation_) {
+                $agentRelation = clone $agentRelation_;
+                $agentRelation->owner = $newMethodConfiguration;
+                $agentRelation->save(true);
+            }
         }
     }
 
@@ -97,6 +103,7 @@ trait EntityOpportunityDuplicator {
                 $evaluationMethodConfigurations = $app->repo('EvaluationMethodConfiguration')->findBy([
                     'opportunity' => $phase
                 ]);
+
                 foreach ($evaluationMethodConfigurations as $evaluationMethodConfiguration) {
                     $newMethodConfiguration = clone $evaluationMethodConfiguration;
                     $newMethodConfiguration->setOpportunity($newPhase);
@@ -106,6 +113,12 @@ trait EntityOpportunityDuplicator {
                     foreach ($evaluationMethodConfiguration->getMetadata() as $metadataKey => $metadataValue) {
                         $newMethodConfiguration->setMetadata($metadataKey, $metadataValue);
                         $newMethodConfiguration->save(true);
+                    }
+
+                    foreach ($evaluationMethodConfiguration->getAgentRelations() as $agentRelation_) {
+                        $agentRelation = clone $agentRelation_;
+                        $agentRelation->owner = $newMethodConfiguration;
+                        $agentRelation->save(true);
                     }
                 }
             }
@@ -187,7 +200,7 @@ trait EntityOpportunityDuplicator {
 
     private function duplicateAgentRelations() : void
     {
-        foreach ($this->opportunity->getAgentRelations() as $agentRelation_) {
+        foreach ($this->opportunity->getAgentRelations(null, true) as $agentRelation_) {
             $agentRelation = clone $agentRelation_;
             $agentRelation->owner = $this->newOpportunity;
             $agentRelation->save(true);

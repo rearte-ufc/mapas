@@ -13,18 +13,20 @@ trait EntityOpportunityDuplicator {
         $app = App::i();
 
         $this->requireAuthentication();
-        $opportunity = $this->requestedEntity;
-        
-        $newOpportunity = $this->cloneOpportunity($opportunity);
-        
-        $this->duplicateEvaluationMethods($opportunity, $newOpportunity);
-        $this->duplicatePhases($opportunity, $newOpportunity);
-        $this->duplicateMetadata($opportunity, $newOpportunity);
-        $this->duplicateRegistrationFieldsAndFiles($opportunity, $newOpportunity);
-        $this->duplicateMetalist($opportunity, $newOpportunity);
-        $this->duplicateFiles($opportunity, $newOpportunity);
+        $this->opportunity = $this->requestedEntity;
+        $this->newOpportunity = $this->cloneOpportunity();
 
-        $newOpportunity->save();
+
+        $this->duplicateEvaluationMethods();
+        $this->duplicatePhases();
+        $this->duplicateMetadata();
+        $this->duplicateRegistrationFieldsAndFiles();
+        $this->duplicateMetalist();
+        $this->duplicateFiles();
+        $this->duplicateAgentRelations();
+        $this->duplicateSealsRelations();
+
+        $this->newOpportunity->save(true);
        
         if($this->isAjax()){
             $this->json($this->opportunity);

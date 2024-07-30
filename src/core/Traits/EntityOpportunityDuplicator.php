@@ -186,7 +186,7 @@ trait EntityOpportunityDuplicator {
 
     private function duplicateAgentRelations() : void
     {
-        foreach ($this->opportunity->getAgentRelations(null, true) as $agentRelation_) {
+        foreach ($this->opportunity->getAgentRelations() as $agentRelation_) {
             $agentRelation = clone $agentRelation_;
             $agentRelation->owner = $this->newOpportunity;
             $agentRelation->save(true);

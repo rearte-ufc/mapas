@@ -1,7 +1,7 @@
-vendor
+# vendor
 var
 public/router.php
-vendor
+# vendor
 src/modules/Components/assets/js/media-query.js
 src/modules/Components/assets/js/media-query/
 node_modules
@@ -10,3 +10,14 @@ mix-manifest.json
 dev/docker-data/
 src/themes/BaseV1/assets/css/main.css
 src/themes/BaseV1/assets/css/main.css.map
+.idea
+.phpunit.result.cache
+.php-cs-fixer.cache
+docker-data
+media-query.js.LICENSE.txt
+public/assets/
+src/.phpdoc
+.phpunit*
+.phpdocs*
+.env
+vendor/

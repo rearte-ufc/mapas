@@ -7,10 +7,10 @@ require_once __DIR__.'/bootstrap.php';
  */
 class PermissionsTest extends MapasCulturais_TestCase{
 
-    function getRandomEntity($_class, $where = null){
-        $app = MapasCulturais\App::i();
-        $classname = 'MapasCulturais\Entities\\' . $_class;
-
+    function getRandomEntity($_class, $where = null)
+    {
+        $app = \MapasCulturais\App::i();
+        $classname = '\MapasCulturais\Entities\\' . $_class;
         $where = $where ? "AND $where" : '';
         if($_class === 'User')
             return $this->app->em->createQuery("SELECT e FROM $classname e WHERE e.status > 0 $where")->setMaxResults(1)->getOneOrNullResult();
@@ -24,7 +24,7 @@ class PermissionsTest extends MapasCulturais_TestCase{
     function testCanUserCreate(){
         $this->app->disableWorkflow();
         $this->resetTransactions();
-        $app = MapasCulturais\App::i();
+        $app = \MapasCulturais\App::i();
 
         /*
          * Guest users CANNOT create entities.
@@ -111,6 +111,7 @@ class PermissionsTest extends MapasCulturais_TestCase{
     function testCanUserModify(){
         $this->app->disableWorkflow();
         $this->resetTransactions();
+        $app = \MapasCulturais\App::i();
         /*
          * Asserting thar guest users cannot modify entities
          */

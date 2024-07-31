@@ -17,31 +17,73 @@ $this->import('
 ?>
 
 <mc-tabs>
-    <mc-tab label="<?= i::_e('Válidos (2)') ?>" slug="valid">
+    <mc-tab :label="validSealsLabel" slug="valid">
         <mc-container>
             <div class="seals-relations-background">
-                <h2 class="seals-relations-title">Selos válidos</h2>
-                <hr>
-                <p>some text</p>
+                <p>Esses são os selos que foram atribuídos à você e estão atualmente válidos. Esses selos são apresentados publicamente na plataforma.</p>
                 <hr>
 
                 <div class="seals-relations-item">
-                    <div class="seals-relations-item-image">
-                        <img src="https://via.placeholder.com/150" alt="">
-                    </div>
                     <div class="seals-relations-item-content">
-                        <h3>Nome do Selo</h3>
-                        <p><b>Criador do selo:</b> nome do criador</p>
-                        <p><b>Selo atribuido por:</b> nome do agente</p>
-                        <p>Descrição curta do selo</p>
-                        <p><mc-icon name="date"></mc-icon> Data de recebimento do selo: 2022-12-31</p>
-                        <p><mc-icon name="date"></mc-icon> Validade do selo: 2022-12-31</p>
+                        <template v-if="validSeals && validSeals.length">
+                            <template v-for="seal in validSeals" :key="seal.sealRelationId">
+                                <slot :seal="seal">
+                                    <div class="seal-relation-content">
+                                        <div class="seals-relations-item-image">
+                                            <img v-if="seal?.files?.avatar?.transformations?.avatarSmall?.url" :src="seal.files.avatar.transformations.avatarSmall.url" alt="Seal Image">
+                                            <img v-else src="https://via.placeholder.com/150" alt="Placeholder Image">
+                                        </div>
+                                        <h3>{{seal.name}}</h3>
+                                        <p><b>Criador do selo: </b>{{seal.sealRelationFullData.seal.owner.name}}</p>
+                                        <p><b>Selo atribuido por: </b>{{seal.sealRelationFullData.agent.name}}</p>
+                                        <p><b>Descrição curta: </b>{{seal.sealRelationFullData.seal.shortDescription}}</p>
+                                        <p><mc-icon name="date"></mc-icon> Data de recebimento do selo: {{ formatReceivedDate(seal) }}</p>
+                                        <p><mc-icon name="date"></mc-icon> Validade do selo: {{ formatValidDate(seal) }}</p>
+                                    </div>
+                                </slot>
+                                <hr>
+                            </template>
+                        </template>
+                        <template v-else>
+                            <p>No seals available.</p>
+                        </template>
                     </div>
                 </div>
-            </div>
             </div>
         </mc-container>
     </mc-tab>
 
-    <mc-tab label="<?= i::_e('Expirados (2)') ?>" slug="expired">22{{entity.seals}}</mc-tab>
+    <mc-tab :label="expiredSealsLabel" slug="expired"><mc-container>
+            <div class="seals-relations-background">
+                <p>Esses são os selos que foram atribuídos à você e estão atualmente válidos. Esses selos são apresentados publicamente na plataforma.</p>
+                <hr>
+
+                <div class="seals-relations-item">
+                    <div class="seals-relations-item-content">
+                        <template v-if="expiredSeals && expiredSeals.length">
+                            <template v-for="seal in expiredSeals" :key="seal.sealRelationId">
+                                <slot :seal="seal">
+                                    <div class="seal-relation-content">
+                                        <div class="seals-relations-item-image">
+                                            <img v-if="seal?.files?.avatar?.transformations?.avatarSmall?.url" :src="seal.files.avatar.transformations.avatarSmall.url" alt="Seal Image">
+                                            <img v-else src="https://via.placeholder.com/150" alt="Placeholder Image">
+                                        </div>
+                                        <h3>{{seal.name}}</h3>
+                                        <p><b>Criador do selo: </b>{{seal.sealRelationFullData.seal.owner.name}}</p>
+                                        <p><b>Selo atribuido por: </b>{{seal.sealRelationFullData.agent.name}}</p>
+                                        <p><b>Descrição curta: </b>{{seal.sealRelationFullData.seal.shortDescription}}</p>
+                                        <p><mc-icon name="date"></mc-icon> Data de recebimento do selo: {{ formatReceivedDate(seal) }}</p>
+                                        <p><mc-icon name="date"></mc-icon> Validade do selo: {{ formatValidDate(seal) }}</p>
+                                    </div>
+                                </slot>
+                                <hr>
+                            </template>
+                        </template>
+                        <template v-else>
+                            <p>No seals available.</p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </mc-container></mc-tab>
 </mc-tabs>

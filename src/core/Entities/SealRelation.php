@@ -131,9 +131,8 @@ abstract class SealRelation extends \MapasCulturais\Entity
         $result = parent::jsonSerialize();
         $result['@entityType'] = 'sealRelation';
         $result['owner'] = $this->owner->simplify('className,id,name,avatar,singleUrl');
-        $result['seal'] = $this->seal->simplify('id,name,files,singleUrl,validateDate');
+        $result['seal'] = $this->seal->simplify('id,name,files,singleUrl,validateDate,owner,shortDescription,validPeriod');
         $result['certificateText'] = $this->getCertificateText(true);
-
         $result['requestSealRelationUrl'] = $this->requestSealRelationUrl;
         $result['renewSealRelationUrl'] = $this->renewSealRelationUrl;
         $result['ownerSealUserId'] = $this->ownerSealUserId;

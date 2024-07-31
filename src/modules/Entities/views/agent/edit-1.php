@@ -48,22 +48,22 @@ $this->breadcrumb = [
             <mc-container class="container">
                 <label class="entity-cards__label"><?php i::_e("Campos marcados com <span style='color:red;'>*</span> são de preenchimento obrigatório.") ?></label>
             </mc-container>
-            <mc-card>
-                <mc-accordion>
+            <mc-container class="edit--profile">
+                <mc-accordion class="accordion-edit--profile">
                     <entity-status :entity="entity"></entity-status>
                     <!-- <mc-card class="feature__full"> -->
                         <template #title>
                             <h3><?php i::_e("Informações de Apresentação") ?></h3>
                         </template>
                         <template #content>
-                            <div class="grid-12">
+                            <div class="grid-12 black-content">
                                 <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
                                 <entity-cover :entity="entity" classes="col-12"></entity-cover>
-                                <div class="col-12 grid-12">
-                                    <div class="col-2 sm:col-12 card_profile">
+                                <!-- <div class="col-12 grid-12"> -->
+                                    <!-- <div class="entity-profile"> -->
                                         <entity-profile :entity="entity" :label="false"></entity-profile>
-                                    </div>
-                                </div>
+                                    <!-- </div> -->
+                                <!-- </div> -->
                                 <?php $this->applyTemplateHook('entity-info','begin') ?>
                                 <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
                                 <?php $this->applyTemplateHook('entity-info','end') ?>
@@ -89,7 +89,9 @@ $this->breadcrumb = [
                         </template>
                     <!-- </mc-card> -->
                 </mc-accordion>
-                <mc-accordion>
+            </mc-container>
+            <mc-container class="edit--profile">
+                <mc-accordion class="accordion-edit--profile">
                     <!-- <mc-card class="feature__full"> -->
                         <template #title>
                             <h3 class="bold"><?php i::_e("Dados Pessoais"); ?></h3>
@@ -124,7 +126,9 @@ $this->breadcrumb = [
                         </template>
                     <!-- </mc-card> -->
                 </mc-accordion>
-                <mc-accordion>
+            </mc-container>
+            <mc-container class="edit--profile">
+                <mc-accordion class="accordion-edit--profile">
                     <!-- <mc-card class="feature__full"> -->
                         <template #title>
                             <h3 class="bold"><?php i::_e("Dados sensíveis"); ?></h3>
@@ -149,7 +153,9 @@ $this->breadcrumb = [
                         </template>
                     <!-- </mc-card> -->
                 </mc-accordion>
-                <mc-accordion>
+            </mc-container>
+            <mc-container class="edit--profile">
+                <mc-accordion class="accordion-edit--profile">
                     <!-- <mc-card class="feature__full"> -->
                         <template #title>
                             <h3 class="bold"><?php i::_e("Redes sociais"); ?></h3>
@@ -162,7 +168,9 @@ $this->breadcrumb = [
                         </template>
                     <!-- </mc-card> -->
                 </mc-accordion>
-                <mc-accordion>
+            </mc-container>
+            <mc-container class="edit--profile">
+                <mc-accordion class="accordion-edit--profile">
                     <!-- <mc-card class="feature__full"> -->
                         <template #title>
                             <h3><?php i::_e("Anexos"); ?></h3>
@@ -189,7 +197,7 @@ $this->breadcrumb = [
                         </mc-card>
                     </aside> -->
                 </mc-accordion>
-            </mc-card>
+            </mc-container>
         </mc-tab>
         <?php $this->applyTemplateHook('tabs','end') ?>
     </mc-tabs>

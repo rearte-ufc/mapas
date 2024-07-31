@@ -42,3 +42,30 @@
     
     // }
 }
+
+.accordion-edit--profile{
+    box-shadow: 0 size(4) size(8) rgba(0, 0, 0, 0.2);
+    width: size(1160);
+    color: #217c83;
+    max-width: size(1160);
+    background: var(--mc-white);
+
+    .black-content{
+        color: black;
+    }
+    .mc-accordion{
+        &__content, &__header {
+            max-width: size(1160);
+        }        
+    }   
+
+    .iconify--fluent{
+        color: #217c83;
+    }
+
+    .entity-profile__profile--img{
+        position: absolute;
+        margin-top: -70px;
+        left: 410px;
+    }
+}

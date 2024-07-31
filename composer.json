@@ -1,6 +1,11 @@
 {
     "require": {
-        "acelaya/doctrine-enum-type": "^2.3",
+        "php": "^7.3 || ^8",
+        "ext-intl": "*",
+        "ext-pdo_pgsql": "*",
+        "ext-zip": "*",
+        "ext-gd": "*",
+        "acelaya/doctrine-enum-type": "^2.5",
         "akrabat/ip-address-middleware": "^2.1",
         "doctrine/annotations": "^2.0",
         "doctrine/dbal": "^3.6",

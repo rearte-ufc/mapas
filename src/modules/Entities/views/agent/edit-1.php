@@ -79,7 +79,7 @@ $this->breadcrumb = [
                                 <?php $this->applyTemplateHook('edit1-entity-info-shortDescription','after') ?>
                                 <entity-field :entity="entity" classes="col-12" prop="longDescription" editable></entity-field>
                 
-                                <div class="col-12">Site</div>
+                                <div class="col-12 black-content">Site</div>
                                 <?php $this->applyTemplateHook('edit1-entity-info-site','before') ?>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="site"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="siteDescription"></entity-field>
@@ -97,8 +97,8 @@ $this->breadcrumb = [
                 
                         </template>
                         <template #content>
-                            <div class="grid-12">
-                                <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo não serão exibidos publicamente, exceto os casos em que forem selecionadas as opções ”Mostrar no perfil”."); ?></p>
+                            <div class="grid-12 black-content">
+                                <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo <strong>não</strong> serão exibidos publicamente, exceto os casos em que forem selecionadas as opções ”Mostrar no perfil”."); ?></p>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="nomeSocial" label="<?= i::__('Nome Social') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="nomeCompleto" label="<?= i::__('Nome Completo') ?>"></entity-field>
                                 <entity-field v-if="global.auth.is('admin')" :entity="entity" prop="type" @change="entity.save(true).then(() => global.reload())" classes="col-12 sm:col-12"></entity-field>
@@ -111,10 +111,10 @@ $this->breadcrumb = [
                                 <entity-location :entity="entity" classes="col-12 sm:col-12" editable></entity-location>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="agenteItinerante" label="<?= i::__('É agente itinerante?') ?>"></entity-field>
                             </div>
-                            <div class="divider"></div>
-                            <h4>Dados bancário</h4>
+                            <div class="divider divider--data"></div>
                 
-                            <div class="grid-12">
+                            <div class="grid-12 black-content">
+                                <h4 class="col-12"><?php i::_e("<strong>Dados bancários</strong>"); ?></h4>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="payment_bank_account_type"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="payment_bank_number"></entity-field>
                                 <entity-field :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_account_number"></entity-field>

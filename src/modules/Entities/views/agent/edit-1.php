@@ -128,11 +128,12 @@ $this->breadcrumb = [
                 <mc-accordion>
                     <!-- <mc-card class="feature__full"> -->
                         <template #title>
-                            <h3 class="bold"><?php i::_e("Dados sensíveis"); ?></h3>
+                            <h3 class="bold"><?php i::_e("Dados do perfil"); ?></h3>
                         </template>
                         <template #content>
-                            <div class="grid-12">
+                            <div class="grid-12 black-content">
                                 <p class="col-12 mc-card__card_info"><?php i::_e("Os campos em que não forem selecionadas a opção ”Ocultar do perfil” serão exibidos para todos os usuários da plataforma."); ?></p>
+                                <h4 class="col-12"><?php i::_e("<strong>Dados bancários</strong>"); ?></h4>
                                 <entity-field :entity="entity" classes="col-4 sm:col-12" prop="dataDeNascimento" label="<?= i::__('Data de Nascimento') ?>"></entity-field>
                                 <!-- <div class="field col-6">
                                     <label>{{entity.$PROPERTIES['idoso'].label}}</label>

@@ -18,12 +18,15 @@
         grid-template-columns: 1fr size(12);
         max-width: size(870);
         border-radius: size(4);
+        :hover{
+            cursor: pointer;
+        }
     }
     
     &__content {
         padding: size(16);
         background: var(--mc-white);
-        border-top: 1px solid var(--mc-gray-100);
+        border-top: 2px solid #bbbbbb;
         max-width: size(870);
         
     }

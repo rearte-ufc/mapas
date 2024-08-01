@@ -19,6 +19,7 @@ $iconset = [
     'instagram' => 'fa6-brands:instagram',
     'linkedin' => 'akar-icons:linkedin-box-fill',
     'pinterest' => 'fa6-brands:pinterest-p',
+    'tiktok' => 'fa6-brands:tiktok',
     'spotify' => 'akar-icons:spotify-fill',
     'telegram' => 'cib:telegram-plane',
     'twitter' => 'akar-icons:twitter-fill',

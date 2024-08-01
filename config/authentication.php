@@ -1,8 +1,8 @@
 <?php
 return [
-    'auth.provider' => 'Fake',
-    'auth.config' => [],
-    /*
+    // 'auth.provider' => 'Fake',
+    // 'auth.config' => [],
+    // /*
     // https://github.com/kterva/MultipleLocalAuth
     'auth.provider' => '\MultipleLocalAuth\Provider',
 
@@ -36,7 +36,7 @@ return [
             ]
         ]
     ]
-
+/*
     //Example Authentik
     auth.provider' => 'MapasCulturais\AuthProviders\OpauthAuthentik',
     'auth.config' => [

@@ -302,6 +302,10 @@ abstract class Opportunity extends \MapasCulturais\Entity
      */
     protected $avaliableEvaluationFields = [];
     
+    function getPublishTimestamp(){
+        return $this->publishTimestamp;
+    }
+
     abstract function getSpecializedClassName();
 
     public static function getPropertiesMetadata($include_column_name = false){
@@ -624,6 +628,8 @@ abstract class Opportunity extends \MapasCulturais\Entity
             $this->publishTimestamp = null;
         }
     }
+
+    
 
     function setOwnerEntity($entity){
     	if (empty($entity)) {

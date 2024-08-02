@@ -1,5 +1,6 @@
 const { clearAllFilters } = require("../../commands/clearAllFilters");
 const { checkFilterCountOf } = require("../../commands/checkFilterCountOf");
+const { loginWith } = require("../../commands/login");
 
 describe("Opportunity Page", () => {
     beforeEach(() => {
@@ -149,5 +150,26 @@ describe("Opportunity Page", () => {
         checkFilterCountOf("opportunity");
 
         cy.wait(1000);
+    });
+
+    it("Garante geração de modelo da oportunidade", () => {
+        cy.visit("/autenticacao/");
+        loginWith("Admin@local", "mapas123");
+        cy.get(':nth-child(4) > :nth-child(1) > a').click();
+        cy.get('.right > .button--primary').click();
+        
+        cy.wait(1000);
+
+        cy.get('.rowBtn > :nth-child(6)').click();
+
+        cy.contains("Salvar modelo");
+        cy.contains("Todas as configurações atuais da oportunidade, incluindo o vínculo com a entidade associada e os campos de formulário criados, serão duplicadas.");
+    
+        cy.get('.modal__action > .button--primary').click();
+        cy.wait(3000);
+
+        cy.visit("/minhas-oportunidades/#draft");
+  
+        cy.get('.panel-entity-card__header > .left > .panel-entity-card__header--info > .panel-entity-card__header--info-link > .mc-title').contains("[Cópia]");  
     });
 });

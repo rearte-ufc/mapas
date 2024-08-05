@@ -110,7 +110,7 @@ $this->breadcrumb = [
                                 <!-- <entity-field :entity="entity" classes="col-6 sm:col-12" prop="telefone2" label="<?= i::__('Telefone privado 2 com DDD') ?>"></entity-field> -->
                                 <div class="divider col-12"></div>
                                 <entity-location :entity="entity" classes="col-12 sm:col-12" editable></entity-location>
-                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="agenteItinerante" label="<?= i::__('É agente itinerante?') ?>"></entity-field>
+                                <entity-field :entity="entity" type="radio" classes="col-6 sm:col-12" prop="agenteItinerante" label="<?= i::__('É agente itinerante?') ?>"></entity-field>
                             </div>
                             <div class="divider divider--data"></div>
                 
@@ -162,9 +162,9 @@ $this->breadcrumb = [
                             <h3 class="bold"><?php i::_e("Redes sociais"); ?></h3>
                         </template>
                         <template #content>
-                            <div class="grid-12">
+                            <div class="grid-12 black-content">
                                 <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
-                                <entity-social-media :entity="entity" editable></entity-social-media>
+                                <entity-social-media :entity="entity" editable alwaysshowicons></entity-social-media>
                             </div>
                         </template>
                     <!-- </mc-card> -->
@@ -177,9 +177,9 @@ $this->breadcrumb = [
                             <h3><?php i::_e("Anexos"); ?></h3>
                         </template>
                         <template #content>
-                            <div class="grid-12">
+                            <div class="grid-12 black-content">
                                 <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
-                                <entity-files-list :entity="entity" classes="col-12" group="downloads" title="<?php i::_e('Arquivos para download'); ?>" editable></entity-files-list>
+                                <entity-files-list :entity="entity" classes="col-12 " group="downloads" title="<?php i::_e('Arquivos para download'); ?>" editable></entity-files-list>
                                 <entity-links :entity="entity" classes="col-12" title="<?php i::_e('Links'); ?>" editable></entity-links>
                                 <entity-gallery-video :entity="entity" classes="col-12" title="<?php i::_e('Vídeos') ?>" editable></entity-gallery-video>
                                 <entity-gallery :entity="entity" classes="col-12" title="<?php i::_e('Imagens') ?>" editable></entity-gallery>

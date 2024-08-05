@@ -10,6 +10,7 @@ $this->import('
 ');
 ?>
 
+<!-- editable = false (default) -->
 <div v-if="!editable" class="entity-social-media__links">
     <div v-if="entity.instagram" class="entity-social-media__links--link">
         <mc-icon name="instagram"></mc-icon>
@@ -58,28 +59,46 @@ $this->import('
 </div>
 
 
-<!-- <mc-icon name="instagram"></mc-icon> -->
-<entity-field  v-if="editable" classes="col-4 sm:col-12" :entity="entity" prop="instagram"></entity-field>
+<!-- Não mostra icon em editaveis (alwaysShowIcons = false) -->
+<entity-field  v-if="editable && !showIcons" classes="col-4 sm:col-12" :entity="entity" prop="instagram"></entity-field>
 
-<!-- <mc-icon name="twitter"></mc-icon> -->
-<entity-field  v-if="editable" classes="col-4 sm:col-12" :entity="entity" prop="twitter"></entity-field>
+<entity-field  v-if="editable && !showIcons" classes="col-4 sm:col-12" :entity="entity" prop="twitter"></entity-field>
 
-<!-- <mc-icon name="facebook"></mc-icon> -->
-<entity-field v-if="editable" classes="col-4 sm:col-12" :entity="entity" prop="facebook"></entity-field>
+<entity-field v-if="editable && !showIcons" classes="col-4 sm:col-12" :entity="entity" prop="facebook"></entity-field>
 
-<!-- <mc-icon name="vimeo"></mc-icon> -->
-<entity-field v-if="editable" classes="col-4 sm:col-12" :entity="entity" prop="vimeo"></entity-field>
+<entity-field v-if="editable && !showIcons" classes="col-4 sm:col-12" :entity="entity" prop="vimeo"></entity-field>
 
-<!-- <mc-icon name="youtube"></mc-icon> -->
-<entity-field v-if="editable" classes="col-4 sm:col-12" :entity="entity" prop="youtube"></entity-field>
+<entity-field v-if="editable && !showIcons" classes="col-4 sm:col-12" :entity="entity" prop="youtube"></entity-field>
 
-<!-- <mc-icon name="linkedin"></mc-icon> -->
-<entity-field v-if="editable" classes="col-4 sm:col-12" :entity="entity" prop="linkedin"></entity-field>
+<entity-field v-if="editable && !showIcons" classes="col-4 sm:col-12" :entity="entity" prop="linkedin"></entity-field>
 
-<!-- <mc-icon name="spotify"></mc-icon> -->
-<entity-field v-if="editable" classes="col-4 sm:col-12" :entity="entity" prop="spotify"></entity-field>
+<entity-field v-if="editable && !showIcons" classes="col-4 sm:col-12" :entity="entity" prop="spotify"></entity-field>
 
-<!-- <mc-icon name="pinterest"></mc-icon> -->
-<entity-field v-if="editable" classes="col-4 sm:col-12" :entity="entity" prop="pinterest"></entity-field>
+<entity-field v-if="editable && !showIcons" classes="col-4 sm:col-12" :entity="entity" prop="pinterest"></entity-field>
 
-<entity-field v-if="editable" classes="col-4 sm:col-12" :entity="entity" prop="tiktok"></entity-field>
+<entity-field v-if="editable && !showIcons" classes="col-4 sm:col-12" :entity="entity" prop="tiktok"></entity-field>
+
+
+
+<!-- Mostra icon em editaveis (alwaysShowIcons = true) -->
+<entity-field v-if="editable && showIcons" classes="col-4 sm:col-12" :entity="entity" prop="instagram"><mc-icon v-if="editable && showIcons" name="instagram"></mc-icon>Instagram</entity-field>
+
+<entity-field v-if="editable && showIcons" classes="col-4 sm:col-12" :entity="entity" prop="twitter"><mc-icon v-if="editable && showIcons" name="twitter"></mc-icon>X (antigo twitter)</entity-field>
+
+<entity-field v-if="editable && showIcons" classes="col-4 sm:col-12" :entity="entity" prop="facebook"><mc-icon v-if="showIcons" name="facebook"></mc-icon>Facebook</entity-field>
+
+<entity-field v-if="editable && showIcons" classes="col-4 sm:col-12" :entity="entity" prop="vimeo"><mc-icon v-if="editable && showIcons" name="vimeo"></mc-icon>Vimeo</entity-field>
+
+<entity-field v-if="editable && showIcons" classes="col-4 sm:col-12" :entity="entity" prop="youtube"><mc-icon v-if="editable && showIcons" name="youtube"></mc-icon>Youtube</entity-field>
+
+
+<entity-field v-if="editable && showIcons" classes="col-4 sm:col-12" :entity="entity" prop="linkedin"><mc-icon v-if="editable && showIcons" name="linkedin"></mc-icon>Linkedin</entity-field>
+
+
+<entity-field v-if="editable && showIcons" classes="col-4 sm:col-12" :entity="entity" prop="spotify"><mc-icon v-if="editable && showIcons" name="spotify"></mc-icon>Spotify</entity-field>
+
+
+<entity-field v-if="editable && showIcons" classes="col-4 sm:col-12" :entity="entity" prop="pinterest"><mc-icon v-if="editable && showIcons" name="pinterest"></mc-icon>Pinterest</entity-field>
+
+
+<entity-field v-if="editable && showIcons" classes="col-4 sm:col-12" :entity="entity" prop="tiktok"><mc-icon v-if="editable && showIcons" name="tiktok"></mc-icon>TikTok</entity-field>

@@ -20,6 +20,15 @@ app.component('entity-social-media', {
             type: [String, Array, Object],
             required: false
         },
+        alwaysshowicons: {
+            type: Boolean,
+            default: false
+        },
+    },
+    computed: {
+        showIcons() {
+            return this.alwaysshowicons;
+        }
     },
     methods: {
         getPlaceHolders(){

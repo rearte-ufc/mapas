@@ -33,12 +33,19 @@ $this->import('
                                             <img v-if="seal?.files?.avatar?.transformations?.avatarSmall?.url" :src="seal.files.avatar.transformations.avatarSmall.url" alt="Seal Image">
                                             <img v-else src="https://via.placeholder.com/150" alt="Placeholder Image">
                                         </div>
-                                        <h3>{{seal.name}}</h3>
+                                        <div class="seal-header">
+                                            <h3>{{seal.name}}</h3>
+                                            <input type="checkbox" id="show-on-profile" name="show-on-profile" />
+                                            <label for="show-on-profile">Mostrar no perfil</label>
+                                        </div>
                                         <p><b>Criador do selo: </b>{{seal.sealRelationFullData.seal.owner.name}}</p>
                                         <p><b>Selo atribuido por: </b>{{seal.sealRelationFullData.agent.name}}</p>
                                         <p><b>Descrição curta: </b>{{seal.sealRelationFullData.seal.shortDescription}}</p>
                                         <p><mc-icon name="date"></mc-icon> Data de recebimento do selo: {{ formatReceivedDate(seal) }}</p>
                                         <p><mc-icon name="date"></mc-icon> Validade do selo: {{ formatValidDate(seal) }}</p>
+                                        <div class="seal-footer">
+                                            <button class="button"><mc-icon name="trash"></mc-icon>Excluir selo</button>
+                                        </div>
                                     </div>
                                 </slot>
                                 <hr>
@@ -68,7 +75,11 @@ $this->import('
                                             <img v-if="seal?.files?.avatar?.transformations?.avatarSmall?.url" :src="seal.files.avatar.transformations.avatarSmall.url" alt="Seal Image">
                                             <img v-else src="https://via.placeholder.com/150" alt="Placeholder Image">
                                         </div>
-                                        <h3>{{seal.name}}</h3>
+                                        <div class="seal-header">
+                                            <h3>{{seal.name}}</h3>
+                                            <input type="checkbox" id="show-on-profile" name="show-on-profile" />
+                                            <label for="show-on-profile">Mostrar no perfil</label>
+                                        </div>
                                         <p><b>Criador do selo: </b>{{seal.sealRelationFullData.seal.owner.name}}</p>
                                         <p><b>Selo atribuido por: </b>{{seal.sealRelationFullData.agent.name}}</p>
                                         <p><b>Descrição curta: </b>{{seal.sealRelationFullData.seal.shortDescription}}</p>

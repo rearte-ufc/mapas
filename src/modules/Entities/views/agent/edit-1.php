@@ -28,7 +28,10 @@ $this->import('
     mc-accordion
     mc-tabs
     mc-tab
-
+    mc-avatar
+    mc-confirm-button
+    mc-relation-card
+    select-entity
 ');
 
 $label = $this->isRequestedEntityMine() ? i::__('Meus agentes') : i::__('Agentes');
@@ -63,13 +66,37 @@ $this->breadcrumb = [
                                 <div class="col-12 grid-12">
                                     <div class="col-2 sm:col-12 card_profile">
                                         <entity-profile :entity="entity" :label="false"></entity-profile>
+                                    <!-- </div> -->
+                                <!-- </div> -->
+                                
+                                <div class="col-12">
+                                    <div class="flex-container">
+                                        <?php $this->applyTemplateHook('entity-info','begin') ?>
+                                        <entity-field :entity="entity" classes="entity-terms__edit-agent" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
+                                        <mc-popover openside="down-right" class="popover">
+                                                <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
+                                                <template #button="popover">
+                                                    <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar"></mc-icon></a>
+                                                </template>
+                                        </mc-popover>
                                     </div>
                                 </div>
-                                <?php $this->applyTemplateHook('entity-info','begin') ?>
-                                <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
+                                
                                 <?php $this->applyTemplateHook('entity-info','end') ?>
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','before') ?>
-                                <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Área(s) de atuação *'); ?>"></entity-terms>
+                                
+                                <div class="col-12">
+                                    <div class="flex-container">
+                                        <entity-terms :entity="entity" taxonomy="area" editable classes="entity-terms__edit-agent" title="<?php i::_e('Área(s) de atuação *'); ?>"></entity-terms>
+                                        <mc-popover openside="down-right" class="popover">
+                                                <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
+                                                <template #button="popover">
+                                                    <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar"></mc-icon></a>
+                                                </template>
+                                        </mc-popover>
+                                    </div>
+                                </div>
+                                
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','after') ?>
 
                                 <div class="col-12">
@@ -94,16 +121,16 @@ $this->breadcrumb = [
                                         <mc-popover openside="down-right" class="popover">
                                             <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
                                             <template #button="popover">
-                                                <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar__tag"></mc-icon></a>
+                                                <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar tag"></mc-icon></a>
                                             </template>
                                         </mc-popover>
                                     </div>
                                 </div>
                 
                                 <?php $this->applyTemplateHook('edit1-entity-info-shortDescription','before') ?>
-                                <entity-field :entity="entity" classes="col-12" prop="shortDescription" label="<?php i::_e('Descrição curta') ?>"></entity-field>
+                                <entity-field :entity="entity" classes="col-12 entity-terms__edit-agent" prop="shortDescription" label="<?php i::_e('Descrição curta') ?>"></entity-field>
                                 <?php $this->applyTemplateHook('edit1-entity-info-shortDescription','after') ?>
-                                <entity-field :entity="entity" classes="col-12" prop="longDescription" editable></entity-field>
+                                <entity-field :entity="entity" classes="col-12 entity-terms__edit-agent" prop="longDescription" editable></entity-field>
                 
                                 <div class="col-12">Site</div>
                                 <?php $this->applyTemplateHook('edit1-entity-info-site','before') ?>
@@ -154,7 +181,7 @@ $this->breadcrumb = [
                 <mc-accordion>
                     <!-- <mc-card class="feature__full"> -->
                         <template #title>
-                            <h3 class="bold"><?php i::_e("Dados do perfil"); ?></h3>
+                            <h3 class="bold"><?php i::_e("Dados sensíveis"); ?></h3>
                         </template>
                         <template #content>
                             <div class="grid-12 black-content">

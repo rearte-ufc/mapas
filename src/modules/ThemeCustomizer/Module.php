@@ -128,13 +128,10 @@ class Module extends \MapasCulturais\Module
                     ";
                     
                     $scss_filename = tempnam(sys_get_temp_dir(), 'subsite-').'.scss';
-                    $css_filename = tempnam(sys_get_temp_dir(), 'subsite-').'.css';
                     
                     
                     file_put_contents($scss_filename, $saas);
-                    exec("sass $scss_filename $css_filename --no-source-map");
-                    
-                    $css = file_get_contents($css_filename);
+                    $css = shell_exec("node /app/node_modules/sass/sass.js $scss_filename --no-source-map");
                     
                     $app->hook('template(<<*>>.body):after', function () use ($css) {
                         echo "

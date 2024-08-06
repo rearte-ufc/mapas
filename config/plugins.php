@@ -2,5 +2,7 @@
 
 return [
     'plugins' => [
+        'MultipleLocalAuth',
+        'Metabase'
     ]
 ];

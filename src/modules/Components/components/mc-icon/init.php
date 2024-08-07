@@ -16,7 +16,7 @@ $iconset = [
     // redes sociais
     'facebook' => 'brandico:facebook',
     'github' => 'la:github-alt',
-    'instagram' => 'fa6-brands:instagram',
+    'instagram' => 'carbon:logo-instagram',
     'linkedin' => 'akar-icons:linkedin-box-fill',
     'pinterest' => 'fa6-brands:pinterest-p',
     'tiktok' => 'fa6-brands:tiktok',
@@ -24,7 +24,7 @@ $iconset = [
     'telegram' => 'cib:telegram-plane',
     'twitter' => 'bi:twitter-x',
     'whatsapp' => 'akar-icons:whatsapp-fill',
-    'vimeo' => 'brandico:vimeo',
+    'vimeo' => 'mdi:vimeo',
     'youtube' => 'akar-icons:youtube-fill',
 
 

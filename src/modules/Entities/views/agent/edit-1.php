@@ -71,13 +71,13 @@ $this->breadcrumb = [
                                 <div class="col-12">
                                     <div class="flex-container">
                                         <?php $this->applyTemplateHook('entity-info','begin') ?>
-                                        <entity-field :entity="entity" classes="entity-terms__edit-agent" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
                                         <mc-popover openside="down-right" class="popover">
                                                 <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
                                                 <template #button="popover">
-                                                    <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar"></mc-icon></a>
+                                                    <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar__name"></mc-icon></a>
                                                 </template>
                                         </mc-popover>
+                                        <entity-field :entity="entity" classes="entity-terms__edit-agent" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
                                     </div>
                                 </div>
                                 
@@ -86,11 +86,11 @@ $this->breadcrumb = [
                                 
                                 <div class="col-12">
                                     <div class="flex-container">
-                                        <entity-terms :entity="entity" taxonomy="area" editable classes="entity-terms__edit-agent" title="<?php i::_e('Área(s) de atuação *'); ?>"></entity-terms>
+                                        <entity-terms :entity="entity" taxonomy="area" editable classes="entity-terms__edit-agent" title="<?php i::_e('Área(s) de atuação'); ?>"></entity-terms>
                                         <mc-popover openside="down-right" class="popover">
-                                                <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
+                                                <p class="popover__content">São as suas áreas de atuação<br> profissional e/ou de conhecimentos<br> especializados, sejam eles teóricos<br> e/ou técnicos.</p>
                                                 <template #button="popover">
-                                                    <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar"></mc-icon></a>
+                                                    <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar__area"></mc-icon></a>
                                                 </template>
                                         </mc-popover>
                                     </div>
@@ -101,13 +101,13 @@ $this->breadcrumb = [
                                 <div class="col-12">
                                     <div class="flex-container">
                                         <entity-terms :entity="entity" taxonomy="funcao" editable classes="entity-terms__edit-agent" title="<?php i::_e('Função(ões) na cultura'); ?>"></entity-terms>
-                                        <mc-popover openside="down-right" class="popover">
+                                        <mc-popover openside="down-right" class="popover__funcao">
                                             <p class="popover__content">
-                                                Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.
+                                                São funções que você exerce<br> no cenário cultural.
                                             </p>
                                             <template #button="popover">
                                                 <a @click="popover.toggle()">
-                                                <mc-icon name="question" class="popover__avatar"></mc-icon>
+                                                <mc-icon name="question" class="popover__avatar__funcao"></mc-icon>
                                                 </a>
                                             </template>
                                         </mc-popover>
@@ -118,7 +118,7 @@ $this->breadcrumb = [
                                     <div class="flex-container">
                                         <entity-terms :entity="entity" taxonomy="tag" classes="entity-terms__edit-agent" title="Tags" editable></entity-terms>
                                         <mc-popover openside="down-right" class="popover">
-                                            <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
+                                            <p class="popover__content">São tags que identificam seus<br> interesses, seus valores.</p>
                                             <template #button="popover">
                                                 <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar__tag"></mc-icon></a>
                                             </template>
@@ -162,7 +162,31 @@ $this->breadcrumb = [
                                 <entity-field :entity="entity" classes="col-4 sm:col-12" prop="telefone1" label="<?= i::__('Telefone pessoal (com DDD)') ?>"></entity-field>
                                 <!-- <entity-field :entity="entity" classes="col-6 sm:col-12" prop="telefone2" label="<?= i::__('Telefone privado 2 com DDD') ?>"></entity-field> -->
                                 <div class="divider col-12"></div>
+                                <div class="flex-container endereco">
+                                    <mc-popover openside="down-right" class="popover__funcao">
+                                        <p class="popover__content">
+                                            Endereço residencial<br> do agente individual.
+                                        </p>
+                                        <template #button="popover">
+                                            <a @click="popover.toggle()">
+                                            <mc-icon name="question" class="popover__avatar__funcao"></mc-icon>
+                                            </a>
+                                        </template>
+                                    </mc-popover>
+                                </div>
                                 <entity-location :entity="entity" classes="col-12 sm:col-12" editable></entity-location>
+                                <div class="flex-container col-12 itinerante">
+                                    <mc-popover openside="down-right" class="popover__funcao">
+                                        <p class="popover__content">
+                                            Agentes itinerantes são agentes que<br> estão em constante deslocamento e/ou<br> não estabelecem uma residência fixa.<br> São exemplos: pessoas em situação<br> de rua, pessoas que atuam no circo,<br> pessoas nômades, pessoas que estão<br> imigrando, entre outros.
+                                        </p>
+                                        <template #button="popover">
+                                            <a @click="popover.toggle()">
+                                            <mc-icon name="question" class="popover__avatar__funcao"></mc-icon>
+                                            </a>
+                                        </template>
+                                    </mc-popover>
+                                </div>
                                 <entity-field :entity="entity" type="radio" classes="col-6 sm:col-12" prop="agenteItinerante" label="<?= i::__('É agente itinerante?') ?>"></entity-field>
                             </div>
                             <div class="divider divider--data"></div>
@@ -232,7 +256,7 @@ $this->breadcrumb = [
                         <template #content>
                             <div class="grid-12 black-content">
                                 <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários da plataforma."); ?></p>
-                                <entity-files-list :entity="entity" classes="col-12 " group="downloads" title="<?php i::_e('Arquivos para download'); ?>" editable></entity-files-list>
+                                <entity-files-list :entity="entity" classes="col-12" group="downloads" title="<?php i::_e('Arquivos para download'); ?>" editable></entity-files-list>
                                 <entity-links :entity="entity" classes="col-12" title="<?php i::_e('Links'); ?>" editable></entity-links>
                                 <entity-gallery-video :entity="entity" classes="col-12" title="<?php i::_e('Vídeos') ?>" editable></entity-gallery-video>
                                 <entity-gallery :entity="entity" classes="col-12" title="<?php i::_e('Imagens') ?>" editable></entity-gallery>

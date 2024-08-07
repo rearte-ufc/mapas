@@ -56,29 +56,33 @@
     }
 }  
 
-// unique area
-div:nth-child(5) > div > div:nth-child(2) > div a svg.popover__avatar__area{
-    position: relative;
-    left: -19px;
+.question{
+    margin-top: 0rem;
 }
 
-// unique funcao
-div:nth-child(6) > div > div:nth-child(2) > div a svg.popover__avatar__funcao{
-    position: relative;
-    left: 0px;
-}
-
-//unique tag
-div:nth-child(7) > div > div:nth-child(2) > div a svg.popover__avatar__tag{
-    position: relative;
-    left: -115px;
-}
-
-//unique name
-div:nth-child(4) > div > div:nth-child(1) > div a svg.popover__avatar__name{
-    position: relative;
+//unique popover name
+div:nth-child(4).col-12.popover__area > div.flex-container.question > div:nth-child(1) > div{
+    position: absolute;
     left: 120px;
-    top: 27px;
+    top: 5px;
+}
+
+// unique popover area
+div:nth-child(5).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+    position: absolute;
+    left: 145px;
+}
+
+// unique popover funcao
+div:nth-child(6).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+    position: absolute;
+    left: 173px;
+}
+
+//unique popover tag
+div:nth-child(7).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+    position: absolute;
+    left: 49px;
 }
 
 //unique local de endereço
@@ -93,4 +97,8 @@ div > div:nth-child(1) > div.flex-container.col-12.itinerante > div > div{
     position: relative;
     left: 140px;
     top: 43px;
+}
+
+.popover__area{
+    position: relative;
 }

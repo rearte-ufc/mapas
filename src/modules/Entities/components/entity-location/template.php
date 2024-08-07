@@ -60,8 +60,11 @@ $this->import('
     </div>
 
     <div class="col-12">
+        <?php i::_e('Localização')?>
         <div class="grid-12" v-if="entity.En_Pais && entity.En_Pais != statesAndCitiesCountryCode">
+            teste3
             <div class="field col-6">
+                teste4
                     <label class="field__title">
                     <?php i::_e('Estado')?>
                     <span v-if="isRequired('En_Estado')" class="required">*<?php i::_e('obrigatório') ?></span>

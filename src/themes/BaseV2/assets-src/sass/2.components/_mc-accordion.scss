@@ -33,7 +33,23 @@
             padding-left: 30px;
             padding-top: 15px;
         }
-        
+
+        div.grid-12.black-content > div.field.col-6 label.input__label{
+            display: inline-block;
+            margin-right: 35px;
+            margin-top: 8px;
+            input{
+                margin-right: 10px;
+            }
+        }
+
+        div.grid-12.black-content > div.field.col-6 {
+            display: block;
+        }
+
+        div.grid-12.black-content > div.field.col-12.pcd.col-12 > div.field__group label.input__label.input__checkboxLabel.input__multiselect input{
+            margin-right: 7px;
+        }
     }
     // &__context {
     //     font-size: size(14);
@@ -79,9 +95,12 @@
         // font-size: size(50);
     }
 
-    .entity-profile__profile--img{
-        position: absolute;
-        margin-top: -70px;
-        left: 410px;
+    .edit--agent{
+        max-height: 0px;
+        .profile--edit--agent{
+            position: relative;
+            left: 35px;
+            top: -90px;
+        }
     }
 }

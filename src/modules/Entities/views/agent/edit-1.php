@@ -64,14 +64,16 @@ $this->breadcrumb = [
                                 <entity-cover :entity="entity" classes="col-12"></entity-cover>
                                 <!-- <div class="col-12 grid-12"> -->
                                     <!-- <div class="entity-profile"> -->
-                                        <entity-profile :entity="entity" :label="false"></entity-profile>
+                                        <div class="flex-container edit--agent">
+                                            <entity-profile class="profile--edit--agent" :entity="entity" :label="false"></entity-profile>
+                                        </div>
                                     <!-- </div> -->
                                 <!-- </div> -->
                                 
-                                <div class="col-12">
-                                    <div class="flex-container">
+                                <div class="col-12 popover__area">
+                                    <div class="flex-container question">
                                         <?php $this->applyTemplateHook('entity-info','begin') ?>
-                                        <mc-popover openside="down-right" class="popover">
+                                        <mc-popover openside="down-right" classes="popover name">
                                                 <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
                                                 <template #button="popover">
                                                     <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar__name"></mc-icon></a>
@@ -84,9 +86,11 @@ $this->breadcrumb = [
                                 <?php $this->applyTemplateHook('entity-info','end') ?>
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','before') ?>
                                 
-                                <div class="col-12">
-                                    <div class="flex-container">
-                                        <entity-terms :entity="entity" taxonomy="area" editable classes="entity-terms__edit-agent" title="<?php i::_e('Área(s) de atuação'); ?>"></entity-terms>
+                                <div class="col-12 popover__area">
+                                    <div class="flex-container question">
+                                        <div>
+                                            <entity-terms :entity="entity" taxonomy="area" editable classes="entity-terms__edit-agent" title="<?php i::_e('Área(s) de atuação'); ?>"></entity-terms>
+                                        </div>
                                         <mc-popover openside="down-right" class="popover">
                                                 <p class="popover__content">São as suas áreas de atuação<br> profissional e/ou de conhecimentos<br> especializados, sejam eles teóricos<br> e/ou técnicos.</p>
                                                 <template #button="popover">
@@ -98,8 +102,8 @@ $this->breadcrumb = [
                                 
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','after') ?>
 
-                                <div class="col-12">
-                                    <div class="flex-container">
+                                <div class="col-12 popover__area">
+                                    <div class="flex-container question">
                                         <entity-terms :entity="entity" taxonomy="funcao" editable classes="entity-terms__edit-agent" title="<?php i::_e('Função(ões) na cultura'); ?>"></entity-terms>
                                         <mc-popover openside="down-right" class="popover__funcao">
                                             <p class="popover__content">
@@ -114,8 +118,8 @@ $this->breadcrumb = [
                                     </div>
                                 </div>
 
-                                <div class="col-12">
-                                    <div class="flex-container">
+                                <div class="col-12 popover__area">
+                                    <div class="flex-container question">
                                         <entity-terms :entity="entity" taxonomy="tag" classes="entity-terms__edit-agent" title="Tags" editable></entity-terms>
                                         <mc-popover openside="down-right" class="popover">
                                             <p class="popover__content">São tags que identificam seus<br> interesses, seus valores.</p>
@@ -153,6 +157,7 @@ $this->breadcrumb = [
                         <template #content>
                             <div class="grid-12 black-content">
                                 <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo <strong>não</strong> serão exibidos publicamente, exceto os casos em que forem selecionadas as opções ”Mostrar no perfil”."); ?></p>
+                                <h4 class="col-12"><?php i::_e("<strong>Dados de pessoa física</strong>"); ?></h4>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="nomeSocial" label="<?= i::__('Nome Social') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="nomeCompleto" label="<?= i::__('Nome Completo') ?>"></entity-field>
                                 <entity-field v-if="global.auth.is('admin')" :entity="entity" prop="type" @change="entity.save(true).then(() => global.reload())" classes="col-12 sm:col-12"></entity-field>
@@ -213,7 +218,7 @@ $this->breadcrumb = [
                         <template #content>
                             <div class="grid-12 black-content">
                                 <p class="col-12 mc-card__card_info"><?php i::_e("Os campos em que não forem selecionadas a opção ”Ocultar do perfil” serão exibidos para todos os usuários da plataforma."); ?></p>
-                                <h4 class="col-12"><?php i::_e("<strong>Dados bancários</strong>"); ?></h4>
+                                <h4 class="col-12"><?php i::_e("<strong>Dados do perfil</strong>"); ?></h4>
                                 <entity-field :entity="entity" classes="col-4 sm:col-12" prop="dataDeNascimento" label="<?= i::__('Data de Nascimento') ?>"></entity-field>
                                 <!-- <div class="field col-6">
                                     <label>{{entity.$PROPERTIES['idoso'].label}}</label>

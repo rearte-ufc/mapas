@@ -151,7 +151,9 @@ $this->breadcrumb = [
                         </template>
                     <!-- </mc-card> -->
                 </mc-accordion>
-                <mc-accordion>
+            </mc-container>
+            <mc-container class="edit--profile">
+                <mc-accordion class="accordion-edit--profile left--placeholder">
                     <!-- <mc-card class="feature__full"> -->
                         <template #title>
                             <h3 class="bold"><?php i::_e("Redes sociais"); ?></h3>

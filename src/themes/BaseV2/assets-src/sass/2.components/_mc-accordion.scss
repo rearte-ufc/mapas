@@ -28,6 +28,11 @@
         background: var(--mc-white);
         border-top: 2px solid #bbbbbb;
         max-width: size(870);
+
+        .left--placeholder input{
+            padding-left: 30px;
+            padding-top: 15px;
+        }
         
     }
     // &__context {

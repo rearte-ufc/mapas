@@ -71,8 +71,34 @@ $this->breadcrumb = [
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','before') ?>
                                 <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Área(s) de atuação *'); ?>"></entity-terms>
                                 <?php $this->applyTemplateHook('edit1-entity-info-taxonomie-area','after') ?>
-                                <entity-terms :entity="entity" taxonomy="funcao" editable classes="col-12" title="<?php i::_e('Função(ões) na cultura'); ?>"></entity-terms>
-                                <entity-terms :entity="entity" taxonomy="tag" classes="col-12" title="Tags" editable></entity-terms>
+
+                                <div class="col-12">
+                                    <div class="flex-container">
+                                        <entity-terms :entity="entity" taxonomy="funcao" editable classes="entity-terms__edit-agent" title="<?php i::_e('Função(ões) na cultura'); ?>"></entity-terms>
+                                        <mc-popover openside="down-right" class="popover">
+                                            <p class="popover__content">
+                                                Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.
+                                            </p>
+                                            <template #button="popover">
+                                                <a @click="popover.toggle()">
+                                                <mc-icon name="question" class="popover__avatar"></mc-icon>
+                                                </a>
+                                            </template>
+                                        </mc-popover>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="flex-container">
+                                        <entity-terms :entity="entity" taxonomy="tag" classes="entity-terms__edit-agent" title="Tags" editable></entity-terms>
+                                        <mc-popover openside="down-right" class="popover">
+                                            <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
+                                            <template #button="popover">
+                                                <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar__tag"></mc-icon></a>
+                                            </template>
+                                        </mc-popover>
+                                    </div>
+                                </div>
                 
                                 <?php $this->applyTemplateHook('edit1-entity-info-shortDescription','before') ?>
                                 <entity-field :entity="entity" classes="col-12" prop="shortDescription" label="<?php i::_e('Descrição curta') ?>"></entity-field>

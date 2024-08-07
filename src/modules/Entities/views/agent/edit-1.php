@@ -120,7 +120,7 @@ $this->breadcrumb = [
                                         <mc-popover openside="down-right" class="popover">
                                             <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
                                             <template #button="popover">
-                                                <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar tag"></mc-icon></a>
+                                                <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar__tag"></mc-icon></a>
                                             </template>
                                         </mc-popover>
                                     </div>

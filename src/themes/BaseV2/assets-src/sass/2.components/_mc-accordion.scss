@@ -45,7 +45,13 @@
     
     // }
 }
-
+.social-icon {
+    font-size: 17px !important; 
+    margin-right: 20px;
+    position: absolute;
+    margin-bottom: -85px;
+    margin-left: 10px;
+}
 .accordion-edit--profile{
     box-shadow: 0 size(4) size(8) rgba(0, 0, 0, 0.2);
     width: size(1160);
@@ -62,9 +68,10 @@
             max-width: size(1160);
         }        
     }   
-
+    
     .iconify--fluent{
         color: #217c83;
+        font-size: size(50);
     }
 
     .entity-profile__profile--img{

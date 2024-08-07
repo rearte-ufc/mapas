@@ -55,10 +55,51 @@
             margin-left: -115px;
         }
     }
+}  
 
-    .entity-terms__edit-agent {
-        // flex: 0; // Allow the entity-terms component to take up remaining space
-        // margin-left: -50px;  
+.question{
+    margin-top: 0rem;
+}
 
-    }
+//unique popover name
+div:nth-child(4).col-12.popover__area > div.flex-container.question > div:nth-child(1) > div{
+    position: absolute;
+    left: 120px;
+    top: 5px;
+}
+
+// unique popover area
+div:nth-child(5).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+    position: absolute;
+    left: 145px;
+}
+
+// unique popover funcao
+div:nth-child(6).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+    position: absolute;
+    left: 173px;
+}
+
+//unique popover tag
+div:nth-child(7).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+    position: absolute;
+    left: 49px;
+}
+
+//unique local de endereço
+div > div:nth-child(1) > div.flex-container.endereco > div > div{
+    position: relative;
+    left: 171px;
+    top: 46px;
+}
+
+//unique agente itinerante
+div > div:nth-child(1) > div.flex-container.col-12.itinerante > div > div{
+    position: relative;
+    left: 140px;
+    top: 43px;
+}
+
+.popover__area{
+    position: relative;
 }

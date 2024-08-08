@@ -129,6 +129,29 @@
         }
     }
 
+    .itinerante {
+        position: relative;
+        div.field.col-6.sm\:col-12 > label:nth-child(2){
+            left: 0px;
+        }
+        div.field.col-6.sm\:col-12 > label:nth-child(3){
+            left: 145px;
+        }
+        div.field.col-6.sm\:col-12 > label:nth-child(4){
+            left: 222px;
+        }
+        .input__label{
+            display: inline-block;
+            margin-right: 35px;
+            margin-top: 30px;
+            position: absolute;
+        }
+
+        input{
+            margin-right: 10px;
+        }
+    }   
+
     /* .field {
         label {
             margin: 0;

@@ -64,7 +64,7 @@ $this->import('
             </div>
         </template>
 
-        <template v-if="is('pcd')">
+        /*<template v-if="is('pcd')">
             <div class="field__group">
                 <!-- Yes/No Choice -->
                 <div>
@@ -85,7 +85,7 @@ $this->import('
                 </div>
             </div>
         </template>
-        
+        */
 
         <template v-if="is('checkbox')">
             <div class="field__group">

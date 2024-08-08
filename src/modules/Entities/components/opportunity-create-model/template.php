@@ -12,7 +12,7 @@ $this->import("
 ?>
 <div class="col-12">
     <mc-modal title="<?= i::__('Salvar modelo') ?>">
-        <template #default>
+        <template v-if="!sendSuccess" #default>
             <p>Para salvar um modelo, preencha os campos abaixo.</p><br>
             <div>
                 <div class="field">
@@ -30,6 +30,9 @@ $this->import("
         <template v-if="!sendSuccess"  #actions="modal">
             <button class="button button--primary" @click="save(modal)"><?= i::__('Salvar modelo') ?></button>
             <button class="button button--text button--text-del" @click="modal.close()"><?= i::__('cancelar') ?></button>
+        </template>
+        <template  v-if="sendSuccess"  #actions="modal">
+            <button class="button button--primary" @click="modal.close()"><?= i::__('Fechar') ?></button>
         </template>
 
         <template #button="modal">

@@ -24,13 +24,12 @@ app.component('opportunity-create-model', {
 
     methods: {
         async save() {
-            this.__processing = this.text('Gerando modelo...');
-
             const api = new API(this.entity.__objectType);
 
             let objt = this.formData;
             objt.entityId = this.entity.id;
             
+
             let error = null;
 
             if (error = this.validade(objt)) {
@@ -40,10 +39,7 @@ app.component('opportunity-create-model', {
                 return;
             }
 
-            await api.POST(`/opportunity/generatemodel/${objt.entityId}`, objt).then(res => {
-                this.messages.success(this.text('Modelo gerado com sucesso'));
-                this.sendSuccess = true;
-            });
+            console.log(this.entity.id);
         },
         validade(objt) {
             let result = null;

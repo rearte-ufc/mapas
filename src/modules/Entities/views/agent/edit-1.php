@@ -158,13 +158,13 @@ $this->breadcrumb = [
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="nomeSocial" label="<?= i::__('Nome Social') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-6 sm:col-12" prop="nomeCompleto" label="<?= i::__('Nome Completo') ?>"></entity-field>
                                 <entity-field v-if="global.auth.is('admin')" :entity="entity" prop="type" @change="entity.save(true).then(() => global.reload())" classes="col-12 sm:col-12"></entity-field>
-                                <entity-field :entity="entity" classes="col-4 sm:col-12" prop="cpf"></entity-field>
+                                <entity-field placeholder="123.456.789-10" :entity="entity" classes="col-4 sm:col-12" prop="cpf"></entity-field>
                                 <!-- <entity-field :entity="entity" classes="col-12" prop="cnpj" label="<?= i::__('MEI (CNPJ do MEI)') ?>"></entity-field> -->
                                 <entity-field :entity="entity" classes="col-4 sm:col-12" prop="emailPrivado" label="<?= i::__('E-mail pessoal') ?>"></entity-field>
                                 <entity-field :entity="entity" classes="col-4 sm:col-12" prop="telefone1" label="<?= i::__('Telefone pessoal (com DDD)') ?>"></entity-field>
                                 <!-- <entity-field :entity="entity" classes="col-6 sm:col-12" prop="telefone2" label="<?= i::__('Telefone privado 2 com DDD') ?>"></entity-field> -->
                                 <div class="divider col-12"></div>
-                                <div class="flex-container endereco">
+                                <div class="flex-container endereco col-12">
                                     <mc-popover openside="down-right" class="popover__funcao">
                                         <p class="popover__content">
                                             Endereço residencial<br> do agente individual.
@@ -175,8 +175,8 @@ $this->breadcrumb = [
                                             </a>
                                         </template>
                                     </mc-popover>
+                                    <entity-location :entity="entity" classes="col-12 sm:col-12" editable></entity-location>
                                 </div>
-                                <entity-location :entity="entity" classes="col-12 sm:col-12" editable></entity-location>
                                 <div class="flex-container col-12 itinerante">
                                     <mc-popover openside="down-right" class="popover__funcao">
                                         <p class="popover__content">
@@ -188,19 +188,21 @@ $this->breadcrumb = [
                                             </a>
                                         </template>
                                     </mc-popover>
+                                    <entity-field :entity="entity" type="radio" classes="col-6 sm:col-12" prop="agenteItinerante" label="<?= i::__('É agente itinerante?') ?>"></entity-field>
                                 </div>
-                                <entity-field :entity="entity" type="radio" classes="col-6 sm:col-12" prop="agenteItinerante" label="<?= i::__('É agente itinerante?') ?>"></entity-field>
+                                
                             </div>
                             <div class="divider"></div>
                             <h4>Dados bancário</h4>
                 
-                            <div class="grid-12">
-                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="payment_bank_account_type"></entity-field>
-                                <entity-field :entity="entity" classes="col-6 sm:col-12" prop="payment_bank_number"></entity-field>
-                                <entity-field :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_account_number"></entity-field>
-                                <entity-field :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_dv_account_number"></entity-field>
-                                <entity-field :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_branch"></entity-field>
-                                <entity-field :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_dv_branch"></entity-field>
+                            <div class="grid-12 black-content">
+                                <h4 class="col-12"><?php i::_e("<strong>Dados bancários</strong>"); ?></h4>
+                                <entity-field placeholder="Selecione" :entity="entity" classes="col-6 sm:col-12" prop="payment_bank_account_type"></entity-field>
+                                <entity-field placeholder="Selecione" :entity="entity" classes="col-6 sm:col-12" prop="payment_bank_number"></entity-field>
+                                <entity-field placeholder="Digite" :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_account_number"></entity-field>
+                                <entity-field placeholder="Digite" :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_dv_account_number"></entity-field>
+                                <entity-field placeholder="Digite" :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_branch"></entity-field>
+                                <entity-field placeholder="Digite" :entity="entity" classes="col-3 sm:col-12" prop="payment_bank_dv_branch"></entity-field>
                             </div>
                         </template>
                     <!-- </mc-card> -->

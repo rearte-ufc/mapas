@@ -435,9 +435,6 @@ return array(
         ),
         'siteDescription' => array(
             'label' => \MapasCulturais\i::__('Descrição do link'),
-            'validations' => array(
-                "v::url()" => \MapasCulturais\i::__("A URL informada é inválida. Informe no formato https://www.site.com e tente novamente."),
-            ),
         ),
         'facebook' => array(
             'type' => "socialMedia",

@@ -36,6 +36,7 @@
     gap: size(5);
     flex-direction: row;
     align-items: flex-start;
+    margin-top: 0px;
 
     .entity-terms{
         .v-popper--theme-dropdown{
@@ -56,41 +57,58 @@
     }
 }  
 
-// unique area
-div:nth-child(5) > div > div:nth-child(2) > div a svg.popover__avatar__area{
-    position: relative;
-    left: -19px;
+.question{
+    margin-top: 0rem;
 }
 
-// unique funcao
-div:nth-child(6) > div > div:nth-child(2) > div a svg.popover__avatar__funcao{
-    position: relative;
-    left: 0px;
-}
-
-//unique tag
-div:nth-child(7) > div > div:nth-child(2) > div a svg.popover__avatar__tag{
-    position: relative;
-    left: -115px;
-}
-
-//unique name
-div:nth-child(4) > div > div:nth-child(1) > div a svg.popover__avatar__name{
-    position: relative;
+// tooltip unique popover name
+div:nth-child(4).col-12.popover__area > div.flex-container.question > div:nth-child(1) > div{
+    position: absolute;
     left: 120px;
-    top: 27px;
+    top: 5px;
+}
+
+// tooltip unique popover area
+div:nth-child(5).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+    position: absolute;
+    left: 145px;
+}
+
+// tooltip  unique popover funcao
+div:nth-child(6).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+    position: absolute;
+    left: 173px;
+}
+
+// tooltip unique popover tag
+div:nth-child(7).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+    position: absolute;
+    left: 49px;
 }
 
 //unique local de endereço
 div > div:nth-child(1) > div.flex-container.endereco > div > div{
     position: relative;
-    left: 171px;
-    top: 46px;
+    // left: 171px;
+    // top: 46px;
 }
 
 //unique agente itinerante
 div > div:nth-child(1) > div.flex-container.col-12.itinerante > div > div{
     position: relative;
-    left: 140px;
-    top: 43px;
+    left: 139px;
+    top: 28px;
+}
+
+.popover__area{
+    position: relative;
+}
+
+// tooltip Dados de endereço
+div:nth-child(1) > div.flex-container.endereco.col-12 > div:nth-child(1) > div{
+    position: relative;
+    top: 32px;
+    left: 171px;
+    padding-top: 0px;
+    margin-top: 0px;
 }

@@ -19,7 +19,7 @@ app.component("panel--seal-relations-tabs", {
 		}
 
 		// Filter valid seals where validateDate is greater than or equal to today
-		const validSeals = this.entity.seals.filter((seal) => {
+		let validSeals = this.entity.seals.filter((seal) => {
 			const validateDate = parseDate(
 				seal.sealRelationFullData.validateDate
 			);
@@ -30,7 +30,7 @@ app.component("panel--seal-relations-tabs", {
 		});
 
 		// Filter expired seals where validateDate is less than today
-		const expiredSeals = this.entity.seals.filter((seal) => {
+		let expiredSeals = this.entity.seals.filter((seal) => {
 			const validateDate = parseDate(
 				seal.sealRelationFullData.validateDate
 			);
@@ -40,20 +40,13 @@ app.component("panel--seal-relations-tabs", {
 			);
 		});
 
-		return { validSeals, expiredSeals };
+		let validSealsLabel = `Válidos (${validSeals.length})`;
+		let expiredSealsLabel = `Expirados (${expiredSeals.length})`;
+
+		return { validSeals, expiredSeals, validSealsLabel, expiredSealsLabel };
 	},
 
-	computed: {
-		validSealsLabel() {
-			// Use i18n translation here if needed
-			return `Válidos (${this.validSeals.length})`;
-		},
-
-		expiredSealsLabel() {
-			// Use i18n translation here if needed
-			return `Expirados (${this.expiredSeals.length})`;
-		},
-	},
+	computed: {},
 
 	props: {
 		entity: {
@@ -81,5 +74,9 @@ app.component("panel--seal-relations-tabs", {
 					: "Não expira";
 			return outputMsg;
 		},
+        removeSeal(seal) {
+            // this.entity.removeSealRelation(seal);
+			this.entity.seals = this.entity.seals.filter((el) => seal != el);
+        }
 	},
 });

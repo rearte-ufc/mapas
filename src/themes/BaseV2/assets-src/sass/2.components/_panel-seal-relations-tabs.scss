@@ -2,7 +2,7 @@
 
 .seals-relations-background {
     padding: 30px;
-    
+
 }
 
 .seals-relations-item {
@@ -11,9 +11,15 @@
         display: flex;
         align-items: flex-start;
     
-        .seals-relations-item-image {
+         .seals-relations-item-image {
             margin-right: 20px;
-            flex-shrink: 0;
+
+            img {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
         }
     
         .seal-text-cont {

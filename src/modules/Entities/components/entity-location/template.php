@@ -87,11 +87,11 @@ entity-map
             <span v-if="entity.endereco">{{entity.endereco}}</span>
             <span v-if="!entity.endereco"><?= i::_e("Sem Endereço"); ?></span>
         </p>
-        <entity-map :entity="entity" :editable="editable"></entity-map>
+        <entity-map  :entity="entity" :editable="editable"></entity-map>
         <p class="info-text">
             Ao selecionar a opção "Mostrar no perfil" abaixo, sua geolocalização será disponibilizada no seu perfil, no mapa público e na API.
             <mc-popover ref="infoPopover" openside="down-right" classes="popover info-popover">
-                <template #default="popover">
+                <template #default="popover" class="popover">
                     <div class="popover__content">
                         <h2 class="popover__title">
                             <?= i::_e('Exibição de geolocalização') ?>

@@ -229,6 +229,15 @@ return array(
             'label' => \MapasCulturais\i::__('Total de vagas'),
             // 'description' => \MapasCulturais\i::__("Quantidades de vagas que esse edital irá disponibilizar."),
         ),
+        'isModel' => array(
+            'type' => 'integer',
+            'label' => \MapasCulturais\i::__('É modelo?'),
+            'default_value' => 0,
+        ),
+        'modelType' => array(
+            'type' => 'integer',
+            'label' => \MapasCulturais\i::__('Tipo de modelo'),
+        ),
     ),
     'items' => $items,
     

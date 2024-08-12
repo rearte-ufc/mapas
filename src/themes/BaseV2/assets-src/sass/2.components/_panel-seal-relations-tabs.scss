@@ -3,11 +3,7 @@
 .seals-relations-background {
     padding: 30px;
     background-color: white;
-    
-       p {
-        font-size: 14px;
-        color: #666;
-    }
+    grid-template-columns: 100% 32%;
 
     hr {
         border: 0;
@@ -47,7 +43,7 @@
 
             h3 {
                 font-size: 18px;
-                color: #333;
+                color: $projects-500;
                 margin: 0;
             }
 
@@ -66,17 +62,25 @@
         p {
             margin: 10px 0;
             font-size: 14px;
-            color: #666;
+            font-family: $font-headings
 
             b {
-                color: #333;
+                color: #000000;
+                font-weight: $font-weight-bold;
             }
 
             mc-icon {
                 margin-right: 5px;
                 color: #999;
             }
+
         }
+
+        .seal-creator {
+            color: $projects-500;
+            font-weight: $font-weight-bold;
+        }
+
 
         .seal-footer {
             margin-top: 20px;

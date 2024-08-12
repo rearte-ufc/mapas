@@ -35,12 +35,12 @@ $this->import('
                                             <mc-icon v-else name="seal" alt="Placeholder Image">
                                         </div>
                                         <div class="seal-header">
-                                            <h3>{{seal.name}}</h3>
+                                            <h3 class="seal-name">{{seal.name}}</h3>
                                             <!-- <input type="checkbox" id="show-on-profile" name="show-on-profile" />
                                             <label for="show-on-profile">Mostrar no perfil</label> -->
                                         </div>
-                                        <p><b>Criador do selo: </b>{{seal.sealRelationFullData.seal.owner.name}}</p>
-                                        <p><b>Selo atribuido por: </b>{{seal.sealRelationFullData.agent.name}}</p>
+                                        <p><b>Criador do selo: </b><span class="seal-creator">{{seal.sealRelationFullData.seal.owner.name}}</span></p>
+                                        <p><b>Selo atribuido por: </b><span class="seal-creator">{{seal.sealRelationFullData.agent.name}}</span></p>
                                         <p><b>Descrição curta: </b>{{seal.sealRelationFullData.seal.shortDescription}}</p>
                                         <p><mc-icon name="date"></mc-icon> Data de recebimento do selo: {{ formatReceivedDate(seal) }}</p>
                                         <p><mc-icon name="date"></mc-icon> Validade do selo: {{ formatValidDate(seal) }}</p>
@@ -90,7 +90,7 @@ $this->import('
                                             <!-- <input type="checkbox" id="show-on-profile" name="show-on-profile" />
                                             <label for="show-on-profile">Mostrar no perfil</label> -->
                                         </div>
-                                        <p><b>Criador do selo: </b>{{seal.sealRelationFullData.seal.owner.name}}</p>
+                                        <p class="seal-creator"><b>Criador do selo: </b>{{seal.sealRelationFullData.seal.owner.name}}</p>
                                         <p><b>Selo atribuido por: </b>{{seal.sealRelationFullData.agent.name}}</p>
                                         <p><b>Descrição curta: </b>{{seal.sealRelationFullData.seal.shortDescription}}</p>
                                         <p><mc-icon name="date"></mc-icon> Data de recebimento do selo: {{ formatReceivedDate(seal) }}</p>

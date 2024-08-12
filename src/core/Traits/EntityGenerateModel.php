@@ -4,16 +4,26 @@ namespace MapasCulturais\Traits;
 use MapasCulturais\App;
 use MapasCulturais\Entities\ProjectOpportunity;
 use MapasCulturais\Entity;
+use MapasCulturais\Definitions\Metadata AS DefinitionMetadata;
 
 trait EntityGenerateModel {
+
+    private ProjectOpportunity $opportunity;
+    private ProjectOpportunity $opportunityModel;
 
     function ALL_generatemodel(){
         $app = App::i();
 
         $this->requireAuthentication();
         $this->opportunity = $this->requestedEntity;
+        $this->opportunityModel = $this->generateModel();
+
+        $this->generateEvaluationMethods();
+        $this->generatePhases();
+        $this->generateMetadata();
+
+        $this->opportunityModel->save(true);
         
-       
         if($this->isAjax()){
             $this->json($this->opportunity);
         }else{
@@ -129,7 +139,7 @@ trait EntityGenerateModel {
         }
 
         $this->opportunityModel->setMetadata('isModel', 1);
-        $this->opportunityModel->setMetadata('isModelOfficial', 0);
+        $this->opportunityModel->setMetadata('modelType', 1);
 
         $this->opportunityModel->saveTerms();
     }

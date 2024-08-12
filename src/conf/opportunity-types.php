@@ -248,12 +248,12 @@ return array(
         'isModel' => array(
             'type' => 'integer',
             'label' => \MapasCulturais\i::__('É modelo?'),
+            'default_value' => 0,
         ),
-        'isModelOfficial' => array(
+        'modelType' => array(
             'type' => 'integer',
-            'label' => \MapasCulturais\i::__('É modelo oficial?'),
+            'label' => \MapasCulturais\i::__('Tipo de modelo'),
         ),
-        
     ),
     'items' => $items,
     

@@ -139,7 +139,7 @@ trait EntityGenerateModel {
         }
 
         $this->opportunityModel->setMetadata('isModel', 1);
-        $this->opportunityModel->setMetadata('modelType', 1);
+        $this->opportunityModel->setMetadata('isModelOfficial', 0);
 
         $this->opportunityModel->saveTerms();
     }

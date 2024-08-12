@@ -89,6 +89,42 @@ $this->import('
             <span v-if="!entity.endereco"><?= i::_e("Sem Endereço"); ?></span>
         </p>
         <entity-map  :entity="entity" :editable="editable"></entity-map>
+        <p class="info-text">
+            Ao selecionar a opção "Mostrar no perfil" abaixo, sua geolocalização será disponibilizada no seu perfil, no mapa público e na API.
+            <mc-popover ref="infoPopover" openside="down-right" classes="popover info-popover">
+                <template #default="popover" class="popover">
+                    <div class="popover__content">
+                        <h2 class="popover__title">
+                            <?= i::_e('Exibição de geolocalização') ?>
+                        </h2>
+                        <p class="popover__intro">
+                            <?= i::_e('Ao selecionar uma geolocalização (ou manter a geolocalização apresentada quando preenche um endereço) e clicar na opção "Mostrar no perfil", a sua geolocalização será apresentada em:') ?>
+                        </p>
+                        <div class="popover__text">
+                            <div class="popover__section">
+                                <h3 class="popover__section-title"><?php i::_e('Seu perfil:') ?></h3>
+                                <p><?php i::_e('Todas as pessoas que acessarem o seu perfil na plataforma Mapas terão acesso à geolocalização indicada.') ?></p>
+                            </div>
+                            <div class="popover__section">
+                                <h3 class="popover__section-title"><?php i::_e('Mapa público:') ?></h3>
+                                <p><?php i::_e('Todas as pessoas que acessarem o mapa público da plataforma Mapas poderão ver sua geolocalização e identificá-lo como agente cultural de determinada região.') ?></p>
+                            </div>
+                            <div class="popover__section">
+                                <h3 class="popover__section-title"><?php i::_e('API:') ?></h3>
+                                <p><?php i::_e('Todos os usos das informações da plataforma Mapas poderão ter acesso à sua geolocalização.') ?></p>
+                            </div>
+                        </div>
+                        <div class="popover__footer">
+                            <button @click="popover.close()" class="popover__close-btn">Fechar</button>
+                        </div>
+                    </div>
+                </template>
+                <template #button="popover">
+                    <a @click="popover.toggle()" class="info-link"><?= i::_e('Saiba mais') ?></a>
+                </template>
+            </mc-popover>
+
+        </p>
     </div>
     
     <?php $this->applyTemplateHook('entity-location','end'); ?>

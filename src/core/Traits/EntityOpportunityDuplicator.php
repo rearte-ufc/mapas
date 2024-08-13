@@ -1,12 +1,12 @@
 <?php
 namespace MapasCulturais\Traits;
 use MapasCulturais\App;
+use MapasCulturais\Entities\ProjectOpportunity;
 use MapasCulturais\Entities\User;
 use MapasCulturais\Entity;
 
 trait EntityOpportunityDuplicator {
 
-    private ProjectOpportunity $opportunity;
     private ProjectOpportunity $newOpportunity;
 
     function ALL_duplicate(){
@@ -153,9 +153,9 @@ trait EntityOpportunityDuplicator {
             }
         }
 
-        $newOpportunity->setTerms(['area' => $opportunity->terms['area']]);
-        $newOpportunity->setTerms(['tag' => $opportunity->terms['tag']]);
-        $newOpportunity->saveTerms();
+        $this->newOpportunity->setTerms(['area' => $this->opportunity->terms['area']]);
+        $this->newOpportunity->setTerms(['tag' => $this->opportunity->terms['tag']]);
+        $this->newOpportunity->saveTerms();
     }
    
     private function duplicateRegistrationFieldsAndFiles() : void
@@ -186,17 +186,17 @@ trait EntityOpportunityDuplicator {
         }
     }
 
-    private function duplicateFiles(ProjectOpportunity $opportunity, ProjectOpportunity $newOpportunity) : void
+    private function duplicateFiles() : void
     {
         $app = App::i();
 
         $opportunityFiles = $app->repo('OpportunityFile')->findBy([
-            'owner' => $opportunity
+            'owner' => $this->opportunity
         ]);
 
         foreach ($opportunityFiles as $opportunityFile) {
             $newMethodOpportunityFile = clone $opportunityFile;
-            $newMethodOpportunityFile->owner = $newOpportunity;
+            $newMethodOpportunityFile->owner = $this->newOpportunity;
             $newMethodOpportunityFile->save(true);
         }
     }

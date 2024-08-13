@@ -90,24 +90,6 @@ trait EntityManagerModel {
         return $this->opportunityModel;
     }
 
-    private function generateOpportunity() : ProjectOpportunity
-    {
-        $app = App::i();
-
-        $postData = $this->postData;
-
-        $name = $postData['name'];
-
-        $this->opportunityModel = clone $this->opportunity;
-
-        $this->opportunityModel->setName($name);
-        $this->opportunityModel->setStatus(0);
-        $app->em->persist($this->opportunityModel);
-        $app->em->flush();
-
-        return $this->opportunityModel;
-    }
-
     private function generateEvaluationMethods() : void
     {
         $app = App::i();

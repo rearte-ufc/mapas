@@ -386,6 +386,9 @@
 	}
 
 	&.portrait {
+		display: flex;
+    	flex-direction: column;
+    	justify-content: space-between;
 		.entity-card__header {
 			&.user-details {
 				flex-direction: column;

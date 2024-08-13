@@ -11,8 +11,14 @@ app.component('panel--entity-tabs', {
     },
 
     data() {
-        let query = {
-            'isModel': 'NULL()',
+        let query = {};
+
+        if (this.type == 'opportunity') {
+            query.isModel = 'NULL()';
+        }
+
+        query = {
+            ...query,
             '@order': 'updateTimestamp DESC',
             '@permissions': 'view'
         };
@@ -72,7 +78,7 @@ app.component('panel--entity-tabs', {
 
             if (status == 'publish') {
                 return true;
-            } else if (status == 'mymodels') {
+            } else if (status == 'mymodels' && this.type == 'opportunity') {
                 return true;
             } else if (typeof this.description?.status == 'undefined') {
                 return false;

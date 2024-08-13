@@ -40,13 +40,17 @@ app.component("panel--seal-relations-tabs", {
 			);
 		});
 
-		let validSealsLabel = `Válidos (${validSeals.length})`;
-		let expiredSealsLabel = `Expirados (${expiredSeals.length})`;
-
-		return { validSeals, expiredSeals, validSealsLabel, expiredSealsLabel };
+		return { validSeals, expiredSeals };
 	},
 
-	computed: {},
+	computed: {
+		validSealsLabel() {
+			return `Válidos (${this.validSeals?.length})`;
+		},
+		expiredSealsLabel() {
+			return `Expirados (${this.expiredSeals?.length})`;
+		},
+	},
 
 	props: {
 		entity: {
@@ -75,8 +79,15 @@ app.component("panel--seal-relations-tabs", {
 			return outputMsg;
 		},
         removeSeal(seal) {
-            // this.entity.removeSealRelation(seal);
-			this.entity.seals = this.entity.seals.filter((el) => seal != el);
+            this.entity.removeSealRelation(seal);
+			
+			// Display the alert message
+			alert("Selo excluído com sucesso! Atualizando a página...");
+
+			// Set a timeout to reload the page after 3 seconds (3000 milliseconds)
+			setTimeout(function() {
+				location.reload();
+			}, 200);
         }
 	},
 });

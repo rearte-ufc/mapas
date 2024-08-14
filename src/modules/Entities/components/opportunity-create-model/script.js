@@ -43,6 +43,7 @@ app.component('opportunity-create-model', {
             await api.POST(`/opportunity/generatemodel/${objt.entityId}`, objt).then(res => {
                 this.messages.success(this.text('Modelo gerado com sucesso'));
                 this.sendSuccess = true;
+                window.location.href = '/minhas-oportunidades/#mymodels';
             });
         },
         validade(objt) {

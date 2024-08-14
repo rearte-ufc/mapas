@@ -16,7 +16,7 @@ $params = ['registration' => $entity, 'opportunity' => $opportunity];
             </tr>
             <tr class="criteria" ng-repeat="cri in ::data.criteria" ng-if="cri.sid == section.id">
                 <td><?php echo $plugin->step ?><label for="{{cri.id}}">{{cri.title}}:</label></td>
-                <td><input id="{{cri.id}}" name="data[{{cri.id}}]" type="number" step="<?php echo $plugin->step ?>" min="{{cri.min}}" max="{{cri.max}}" ng-model="evaluation[cri.id]" class="hltip autosave" title="Configurações: min: {{cri.min}}<br>max: {{cri.max}}<br>peso: {{cri.weight}}"></td>
+                <td><select id="{{cri.id}}" name="data[{{cri.id}}]" step="<?php echo $plugin->step ?>" ng-model="evaluation[cri.id]" class="hltip autosave" title="Configurações: min: {{cri.min}}<br>max: {{cri.max}}<br>peso: {{cri.weight}}"><option value="0">0</option><option value="0.25">0.25</option><option value="0.50">0.50</option><option value="0.75">0.75</option><option value="1">1.00</option></select></td>
             </tr>
             <tr class="subtotal">
                 <td><?php i::_e('Subtotal')?></td>

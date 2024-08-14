@@ -1,88 +1,119 @@
 @use '../0.settings/mixins'as *;
 
-.popover__title {
-    font-size: 1.5rem !important;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+.popover {
+
+    &__content {
+        position: relative;
+        padding: size(16) size(16);
+
+        .field,
+        form {
+            &:first-child {
+                margin-top: 0;
+            }
+
+            .input {
+                border: 1px solid var(--mc-gray-100);
+                border-radius: var(--mc-border-radius-xs);
+                color: var(--mc-low);
+                font-size: size(16);
+                outline: 0;
+                padding: size(14);
+                width: 100%;
+                min-width: size(213);
+            }
+        }
+
+        .actions {
+            display: flex;
+            gap: size(10);
+        }
+    }
+    .popover__title {
+        font-size: 1.5rem !important;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
     }
     .popover__intro {
-    font-size: 1rem !important;
-    color: #333;
-    margin-bottom: 10px;
+        font-size: 1rem !important;
+        color: #333;
+        margin-bottom: 10px;
     }
     .popover__text {
-    font-size: 1rem !important;
-    color: #333;
-    text-align: left;
-    width: 100%;
-    margin-bottom: 20px;
+        font-size: 1rem !important;
+        color: #333;
+        text-align: left;
+        width: 100%;
+        margin-bottom: 20px;
     }
     .popover__section {
-    margin-bottom: 10px;
+        margin-bottom: 10px;    
     }
     .popover__section-title {
-    font-size: 1rem !important;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
+        font-size: 1rem !important;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
     }
     .popover__footer {
-    display: flex;
-    justify-content: center;
-    padding: 5px;
+        display: flex;
+        justify-content: center;
+        padding: 5px;
     }
     .popover__close-btn {
-    background-color: white;
-    color: #117c83;
-    padding: 10px 90px;
-    border-radius: 10px;
+        background-color: white;
+        color: #117c83;
+        padding: 10px 90px;
+        border-radius: 10px;
     cursor: pointer;
-    font-size: 16px; 
-    font-weight: bold;
-    transition: background-color 0.3s;
-    text-align: center;
-    margin-top: auto;
-    border-color: #117c83;
-    border-width: 2px;
+        font-size: 16px; 
+        font-weight: bold;
+        transition: background-color 0.3s;
+        text-align: center;
+        margin-top: auto;
+        border-color: #117c83;
+        border-width: 2px;
     }
     .popover__close-btn:hover {
-    background-color: #87cefa;
+        background-color: #87cefa;
     }
     .popover {
-    position: relative;
-    padding: 5px;
-    max-width: 550px;
-    max-height: 490px;
-    background: #fff;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+        position: relative;
+        padding: 5px;
+        max-width: 550px;
+        max-height: 490px;
+        background: #fff;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     .info-text {
-    display: flex;
-    align-items: center;
+        display: flex;
+        align-items: center;
     }
-    
+
     .info-link {
-    align-self: center;
-    font-size: 1rem;
-    color: #117c83;
+        align-self: center;
+        font-size: 1rem;
+        color: #117c83;
     cursor: pointer;
-    margin-left: 5px;
+        margin-left: 5px;
     }
-    
+
     .info-link:hover {
-    color: #87cefa;
-    text-decoration: underline;
+        color: #87cefa;
+        text-decoration: underline;
     }
+}
 
 .flex-container {
     display: flex;
     gap: size(5);
     flex-direction: row;
     align-items: flex-start;
+    margin-top: 0px;
 
     .entity-terms{
         .v-popper--theme-dropdown{
@@ -107,26 +138,26 @@
     margin-top: 0rem;
 }
 
-//unique popover name
+// tooltip unique popover name
 div:nth-child(4).col-12.popover__area > div.flex-container.question > div:nth-child(1) > div{
     position: absolute;
     left: 120px;
     top: 5px;
 }
 
-// unique popover area
+// tooltip unique popover area
 div:nth-child(5).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
     position: absolute;
     left: 145px;
 }
 
-// unique popover funcao
+// tooltip  unique popover funcao
 div:nth-child(6).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
     position: absolute;
     left: 173px;
 }
 
-//unique popover tag
+// tooltip unique popover tag
 div:nth-child(7).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
     position: absolute;
     left: 49px;
@@ -135,17 +166,27 @@ div:nth-child(7).col-12.popover__area > div.flex-container.question > div:nth-ch
 //unique local de endereço
 div > div:nth-child(1) > div.flex-container.endereco > div > div{
     position: relative;
-    left: 171px;
-    top: 46px;
+    // left: 171px;
+    // top: 46px;
 }
 
 //unique agente itinerante
 div > div:nth-child(1) > div.flex-container.col-12.itinerante > div > div{
     position: relative;
-    left: 140px;
-    top: 43px;
+    left: 139px;
+    top: 28px;
 }
 
 .popover__area{
     position: relative;
+}
+
+// tooltip Dados de endereço
+div:nth-child(1) > div.flex-container.endereco.col-12 > div:nth-child(1) > div{
+    position: relative;
+    top: 32px;
+    left: 171px;
+    padding-top: 0px;
+    margin-top: 0px;
+    z-index: 9999;
 }

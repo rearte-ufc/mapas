@@ -28,6 +28,7 @@ $this->import('
                 <theme-logo href="<?= $app->createUrl('site', 'index') ?>"></theme-logo>
             </template>
             <!-- Menu principal -->
+            <?php /*
             <template #default>
                 <?php $this->applyTemplateHook('mc-header-menu', 'begin') ?>
                 
@@ -98,8 +99,7 @@ $this->import('
                 <?php $this->applyTemplateHook('mc-header-menu-projects', 'after') ?>
                 
                 <?php $this->applyTemplateHook('mc-header-menu', 'end') ?>
-            </template>
-
+            </template> */ ?>
         </mc-header-menu>
         <?php $this->applyTemplateHook('mc-header-menu', 'after') ?>
 

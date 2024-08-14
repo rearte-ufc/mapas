@@ -299,7 +299,7 @@ class Module extends \MapasCulturais\Module{
 
         $app->hook('panel.nav', function(&$nav_items) use($app) {
             $nav_items['opportunities']['items'] = [
-                ['route' => 'panel/opportunities', 'icon' => 'opportunity', 'label' => i::__('Minhas oportunidades')],
+                // ['route' => 'panel/opportunities', 'icon' => 'opportunity', 'label' => i::__('Minhas oportunidades')],
                 ['route' => 'panel/registrations', 'icon' => 'opportunity', 'label' => i::__('Minhas inscrições')],
                 ['route' => 'panel/evaluations', 'icon' => 'opportunity', 'label' => i::__('Minhas avaliações'), 'condition' => function () use($app) {
                     return $app->user->getIsEvaluator();

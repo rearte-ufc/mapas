@@ -56,14 +56,14 @@ class Module extends \MapasCulturais\Module {
                 $this->render('apps');
             });
 
-            $app->hook('panel.nav', function(&$group) use($app) {
-                $group['more']['items'][] = [
-                    'route' => 'panel/apps',
-                    'icon' => 'app',
-                    'label' => i::__('Meus aplicativos'),
+            // $app->hook('panel.nav', function(&$group) use($app) {
+            //     $group['more']['items'][] = [
+            //         'route' => 'panel/apps',
+            //         'icon' => 'app',
+            //         'label' => i::__('Meus aplicativos'),
                     
-                ];
-            });
+            //     ];
+            // });
         }
     }
 

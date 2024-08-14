@@ -3,13 +3,13 @@
 use MapasCulturais\i;
 
 $nav_items = [
-    'panel-menu' => [
-        'label' => i::__('Menu do Painel de Controle'),
-        'column' => 'left',
-        'items' => [
-            ['route' => 'panel/index', 'icon' => 'dashboard', 'label' => i::__('Painel de Controle')]
-        ]
-    ],
+    // 'panel-menu' => [
+    //     'label' => i::__('Menu do Painel de Controle'),
+    //     'column' => 'left',
+    //     'items' => [
+    //         ['route' => 'panel/index', 'icon' => 'dashboard', 'label' => i::__('Painel de Controle')]
+    //     ]
+    // ],
 
     'opportunities' => [
         'label' => i::__('Editais e oportunidades'),
@@ -20,39 +20,39 @@ $nav_items = [
         },
     ],
 
-    'main' => [
-        'label' => 'Gerenciamento de entidades',
-        'column' => 'left',
-        'items' => [
-            [
-                'route' => 'panel/agents', 'icon' => 'agent', 'label' => i::__('Meus Agentes'),
-                'condition' => function () use ($app) {
-                    return $app->isEnabled('agents');
-                },
-            ],
-            [
-                'route' => 'panel/spaces', 'icon' => 'space', 'label' => i::__('Meus Espaços'),
-                'condition' => function () use ($app) {
-                    return $app->isEnabled('spaces');
-                },
-            ],
-            [
-                'route' => 'panel/events', 'icon' => 'event', 'label' => i::__('Meus Eventos'),
-                'condition' => function () use ($app) {
-                    return $app->isEnabled('events');
-                },
-            ],
-            [
-                'route' => 'panel/projects', 'icon' => 'project', 'label' => i::__('Meus Projetos'),
-                'condition' => function () use ($app) {
-                    return $app->isEnabled('projects');
-                },
-            ],
-        ],
-        'condition' => function () use ($app) {
-            return $app->isEnabled('agents') || $app->isEnabled('spaces') || $app->isEnabled('events') || $app->isEnabled('projects');
-        },
-    ],
+    // 'main' => [
+    //     'label' => 'Gerenciamento de entidades',
+    //     'column' => 'left',
+    //     'items' => [
+    //         [
+    //             'route' => 'panel/agents', 'icon' => 'agent', 'label' => i::__('Meus Agentes'),
+    //             'condition' => function () use ($app) {
+    //                 return $app->isEnabled('agents');
+    //             },
+    //         ],
+    //         [
+    //             'route' => 'panel/spaces', 'icon' => 'space', 'label' => i::__('Meus Espaços'),
+    //             'condition' => function () use ($app) {
+    //                 return $app->isEnabled('spaces');
+    //             },
+    //         ],
+    //         [
+    //             'route' => 'panel/events', 'icon' => 'event', 'label' => i::__('Meus Eventos'),
+    //             'condition' => function () use ($app) {
+    //                 return $app->isEnabled('events');
+    //             },
+    //         ],
+    //         [
+    //             'route' => 'panel/projects', 'icon' => 'project', 'label' => i::__('Meus Projetos'),
+    //             'condition' => function () use ($app) {
+    //                 return $app->isEnabled('projects');
+    //             },
+    //         ],
+    //     ],
+    //     'condition' => function () use ($app) {
+    //         return $app->isEnabled('agents') || $app->isEnabled('spaces') || $app->isEnabled('events') || $app->isEnabled('projects');
+    //     },
+    // ],
 
     'more' => [
         'label' => i::__('Outras opções'),

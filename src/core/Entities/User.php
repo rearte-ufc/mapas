@@ -289,7 +289,7 @@ class User extends \MapasCulturais\Entity implements \MapasCulturais\UserInterfa
         } else if (false === $subsite_id) {
             $subsite_id = $app->getCurrentSubsiteId();
         }
-        
+
         foreach ($this->roles as $role) {
             if ($role->is($role_name) && ($role->subsiteId === $subsite_id || !$role->definition->subsiteContext)) {
                 return true;

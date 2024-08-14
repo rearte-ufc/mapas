@@ -21,9 +21,7 @@ class Redirect
 
         $route = $app->request->route;
         if (
-            str_contains($route, 'site.index') ||
-            str_contains($route, 'panel.index') ||
-            str_contains($route, 'panel.registration')
+            str_contains($route, 'site.index')
         ) {
             $response = $response->withStatus(302);
             return $response->withHeader('Location', '/edital/4');

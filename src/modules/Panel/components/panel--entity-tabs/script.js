@@ -14,7 +14,7 @@ app.component('panel--entity-tabs', {
         let query = {};
 
         if (this.type == 'opportunity') {
-            query.isModel = 'NULL()';
+            query.isModel = 'OR(NULL(), EQ(0))';
         }
 
         query = {
@@ -38,7 +38,7 @@ app.component('panel--entity-tabs', {
                 publish: { status: 'GTE(1)', ...query },
                 draft: { status: 'EQ(0)', ...query },
                 granted: { ...query, '@permissions': '@control', status: 'GTE(0)', user: '!EQ(@me)' },
-                mymodels: { status: 'EQ(0)', isModel: 'EQ(1)', ...queryGetModel },
+                mymodels: { status: 'EQ(-1)', isModel: 'EQ(1)', ...queryGetModel },
                 trash: { status: 'EQ(-10)', ...query },
                 archived: { status: 'EQ(-2)', ...query },
             },

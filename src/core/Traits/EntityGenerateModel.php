@@ -21,6 +21,7 @@ trait EntityGenerateModel {
         $this->generateEvaluationMethods();
         $this->generatePhases();
         $this->generateMetadata();
+        $this->generateRegistrationFieldsAndFiles();
 
         $this->opportunityModel->save(true);
         
@@ -43,7 +44,7 @@ trait EntityGenerateModel {
         $this->opportunityModel = clone $this->opportunity;
 
         $this->opportunityModel->setName($name);
-        $this->opportunityModel->setStatus(Entity::STATUS_DRAFT);
+        $this->opportunityModel->setStatus(-1);
         $this->opportunityModel->setShortDescription($description);
         $app->em->persist($this->opportunityModel);
         $app->em->flush();
@@ -148,13 +149,13 @@ trait EntityGenerateModel {
     {
         foreach ($this->opportunity->getRegistrationFieldConfigurations() as $registrationFieldConfiguration) {
             $fieldConfiguration = clone $registrationFieldConfiguration;
-            $fieldConfiguration->setOwnerId($this->newOpportunity->getId());
+            $fieldConfiguration->setOwnerId($this->opportunityModel->getId());
             $fieldConfiguration->save(true);
         }
 
         foreach ($this->opportunity->getRegistrationFileConfigurations() as $registrationFileConfiguration) {
             $fileConfiguration = clone $registrationFileConfiguration;
-            $fileConfiguration->setOwnerId($this->newOpportunity->getId());
+            $fileConfiguration->setOwnerId($this->opportunityModel->getId());
             $fileConfiguration->save(true);
         }
 

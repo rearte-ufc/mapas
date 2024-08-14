@@ -58,7 +58,7 @@ app.component('panel--entity-tabs', {
         },
         select: {
             type: String,
-            default: 'id,status,name,type,createTimestamp,terms,files.avatar,currentUserPermissions'
+            default: 'id,status,name,type,createTimestamp,terms,files.avatar,currentUserPermissions,isModel'
         },
         tabs: {
             type: String,

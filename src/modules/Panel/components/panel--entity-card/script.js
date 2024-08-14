@@ -23,6 +23,10 @@ app.component('panel--entity-card', {
             return this.class;
         }, 
         leftButtons() {
+            if (this.entity.isModel) {
+                return 'delete';
+            }
+
             let buttons = 'archive,delete,destroy';
 
             if(this.entity.status === 0) {

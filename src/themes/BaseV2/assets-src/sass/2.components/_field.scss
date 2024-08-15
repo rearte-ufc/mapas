@@ -75,6 +75,9 @@
             border: size(2) solid var(--mc-gray-100);
         }
     }
+    &.profile-name{
+        margin-top: 15px;
+    }
 
     .required {
         font-family: Open Sans;

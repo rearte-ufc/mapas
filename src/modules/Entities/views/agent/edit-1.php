@@ -55,33 +55,26 @@ $this->breadcrumb = [
             <mc-card>
                 <mc-accordion>
                     <entity-status :entity="entity"></entity-status>
-                    <!-- <mc-card class="feature__full"> -->
-                        <template #title>
-                            <h3><?php i::_e("Informações de Apresentação") ?></h3>
-                        </template>
-                        <template #content>
-                            <div class="grid-12">
-                                <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
-                                <entity-cover :entity="entity" classes="col-12"></entity-cover>
-                                <!-- <div class="col-12 grid-12"> -->
-                                    <!-- <div class="entity-profile"> -->
-                                        <div class="flex-container edit--agent">
-                                            <entity-profile class="profile--edit--agent" :entity="entity" :label="false"></entity-profile>
-                                        </div>
-                                    <!-- </div> -->
-                                <!-- </div> -->
-                                
-                                <div class="col-12 popover__area">
-                                    <div class="flex-container question">
-                                        <?php $this->applyTemplateHook('entity-info','begin') ?>
-                                        <mc-popover openside="down-right" class="popover">
-                                                <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
-                                                <template #button="popover">
-                                                    <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar__name"></mc-icon></a>
-                                                </template>
-                                        </mc-popover>
-                                        <entity-field :entity="entity" classes="entity-terms__edit-agent" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
-                                    </div>
+                    <template #title>
+                        <h3><?php i::_e("Informações de Apresentação") ?></h3>
+                    </template>
+                    <template #content>
+                        <div class="grid-12 black-content">
+                            <p class="col-12 mc-card__card_info"><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
+                            <entity-cover :entity="entity" classes="col-12"></entity-cover>
+                            <div class="flex-container edit--agent">
+                                <entity-profile class="profile--edit--agent" :entity="entity" :label="false"></entity-profile>
+                            </div>                                
+                            <div class="col-12 popover__area">
+                                <div class="flex-container question">
+                                    <?php $this->applyTemplateHook('entity-info','begin') ?>
+                                    <mc-popover openside="down-right" classes="popover name">
+                                        <p class="popover__content">Esse será o seu <strong>nome público</strong><br> na plataforma: todas as pessoas<br> irão ver esse nome quando<br> acessarem o seu perfil.</p>
+                                        <template #button="popover">
+                                            <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar__name"></mc-icon></a>
+                                        </template>
+                                    </mc-popover>
+                                    <entity-field :entity="entity" classes="entity-terms__edit-agent profile-name" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
                                 </div>
                                 
                                 <?php $this->applyTemplateHook('entity-info','end') ?>

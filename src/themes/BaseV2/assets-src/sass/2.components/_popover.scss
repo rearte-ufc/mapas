@@ -138,55 +138,112 @@
     margin-top: 0rem;
 }
 
-// tooltip unique popover name
-div:nth-child(4).col-12.popover__area > div.flex-container.question > div:nth-child(1) > div{
-    position: absolute;
-    left: 120px;
-    top: 5px;
+@media (min-width: 501px){
+    // tooltip unique popover name
+    div:nth-child(4).col-12.popover__area > div.flex-container.question > div:nth-child(1) > div{
+        position: absolute;
+        left: 120px;
+        top: 20px;
+    }
+
+    // tooltip unique popover area
+    div:nth-child(5).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+        position: absolute;
+        left: 145px;
+    }
+
+    // tooltip  unique popover funcao
+    div:nth-child(6).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+        position: absolute;
+        left: 173px;
+    }
+
+    // tooltip unique popover tag
+    div:nth-child(7).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+        position: absolute;
+        left: 49px;
+    }
+
+    //unique local de endereço
+    div > div:nth-child(1) > div.flex-container.endereco > div > div{
+        position: relative;
+        // left: 171px;
+        // top: 46px;
+    }
+
+    //unique agente itinerante
+    div > div:nth-child(1) > div.flex-container.col-12.itinerante > div > div{
+        position: relative;
+        left: 139px;
+        top: 28px;
+    }
+
+    .popover__area{
+        position: relative;
+    }
+
+    // tooltip Dados de endereço
+    div:nth-child(1) > div.flex-container.endereco.col-12 > div:nth-child(1) > div{
+        position: relative;
+        top: 32px;
+        left: 171px;
+        padding-top: 0px;
+        margin-top: 0px;
+        z-index: 9999;
+    }
 }
 
-// tooltip unique popover area
-div:nth-child(5).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
-    position: absolute;
-    left: 145px;
-}
+@media (max-width: 500px){
+    // tooltip unique popover name
+    div:nth-child(4).popover__area > div > div:nth-child(1) > a{
+        position: absolute;
+        top: 20px;
+        left: 120px;
+    }
 
-// tooltip  unique popover funcao
-div:nth-child(6).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
-    position: absolute;
-    left: 173px;
-}
+    // tooltip unique popover area
+    div:nth-child(5) > div > div:nth-child(2) > a{
+        position: absolute;
+        left: 145px;
+    }
 
-// tooltip unique popover tag
-div:nth-child(7).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
-    position: absolute;
-    left: 49px;
-}
+    // tooltip  unique popover funcao
+    div:nth-child(6) > div > div:nth-child(2) > a{
+        position: absolute;
+        left: 173px;
+    }
 
-//unique local de endereço
-div > div:nth-child(1) > div.flex-container.endereco > div > div{
-    position: relative;
-    // left: 171px;
-    // top: 46px;
-}
+    // tooltip unique popover tag
+    div:nth-child(7) > div > div:nth-child(2) > a{
+        position: absolute;
+        left: 49px;
+    }
 
-//unique agente itinerante
-div > div:nth-child(1) > div.flex-container.col-12.itinerante > div > div{
-    position: relative;
-    left: 139px;
-    top: 28px;
-}
+    //unique local de endereço
+    div:nth-child(1) > div.flex-container.endereco.col-12 > div:nth-child(1) > a{
+        position: relative;
+        left: 171px;
+        top: 32px;
+    }
 
-.popover__area{
-    position: relative;
-}
+    //unique agente itinerante
+    div:nth-child(1) > div.flex-container.col-12.itinerante > div:nth-child(1) > a{
+        position: relative;
+        left: 139px;
+        top: 28px;
+    }
 
-// tooltip Dados de endereço
-div:nth-child(1) > div.flex-container.endereco.col-12 > div:nth-child(1) > div{
-    position: relative;
-    top: 32px;
-    left: 171px;
-    padding-top: 0px;
-    margin-top: 0px;
-    z-index: 9999;
+    .popover__area{
+        position: relative;
+    }
+
+    // tooltip Dados de endereço
+    div:nth-child(1) > div.flex-container.endereco.col-12 > div:nth-child(1) > div{
+        position: relative;
+        top: 32px;
+        left: 171px;
+        padding-top: 0px;
+        margin-top: 0px;
+        z-index: 9999;
+    }
 }

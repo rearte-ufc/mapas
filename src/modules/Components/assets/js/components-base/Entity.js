@@ -763,9 +763,9 @@ class Entity {
                 /* let index;
                 index = this.seals.indexOf(seal);
                 this.seals.splice(index,1); */
-            });
-        } catch (error) {
-            return this.doCatch(error);
-        }
-    }
+			});
+		} catch (error) {
+			return this.doCatch(error);
+		}
+	}
 }

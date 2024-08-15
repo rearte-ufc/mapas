@@ -55,6 +55,9 @@
                 line-height: size(25);
                 text-decoration: none;
             }
+			.github-btn:hover {
+				color: var(--mc-white);
+			}
         }
     }
 }

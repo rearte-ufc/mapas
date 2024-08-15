@@ -152,9 +152,9 @@
         }
 
         // Lista lateral de ranges
-        &__preset_ranges {
-            display: none;
-        }
+        // &__preset_ranges {
+        //     display: none;
+        // }
 
         // Parte dos calendários
         &__flex_display {
@@ -207,6 +207,14 @@
                     width: size(35);
                 }
             }
+        }
+    }
+    @media (max-width: 600px) {
+        &__menu_content_wrapper {
+            flex-direction: column;
+        }
+        &__preset_ranges {
+            border-bottom: 2px solid rgb(26, 25, 25);
         }
     }
 }

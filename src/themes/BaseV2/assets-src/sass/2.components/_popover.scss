@@ -1,7 +1,6 @@
 @use '../0.settings/mixins'as *;
 
 .popover {
-
     &__content {
         position: relative;
         padding: size(16) size(16);
@@ -66,7 +65,7 @@
         color: #117c83;
         padding: 10px 90px;
         border-radius: 10px;
-    cursor: pointer;
+        cursor: pointer;
         font-size: 16px; 
         font-weight: bold;
         transition: background-color 0.3s;
@@ -98,7 +97,7 @@
         align-self: center;
         font-size: 1rem;
         color: #117c83;
-    cursor: pointer;
+        cursor: pointer;
         margin-left: 5px;
     }
 

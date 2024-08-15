@@ -28,6 +28,15 @@ app.component('opportunity-basic-info' , {
         lastPhase () {
             const phase = this.phases.find(item => item.isLastPhase);
             return phase;
-        }
+        },
+		today() {
+			return new Date();
+		},
+		registrationToMinDate() {
+			return this.entity.registrationFrom?._date &&
+				this.entity.registrationFrom?._date > this.today
+				? this.entity.registrationFrom?._date
+				: this.today;
+		},
     }
 });

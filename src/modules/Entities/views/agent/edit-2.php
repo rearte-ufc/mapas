@@ -50,43 +50,39 @@ $this->breadcrumb = [
             <mc-container class="edit--profile">
                 <mc-accordion class="accordion-edit--profile">
                     <entity-status :entity="entity"></entity-status>
-                    <!-- <mc-card class="feature"> -->
-                        <template #title>
-                            <label><?php i::_e("Informações de Apresentação") ?></label>
-                            <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
-                        </template>
-                        <template #content>
-                            <div class="left">
-                                <div class="grid-12 v-bottom black-content">
-                                    <entity-cover :entity="entity" classes="col-12"></entity-cover>
-                                    
-                                    <div class="col-12 grid-12">
-                                        <?php $this->applyTemplateHook('entity-info','begin') ?>
-                                        <div class="flex-container edit--agent">
-                                            <entity-profile class="profile--edit--agent" :entity="entity" :label="false"></entity-profile>
-                                        </div>
-                                        <div class="col-12 grid-12 v-bottom">
-                                            <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome do Agente') ?>"></entity-field>
-                                        </div>
-                                        <?php $this->applyTemplateHook('entity-info','end') ?>
+                    <template #title>
+                        <label><?php i::_e("Informações de Apresentação") ?></label>
+                        <p><?php i::_e("Os dados inseridos abaixo serão exibidos para todos os usuários") ?></p>
+                    </template>
+                    <template #content>
+                        <div class="left">
+                            <div class="grid-12 v-bottom black-content">
+                                <entity-cover :entity="entity" classes="col-12"></entity-cover>              
+                                <div class="col-12 grid-12">
+                                    <?php $this->applyTemplateHook('entity-info','begin') ?>
+                                    <div class="flex-container edit--agent">
+                                        <entity-profile class="profile--edit--agent" :entity="entity" :label="false"></entity-profile>
                                     </div>
-
-                                    <entity-field :entity="entity" classes="col-12" prop="shortDescription"></entity-field>
-                                    <entity-field :entity="entity" classes="col-12" prop="site"></entity-field>
+                                    <div class="col-12 grid-12 v-bottom">
+                                        <entity-field :entity="entity" classes="col-12" prop="name" label="<?php i::_e('Nome do Agente') ?>"></entity-field>
+                                    </div>
+                                    <?php $this->applyTemplateHook('entity-info','end') ?>
                                 </div>
-                            </div>
-                            <div class="divider"></div>
-                            <div class="right">
-                                <div class="grid-12 black-content">
-                                    <?php $this->applyTemplateHook('edit2-entity-info-taxonomie-area','before') ?>
-                                    <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Área de atuação'); ?>"></entity-terms>
-                                    <?php $this->applyTemplateHook('edit2-entity-info-taxonomie-area','after') ?>
 
-                                    <entity-social-media :entity="entity" editable alwaysshowicons></entity-social-media>
-                                </div>
+                                <entity-field :entity="entity" classes="col-12" prop="shortDescription"></entity-field>
+                                <entity-field :entity="entity" classes="col-12" prop="site"></entity-field>
                             </div>
-                        </template>
-                    <!-- </mc-card> -->
+                        </div>
+                        <div class="divider"></div>
+                        <div class="right">
+                            <div class="grid-12 black-content">
+                                <?php $this->applyTemplateHook('edit2-entity-info-taxonomie-area','before') ?>
+                                <entity-terms :entity="entity" taxonomy="area" editable classes="col-12" title="<?php i::_e('Área de atuação'); ?>"></entity-terms>
+                                <?php $this->applyTemplateHook('edit2-entity-info-taxonomie-area','after') ?>
+                                <entity-social-media :entity="entity" editable alwaysshowicons></entity-social-media>
+                            </div>
+                        </div>
+                    </template>
                 </mc-accordion>
             </mc-container>
             <main>

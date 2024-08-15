@@ -149,7 +149,7 @@ describe("Opportunity Page", () => {
         cy.wait(1000);
     });
 
-    it("Garante geração de modelo da oportunidade", () => {
+    it("Garante duplicação da oportunidade", () => {
         cy.visit("/autenticacao/");
         loginWith("Admin@local", "mapas123");
         cy.get(':nth-child(4) > :nth-child(1) > a').click();
@@ -159,7 +159,7 @@ describe("Opportunity Page", () => {
 
         cy.get('.rowBtn > :nth-child(6)').click();
 
-        cy.contains("Salvar modelo");
+        cy.contains("Duplicar modelo");
         cy.contains("Todas as configurações atuais da oportunidade, incluindo o vínculo com a entidade associada e os campos de formulário criados, serão duplicadas.");
     
         cy.get('.modal__action > .button--primary').click();
@@ -168,5 +168,52 @@ describe("Opportunity Page", () => {
         cy.visit("/minhas-oportunidades/#draft");
   
         cy.get('.panel-entity-card__header > .left > .panel-entity-card__header--info > .panel-entity-card__header--info-link > .mc-title').contains("[Cópia]");  
+    });
+
+    it("Garante preenchimento obrigatório na geração de modelo baseado em uma oportunidade", () => {
+        cy.visit("/autenticacao/");
+        loginWith("Admin@local", "mapas123");
+        cy.get(':nth-child(4) > :nth-child(1) > a').click();
+        cy.get('.right > .button--primary').click();
+        
+        cy.wait(1000);
+
+        cy.get('.col-12 > .button').click();
+
+        cy.get('.modal__content > :nth-child(3) > :nth-child(1) > input').should('be.visible').clear();
+
+        cy.get(':nth-child(3) > textarea').should('be.visible').clear();
+
+        cy.get('.modal__action > .button--primary').click();
+
+        cy.contains('Todos os campos são obrigatorio');
+    });
+
+    it("Garante geração de modelo baseado em uma oportunidade", () => {
+        cy.visit("/autenticacao/");
+        loginWith("Admin@local", "mapas123");
+        cy.get(':nth-child(4) > :nth-child(1) > a').click();
+        cy.get('.right > .button--primary').click();
+        
+        cy.wait(1000);
+
+        cy.get('.col-12 > .button').click();
+
+        cy.contains("Salvar modelo");
+        cy.contains("Para salvar um modelo, preencha os campos abaixo.");
+        cy.contains("Nome do modelo");
+        cy.contains("Breve descrição do modelo");
+        cy.contains("Salvar modelo");
+
+        cy.get('.modal__content > :nth-child(3) > :nth-child(1) > input').should('be.visible').clear().type('Nome do modelo');
+
+        cy.get(':nth-child(3) > textarea').should('be.visible').type('Descrição do modelo');
+
+        cy.get('.modal__action > .button--primary').click();
+        cy.wait(3000);
+
+        cy.visit("/minhas-oportunidades/#mymodels");
+        cy.wait(1000);
+        cy.contains("Nome do modelo");
     });
 });

@@ -145,7 +145,14 @@ class Entity {
     }
 
     catchErrors(res, data) {
-        const message = data.data.message;
+        const message = data.data.message ??
+		data.data.avatar ??
+		data.data.header ??
+		data.data.gallery ??
+		data.data.logo ??
+		data.data.background ??
+		data.data.share ??
+		data.data.institute; // getting errors from validation errors;
         
         if (res.status >= 500 && res.status <= 599) {
             this.sendMessage(message || this.text('erro inesperado'), 'error');

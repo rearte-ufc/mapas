@@ -73,7 +73,7 @@ $this->breadcrumb = [
                                             <a @click="popover.toggle()"><mc-icon name="question" class="popover__avatar__name"></mc-icon></a>
                                         </template>
                                     </mc-popover>
-                                    <entity-field :entity="entity" classes="entity-terms__edit-agent" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
+                                    <entity-field :entity="entity" classes="entity-terms__edit-agent profile-name" prop="name" label="<?php i::_e('Nome de perfil') ?>"></entity-field>
                                 </div>
                             </div>
                             

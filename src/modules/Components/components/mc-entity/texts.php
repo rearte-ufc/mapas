@@ -17,7 +17,9 @@ return [
 
     'modificacoes salvas' => i::__('Modificações salvas'), 
     'entidade salva' => i::__('Entidade salva'), 
-    'entidade removida' => i::__('Entidade removida'), 
+    'entidade removida' => i::__('Entidade removida'),
+    'ocorrencia salva' => i::__('Ocorrência Salva'), 
+    'ocorrencia removida' => i::__('Ocorrência removida'),
     'entidade removida definitivamente' => i::__('Entidade removida definitivamente'), 
     'entidade publicada' => i::__('Entidade publicada'), 
     'entidade arquivada' => i::__('Entidade arquivada'), 

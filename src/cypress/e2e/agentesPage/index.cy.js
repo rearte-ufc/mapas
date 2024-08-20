@@ -74,7 +74,6 @@ describe("Agents Page", () => {
             cy.contains(expectedCount + " Agentes encontrados")
         });
 
-
         cy.get(":nth-child(2) > select").select(1);
         cy.contains("Agente Individual");
         cy.wait(1000);

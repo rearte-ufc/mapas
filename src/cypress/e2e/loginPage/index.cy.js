@@ -7,7 +7,6 @@ describe("Loginpage", () => {
 
     it("Verifica se é possivel logar com email ou cpf e senha", () => {
         loginWith("Admin@local", "mapas123");
-        cy.get(".exit > a").click();
         cy.visit("/autenticacao/");
         loginWith("12345678902", "mapas123");
     });

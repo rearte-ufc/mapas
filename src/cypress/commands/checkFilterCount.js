@@ -1,9 +1,8 @@
-/* Checa a contagem de um elemento específico na página de filtros. */
 function checkFilterCount() {
         cy.get('.foundResults').then(($foundResults) => {
                 const countPerPage = 20;
-                var resultsTextArray = $foundResults.text().split(" ");
-                var resultsCount = Number(resultsTextArray[0]);
+                let resultsTextArray = $foundResults.text().split(" ");
+                let resultsCount = Number(resultsTextArray[0]);
                 let resultsType = resultsTextArray[1];
                 const resultsCountPerPage = resultsCount < countPerPage ? resultsCount : countPerPage;
 
@@ -28,9 +27,9 @@ function checkFilterCount() {
                                 cy.contains(resultsCount + " Espaços encontrados");
                 
                                 break;
-                        
+
                         default:
-                                cy.log("[-] Tipo inválido, use \"opportunity\", \"space\" ou \"project\"");
+                                cy.log("checkFilterCount(): tipo inválido");
                                 cy.contains("FORCE ERROR");
                                 
                                 break;

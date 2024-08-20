@@ -316,7 +316,7 @@ class Quotas {
         $proponent_type = $registration->proponentType;
 
         if(!$opportunity_proponent_types) {
-            $agent_data = $registration->agentsData['owner'];
+            $agent_data = isset($registration->agentsData['owner']) ? $registration->agentsData['owner'] : "{}";
         } else {
             $agent_key = $proponent_types2agents_map[$proponent_type] ?? null;
             $agent_data = $registration->agentsData[$agent_key] ?? null;
@@ -324,7 +324,7 @@ class Quotas {
 
         // ISSO NÃO DEVERIA SER POSSÍVEL
         if(!$agent_data) {
-            $agent_data = $registration->agentsData['owner'];
+            $agent_data = isset($registration->agentsData['owner']) ? $registration->agentsData['owner'] : "{}";
         }
 
         $meta = $this->geoDivision;

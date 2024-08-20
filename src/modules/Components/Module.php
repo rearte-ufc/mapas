@@ -125,15 +125,15 @@ class Module extends \MapasCulturais\Module {
             $this->part('main-app--end');
         },1000);
         
-        if ($app->config['app.mode'] == 'development') {
-            $app->hook('template(<<*>>):<<*>>', function () use($app) {
-                $hook = $app->hooks->hookStack[count($app->hooks->hookStack) - 1]->name;
-                if($this->version >= 2) {
-                    $this->import('mc-debug');
-                    echo "<mc-debug type='template-hook' name='$hook'></mc-debug>\n";
-                }
-            });
-        }
+        // if ($app->config['app.mode'] == 'development') {
+        //     $app->hook('template(<<*>>):<<*>>', function () use($app) {
+        //         $hook = $app->hooks->hookStack[count($app->hooks->hookStack) - 1]->name;
+        //         if($this->version >= 2) {
+        //             $this->import('mc-debug');
+        //             echo "<mc-debug type='template-hook' name='$hook'></mc-debug>\n";
+        //         }
+        //     });
+        // }
 
         /** 
          * Cria um hook para o componente

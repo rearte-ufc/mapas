@@ -70,7 +70,7 @@ describe("Agents Page", () => {
             expectedCount = parseInt(text.match(/\d+/)[0], 10);
             
             // Agora, verifique se o número de agentes do tipo coletivo encontrados é igual ao esperado
-            cy.get(".upper.agent__color").should('have.length', expectedCount);
+            cy.get('.entity-card__header.without-labels > .user-details > .user-info > a > .mc-title').should('have.length', expectedCount)
             cy.contains(expectedCount + " Agentes encontrados")
         });
 
@@ -78,13 +78,15 @@ describe("Agents Page", () => {
         cy.get(":nth-child(2) > select").select(1);
         cy.contains("Agente Individual");
         cy.wait(1000);
+        cy.get('.load-more > .button--large').click()
+        cy.wait(1000)
 
         cy.get(".foundResults").invoke('text').then((text) => {
             // Extraia o número da string
             expectedCount = parseInt(text.match(/\d+/)[0], 10);
             
             // Agora, verifique se o número de agentes do tipo individual encontrados é igual ao esperado
-            cy.get(".upper.agent__color").should('have.length', expectedCount);
+            cy.get('.entity-card__header.without-labels > .user-details > .user-info > a > .mc-title').should('have.length', expectedCount)
             cy.contains(expectedCount + " Agentes encontrados");
         });
 

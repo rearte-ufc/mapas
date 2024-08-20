@@ -1,28 +1,29 @@
+/* Checa a contagem de um elemento específico na página de filtros. */
 function checkFilterCount() {
         cy.get('.foundResults').then(($foundResults) => {
                 const countPerPage = 20;
-                let resultsTextArray = $foundResults.text().split(" ");
-                let resultsCount = Number(resultsTextArray[0]);
+                var resultsTextArray = $foundResults.text().split(" ");
+                var resultsCount = Number(resultsTextArray[0]);
                 let resultsType = resultsTextArray[1];
                 const resultsCountPerPage = resultsCount < countPerPage ? resultsCount : countPerPage;
 
-                switch (element) {
-                        case "opportunity":
-                                cy.get("span.upper." + element + "__color").should("have.length", resultsCountPerPage);
+                switch (resultsType) {
+                        case "Oportunidades":
+                                cy.get('.upper').should("have.length", resultsCountPerPage);
                                 cy.wait(1000);
                                 cy.contains(resultsCount + " Oportunidades encontradas");
                                 
                                 break;
                         
-                        case "project":
-                                cy.get("span.upper." + element + "__color").should("have.length", resultsCountPerPage);
+                        case "Projetos":
+                                cy.get('.upper').should("have.length", resultsCountPerPage);
                                 cy.wait(1000);
                                 cy.contains(resultsCount + " Projetos encontrados");
         
                                 break;
                         
-                        case "space":
-                                cy.get("span.upper." + element + "__color").should("have.length", resultsCountPerPage);
+                        case "Espaços":
+                                cy.get('.upper').should("have.length", resultsCountPerPage);
                                 cy.wait(1000);
                                 cy.contains(resultsCount + " Espaços encontrados");
                 
@@ -37,4 +38,4 @@ function checkFilterCount() {
         });
 }
 
-module.exports = { checkFilterCountOf };
+module.exports = { checkFilterCount };

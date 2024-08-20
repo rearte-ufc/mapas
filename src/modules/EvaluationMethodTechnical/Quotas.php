@@ -601,6 +601,7 @@ class Quotas {
      */
     public function tiebreaker($registrations) {
         $tiebreaker_configuration = $this->tiebreakerConfig;
+        $evaluation_data = [];
 
         $must_fetch_evaluation_data = false;
         foreach($tiebreaker_configuration as $tiebreaker) {

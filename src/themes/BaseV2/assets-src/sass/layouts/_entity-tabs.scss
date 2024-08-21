@@ -82,4 +82,19 @@ $iconUrl: 'https://api.iconify.design/ic/baseline-arrow-drop-down.svg' +#{$iconC
         }
         
     }
+    span.card-info{
+		position: relative;
+		top: -125px;
+		left: 300px;
+        color: rgb(127, 122, 122);               // Sets the font color to grey
+        font-weight: 600;          // Slightly bold (500 is typically medium weight)
+        font-size: 14px;
+	}
+
+    div.card-desc{
+        text-transform: none;
+        strong{
+            margin-top: 5px;
+        }
+    }
 }

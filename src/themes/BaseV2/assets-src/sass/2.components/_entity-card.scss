@@ -665,3 +665,13 @@
 		}
 	}
 }
+
+article.panel-entity-card.col-6{
+	min-width: 450px;
+	max-width: 450px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	.panel-entity-card__header--info{
+		margin-top: 85px;
+    	margin-left: -80px;
+	}
+}

@@ -95,9 +95,21 @@ $this->applyComponentHook('.sortOptions', [&$tabs]);
                         </template>
                         <template #subtitle="{ entity }">
                             <slot name="card-content"  :entity="entity">
-                                <span v-if="entity.type">
-                                    <?=i::__('Tipo: ')?> <strong>{{ entity.type.name }}</strong>
-                                </span>
+                            <span v-if="entity.type && entity.isModel != null">
+                            <span class="card-info">MEU MODELO</span>
+                                <div class="card-desc">
+                                    <strong> <?=i::__('Tipo de Oportunidade: ')?> </strong>{{ entity.type.name }}
+                                    <br>
+                                    <strong> <?=i::__('Número de fases: ')?> </strong>{{ entity.type.name }}
+                                    <br>
+                                    <strong> <?=i::__('Tempo estimado: ')?> </strong>{{ entity.type.name }}
+                                    <br>
+                                    <strong> <?=i::__('Tipo de agente: ')?> </strong>{{ entity.type.name }}
+                                </div>
+                            </span>
+                            <span v-if="entity.type && entity.isModel == null">
+                                <?=i::__('Tipo: ')?> <strong>{{ entity.type.name }}</strong>
+                            </span>
                             </slot>
                         </template>
                         <template #entity-actions-left>

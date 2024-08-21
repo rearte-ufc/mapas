@@ -14,7 +14,7 @@ $this->import('
 
 ');
 ?>
-<article class="panel__row panel-entity-card" :class="classes">
+<article class="panel__row panel-entity-card" :class="{classes, 'col-6': entity.isModel == 1}">
     <header class="panel-entity-card__header">
         <div class="left">
             <slot name="picture" :entity="entity">

@@ -98,6 +98,53 @@ function api($entity, $_params, $print=true){
     }
 }
 
+function create_user($email, $nome, $senha){
+    $app = MapasCulturais\App::i();
+
+    $pass = password_hash($senha, PASSWORD_DEFAULT);
+    $request = [];
+    $request['email'] = $email;
+    $request['name'] = $nome;
+    $request['password'] = $pass;
+    $request['agentData']['name'] = $nome;
+
+    $passMetaName = 'localAuthenticationPassword';
+    $accountIsActiveMetadata    = 'accountIsActive';
+    $tokenVerifyAccountMetadata = 'tokenVerifyAccount';
+
+    $source = rand(3333, 8888);
+    $cut = rand(10, 30);
+    $token = substr($pass, $cut, 20);
+
+    $response = [
+        'auth' => [
+            'provider' => 'local',
+            'uid' => filter_var($request['email'], FILTER_SANITIZE_EMAIL),
+            'info' => [
+                'email' => filter_var($request['email'], FILTER_SANITIZE_EMAIL),
+                'name' => $request['name'],
+                'token' => $token
+            ],
+            'agentData' => $request['agentData'],
+        ]
+    ];
+
+    //Removendo email em maiusculo
+    $response['auth']['uid'] = strtolower($response['auth']['uid']);
+    $response['auth']['info']['email'] = strtolower($response['auth']['info']['email']);
+  
+    $user = $app->auth->_createUser($response);
+
+    $app->disableAccessControl();
+    $user->{$passMetaName} = $request['password']; 
+    $user->{$tokenVerifyAccountMetadata} = $token; 
+    $user->{$accountIsActiveMetadata} = '0'; 
+    $user->save();
+    $app->enableAccessControl();
+
+    return $user;
+}
+
 function get_user($user){
     $app = MapasCulturais\App::i();
 

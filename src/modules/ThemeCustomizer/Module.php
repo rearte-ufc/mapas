@@ -41,9 +41,9 @@ class Module extends \MapasCulturais\Module
             }
         });
 
-        $app->hook('view.render(<<*>>):before', function () use($app) {
-            $app->view->enqueueScript('components', 'subsite-init', 'js/subsite-init.js', ['components-utils']);
-        });
+        /* $app->hook('view.render(<<*>>):before', function () use($app) { */
+        /*     $app->view->enqueueScript('components', 'subsite-init', 'js/subsite-init.js', ['components-utils']); */
+        /* }); */
 
         $app->hook('app.register:after', function () use($app) {
             if ($subsite = $app->subsite) {

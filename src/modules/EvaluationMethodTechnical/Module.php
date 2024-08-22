@@ -235,7 +235,7 @@ class Module extends \MapasCulturais\EvaluationMethod {
         $proponent_type = $registration->proponentType;
 
         if(!$opportunity_proponent_types) {
-            $agent_data = $registration->agentsData['owner'];
+            $agent_data = $registration->agentsData['owner'] ?? [];
         } else {
             $agent_key = $proponent_types2agents_map[$proponent_type] ?? null;
             $agent_data = $registration->agentsData[$agent_key] ?? null;
@@ -243,7 +243,7 @@ class Module extends \MapasCulturais\EvaluationMethod {
 
         // ISSO NÃO DEVERIA SER POSSÍVEL
         if(!$agent_data) {
-            $agent_data = $registration->agentsData['owner'];
+            $agent_data = $registration->agentsData['owner'] ?? [];
         }
 
         $meta = $geo_quota_config->geoDivision;

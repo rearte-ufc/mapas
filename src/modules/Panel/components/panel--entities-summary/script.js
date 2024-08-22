@@ -26,23 +26,23 @@ app.component('panel--entities-summary', {
     data() {
         return {
             spaces: {
-                title: $MAPAS.config.entitySummary.spaces > 1 ? __('espaços', 'panel--entities-summary') : __('espaço', 'panel--entities-summary'),
+                title: $MAPAS.config.entitySummary.spaces > 1 ? __('publicados', 'panel--entities-summary') : __('publicado', 'panel--entities-summary'),
                 count: $MAPAS.config.entitySummary.spaces,
             },
             agents: {
-                title: $MAPAS.config.entitySummary.agents > 1 ? __('agentes', 'panel--entities-summary') : __('agente', 'panel--entities-summary'),
+                title: $MAPAS.config.entitySummary.agents > 1 ? __('publicados', 'panel--entities-summary') : __('publicado', 'panel--entities-summary'),
                 count: $MAPAS.config.entitySummary.agents,
             },
             events: {
-                title: $MAPAS.config.entitySummary.events > 1 ? __('eventos', 'panel--entities-summary') : __('evento', 'panel--entities-summary'),
+                title: $MAPAS.config.entitySummary.events > 1 ? __('publicados', 'panel--entities-summary') : __('publicado', 'panel--entities-summary'),
                 count: $MAPAS.config.entitySummary.events,
             },
             projects: {
-                title: $MAPAS.config.entitySummary.projects > 1 ? __('projetos', 'panel--entities-summary') : __('projeto', 'panel--entities-summary'),
+                title: $MAPAS.config.entitySummary.projects > 1 ? __('publicados', 'panel--entities-summary') : __('publicado', 'panel--entities-summary'),
                 count: $MAPAS.config.entitySummary.projects,
             },
             opportunities: {
-                title: $MAPAS.config.entitySummary.opportunities > 1 ? __('oportunidades', 'panel--entities-summary') : __('oportunidade', 'panel--entities-summary'),
+                title: $MAPAS.config.entitySummary.opportunities > 1 ? __('publicadas', 'panel--entities-summary') : __('publicada', 'panel--entities-summary'),
                 count: $MAPAS.config.entitySummary.opportunities,
             },
         }

@@ -53,8 +53,8 @@ $this->import('
                     <div class="criterion" v-if="criteria.sid == section.id">
                         <div class="criterion__fields">
                             <input type="text" v-model="criteria.title" @keyup="save(1500)" placeholder="<?= i::esc_attr__('Nome do critério') ?>" ref="criteriaTitleInput">
-                            <input type="number" v-model="criteria.max" @keyup="save(1500)" placeholder="<?= i::esc_attr__('Pontuação máxima') ?>">
-                            <input type="number" v-model="criteria.weight" @keyup="save(1500)" placeholder="<?= i::esc_attr__('Peso') ?>">
+                            <input type="number" v-model="criteria.max" @keyup="save(1500)"  step="0.250" placeholder="<?= i::esc_attr__('Pontuação máxima') ?>">
+                            <input type="number" v-model="criteria.weight" @keyup="save(1500)" step="0.250" placeholder="<?= i::esc_attr__('Peso') ?>">
                         </div>
                         <div class="field__trash">
                             <mc-confirm-button @confirm="delCriteria(criteria.id)">

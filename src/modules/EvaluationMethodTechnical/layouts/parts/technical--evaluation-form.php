@@ -18,7 +18,7 @@ $cat = $params['registration']->category
             </tr>
             <tr class="criteria" ng-repeat="cri in ::data.criteria" ng-if="cri.sid == section.id">
                 <td>
-                    <?php echo $plugin->step ?><label for="{{cri.id}}">{{cri.title}} min: {{cri.min}}<br>max: {{cri.max}}<br>peso: {{cri.weight.toFixed(1)}}:</label>
+                    <?php echo $plugin->step ?><label for="{{cri.id}}">{{cri.title}} min: {{cri.min}}<br>max: {{cri.max}}<br>peso: {{cri.weight}}</label>
             </td>
                 <td><select id="{{cri.id}}" name="data[{{cri.id}}]" step="<?php echo $plugin->step ?>" ng-model="evaluation[cri.id]" class="autosave"><option value="0">0</option><option value="0.25">0.25</option><option value="0.50">0.50</option><option value="0.75">0.75</option><option value="1">1.00</option></select></td>
             </tr>
@@ -38,10 +38,10 @@ $cat = $params['registration']->category
         <strong><?php i::_e('Recomenda para receber o selo "Periferia Viva é Periferia Sem Risco"?'); ?></strong><span class="required">*</span>
         <br>
         <label class="input-label">
-            <input type="radio" name="data[selo-periferia-viva]" value="valid" ng-model="evaluation['selo-periferia-viva']" required="required"/>
+            <input type="radio" name="data[recomenda-selo]" value="sim" ng-model="evaluation['recomenda-selo']" />
             <em><?php i::_e('Sim')?></em> <br>
 
-            <input type="radio" name="data[selo-periferia-viva]" value="invalid" ng-model="evaluation['selo-periferia-viva']"/>
+            <input type="radio" name="data[recomenda-selo]" value="nao" ng-model="evaluation['recomenda-selo']" />
             <em><?php i::_e('Não')?></em>
         </label>
     </label>

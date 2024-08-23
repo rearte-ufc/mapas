@@ -33,9 +33,9 @@
             
             if(MapasCulturais.evaluationConfiguration && MapasCulturais.evaluationConfiguration.criteria){
                 MapasCulturais.evaluationConfiguration.criteria = MapasCulturais.evaluationConfiguration.criteria.map(function(e){
-                    e.min = parseFloat(e.min);
-                    e.max = parseFloat(e.max);
-                    e.weight = parseFloat(e.weight);
+                    e.min = parseFloat(e.min).toFixed(3);
+                    e.max = parseFloat(e.max).toFixed(3);
+                    e.weight = parseFloat(e.weight).toFixed(3);
                     return e;
                 });
             }
@@ -263,20 +263,20 @@
     module.controller('TechnicalEvaluationMethodFormController', ['$scope', '$rootScope', '$timeout', 'TechnicalEvaluationMethodService', function ($scope, $rootScope, $timeout, TechnicalEvaluationMethodService) {
             var labels = MapasCulturais.gettext.technicalEvaluationMethod;
             MapasCulturais.evaluationConfiguration.criteria = MapasCulturais.evaluationConfiguration.criteria.map(function(e){
-                e.min = parseFloat(e.min);
-                e.max = parseFloat(e.max);
-                e.weight = parseFloat(e.weight);
+                e.min = parseFloat(e.min).toFixed(3);
+                e.max = parseFloat(e.max).toFixed(3);
+                e.weight = parseFloat(e.weight).toFixed(3);
                 return e;
             });
-            
+
             if(MapasCulturais.evaluation){
                 for(var id in MapasCulturais.evaluation.evaluationData){
-                    if(id != 'obs' && id != 'viability'){
-                        MapasCulturais.evaluation.evaluationData[id] = parseFloat(MapasCulturais.evaluation.evaluationData[id]);
+                    if(id != 'obs' && id != 'viability' && id != 'recomenda-selo'){
+                        MapasCulturais.evaluation.evaluationData[id] = parseFloat(MapasCulturais.evaluation.evaluationData[id]).toFixed(3);
                     }
                 }
             }
-            
+
             $scope.data = {
                 sections: MapasCulturais.evaluationConfiguration.sections || [],
                 criteria: MapasCulturais.evaluationConfiguration.criteria || [],
@@ -301,7 +301,7 @@
                     }
                 }
 
-                return total.toFixed(1);
+                return total.toFixed(3);
             };
 
             $scope.total = function(){
@@ -312,7 +312,7 @@
                     total += $scope.evaluation[cri.id] * cri.weight;
                 }
 
-                return total.toFixed(1);
+                return total.toFixed(3);
             };
 
             $scope.max = function(){
@@ -330,19 +330,18 @@
                 if (isNaN(num))
                     return 0;
 
-                return num.toFixed(1);
+                return num.toFixed(3);
             };
 
             $scope.viabilityLabel = function(val) {
                 if ($scope.data.enableViability) {
                     var label = "Inválida";
-                    if ("valid" === val)
                         label = "Válida";
+        if ("valid" === val)
 
                     return label;
                 }
             }
 
-            
         }]);
 })(angular);

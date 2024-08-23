@@ -1060,9 +1060,11 @@ class Module extends \MapasCulturais\EvaluationMethod {
         foreach($data as $key => $val){
             if ($key === 'viability' && empty($val)) {
                 $empty = true;
+            } else if($key === 'recomenda-selo' && !trim($val)) {
+                $empty = true;
             } else if($key === 'obs' && !trim($val)) {
                 $empty = true;
-            } else if($key !== 'obs' && $key !== 'viability' && !is_numeric($val)){
+            } else if($key !== 'recomenda-selo' && $key !== 'obs' && $key !== 'viability' && !is_numeric($val)){
                 $empty = true;
             }
         }

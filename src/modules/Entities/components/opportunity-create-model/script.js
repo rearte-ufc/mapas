@@ -24,12 +24,13 @@ app.component('opportunity-create-model', {
 
     methods: {
         async save() {
+            this.__processing = this.text('Gerando modelo...');
+
             const api = new API(this.entity.__objectType);
 
             let objt = this.formData;
             objt.entityId = this.entity.id;
             
-
             let error = null;
 
             if (error = this.validade(objt)) {

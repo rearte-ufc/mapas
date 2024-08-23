@@ -58,9 +58,10 @@ $this->import('
                         <p><?php i::_e('Deseja continuar?') ?></p>
                     </template>
                 </mc-confirm-button>
-
-                <opportunity-create-model :entity="entity" classes="col-12"></opportunity-create-model>
-                
+                <div v-if="entity.currentUserPermissions?.modify && entity.status != -2 && entity.__objectType == 'opportunity'">
+                    <opportunity-create-model :entity="entity" classes="col-12"></opportunity-create-model>
+                </div>
+ 
                 <?php $this->applyTemplateHook('entity-actions--primary', 'end') ?>
             </div>
             <?php $this->applyTemplateHook('entity-actions--leftGroupBtn', 'after'); ?>

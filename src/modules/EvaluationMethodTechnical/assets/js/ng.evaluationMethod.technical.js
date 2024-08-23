@@ -277,12 +277,22 @@
                 }
             }
 
+            const s = [];
+            const sections = MapasCulturais.evaluationConfiguration.sections || [];
+            sections.forEach(element => {
+              if (element.name.indexOf(MapasCulturais.registration.category) > 0) {
+                s.push(element);
+              }
+            });
+
             $scope.data = {
-                sections: MapasCulturais.evaluationConfiguration.sections || [],
+                sections: s,
                 criteria: MapasCulturais.evaluationConfiguration.criteria || [],
                 enableViability: MapasCulturais.evaluationConfiguration.enableViability || false,
                 empty: true
             };
+
+      
 
             if(MapasCulturais.evaluation){
                 $scope.evaluation =  MapasCulturais.evaluation.evaluationData;

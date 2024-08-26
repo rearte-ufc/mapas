@@ -69,6 +69,7 @@ trait EntityManagerModel {
         $this->opportunityModel->setName($name);
         $this->opportunityModel->setStatus(-1);
         $this->opportunityModel->setShortDescription($description);
+        $this->opportunityModel->registrationCategories = [];
         $app->em->persist($this->opportunityModel);
         $app->em->flush();
 
@@ -87,6 +88,7 @@ trait EntityManagerModel {
 
         $this->opportunityModel->setName($name);
         $this->opportunityModel->setStatus(0);
+        $this->opportunityModel->registrationCategories = [];
         $app->em->persist($this->opportunityModel);
         $app->em->flush();
 

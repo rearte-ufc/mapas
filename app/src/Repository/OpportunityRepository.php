@@ -37,7 +37,6 @@ class OpportunityRepository extends AbstractRepository
         $this->mapaCulturalEntityManager->persist($opportunity);
         $this->mapaCulturalEntityManager->flush();
     }
-
     public function findOpportunitiesByAgentId(int $agentId): array
     {
         $queryBuilder = $this->getEntityManager()
@@ -50,10 +49,31 @@ class OpportunityRepository extends AbstractRepository
 
         return $queryBuilder->getQuery()->getArrayResult();
     }
-
     public function softDelete(Opportunity $opportunity): void
     {
         $opportunity->setStatus(EntityStatusEnum::TRASH->getValue());
         $this->save($opportunity);
     }
+
+    public function findOpportunitiesModels(): array
+    {
+        $app = \MapasCulturais\App::i();
+        $em = $app->em;
+        $queryBuilder = $em->createQueryBuilder()
+            ->select(
+                'o.id', 
+                'o.name', 
+                '(COUNT(p.id) + 2) AS numeroFases', 
+                '(o.registrationTo - o.registrationFrom) AS tempoEstimado', 
+                'o.shortDescription AS descricao'
+            )
+            ->from(Opportunity::class, 'o')
+            ->leftJoin(Opportunity::class, 'p', 'WITH', 'p.parent = o.id')
+            ->where('o.parent IS NULL')
+            ->andWhere('o.status = -1')
+            ->groupBy('o.id, o.name');
+    
+        return $queryBuilder->getQuery()->getArrayResult();
+    }
+    
 }

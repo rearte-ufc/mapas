@@ -6,7 +6,7 @@ use MapasCulturais\Entities\ProjectOpportunity;
 use MapasCulturais\Entity;
 use MapasCulturais\Definitions\Metadata AS DefinitionMetadata;
 
-trait EntityGenerateModel {
+trait EntityManagerModel {
 
     private ProjectOpportunity $opportunity;
     private ProjectOpportunity $opportunityModel;
@@ -24,6 +24,29 @@ trait EntityGenerateModel {
         $this->generateRegistrationFieldsAndFiles();
 
         $this->opportunityModel->save(true);
+        
+        if($this->isAjax()){
+            $this->json($this->opportunity);
+        }else{
+            $app->redirect($app->request->getReferer());
+        }
+    }
+
+    function ALL_generateopportunity(){
+        $app = App::i();
+
+        $this->requireAuthentication();
+        $this->opportunity = $this->requestedEntity;
+
+        $this->opportunityModel = $this->generateOpportunity();
+
+        $this->generateEvaluationMethods();
+        $this->generatePhases();
+        $this->generateMetadata(0, 0);
+        $this->generateRegistrationFieldsAndFiles();
+
+        $this->opportunityModel->save(true);
+       
         
         if($this->isAjax()){
             $this->json($this->opportunity);
@@ -66,6 +89,24 @@ trait EntityGenerateModel {
         $this->opportunityModel->setName($name);
         $this->opportunityModel->setStatus(0);
         $this->opportunityModel->registrationCategories = [];
+        $app->em->persist($this->opportunityModel);
+        $app->em->flush();
+
+        return $this->opportunityModel;
+    }
+
+    private function generateOpportunity() : ProjectOpportunity
+    {
+        $app = App::i();
+
+        $postData = $this->postData;
+
+        $name = $postData['name'];
+
+        $this->opportunityModel = clone $this->opportunity;
+
+        $this->opportunityModel->setName($name);
+        $this->opportunityModel->setStatus(0);
         $app->em->persist($this->opportunityModel);
         $app->em->flush();
 
@@ -151,7 +192,7 @@ trait EntityGenerateModel {
     }
 
 
-    private function generateMetadata() : void
+    private function generateMetadata($isModel = 1, $isModelOfficial = 0) : void
     {
         foreach ($this->opportunity->getMetadata() as $metadataKey => $metadataValue) {
             if (!is_null($metadataValue) && $metadataValue != '') {
@@ -159,8 +200,8 @@ trait EntityGenerateModel {
             }
         }
 
-        $this->opportunityModel->setMetadata('isModel', 1);
-        $this->opportunityModel->setMetadata('isModelOfficial', 0);
+        $this->opportunityModel->setMetadata('isModel', $isModel);
+        $this->opportunityModel->setMetadata('isModelOfficial', $isModelOfficial);
 
         $this->opportunityModel->saveTerms();
     }

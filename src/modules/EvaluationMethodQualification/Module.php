@@ -157,7 +157,7 @@ class Module extends \MapasCulturais\EvaluationMethod
                 return json_encode($val);
             },
             'unserialize' => function ($val) {
-                return $val ? json_decode($val) : $val;
+                return $val !== null ? json_decode($val) : null;
             }
         ]);
 
@@ -168,7 +168,7 @@ class Module extends \MapasCulturais\EvaluationMethod
                 return json_encode($val);
             },
             'unserialize' => function ($val) {
-                return $val ? json_decode($val) : $val;
+                return $val !== null ? json_decode($val) : null;
             }
         ]);
     }

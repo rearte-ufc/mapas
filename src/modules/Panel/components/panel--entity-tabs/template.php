@@ -36,7 +36,7 @@ $sort_options = [
 $this->applyComponentHook('.sortOptions', [&$tabs]);
 
 ?>
-<mc-tabs class="entity-tabs" sync-hash>
+<mc-tabs class="entity-tabs models" sync-hash>
     <?php $this->applyComponentHook('begin') ?>
     <template #header="{ tab }">
         <?php $this->applyComponentHook('tab', 'begin') ?>
@@ -76,55 +76,65 @@ $this->applyComponentHook('.sortOptions', [&$tabs]);
             </template>
 
             <template #default="{entities}">
-                <slot name='before-list' :entities="entities" :query="queries['<?=$status?>']"></slot>
-                <slot v-for="entity in entities" :key="entity.__objectId" :entity="entity" :moveEntity="moveEntity">
-                    <registration-card v-if="entity.__objectType=='registration'" :entity="entity" pictureCard hasBorders class="panel__row">
-                        <template #entity-actions-left>
-                            <slot name="entity-actions-left" :entity="entity"></slot>
-                        </template>
-                    </registration-card>
-                    <panel--entity-card  v-if="entity.__objectType!='registration'" :key="entity.id" :entity="entity" 
-                        @undeleted="moveEntity(entity, $event)" 
-                        @deleted="moveEntity(entity, $event)" 
-                        @archived="moveEntity(entity, $event)" 
-                        @published="moveEntity(entity, $event)"
-                        :on-delete-remove-from-lists="false"
-                        >
-                        <template #title="{ entity }">
-                            <slot name="card-title" :entity="entity"></slot>
-                        </template>
-                        <template #subtitle="{ entity }">
-                            <slot name="card-content"  :entity="entity">
-                            <span v-if="entity.type && entity.isModel != null">
-                            <span class="card-info">MEU MODELO</span>
-                                <div class="card-desc">
-                                    <mc-icon name="project" class="icon-model"></mc-icon> <strong> <?=i::__('Tipo de Oportunidade: ')?> </strong>{{ entity.type.name }}
+    <slot name='before-list' :entities="entities" :query="queries['<?=$status?>']"></slot>
+    <slot v-for="entity in entities" :key="entity.__objectId" :entity="entity" :moveEntity="moveEntity">
+        <registration-card v-if="entity.__objectType == 'registration'" :entity="entity" pictureCard hasBorders class="panel__row">
+            <template #entity-actions-left>
+                <slot name="entity-actions-left" :entity="entity"></slot>
+            </template>
+        </registration-card>
+        <panel--entity-card v-if="entity.__objectType != 'registration'" :key="entity.id" :entity="entity" 
+            @undeleted="moveEntity(entity, $event)" 
+            @deleted="moveEntity(entity, $event)" 
+            @archived="moveEntity(entity, $event)" 
+            @published="moveEntity(entity, $event)"
+            :on-delete-remove-from-lists="false"
+            >
+            <template #title="{ entity }">
+                <slot name="card-title" :entity="entity"></slot>
+            </template>
+            <template #subtitle="{ entity }">
+                <slot name="card-content" :entity="entity">
+                    <span v-if="entity.type && entity.isModel != null">
+                        <span class="card-info">MEU MODELO</span>
+                        <div class="card-desc">
+                            <div v-for="model in models" :key="model.id">
+                                
+                                <span v-if="model.id == entity.id">
+                                    <p>{{ model.descricao }}</p>
+                                    <mc-icon name="project" class="icon-model"></mc-icon> 
+                                    <strong><?=i::__('Tipo de Oportunidade: ')?></strong>{{ entity.type.name }}
                                     <br>
-                                    <mc-icon name="circle-checked" class="icon-model"></mc-icon><strong> <?=i::__('Número de fases: ')?> </strong>{{ entity.type.name }}
+                                    <mc-icon name="circle-checked" class="icon-model"></mc-icon>
+                                    <strong><?=i::__('Número de fases: ')?></strong>{{ model.numeroFases }}
                                     <br>
-                                    <mc-icon name="date" class="icon-model"></mc-icon><strong> <?=i::__('Tempo estimado: ')?> </strong>{{ entity.type.name }}
+                                    <mc-icon name="date" class="icon-model"></mc-icon>
+                                    <strong><?=i::__('Tempo estimado: ')?></strong>{{ model.tempoEstimado }}
                                     <br>
-                                    <mc-icon name="agent" class="icon-model"></mc-icon><strong> <?=i::__('Tipo de agente: ')?> </strong>{{ entity.type.name }}
-                                </div>
-                            </span>
-                            <span v-if="entity.type && entity.isModel == null">
-                                <?=i::__('Tipo: ')?> <strong>{{ entity.type.name }}</strong>
-                            </span>
-                            </slot>
-                        </template>
-                        <template #entity-actions-left>
-                            <slot name="entity-actions-left" :entity="entity"></slot>
-                        </template>
-                        <template #entity-actions-center>
-                            <slot name="entity-actions-center" :entity="entity"></slot>
-                        </template>
-                        <template #entity-actions-right>
-                            <slot name="entity-actions-right" :entity="entity"></slot>
-                        </template>
-                    </panel--entity-card>
+                                    <mc-icon name="agent" class="icon-model"></mc-icon>
+                                    <strong><?=i::__('Tipo de agente: ')?></strong> {{ model.tipoAgente }}
+                                </span>
+                            </div>
+                        </div>
+                    </span>
+                    <span v-if="entity.type && entity.isModel == null">
+                        <?=i::__('Tipo: ')?> <strong>{{ entity.type.name }}</strong>
+                    </span>
                 </slot>
-                <slot name='after-list' :entities="entities" :query="queries['<?=$status?>']"></slot>
-           </template>
+            </template>
+            <template #entity-actions-left>
+                <slot name="entity-actions-left" :entity="entity"></slot>
+            </template>
+            <template #entity-actions-center>
+                <slot name="entity-actions-center" :entity="entity"></slot>
+            </template>
+            <template #entity-actions-right>
+                <slot name="entity-actions-right" :entity="entity"></slot>
+            </template>
+        </panel--entity-card>
+    </slot>
+    <slot name='after-list' :entities="entities" :query="queries['<?=$status?>']"></slot>
+</template>
         </mc-entities>
         <?php $this->applyComponentHook($status, 'end') ?>
     </mc-tab>

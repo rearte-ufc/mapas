@@ -47,12 +47,7 @@ trait EntityManagerModel {
 
         $this->opportunityModel->save(true);
        
-        
-        if($this->isAjax()){
-            $this->json($this->opportunity);
-        }else{
-            $app->redirect($app->request->getReferer());
-        }
+        $this->json($this->opportunityModel); 
     }
 
     private function generateModel() : ProjectOpportunity

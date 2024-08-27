@@ -39,11 +39,11 @@ app.component('opportunity-create-based-model', {
                 return;
             }
 
-            await api.POST(`/opportunity/generateopportunity/${objt.entityId}`, objt).then(res => {
+            await api.POST(`/opportunity/generateopportunity/${objt.entityId}`, objt).then(response => response.json().then(dataReturn => {
                 this.messages.success(this.text('Oportunidade gerada com sucesso'));
                 this.sendSuccess = true;
-                // window.location.href = '/minhas-oportunidades/#mymodels';
-            });
+                window.location.href = `/gestao-de-oportunidade/${dataReturn.id}/#info`;
+            }));
         },
         validade(objt) {
             let result = null;

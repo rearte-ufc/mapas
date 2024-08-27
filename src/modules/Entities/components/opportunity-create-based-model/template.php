@@ -8,22 +8,23 @@ use MapasCulturais\i;
 
 $this->import(" 
     mc-modal
+    entity-field
 ");
 ?>
-<div class="col-12">
-    <mc-modal title="<?= i::__('Nova oportunidade') ?>">
+<div class="grid-12 col-12">
+    <mc-modal title="<?= i::__('Título do edital') ?>">
         <template #default>
             <div>
                 <div class="field">
-                    <label><?= i::__('Título do edital') ?></label>
+                    <label><?= i::__('Defina um título para o Edital que deseja criar') ?><span class="required">*</span></label>
                     <input type="text" v-model="formData.name">
                 </div><br>
             </div>
         </template>
 
         <template v-if="!sendSuccess"  #actions="modal">
-            <button class="button button--primary" @click="save(modal)"><?= i::__('Começar') ?></button>
             <button class="button button--text button--text-del" @click="modal.close()"><?= i::__('cancelar') ?></button>
+            <button class="button button--primary" @click="save(modal)"><?= i::__('Começar') ?></button>
         </template>
 
         <template #button="modal">

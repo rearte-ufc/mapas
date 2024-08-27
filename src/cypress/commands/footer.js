@@ -2,7 +2,9 @@ const { login } = require("./login");
 
 function footer () {
   if (cy.contains("Entrar")) {
-    login();
+    cy.get('.logIn').click();
+    cy.wait(1000);
+    cy.get('.right > .button').click();
   } else {
     cy.contains("Minha conta");
   }

@@ -16,7 +16,7 @@ describe("Pagina de Agentes", () => {
     });
 
     it("clica em \"Acessar\" e entra na pagina no agente selecionado", () => {
-        cy.get(":nth-child(2) > .entity-card__footer > .entity-card__footer--action > .button").click();
-        cy.contains("Informações");
+        cy.get(':nth-child(2) > .entity-card__footer > .entity-card__footer--action > .button').click();
+        cy.url().should('include', '/agente/');
     });
 });

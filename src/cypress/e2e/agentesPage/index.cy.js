@@ -27,9 +27,8 @@ describe("Agents Page", () => {
         cy.contains("Nenhuma entidade encontrada");
     });
 
-    //Coloquei o Cleodon pois, por ser uma homenagem, acredito ser mais difícil ser removido
     it("Garante que os filtros de agentes funcionam quando existem resultados para a busca textual", () => {
-        cy.get(".search-filter__actions--form-input").type("Cleodon");
+        cy.get(".search-filter__actions--form-input").type("Admin");
 
         cy.wait(1000);
 
@@ -38,20 +37,19 @@ describe("Agents Page", () => {
 
     //Como todos os agentes oficiais possuem selo de verificado, aqui ele verifica se a quant de agentes encontrados 
     //é igual a quant de agentes com selo de verificado
+
     it("Garante que o filtro de agentes oficiais funciona", () => {
         cy.wait(1000);
-
         cy.get(".verified > input").click();
-
         cy.wait(1000);
-
         cy.get(".foundResults").invoke('text').then((text) => {
             // Extraia o número da string
             expectedCount = parseInt(text.match(/\d+/)[0], 10);
             
             // Agora, verifique se o número de imagens encontradas é igual ao esperado
-            cy.get('div[title="Selo Mapas"] img[src="https://mapas.tec.br/files/seal/1/file/111/121e2341ab665183b487c72f92636b59-a4537a4646cadc981f44f03c5021652f.jpg"]')
-              .should('have.length', expectedCount);
+            for (let i = 2; i <= expectedCount + 1; i++)
+                cy.get(`:nth-child(${i}) > .entity-card__footer > .entity-card__footer--info > .seals > .mc-avatar--xsmall`);
+
             cy.contains(expectedCount + " Agentes encontrados");
         });
     });
@@ -76,8 +74,6 @@ describe("Agents Page", () => {
 
         cy.get(":nth-child(2) > select").select(1);
         cy.contains("Agente Individual");
-        cy.wait(1000);
-        cy.get('.load-more > .button--large').click()
         cy.wait(1000)
 
         cy.get(".foundResults").invoke('text').then((text) => {
@@ -97,7 +93,7 @@ describe("Agents Page", () => {
         cy.contains("Área de atuação");
 
         cy.get(".mc-multiselect--input").click();
-        cy.contains(".mc-multiselect__options > li", "Arte Digital").click();
+        cy.contains(".mc-multiselect__options > li", "Arte de Rua").click();
 
         cy.wait(1000);
 

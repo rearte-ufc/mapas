@@ -185,8 +185,9 @@ app.component('create-occurrence', {
             this.price = this.moneyMask(floatNum);
         },
         checkPrice() {
-            if(this.price == "R$ 0,00") 
+            if(this.price == "R$ 0,00") {
                 return null;
+            }
             return this.price;
         },
 
@@ -240,7 +241,7 @@ app.component('create-occurrence', {
             }      
 
             this.newOccurrence['description'] = this.description ?? '';
-            this.newOccurrence['price'] = this.free ? __('Gratuito', 'create-occurrence') : this.price;
+            this.newOccurrence['price'] = this.free ? __('Gratuito', 'create-occurrence') : this.checkPrice();
             this.newOccurrence['priceInfo'] = this.priceInfo ?? '';
             
             this.newOccurrence.save().then(() => {

@@ -15,9 +15,11 @@ $this->import('
 <div class="entity-card" :class="classes">
 	<div class="entity-card__header" :class="{'with-labels': useLabels, 'without-labels': !useLabels}">
 		<div class="entity-card__header user-details">
-			<slot name="avatar">
-				<mc-avatar :entity="entity" size="small"></mc-avatar>
-			</slot>
+			<a :href="entity.singleUrl">
+				<slot name="avatar">
+					<mc-avatar :entity="entity" size="small"></mc-avatar>
+				</slot>
+			</a>
 			<div class="user-info" :class="{'with-labels': useLabels, 'without-labels': !useLabels}">
 				<a :href="entity.singleUrl">
 					<slot name="title">

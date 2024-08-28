@@ -1,5 +1,6 @@
 describe("Agents Page", () => {
-    let expectedCount;
+    let expectedCount, originalCount;
+
     beforeEach(() => {
         cy.viewport(1920, 1080);
         cy.visit("/agentes");
@@ -7,9 +8,7 @@ describe("Agents Page", () => {
 
     it("Garante que a página de agentes funciona", () => {
         cy.url().should("include", "agentes");
-
         cy.get("h1").contains("Agentes").should("be.visible");
-
         cy.contains("Mais recentes primeiro");
         cy.contains("Agentes encontrados");
         cy.contains("Filtros de agente");
@@ -21,17 +20,13 @@ describe("Agents Page", () => {
 
     it("Garante que os filtros de oportunidades funcionam quando não existem resultados pra busca textual", () => {
         cy.get(".search-filter__actions--form-input").type("Agente ruim");
-
         cy.wait(1000);
-
         cy.contains("Nenhuma entidade encontrada");
     });
 
     it("Garante que os filtros de agentes funcionam quando existem resultados para a busca textual", () => {
         cy.get(".search-filter__actions--form-input").type("Admin");
-
         cy.wait(1000);
-
         cy.contains("1 Agentes encontrados");
     });
 
@@ -47,22 +42,18 @@ describe("Agents Page", () => {
             expectedCount = parseInt(text.match(/\d+/)[0], 10);
             
             // Agora, verifique se o número de imagens encontradas é igual ao esperado
-            for (let i = 2; i <= expectedCount + 1; i++)
-                cy.get(`:nth-child(${i}) > .entity-card__footer > .entity-card__footer--info > .seals > .mc-avatar--xsmall`);
-
+            cy.get('div.mc-avatar--xsmall.mc-avatar--icon.mc-avatar--square.mc-avatar').should('have.length', expectedCount);
             cy.contains(expectedCount + " Agentes encontrados");
         });
     });
 
     it("Garante que os filtros por tipo de agente funcionam", () => {
         cy.wait(1000);
-
         cy.contains("Tipo");
-
         cy.get(":nth-child(2) > select").select(2);
         cy.contains("Agente Coletivo");
         cy.wait(1000);
-        
+
         cy.get(".foundResults").invoke('text').then((text) => {
             // Extraia o número da string
             expectedCount = parseInt(text.match(/\d+/)[0], 10);
@@ -84,17 +75,13 @@ describe("Agents Page", () => {
             cy.get('.entity-card__header.without-labels > .user-details > .user-info > a > .mc-title').should('have.length', expectedCount)
             cy.contains(expectedCount + " Agentes encontrados");
         });
-
     });
 
     it("Garante que os filtros por área de atuação funcionam", () => {
         cy.wait(1000);
-
         cy.contains("Área de atuação");
-
         cy.get(".mc-multiselect--input").click();
         cy.contains(".mc-multiselect__options > li", "Arte de Rua").click();
-
         cy.wait(1000);
 
         cy.get(".foundResults").invoke('text').then((text) => {
@@ -110,8 +97,7 @@ describe("Agents Page", () => {
     //Preenche filtros e garante que após limpá-los, a quant de agentes encontrados é a mesma que no começo
     it("Garante que o botão limpar filtros na página de agentes funciona", () => {
         cy.wait(1000);
-        
-        let originalCount;
+
         cy.get(".foundResults").invoke('text').then((text) => {
             originalCount = parseInt(text.match(/\d+/)[0], 10);
         });

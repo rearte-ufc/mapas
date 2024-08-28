@@ -1,6 +1,5 @@
 const { clearAllFilters } = require("../../commands/clearAllFilters");
 const { checkFilterCount } = require("../../commands/checkFilterCount");
-const { loginWith } = require("../../commands/login");
 
 describe("Opportunity Page", () => {
     beforeEach(() => {
@@ -10,12 +9,9 @@ describe("Opportunity Page", () => {
     it("Garante que a oportunidades funciona", () => {
         cy.visit("/");
         cy.contains("Boas vindas ao Mapa Cultural");
-
         cy.contains("a", "Oportunidades").click();
         cy.url().should("include", "oportunidades");
-
         cy.get("h1").contains("Oportunidades");
-
         cy.contains("Mais recentes primeiro");
         cy.contains("Oportunidades encontradas");
         cy.contains("Filtros de oportunidades");
@@ -26,19 +22,14 @@ describe("Opportunity Page", () => {
 
     it("Garante que os filtros de oportunidades funcionam quando não existem resultados pra busca textual", () => {
         cy.visit("/oportunidades");
-
         cy.get(".search-filter__actions--form-input").type("Edital 03/18");
-
         cy.wait(1000);
-
         cy.contains("Nenhuma entidade encontrada");
     });
 
     it("Garante que os filtros de oportunidades funcionam quando existem resultados para a busca textual", () => {
         cy.visit("/oportunidades");
-
         cy.get(".search-filter__actions--form-input").type("a");
-
         cy.wait(1000);
 
         checkFilterCount("opportunity");
@@ -46,19 +37,14 @@ describe("Opportunity Page", () => {
 
     it("Garante que os filtros por status das oportunidades funcionam", () => {
         cy.visit("/oportunidades");
-
         cy.wait(1000);
-
         cy.contains("Status das oportunidades");
-
         cy.get(".form > :nth-child(1) > :nth-child(2)").click();
-
         cy.wait(1000);
 
         checkFilterCount("opportunity");
 
         cy.get('.form > :nth-child(1) > :nth-child(4)').click();
-
         cy.wait(1000);
 
         checkFilterCount("opportunity");
@@ -66,11 +52,8 @@ describe("Opportunity Page", () => {
 
     it("Garante que o filtro de oportunidades de editais oficiais funciona", () => {
         cy.visit("/oportunidades");
-
         cy.wait(1000);
-
         cy.contains("Status das oportunidades");
-
         cy.get(".verified > input").click();
         cy.wait(2500);
 
@@ -79,28 +62,19 @@ describe("Opportunity Page", () => {
 
     it("Garante que os filtros por tipo de oportunidade funcionam", () => {
         cy.visit("/oportunidades");
-
         cy.wait(1000);
-
         cy.contains("Tipo de oportunidade");
-
         cy.get(":nth-child(2) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input").click();
         cy.get(':nth-child(2) > .mc-multiselect__option > .input').click();
-
         cy.wait(1000);
 
         checkFilterCount("opportunity");
 
         cy.reload();
-
         cy.wait(1000);
-
         cy.get(':nth-child(2) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input').click();
-
         cy.wait(1000);
-        
         cy.get(':nth-child(4) > .mc-multiselect__option > .input').click();
-
         cy.wait(1000);
 
         checkFilterCount("opportunity");
@@ -108,24 +82,18 @@ describe("Opportunity Page", () => {
 
     it("Garante que os filtros por área de interesse funcionam", () => {
         cy.visit("/oportunidades");
-
         cy.wait(1000);
-
         cy.contains("Área de interesse");
-
         cy.get(":nth-child(3) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input").click();
         cy.get(':nth-child(6) > .mc-multiselect__option > .input').click();
-
         cy.wait(1000);
 
         checkFilterCount("opportunity");
 
         cy.reload();
         cy.wait(1000);
-
         cy.get(":nth-child(3) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input").click();
         cy.get(':nth-child(35) > .mc-multiselect__option > .input').click();
-
         cy.wait(1000);
 
         checkFilterCount("opportunity");
@@ -183,17 +151,11 @@ describe("Opportunity Page", () => {
         cy.get('.right > .button').click();
         cy.get(':nth-child(4) > :nth-child(1) > a').click();
         cy.get('.right > .button--primary').click();
-        
         cy.wait(1000);
-
         cy.get('.col-12 > .button').click();
-
         cy.get('.modal__content > :nth-child(3) > :nth-child(1) > input').should('be.visible').clear();
-
         cy.get(':nth-child(3) > textarea').should('be.visible').clear();
-
         cy.get('.modal__action > .button--primary').click();
-
         cy.contains('Todos os campos são obrigatorio');
     });
 
@@ -204,24 +166,17 @@ describe("Opportunity Page", () => {
         cy.get('.right > .button').click();
         cy.get(':nth-child(4) > :nth-child(1) > a').click();
         cy.get('.right > .button--primary').click();
-        
         cy.wait(1000);
-
         cy.get('.col-12 > .button').click();
-
         cy.contains("Salvar modelo");
         cy.contains("Para salvar um modelo, preencha os campos abaixo.");
         cy.contains("Nome do modelo");
         cy.contains("Breve descrição do modelo");
         cy.contains("Salvar modelo");
-
         cy.get('.modal__content > :nth-child(3) > :nth-child(1) > input').should('be.visible').clear().type('Nome do modelo');
-
         cy.get(':nth-child(3) > textarea').should('be.visible').type('Descrição do modelo');
-
         cy.get('.modal__action > .button--primary').click();
         cy.wait(3000);
-
         cy.visit("/minhas-oportunidades/#mymodels");
         cy.wait(1000);
         cy.contains("Nome do modelo");

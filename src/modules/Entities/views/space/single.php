@@ -48,7 +48,9 @@ $this->breadcrumb = [
             </dl>
             <dl v-if="entity.parent">
                 <dt><?= i::__('Espaço integrante de') ?></dt>
-                <dd :class="[entity.__objectType+'__color', 'type']"> {{entity.parent.name}} </dd>
+                <dd :class="[entity.__objectType + '__color', 'type']"> 
+                    <a :href="`/espaco/${entity.parent.id}/`">{{ entity.parent.name }}</a>
+                </dd>
             </dl>
         </template>
     </entity-header>

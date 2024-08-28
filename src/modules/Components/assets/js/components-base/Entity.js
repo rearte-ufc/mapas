@@ -145,7 +145,14 @@ class Entity {
     }
 
     catchErrors(res, data) {
-        const message = data.data.message;
+        const message = data.data.message ??
+		data.data.avatar ??
+		data.data.header ??
+		data.data.gallery ??
+		data.data.logo ??
+		data.data.background ??
+		data.data.share ??
+		data.data.institute; // getting errors from validation errors;
         
         if (res.status >= 500 && res.status <= 599) {
             this.sendMessage(message || this.text('erro inesperado'), 'error');
@@ -772,9 +779,9 @@ class Entity {
                 /* let index;
                 index = this.seals.indexOf(seal);
                 this.seals.splice(index,1); */
-            });
-        } catch (error) {
-            return this.doCatch(error);
-        }
-    }
+			});
+		} catch (error) {
+			return this.doCatch(error);
+		}
+	}
 }

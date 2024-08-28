@@ -31,9 +31,9 @@ $this->import('
                                 <mc-icon name="opportunity"></mc-icon>
                             </div>                        
                             <div class="card__left--content-title">
-                                    <label class="title">
+                                    <h3 class="title">
                                         <?= i::__('Oportunidades') ?>
-                                    </label>
+                                    </h3>
                             </div>
                         </div>
                         <div class="card__left--img">
@@ -58,9 +58,9 @@ $this->import('
                                 <mc-icon name="event"></mc-icon>
                             </div>                        
                             <div class="card__left--content-title">
-                                <label class="title">
+                                <h3 class="title">
                                     <?= i::__('Eventos') ?>
-                                </label>
+                                </h3>
                             </div>
                         </div>
                         <div class="card__left--img">
@@ -85,9 +85,9 @@ $this->import('
                                 <mc-icon name="space"></mc-icon>
                             </div>                        
                             <div class="card__left--content-title">
-                                <label class="title">
+                                <h3 class="title">
                                     <?= i::__('Espaços') ?>
-                                </label>
+                                </h3>
                             </div>
                         </div>
                         <div class="card__left--img">
@@ -112,9 +112,9 @@ $this->import('
                                 <mc-icon name="agent-2"></mc-icon>
                             </div>                        
                             <div class="card__left--content-title">
-                                <label class="title">
+                                <h3 class="title">
                                     <?= i::__('Agentes') ?>
-                                </label>
+                                </h3>
                             </div>
                         </div>
                         <div class="card__left--img">
@@ -139,9 +139,9 @@ $this->import('
                                 <mc-icon name="project"></mc-icon>
                             </div>                        
                             <div class="card__left--content-title">
-                                <label class="title">
+                                <h3 class="title">
                                     <?= i::__('Projetos') ?>
-                                </label>
+                                </h3>
                             </div>
                         </div>
                         <div class="card__left--img">

@@ -106,9 +106,10 @@
 
 				&__viewport {
 					ol {
-						li{
+						li{	
 							
 							justify-content: flex-start;
+							align-items: stretch;
 							padding: 0 size(40) 0 0;
 
 							@media (max-width: size(600)) {
@@ -130,7 +131,7 @@
 				}
 
 				&__track {
-					align-items: flex-start;
+					align-items: stretch;
 				}
 				
 				&__prev--in-active,

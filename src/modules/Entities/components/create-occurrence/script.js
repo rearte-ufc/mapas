@@ -185,9 +185,8 @@ app.component('create-occurrence', {
             this.price = this.moneyMask(floatNum);
         },
         checkPrice() {
-            if(this.price == "R$ 0,00") {
+            if(this.price == "R$ 0,00") 
                 return null;
-            }
             return this.price;
         },
 

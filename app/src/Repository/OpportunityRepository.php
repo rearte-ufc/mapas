@@ -37,7 +37,6 @@ class OpportunityRepository extends AbstractRepository
         $this->mapaCulturalEntityManager->persist($opportunity);
         $this->mapaCulturalEntityManager->flush();
     }
-
     public function findOpportunitiesByAgentId(int $agentId): array
     {
         $queryBuilder = $this->getEntityManager()
@@ -50,10 +49,61 @@ class OpportunityRepository extends AbstractRepository
 
         return $queryBuilder->getQuery()->getArrayResult();
     }
-
     public function softDelete(Opportunity $opportunity): void
     {
         $opportunity->setStatus(EntityStatusEnum::TRASH->getValue());
         $this->save($opportunity);
     }
+
+    public function findOpportunitiesModels(): array {
+        $app = \MapasCulturais\App::i();
+        $em = $app->em;
+        $queryBuilder = $em->createQueryBuilder()
+            ->select(
+                'o.id', 
+                'o.name', 
+                '(COUNT(p.id) + 2) AS numeroFases', 
+                'o.registrationTo', 
+                'o.registrationFrom', 
+                'o.shortDescription AS descricao',
+                'o.registrationProponentTypes AS tipoAgente'
+            )
+            ->from(Opportunity::class, 'o')
+            ->leftJoin(Opportunity::class, 'p', 'WITH', 'p.parent = o.id')
+            ->where('o.parent IS NULL')
+            ->andWhere('o.status = -1')
+            ->groupBy('o.id, o.name');
+        
+        $results = $queryBuilder->getQuery()->getArrayResult();
+
+        foreach ($results as &$result) {
+            if (isset($result['registrationTo']) && isset($result['registrationFrom'])) {
+                $registrationTo = $result['registrationTo'];
+                $registrationFrom = $result['registrationFrom'];
+
+                if (!$registrationTo instanceof \DateTime) {
+                    $registrationTo = new \DateTime($registrationTo);
+                }
+                if (!$registrationFrom instanceof \DateTime) {
+                    $registrationFrom = new \DateTime($registrationFrom);
+                }
+            
+                $interval = $registrationFrom->diff($registrationTo);
+                $days = $interval->days;
+                
+                $result['tempoEstimado'] = "$days dias";
+            } else {
+                $result['tempoEstimado'] = 'N/A';
+            }
+
+            if (isset($result['tipoAgente'])){
+                
+                $result['tipoAgente'] = implode(', ', $result['tipoAgente']);
+            }else {
+                $result['tipoAgente'] = 'N/A';
+            }
+        }
+        return $results;
+    }
+
 }

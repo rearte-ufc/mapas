@@ -426,6 +426,8 @@ class Entity {
                     this.doPromise(res, (entity) => {
                         if (this.id) {
                             this.sendMessage(this.text('modificacoes salvas'));
+                        }else if(entity['@entityType'] == 'eventOccurrence') {
+                            this.sendMessage(this.text('ocorrencia salva'));
                         } else {
                             this.sendMessage(this.text('entidade salva'));
                         }
@@ -459,7 +461,12 @@ class Entity {
         try {
             const res = await this.API.deleteEntity(this);
             return this.doPromise(res, (entity) => {
-                this.sendMessage(this.text('entidade removida'));
+
+                if(entity['@entityType'] == 'eventOccurrence') {
+                    this.sendMessage(this.text('ocorrencia removida'));
+                }else {
+                    this.sendMessage(this.text('entidade removida'));
+                }
                 
                 if(removeFromLists) {
                     this.removeFromLists();

@@ -22,6 +22,10 @@ $this->import('
         <div class="field">
             <label> <?php i::_e('Eventos acontecendo') ?></label>
             <div class="datepicker">
+                <div class="filter-btn">
+                    <button @click="prevInterval()" class="button button--rounded button--outline"> <mc-icon name="arrow-left"></mc-icon> </button>
+                    <button @click="nextInterval()" class="button button--rounded button--outline"> <mc-icon name="arrow-right"></mc-icon> </button>
+                </div>
                 <datepicker 
                     :locale="locale" 
                     :weekStart="0"
@@ -30,11 +34,8 @@ $this->import('
                     :format="dateFormat"
                     :presetRanges="presetRanges" 
                     :dayNames="['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']"
-                    range multiCalendars multiCalendarsSolo autoApply utc></datepicker>
-                <div class="filter-btn">
-                    <button @click="prevInterval()" class="button button--rounded button--outline"> <mc-icon name="arrow-left"></mc-icon> </button>
-                    <button @click="nextInterval()" class="button button--rounded button--outline"> <mc-icon name="arrow-right"></mc-icon> </button>
-                </div>
+                    range multiCalendars multiCalendarsSolo autoApply utc>
+                </datepicker>
             </div>
         </div>
         <div class="field">

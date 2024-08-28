@@ -3324,8 +3324,12 @@ class App {
      * @return Definitions\EntityType[]
      */
     function getRegisteredEntityTypes(Entity|string $entity): array {
-        if(is_object($entity))
+        if (is_object($entity))
             $entity = $entity->getClassName();
+
+        usort($this->_register['entity_types'][$entity], function ($a, $b) {
+            return strcmp($a->name, $b->name);
+        });
 
         return $this->_register['entity_types'][$entity] ?? [];
     }

@@ -94,12 +94,12 @@
                     }
 
                     a {
-                        align-items: center;
-                        display: flex;
-                        text-decoration: none;
-                        font-weight: 600;
-                        color: var(--mc-low-500);
-                    }
+						align-items: center;
+						display: flex;
+						text-decoration: none;
+						font-weight: 600;
+						color: var($helper-500);
+					}
                 }
 
                 .title {

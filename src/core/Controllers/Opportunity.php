@@ -12,6 +12,7 @@ use MapasCulturais\Entities\RegistrationEvaluation;
 use MapasCulturais\Entities\EvaluationMethodConfiguration;
 use MapasCulturais\Entities\Opportunity as EntitiesOpportunity;
 use MapasCulturais\Entities\Registration;
+use MapasCulturais\Entity;
 
 /**
  * Opportunity Controller
@@ -32,6 +33,8 @@ class Opportunity extends EntityController {
         Traits\ControllerArchive,
         Traits\ControllerAPI,
         Traits\ControllerAPINested,
+        Traits\EntityOpportunityDuplicator,
+        Traits\EntityGenerateModel,
         Traits\ControllerEntityActions {
             Traits\ControllerEntityActions::PATCH_single as _PATCH_single;
         }

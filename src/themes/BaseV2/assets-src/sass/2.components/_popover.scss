@@ -28,4 +28,221 @@
             gap: size(10);
         }
     }
+    .popover__title {
+        font-size: 1.5rem !important;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .popover__intro {
+        font-size: 1rem !important;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .popover__text {
+        font-size: 1rem !important;
+        color: #333;
+        text-align: left;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .popover__section {
+        margin-bottom: 10px;    
+    }
+    .popover__section-title {
+        font-size: 1rem !important;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+    .popover__footer {
+        display: flex;
+        justify-content: center;
+        padding: 5px;
+    }
+    .popover__close-btn {
+        background-color: white;
+        color: #117c83;
+        padding: 10px 90px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px; 
+        font-weight: bold;
+        transition: background-color 0.3s;
+        text-align: center;
+        margin-top: auto;
+        border-color: #117c83;
+        border-width: 2px;
+    }
+    .popover__close-btn:hover {
+        background-color: #87cefa;
+    }
+    .popover {
+        position: relative;
+        padding: 5px;
+        max-width: 550px;
+        max-height: 490px;
+        background: #fff;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .info-text {
+        display: flex;
+        align-items: center;
+    }
+
+    .info-link {
+        align-self: center;
+        font-size: 1rem;
+        color: #117c83;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+
+    .info-link:hover {
+        color: #87cefa;
+        text-decoration: underline;
+    }
+}
+
+.flex-container {
+    display: flex;
+    gap: size(5);
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 0px;
+
+    .entity-terms{
+        .v-popper--theme-dropdown{
+            svg.popover__avatar__area{
+                margin-left: 50px;
+                color: green;
+            }
+        }
+    }   
+    
+    .popover {
+        &__avatar{
+            &__tag path, &__name path, &__funcao path, &__area path{
+                fill: currentcolor;
+                d: path("M 12 2 C 6.48 2 2 6.48 2 12 s 4.48 10 10 10 s 10 -4.48 10 -10 S 17.52 2 12 2 m 1 17 h -2 v -2 h 2 Z m 2.07 -7.75 l -0.9 0.92 C 13.45 12.9 13 13.5 13 15 h -2 v -0.5 c 0 -1.1 0.45 -2.1 1.17 -2.83 l 1.24 -1.26 c 0.37 -0.36 0.59 -0.86 0.59 -1.41 c 0 -1.1 -0.9 -2 -2 -2 s -2 0.9 -2 2 H 8 c 0 -2.21 1.79 -4 4 -4 s 4 1.79 4 4 c 0 0.88 -0.36 1.68 -0.93 2.25");
+            }
+        }  
+    }
+}  
+
+.question{
+    margin-top: 0rem;
+}
+
+@media (min-width: 501px){
+    // tooltip unique popover name
+    div:nth-child(4).col-12.popover__area > div.flex-container.question > div:nth-child(1) > div{
+        position: absolute;
+        left: 120px;
+        top: 20px;
+    }
+
+    // tooltip unique popover area
+    div:nth-child(5).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+        position: absolute;
+        left: 145px;
+    }
+
+    // tooltip  unique popover funcao
+    div:nth-child(6).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+        position: absolute;
+        left: 173px;
+    }
+
+    // tooltip unique popover tag
+    div:nth-child(7).col-12.popover__area > div.flex-container.question > div:nth-child(2) > div{
+        position: absolute;
+        left: 49px;
+    }
+
+    //unique local de endereço
+    div > div:nth-child(1) > div.flex-container.endereco > div > div{
+        position: relative;
+        // left: 171px;
+        // top: 46px;
+    }
+
+    //unique agente itinerante
+    div > div:nth-child(1) > div.flex-container.col-12.itinerante > div > div{
+        position: relative;
+        left: 139px;
+        top: 28px;
+    }
+
+    .popover__area{
+        position: relative;
+    }
+
+    // tooltip Dados de endereço
+    div:nth-child(1) > div.flex-container.endereco.col-12 > div:nth-child(1) > div{
+        position: relative;
+        top: 32px;
+        left: 171px;
+        padding-top: 0px;
+        margin-top: 0px;
+        z-index: 9999;
+    }
+}
+
+@media (max-width: 500px){
+    // tooltip unique popover name
+    div:nth-child(4).popover__area > div > div:nth-child(1) > a{
+        position: absolute;
+        top: 20px;
+        left: 120px;
+    }
+
+    // tooltip unique popover area
+    div:nth-child(5) > div > div:nth-child(2) > a{
+        position: absolute;
+        left: 145px;
+    }
+
+    // tooltip  unique popover funcao
+    div:nth-child(6) > div > div:nth-child(2) > a{
+        position: absolute;
+        left: 173px;
+    }
+
+    // tooltip unique popover tag
+    div:nth-child(7) > div > div:nth-child(2) > a{
+        position: absolute;
+        left: 49px;
+    }
+
+    //unique local de endereço
+    div:nth-child(1) > div.flex-container.endereco.col-12 > div:nth-child(1) > a{
+        position: relative;
+        left: 171px;
+        top: 32px;
+    }
+
+    //unique agente itinerante
+    div:nth-child(1) > div.flex-container.col-12.itinerante > div:nth-child(1) > a{
+        position: relative;
+        left: 139px;
+        top: 28px;
+    }
+
+    .popover__area{
+        position: relative;
+    }
+
+    // tooltip Dados de endereço
+    div:nth-child(1) > div.flex-container.endereco.col-12 > div:nth-child(1) > div{
+        position: relative;
+        top: 32px;
+        left: 171px;
+        padding-top: 0px;
+        margin-top: 0px;
+        z-index: 9999;
+    }
 }

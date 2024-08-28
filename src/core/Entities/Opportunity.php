@@ -9,6 +9,8 @@ use MapasCulturais\Traits;
 use MapasCulturais\App;
 use MapasCulturais\Definitions\Metadata as MetadataDefinition;
 /**
+ *
+ *
  * Opportunity
  *
  * @property-read int $id
@@ -20,8 +22,8 @@ use MapasCulturais\Definitions\Metadata as MetadataDefinition;
  * @property \DateTime $publishTimestamp
  * @property-read boolean $publishedRegistrations
  * @property-read int $totalRegistrations 
- * 
- * 
+ *
+ *
  * @property string $name
  * @property string $shortDescription
  * @property \DateTime $registrationFrom
@@ -31,13 +33,13 @@ use MapasCulturais\Definitions\Metadata as MetadataDefinition;
  * @property array $registrationRanges
  * @property self $parent
  * @property Agent $owner
- * 
- * 
+ *
+ *
  * @property EvaluationMethodConfiguration $evaluationMethodConfiguration
  * @property RegistrationFileConfiguration $registrationFileConfigurations
  * @property RegistrationFieldConfiguration $registrationFieldConfigurations
  * @property \MapasCulturais\Entity $ownerEntity
- * 
+ *
  *
  * @ORM\Table(name="opportunity", indexes={
  *      @ORM\Index(name="opportunity_entity_idx", columns={"object_type", "object_id"}),
@@ -77,7 +79,7 @@ abstract class Opportunity extends \MapasCulturais\Entity
         Traits\EntityArchive{
             Traits\EntityNested::setParent as nestedSetParent;
         }
-        
+
     protected $__enableMagicGetterHook = true;
     protected $__enableMagicSetterHook = true;
 
@@ -300,6 +302,10 @@ abstract class Opportunity extends \MapasCulturais\Entity
      */
     protected $avaliableEvaluationFields = [];
     
+    function getPublishTimestamp(){
+        return $this->publishTimestamp;
+    }
+
     abstract function getSpecializedClassName();
 
     public static function getPropertiesMetadata($include_column_name = false){
@@ -622,6 +628,8 @@ abstract class Opportunity extends \MapasCulturais\Entity
             $this->publishTimestamp = null;
         }
     }
+
+    
 
     function setOwnerEntity($entity){
     	if (empty($entity)) {

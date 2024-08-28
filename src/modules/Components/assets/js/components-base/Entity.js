@@ -145,7 +145,14 @@ class Entity {
     }
 
     catchErrors(res, data) {
-        const message = data.data.message;
+        const message = data.data.message ??
+		data.data.avatar ??
+		data.data.header ??
+		data.data.gallery ??
+		data.data.logo ??
+		data.data.background ??
+		data.data.share ??
+		data.data.institute; // getting errors from validation errors;
         
         if (res.status >= 500 && res.status <= 599) {
             this.sendMessage(message || this.text('erro inesperado'), 'error');
@@ -517,6 +524,22 @@ class Entity {
         }
     }
 
+    async duplicate(removeFromLists) {
+        this.__processing = this.text('duplicando');
+
+        try {
+            const res = await this.API.duplicateEntity(this);
+            return this.doPromise(res, (entity) => {
+                this.sendMessage(this.text('entidade duplicada'));
+                this.populate(entity);
+                
+                window.open('/minhas-oportunidades/#draft', '_blank').focus();
+            });
+        } catch (error) {
+            return this.doCatch(error);
+        }
+    }
+
     async archive(removeFromLists) {
         this.__processing = this.text('arquivando');
 
@@ -756,9 +779,9 @@ class Entity {
                 /* let index;
                 index = this.seals.indexOf(seal);
                 this.seals.splice(index,1); */
-            });
-        } catch (error) {
-            return this.doCatch(error);
-        }
-    }
+			});
+		} catch (error) {
+			return this.doCatch(error);
+		}
+	}
 }

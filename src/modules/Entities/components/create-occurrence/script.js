@@ -184,6 +184,11 @@ app.component('create-occurrence', {
             let floatNum = intNum.slice(0, -2) + "." + intNum.slice(-2);
             this.price = this.moneyMask(floatNum);
         },
+        checkPrice() {
+            if(this.price == "R$ 0,00") 
+                return null;
+            return this.price;
+        },
 
         // Criação da ocorrência
         create(modal) {
@@ -235,7 +240,7 @@ app.component('create-occurrence', {
             }      
 
             this.newOccurrence['description'] = this.description ?? '';
-            this.newOccurrence['price'] = this.free ? __('Gratuito', 'create-occurrence') : this.price;
+            this.newOccurrence['price'] = this.free ? __('Gratuito', 'create-occurrence') : this.checkPrice();
             this.newOccurrence['priceInfo'] = this.priceInfo ?? '';
             
             this.newOccurrence.save().then(() => {

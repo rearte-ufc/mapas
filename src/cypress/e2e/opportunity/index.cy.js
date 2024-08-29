@@ -203,4 +203,24 @@ describe("Opportunity Page", () => {
             cy.contains("Nome do modelo");
         */
     });
+
+    it("Garante geração de oportunidade baseado em um modelo", () => {
+        cy.visit("/autenticacao/");
+        loginWith("Admin@local", "mapas123");
+
+        cy.visit("/minhas-oportunidades/#mymodels");
+        cy.wait(1000);
+
+        cy.get(':nth-child(2) > .panel-entity-card__footer > :nth-child(1) > .right > :nth-child(1) > [classes="col-12"] > .button').click();
+        cy.contains("Título do edital");
+        cy.contains("Defina um título para o Edital que deseja criar*");
+
+        let nameOpportunity = 'Nome da oportunidade baseado no modelo';
+        cy.get('.field > input').should('be.visible').clear().type(nameOpportunity);
+
+        cy.get('.modal__action > .button--primary').click();
+        cy.wait(2000);
+
+        cy.contains(nameOpportunity);
+    });
 });

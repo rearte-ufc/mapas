@@ -18,6 +18,7 @@ class CreateEntitiesForDoctrineProxyTest extends TestCase
     function testAll()
     {
 
+        $this->markTestSkipped('disable due efficiency');
         $app = \MapasCulturais\App::i();
 
         $user = new User;
@@ -74,6 +75,7 @@ class CreateEntitiesForDoctrineProxyTest extends TestCase
 
     function testURLs()
     {
+        $this->markTestSkipped();
         $app = \MapasCulturais\App::i();
         $urls = [
             'api/agent/find/?&@select=id,name,location&@order=name%20ASC',

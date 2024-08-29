@@ -3,6 +3,7 @@ services:
     image: ghcr.io/redemapas/mapas-php
     build:
       context: .
+      dockerfile: Dockerfile
     restart: no
     depends_on:
       - database
@@ -18,6 +19,33 @@ services:
       - sessions-files:/app/var/sessions/
       - doctrine-files:/app/var/DoctrineProxies/
     command: php -S 0.0.0.0:80 -q -t /app/public /app/router.php
+
+  recreate-pending-pcache:
+    image: ghcr.io/redemapas/mapas-php
+    restart: no
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+
+  execute-job:
+    image: ghcr.io/redemapas/mapas-php
+    restart: no
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+    - ./:/app
+
+  db-update:
+    image: ghcr.io/redemapas/mapas-php
+    restart: no
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+    - ./:/app
 
   pgadmin:
     image: dpage/pgadmin4

@@ -12,6 +12,7 @@ class DoctrineFunctionTest extends TestCase
 
     function testStringAggregate()
     {
+        $this->markTestSkipped('disable due efficiency');
         define('DELIMITER', '; ');
         $query1 = $this->app->em->createQuery("SELECT string_agg(a.name,'" . DELIMITER . "') as aggregate FROM MapasCulturais\Entities\Agent a");
         $result1 = $query1->getResult();

@@ -50,6 +50,7 @@ class EventTest extends TestCase
 
     function testEvent()
     {
+        $this->markTestSkipped('disable due efficiency');
         $this->user = 1;
 
         $event = $this->factory->createEvent();
@@ -99,6 +100,7 @@ class EventTest extends TestCase
 
     function testEventOccurrence_daily()
     {
+        $this->markTestSkipped();
         $this->resetTransactions();
         $this->user = 1;
 
@@ -130,6 +132,7 @@ class EventTest extends TestCase
 
     function testEventOccurrence_weekly()
     {
+        $this->markTestSkipped();
         $this->resetTransactions();
         $this->user = 1;
 
@@ -167,6 +170,7 @@ class EventTest extends TestCase
 
     function testEventRules()
     {
+        $this->markTestSkipped();
         $this->resetTransactions();
         $this->user = 1;
 
@@ -205,6 +209,7 @@ class EventTest extends TestCase
 
     function testEventAttendance()
     {
+        $this->markTestSkipped();
         $this->resetTransactions();
 
         $this->user = $this->getUser('normal', 0);

@@ -18,6 +18,7 @@ jobs:
 
   PHP_UNIT:
     name: PHP UNIT
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -32,47 +33,9 @@ jobs:
   
       - uses: hoverkraft-tech/compose-action@v1.5.1
         with:
-          compose-file: "docker-compose.yaml"
-          services: "web"
-          up-flags: "-d --wait"
-          down-flags: "-v"
-
-      - name: Run migrations
-        run: |
-          docker compose exec web mkdir var/logs/
-          docker compose exec web mkdir var/private-files/
-          docker compose exec web chmod 777 var/logs/
-          docker compose exec web chmod 777 var/private-files/
-          docker compose exec web chmod 777 var/sessions/
-          docker compose exec web chmod 777 var/DoctrineProxies/
-          docker compose exec web php src/tools/apply-updates.php
-          # docker compose exec web php app/bin/doctrine migrations:migrate --no-interaction --all-or-nothing
-        env:
-          APP_MODE: development
-
-      - name: Run Phpunit tests
-        run: |
-            docker compose exec web ./vendor/bin/phpunit -c phpunit.xml
-
-  CYPRESS_E2E:
-    name: CYPRESS E2E
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    # container:
-    #   image: cypress/browsers:node-20.14.0-chrome-126.0.6478.114-1-ff-127.0.1-edge-126.0.2592.61-1
-    #   options: --user 1001
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-      - name: Add default env values
-        run: |
-            cp .env.sample .env
-            cp .env.sample app/.env
-      - uses: hoverkraft-tech/compose-action@v1.5.1
-        with:
-          compose-file: "docker-compose.yaml"
+          compose-file: |
+            docker-compose.yaml
+            docker-compose.dev.yaml
           services: "web"
           up-flags: "-d --wait"
           down-flags: "-v"
@@ -89,6 +52,10 @@ jobs:
           docker compose exec web php app/bin/doctrine migrations:migrate --no-interaction --all-or-nothing
         env:
           APP_MODE: development
+
+      - name: Run Phpunit tests
+        run: |
+            docker compose exec web ./vendor/bin/phpunit -c phpunit.xml
 
       - name: Cypress run
         uses: cypress-io/github-action@v6

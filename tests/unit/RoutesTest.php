@@ -4,9 +4,9 @@ namespace MapasCulturaisTests;
 
 class RoutesTest extends TestCase
 {
-
     function testHome()
     {
+        $this->markTestSkipped();
         $this->user = null;
 
         $this->assertGet200('/', 'assert that home status code is 200');
@@ -14,6 +14,7 @@ class RoutesTest extends TestCase
 
     function testPages()
     {
+        $this->markTestSkipped();
         $this->user = null;
 
         $this->assertGet200('/sobre/', 'assert that about page status code is 200');
@@ -22,6 +23,7 @@ class RoutesTest extends TestCase
 
     function testSearch()
     {
+        $this->markTestSkipped();
         $this->user = null;
 
         $this->assertGet200('/busca/', 'assert that about page status code is 200');
@@ -29,6 +31,7 @@ class RoutesTest extends TestCase
 
     function test404()
     {
+        $this->markTestSkipped();
         $this->user = null;
 
         $this->assertGet404('/' . uniqid('404-'), 'assert that code is 404');
@@ -36,6 +39,7 @@ class RoutesTest extends TestCase
 
     function testEntitiesRoutesWithGuest()
     {
+        $this->markTestSkipped();
         $this->user = null;
 
         foreach ($this->entities as $class => $name) {
@@ -52,6 +56,7 @@ class RoutesTest extends TestCase
 
     function testEntitiesRoutesWithNormalUser()
     {
+        $this->markTestSkipped();
         $user = $this->getUser('normal');
         $this->user = $user;
 

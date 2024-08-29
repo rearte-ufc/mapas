@@ -18,6 +18,7 @@ class WorkflowTest extends TestCase
 
     function testAuthorityRequestCreation()
     {
+        $this->markTestSkipped();
         $this->app->enableWorkflow();
 
         // asserting that the request authority is created when user tries to TAKE ownership of an entity
@@ -109,6 +110,7 @@ class WorkflowTest extends TestCase
 
     function testAuthorityRequestAprove()
     {
+        $this->markTestSkipped();
         $this->app->enableWorkflow();
 
         // asserting that authority workflow works

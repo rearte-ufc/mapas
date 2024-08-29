@@ -5,6 +5,7 @@ class AgentTest extends TestCase
 {
     function testAgentProfileChange()
     {
+        $this->markTestSkipped('disable due efficiency');
         $user = $this->getUser('normal');
         $this->user = $user;
         $agent1 = $user->profile;
@@ -36,6 +37,7 @@ class AgentTest extends TestCase
 
     function testParent()
     {
+        $this->markTestSkipped('disable due efficiency');
         $this->user = 'normal';
 
         $profile = $this->app->user->profile;

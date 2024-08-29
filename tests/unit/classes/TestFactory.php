@@ -129,7 +129,7 @@ class TestFactory
 
     function parseDate($date, $format = 'Y-m-d')
     {
-        $d = DateTime::createFromFormat($format, $date);
+        $d = \DateTime::createFromFormat($format, $date);
         if ($d && $d->format($format) === $date) {
             return $d;
         } else {

@@ -1,40 +1,40 @@
 function checkFilterCount() {
-        cy.get('.foundResults').then(($foundResults) => {
-                const countPerPage = 20;
-                let resultsTextArray = $foundResults.text().split(" ");
-                let resultsCount = Number(resultsTextArray[0]);
-                let resultsType = resultsTextArray[1];
-                const resultsCountPerPage = resultsCount < countPerPage ? resultsCount : countPerPage;
+    cy.get('.foundResults').then(($foundResults) => {
+        const countPerPage = 20;
+        let resultsTextArray = $foundResults.text().split(" ");
+        let resultsCount = Number(resultsTextArray[0]);
+        let resultsType = resultsTextArray[1];
+        const resultsCountPerPage = resultsCount < countPerPage ? resultsCount : countPerPage;
 
-                switch (resultsType) {
-                        case "Oportunidades":
-                                cy.get('.upper').should("have.length", resultsCountPerPage);
-                                cy.wait(1000);
-                                cy.contains(resultsCount + " Oportunidades encontradas");
-                                
-                                break;
-                        
-                        case "Projetos":
-                                cy.get('.upper').should("have.length", resultsCountPerPage);
-                                cy.wait(1000);
-                                cy.contains(resultsCount + " Projetos encontrados");
-        
-                                break;
-                        
-                        case "Espaços":
-                                cy.get('.upper').should("have.length", resultsCountPerPage);
-                                cy.wait(1000);
-                                cy.contains(resultsCount + " Espaços encontrados");
-                
-                                break;
+    	switch (resultsType) {
+        	case "Oportunidades":
+        	    cy.get('.upper').should("have.length", resultsCountPerPage);
+        	    cy.wait(1000);
+        	    cy.contains(resultsCount + " Oportunidades encontradas");
+			
+        	    break;
+			
+        	case "Projetos":
+        		cy.get('.upper').should("have.length", resultsCountPerPage);
+        		cy.wait(1000);
+        		cy.contains(resultsCount + " Projetos encontrados");
+			
+        	    break;
+			
+        	case "Espaços":
+        	    cy.get('.upper').should("have.length", resultsCountPerPage);
+        	    cy.wait(1000);
+        	    cy.contains(resultsCount + " Espaços encontrados");
+			
+        	    break;
 
-                        default:
-                                cy.log("checkFilterCount(): tipo inválido");
-                                cy.contains("FORCE ERROR");
-                                
-                                break;
-                }
-        });
+        	default:
+        	    cy.log("checkFilterCount(): tipo inválido");
+        	    cy.contains("FORCE ERROR");
+			
+        	    break;
+    	}
+    });
 }
 
 module.exports = { checkFilterCount };

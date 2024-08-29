@@ -8,6 +8,7 @@ let arrobaDoInstagram = "";
 
 describe("Agents Page Edit", () => {
     let expectedCount;
+
     beforeEach(() => {
         cy.viewport(1920, 1080);
         //cy.visit("/edicao-de-agente/1/");
@@ -18,9 +19,7 @@ describe("Agents Page Edit", () => {
 
     it("Garante que a página de edição de agentes funciona", () => {
         cy.url().should("include", "edicao-de-agente");
-
         cy.get("h2").contains("Edição do agente individual").should("be.visible");
-
         cy.contains("Informações de Apresentação");
         cy.contains("Dados Pessoais");
         cy.contains("Dados sensíveis");
@@ -56,7 +55,6 @@ describe("Agents Page Edit", () => {
 
     it("Garante que o accordion Dados sensíveis estão funcionando corretamente.", () => {
         cy.contains("Dados sensíveis").click();
-
         cy.get("mc-container:nth-child(4) > section > div > div > div:nth-child(3) > div > div > div > div > input[type=text]").click();
         cy.contains("Dom");
         cy.contains("Escolaridade");
@@ -66,6 +64,7 @@ describe("Agents Page Edit", () => {
 
             cy.get("mc-container:nth-child(4) > section > div > div > div:nth-child(4) > select").select(genero);
         });
+
         cy.contains("Salvar").click();
         cy.contains("Modificações salvas");
     });
@@ -79,6 +78,7 @@ describe("Agents Page Edit", () => {
 
             cy.get("mc-container:nth-child(5) > section > div > div > div:nth-child(2) > input[type=socialMedia]").clear().type(arrobaDoInstagram);
         });
+
         cy.contains("Salvar").click();
         cy.contains("Modificações salvas");
     });
@@ -90,7 +90,6 @@ describe("Agents Page Edit", () => {
 
     it("Garante que as informações de genero e de redes sociais estão sendo salvas corretamente", () => {
         cy.contains("Sair").click();
-        
         cy.contains(genero);
         cy.contains(arrobaDoInstagram);
         cy.contains(nome);

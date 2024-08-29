@@ -10,6 +10,7 @@ $this->import('
     mc-confirm-button
     mc-loading
     opportunity-create-model
+    opportunity-create-based-model
 ');
 ?>
 <div v-if="!empty" class="entity-actions">
@@ -45,10 +46,10 @@ $this->import('
                         <?php i::_e('Você está certo que deseja excluir?') ?>
                     </template>
                 </mc-confirm-button>
-                <mc-confirm-button v-if="entity.currentUserPermissions?.modify && entity.status != -2 && entity.__objectType == 'opportunity'" @confirm="entity.duplicate()" no="Cancelar" yes="Continuar">
+                <mc-confirm-button v-if="entity.currentUserPermissions?.modify && entity.status != -2 && entity.__objectType == 'opportunity' && entity.isModel != 1" @confirm="entity.duplicate()" no="Cancelar" yes="Continuar">
                     <template #button="modal">
                         <button @click="modal.open()" class="button button--icon button--sm">
-                            <?php i::_e("Duplicar modelo") ?>
+                            <?php i::_e("Duplicar oportunidade") ?>
                         </button>
                     </template>
                     <template #message="message">
@@ -58,8 +59,11 @@ $this->import('
                         <p><?php i::_e('Deseja continuar?') ?></p>
                     </template>
                 </mc-confirm-button>
-                <div v-if="entity.currentUserPermissions?.modify && entity.status != -2 && entity.__objectType == 'opportunity'">
+                <div v-if="entity.currentUserPermissions?.modify && entity.status != -2 && entity.__objectType == 'opportunity' && entity.isModel != 1">
                     <opportunity-create-model :entity="entity" classes="col-12"></opportunity-create-model>
+                </div>
+                <div v-if="entity.currentUserPermissions?.modify && entity.status != -2 && entity.__objectType == 'opportunity' && entity.isModel == 1">
+                    <opportunity-create-based-model :entity="entity" classes="col-12"></opportunity-create-based-model>
                 </div>
  
                 <?php $this->applyTemplateHook('entity-actions--primary', 'end') ?>

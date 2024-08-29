@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Controller\Api\WelcomeApiController;
 use Symfony\Component\HttpFoundation\Request;
+use App\Controller\Api\OpportunityApiController;
 
 $routes = [
     '/api' => [
@@ -14,6 +15,9 @@ $routes = [
         Request::METHOD_POST => [WelcomeApiController::class, 'create'],
         Request::METHOD_DELETE => [WelcomeApiController::class, 'delete'],
     ],
+    '/api/findOpportunitiesModels' => [
+        Request::METHOD_GET => [OpportunityApiController::class, 'findOpportunitiesModels'],
+    ]
 ];
 
 $files = glob(__DIR__.'/api/*.php');

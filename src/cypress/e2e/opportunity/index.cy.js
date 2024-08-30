@@ -96,7 +96,7 @@ describe("Opportunity Page", () => {
         cy.reload();
         cy.wait(1000);
         cy.get(":nth-child(3) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input").click();
-        cy.get(':nth-child(6) > .mc-multiselect__option > .input').click();
+        cy.get(':nth-child(31) > .mc-multiselect__option > .input').click();
         cy.wait(1000);
 
         checkFilterCount();

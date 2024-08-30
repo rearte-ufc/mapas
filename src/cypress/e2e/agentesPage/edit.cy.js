@@ -11,10 +11,11 @@ describe("Agents Page Edit", () => {
 
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        //cy.visit("/edicao-de-agente/1/");
-        cy.visit("http://localhost/edicao-de-agente/1/");
-        // loginWith("Admin@local", "mapas123");
-        cy.contains("Fazer login com este usuário").click();
+        cy.visit('/');
+        cy.get('.logIn').click();
+        cy.contains('Fazer login com este usuário').click();
+        cy.wait(1000);
+        cy.visit("/edicao-de-agente/1/");
     });
 
     it("Garante que a página de edição de agentes funciona", () => {
@@ -30,7 +31,8 @@ describe("Agents Page Edit", () => {
     });
 
     
-    it("Garante que o accoridon 'Informações de Apresentação' abre corretamente", () => {
+    it("Garante que o accordion 'Informações de Apresentação' abre corretamente", () => {
+        cy.wait(1000);
         cy.contains("Informações de Apresentação").click();
         cy.contains("Nome de perfil");
         cy.get(".field.entity-terms__edit-agent > input").should("have.value", "Admin@local");

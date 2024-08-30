@@ -48,20 +48,26 @@ describe("Agents Page", () => {
     });
 
     it("Garante que os filtros por tipo de agente funcionam", () => {
-        cy.wait(1000);
-        cy.contains("Tipo");
-        cy.get(":nth-child(2) > select").select(2);
-        cy.contains("Agente Coletivo");
-        cy.wait(1000);
+        // É impossível criar agentes coletivos na atual iteração do Mapas. Na hora da criação, é relatado o tipo coletivo como inválido
 
-        cy.get(".foundResults").invoke('text').then((text) => {
-            // Extraia o número da string
-            expectedCount = parseInt(text.match(/\d+/)[0], 10);
-            
-            // Agora, verifique se o número de agentes do tipo coletivo encontrados é igual ao esperado
-            cy.get('.entity-card__header.without-labels > .user-details > .user-info > a > .mc-title').should('have.length', expectedCount)
-            cy.contains(expectedCount + " Agentes encontrados")
-        });
+        cy.log('Teste impossível pois não é mais possível criar agentes coletivos');
+        
+        /*
+            cy.wait(1000);
+            cy.contains("Tipo");
+            cy.get(":nth-child(2) > select").select(2);
+            cy.contains("Agente Coletivo");
+            cy.wait(1000);
+
+            cy.get(".foundResults").invoke('text').then((text) => {
+                // Extraia o número da string
+                expectedCount = parseInt(text.match(/\d+/)[0], 10);
+
+                // Agora, verifique se o número de agentes do tipo coletivo encontrados é igual ao esperado
+                cy.get('.entity-card__header.without-labels > .user-details > .user-info > a > .mc-title').should('have.length', expectedCount)
+                cy.contains(expectedCount + " Agentes encontrados")
+            });
+        */
 
         cy.get(":nth-child(2) > select").select(1);
         cy.contains("Agente Individual");
@@ -81,15 +87,15 @@ describe("Agents Page", () => {
         cy.wait(1000);
         cy.contains("Área de atuação");
         cy.get(".mc-multiselect--input").click();
-        cy.contains(".mc-multiselect__options > li", "Arte de Rua").click();
+        cy.contains(".mc-multiselect__options > li", "Esporte").click();
         cy.wait(1000);
 
         cy.get(".foundResults").invoke('text').then((text) => {
             // Extraia o número da string
             expectedCount = parseInt(text.match(/\d+/)[0], 10);
             
-            // Agora, verifique se o número de imagens encontradas é igual ao esperado
-            cy.get(".entity-card__content--terms-area > .terms.agent__color").should('have.length', expectedCount);
+            // Agora, verifique se o número de agentes por área de atuação encontrados é igual ao esperado
+            cy.get('a > .mc-title').should('have.length', expectedCount);
             cy.contains(expectedCount + " Agentes encontrados");
         });
     });

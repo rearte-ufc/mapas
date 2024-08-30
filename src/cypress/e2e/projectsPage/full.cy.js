@@ -17,13 +17,13 @@ describe("Pagina de Projetos", () => {
         cy.contains("Tipos de projetos");
         cy.get('.mc-multiselect--input').click();
         cy.wait(1000);
-        cy.get(':nth-child(18) > .mc-multiselect__option').click();
+        cy.get(':nth-child(7) > .mc-multiselect__option > .input').click();
         cy.wait(1000);
         checkFilterCount("project");
         cy.reload();
         cy.wait(1000);
         cy.get('.mc-multiselect--input').click();
-        cy.get(':nth-child(18) > .mc-multiselect__option').click();
+        cy.get(':nth-child(2) > .mc-multiselect__option').click();
         cy.wait(1000);
         checkFilterCount("project");
     });

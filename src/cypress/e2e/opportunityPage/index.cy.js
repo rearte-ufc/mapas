@@ -5,10 +5,9 @@ describe("Oportunidade", () => {
         cy.get(".mc-header-menu__btn-mobile").click();
         cy.contains(".mc-header-menu__itens a", "Oportunidades").click();
         cy.url().should("include", "/oportunidades");
-        cy.get(".search-filter__actions--form-input").type("DJs");
+        cy.get(".search-filter__actions--form-input").type("f");
         cy.wait(1000);
-        cy.visit("/oportunidade/78/#info");
-        cy.wait(1000);
+        cy.get(':nth-child(3) > .entity-card__footer > .entity-card__footer--action > .button').click();
         cy.url().should("include", "/oportunidade/");
     });
 
@@ -21,6 +20,7 @@ describe("Oportunidade", () => {
 
         cy.get(".foundResults").invoke('text').then((text) => {
             let expectedCount = Number(text.match(/\d+/), 10);
+            
             console.log(expectedCount);
             cy.get('#main-app > div.search > div.entity-cards > div > div > div:nth-child(1) > div > div.entity-cards-cards__info > strong').should('have.text', expectedCount);
         });

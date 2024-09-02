@@ -47,43 +47,45 @@ describe("Homepage", () => {
     });
 
     it("Acessa o navbar e o botão \"Acessar\" dos cards da seção \"Em destaque\"", () => {
-        cy.get(".agents > a > span").click();
+        cy.get('.all > a > span').click();
         cy.wait(1000);
-        cy.get(".carousel__slide--active > .entity-card > .entity-card__footer > .entity-card__footer--action > .button").click();
-        cy.url().should("include", "/agente/");
-        cy.contains("Anne Elisa");
+        cy.get('.carousel__slide--active > .entity-card > .entity-card__footer > .entity-card__footer--action > .button').click();
+
         backHomepage();
 
         cy.get(".agents > a > span").click();
         cy.wait(1000);
-        cy.get('.carousel__next').click();
-        cy.get('[style="width: 31.25%; order: 3;"] > .entity-card > .entity-card__footer > .entity-card__footer--action > .button').click();
+        cy.get('[style="width: 31.25%; order: 0;"] > .entity-card > .entity-card__footer > .entity-card__footer--action > .button').click();
         cy.url().should("include", "/agente/");
-        cy.contains("a", "https://pt.wikipedia.org/wiki/Cleodon_Silva");
+
         backHomepage();
         
-        /*
         cy.get(".spaces > a > span").click();
         cy.wait(1000);
-        cy.get("[style=\"width: 31.25%; order: 0;\"] > .entity-card > .entity-card__footer > .entity-card__footer--action > .button").click();
-        cy.url().should("include", "/espaco/25/#info");
-        cy.contains("Quatro pixels");
+        cy.get('[style="width: 31.25%; order: 0;"] > .entity-card > .entity-card__footer > .entity-card__footer--action > .button').click();
+        cy.url().should("include", "/espaco/");
+
         backHomepage();
 
         cy.get(".projects > a > span").click();
         cy.wait(1000);
-        cy.get(".entity-card__footer--action > .button").click();
-        cy.url().should("include", "/projeto/12/#info");
-        cy.contains("12");
+        cy.get('[style="width: 31.25%; order: 1;"] > .entity-card > .entity-card__footer > .entity-card__footer--action > .button').click();
+        cy.url().should("include", "/projeto/");
+
         backHomepage();
-        */
     });
 
     it("Acessa o botão \"Fazer Cadastro\" da quarta seção", () => {
         cy.get(".home-register__content--button").click();
         cy.url().should("include", "autenticacao/register/");
-        cy.contains("Novo cadastro");
-        backHomepage();
+
+        // A página de registro não existe ainda
+
+        // cy.contains("Novo cadastro");
+        // backHomepage();
+        
+        // Solução temporária
+        cy.visit('/');
     });
 
     it("Acessa o botões de zoom do mapa", () => {

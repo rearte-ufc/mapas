@@ -39,15 +39,10 @@ describe("Opportunity Page", () => {
         cy.visit("/oportunidades");
         cy.wait(1000);
         cy.contains("Status das oportunidades");
-        
-        // Inscrições abertas estão contando como inscrições futuras, portanto o teste sempre falha nessa parte
+        cy.get(".form > :nth-child(1) > :nth-child(2)").click();
+        cy.wait(1000);
 
-        cy.log('Oportunidades com inscrições abertas ou encerradas não aparecem no filtro adequado');
-
-        // cy.get(".form > :nth-child(1) > :nth-child(2)").click();
-        // cy.wait(1000);
-
-        //checkFilterCount();
+        checkFilterCount();
 
         cy.get('.form > :nth-child(1) > :nth-child(4)').click();
         cy.wait(1000);
@@ -101,7 +96,7 @@ describe("Opportunity Page", () => {
         cy.reload();
         cy.wait(1000);
         cy.get(":nth-child(3) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input").click();
-        cy.get(':nth-child(6) > .mc-multiselect__option > .input').click();
+        cy.get(':nth-child(31) > .mc-multiselect__option > .input').click();
         cy.wait(1000);
 
         checkFilterCount();

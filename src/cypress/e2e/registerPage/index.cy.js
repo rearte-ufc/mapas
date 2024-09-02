@@ -5,7 +5,7 @@ const { generateString} = require("../../commands/genString")
 
 describe("LoginPage", () => {
     beforeEach(() => {
-        cy.visit("/");
+        cy.visit("mapas.tec.br");
     });
 
     it("click no botão \"Entrar\"", () => {
@@ -16,13 +16,13 @@ describe("LoginPage", () => {
 
 describe("RegisterPage", () => {
     it("click no botão \"Fazer cadastro\"", () => {
-        cy.visit("/autenticacao/");
+        cy.visit("mapas.tec.br/autenticacao/");
         cy.contains("Fazer cadastro").click();
         cy.url().should("include", "/autenticacao/register/");
     });
 
     it("Garante que não haja contas com o mesmo cpf ou email", () => {
-        cy.visit("/autenticacao/register/");
+        cy.visit("mapas.tec.br/autenticacao/register/");
         cy.get("#email").type("fake3@email.com");
         cy.get("#email").should("have.value", "fake3@email.com");
         cy.get("#cpf").type("68861193544");
@@ -43,7 +43,7 @@ describe("RegisterPage", () => {
     });
 
     it("Garante que cpf seja valido", () => {
-        cy.visit("/autenticacao/register/");
+        cy.visit("mapas.tec.br/autenticacao/register/");
         cy.get("#email").type("fake4@email.com");
         cy.get("#email").should("have.value", "fake4@email.com");
         cy.get("#cpf").type("68861193541");
@@ -64,7 +64,7 @@ describe("RegisterPage", () => {
 
     
     it("Continuar cadastro", () => {
-        cy.visit("/autenticacao/register/");  
+        cy.visit("mapas.tec.br/autenticacao/register/");  
 
         let email = generateString(5) + "@email.com";  
         cy.get("#email").type(email);

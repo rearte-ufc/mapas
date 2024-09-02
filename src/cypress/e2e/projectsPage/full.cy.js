@@ -16,7 +16,7 @@ describe("Pagina de Projetos", () => {
     it("Garante que os filtros de tipos de projetos funcionem", () => {
         cy.contains("Tipos de projetos");
         cy.get('.mc-multiselect--input').click();
-        cy.wait(1000);
+        cy.wait(500);
         cy.get(':nth-child(18) > .mc-multiselect__option').click();
         cy.wait(1000);
         checkFilterCount();

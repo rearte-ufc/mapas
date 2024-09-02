@@ -2,13 +2,13 @@ const { loginWith } = require("../../commands/login");
 
 describe("Loginpage", () => {
     beforeEach(() => {
-        cy.visit("/autenticacao/");
+        cy.visit("mapas.tec.br/autenticacao/");
     });
 
   it("Verifica se é possivel logar com email ou cpf e senha", () => {
       loginWith("Admin@local", "mapas123");
       cy.get(".exit > a").click();
-      cy.visit("/autenticacao/");
+      cy.visit("mapas.tec.br/autenticacao/");
       loginWith("555.132.590-36", "Mapas12345!");
       cy.contains("Minha conta");
   });

@@ -1,7 +1,5 @@
 const { loginWith } = require("../../commands/login");
 
-//Todos os comenártios devem ser descomentados e remover a linha de comando abaixo dele para o teste rodar no mapas.tec.br ao invés do localhost
-
 let nome = gerarNomeAleatorio();
 let genero = "";
 let arrobaDoInstagram = "";
@@ -9,12 +7,13 @@ let arrobaDoInstagram = "";
 describe("Agents Page Edit", () => {
     let expectedCount;
 
+    //loga e vai para o site de eagentes de edição do perfil do admin local
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        //cy.visit("/edicao-de-agente/1/");
-        cy.visit("http://localhost/edicao-de-agente/1/");
-        // loginWith("Admin@local", "mapas123");
+        cy.visit("http://localhost/");
+        cy.contains("Entrar").click();
         cy.contains("Fazer login com este usuário").click();
+        cy.visit("/edicao-de-agente/1/");
     });
 
     it("Garante que a página de edição de agentes funciona", () => {

@@ -17,7 +17,7 @@ describe("LoginPage", () => {
 
 describe("RecoverPassword", () => {
     beforeEach(() => {
-        cy.visit("/autenticacao/");
+        cy.visit("mapas.tec.br/autenticacao/");
     });
 
     it("clicks the link \"Esqueci minha senha\", preenche o input email e click no botão \"Alterar senha\"", () => {

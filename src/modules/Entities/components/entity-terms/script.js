@@ -115,29 +115,14 @@ app.component('entity-terms', {
 
 
         addTerm(term) {
-            if(this.spaceCheck(term)) {
-                if (this.entity.terms[this.taxonomy].indexOf(term) < 0) {
-                    this.entity.terms[this.taxonomy].push(term);
-                    
-                }
-    
-                if (this.terms.indexOf(term) < 0) {
-                   this.terms.push(term);
-                }
+            if (this.entity.terms[this.taxonomy].indexOf(term) < 0) {
+                this.entity.terms[this.taxonomy].push(term);
             }
-        },
 
-        spaceCheck(term) {
-            if(this.taxonomy == "tag") {
-                let tam = term.length;
-                for (let i = 0; i < tam; i++) {
-                    if (term[i] != " ") {
-                        return true;
-                    }
-                }
-                return false;
+            if (this.terms.indexOf(term) < 0) {
+                this.terms.push(term);
             }
-            return true;
+           
         },
 
         taxomyExists() {

@@ -11,7 +11,6 @@ foreach($config_files as $config_file) {
 // inclui arquivos .php de todas as pastas terminadas com .d
 // dentro da pastas /config. 
 $folders = glob(CONFIG_PATH . '*.d/');
-
 sort($folders);
 foreach($folders as $folder) {
     $config_files = glob($folder . '*.php');

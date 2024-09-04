@@ -339,11 +339,11 @@ class Event extends \MapasCulturais\Repository{
     
     function _getIdsBySQL($sql, $params = []){
         $conn = $this->_em->getConnection();
-    
+
         if($params){
-            $rs = $conn->fetchAllAssociative($sql, $params);
+            $rs = $conn->fetchAssociative($sql, $params);
         } else {
-            $rs = $conn->fetchAllAssociative($sql);
+            $rs = $conn->fetchAssociative($sql);
         }
 
         $rs = $rs ?: [];

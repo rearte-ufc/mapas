@@ -1320,6 +1320,20 @@ class Opportunity extends EntityController {
         $this->json($opportunity);
     }
 
+    /**
+     * Recria ponteiros entre fases das inscrições
+     * @return void 
+     */
+    public function ALL_fixNextPhaseRegistrationIds():void
+    {
+        $this->requireAuthentication();
+
+        $opportunity = $this->requestedEntity;
+
+        $opportunity->fixNextPhaseRegistrationIds();
+
+    }
+
     function ALL_duplicate(){
         $app = App::i();
 

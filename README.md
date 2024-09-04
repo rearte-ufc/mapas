@@ -1,53 +1,18 @@
-# Rede Mapas
+[![Join the chat at https://t.me/joinchat/WCYOkiRbAWmxQM2y](https://patrolavia.github.io/telegram-badge/chat.png)](https://t.me/joinchat/WCYOkiRbAWmxQM2y)
 
-Em julho de 2013, representantes culturais de diversos países da América Latina e do Brasil se uniram em um encontro histórico para debater a criação de uma ferramenta de mapeamento de iniciativas culturais e gestão cultural. Desse encontro, emergiram os alicerces para o desenvolvimento dos Mapas Culturais, um software de código aberto que possibilita o aprimoramento da gestão cultural em âmbito municipal e estadual.
+# Mapas Culturais
 
-O projeto originalmente chamado Mapas Culturais é uma plataforma colaborativa que agrega informações detalhadas sobre agentes, espaços, eventos e projetos culturais. Com isso, oferece ao poder público uma visão abrangente da área da cultura, enquanto proporciona ao cidadão um mapa interativo de espaços e eventos culturais da região. Alinhada com o Sistema Nacional de Informação e Indicadores Culturais do Ministério da Cultura (SNIIC), essa plataforma desempenha um papel crucial na realização de diversos objetivos estabelecidos pelo Plano Nacional de Cultura.
-
-A plataforma já está em uso em diversos municipios, estados, no governo federal em diversos projetos do ministério da cultura e até mesmo fora do Brasil, no Uruguai. 
-
-Mais detalhes sobre a História: [Clique aqui](https://rede.mapas.tec.br/)
-
-## Projeto Original (Mapas Culturais)
-O projeto original atualmente é mantido de forma aberta e colaborativa, gerenciada pelo time de desenvolvimento do @HackLab
-
-O repositório se encontra aqui: <https://github.com/mapasculturais/mapasculturais>
-
-> Caso queira saber mais sobre o projeto MapasCulturais, gerenciado pelo HackLab, [Clique aqui](https://github.com/mapasculturais/mapasculturais/README.md)
-
-## Este Fork
-
-> Fork de Repositório (Fork de Código): No desenvolvimento de software, especialmente em plataformas de controle de versão como GitHub, um fork é a criação de uma cópia de um repositório de código. Isso permite que o desenvolvedor trabalhe no código de forma independente, podendo fazer modificações e melhorias sem afetar o projeto original. Caso essas modificações sejam benéficas, podem ser integradas ao projeto original por meio de um pull request.
-
-Optamos por criar um fork do projeto original com o objetivo de evoluir o sistema e oferecer uma plataforma ainda mais eficiente e acessível para a gestão cultural. As melhorias incluem uma nova arquitetura de arquivos e diretórios, uma conexão aprimorada com o banco de dados e um guia detalhado de colaboração, permitindo uma maior participação da comunidade no desenvolvimento e manutenção do projeto. Este fork visa não apenas otimizar o desempenho e a usabilidade do sistema, mas também fortalecer a rede de agentes culturais e facilitar o acesso à informação e à cultura.
-
-Agradecemos profundamente a todos que contribuíram até a última versão do projeto. A partir dela, realizamos várias mudanças significativas que podem ser detalhadas aqui:
-
-- [Nova Arquitetura](./app/README.md) de arquivos e diretórios
-- [Conexão](./app/README.md) com o Banco de Dados
-
-## Como contribuir
-
-Encorajamos a comunidade a colaborar conosco criando issues para relatar problemas, sugerir melhorias ou novas funcionalidades. Ao reportar uma issue, você está ajudando a equipe de desenvolvimento a entender as necessidades dos usuários e aprimorar o sistema. Quanto mais detalhada for a sua issue, mais eficaz será a nossa resposta e resolução do problema. Seja parte do nosso esforço para tornar o Mapa Cultural uma ferramenta cada vez melhor para todos!
-
-- [Algo não está funcionando como esperado? Você encontrou uma falha ou bug no mapas?](https://github.com/RedeMapas/mapas/issues/new/choose)
-- [Você tem uma ideia ou sugestão e quer compartilhar?](https://github.com/RedeMapas/mapas/issues/new/choose)
-
-## Tecnologias
-
-- PHP7^
-  - Symfony packages
-  - Slim packages
-  - Doctrine
-  - PHP DI
-  - PHPUnit
-- PostgreSQL
+Em julho de 2013, agentes culturais de vários países da América Latina e do Brasil se reuniram para discutir a criação de uma ferramenta de mapeamento de iniciativas culturais e gestão cultural. Desse encontro surgiram as bases para a criação de Mapas Culturais, um software livre que permite o aprimoramento da gestão cultural dos municípios e estados.
 
 Mapas Culturais é uma plataforma colaborativa que reúne informações sobre agentes, espaços, eventos e projetos culturais, fornecendo ao poder público uma radiografia da área de cultura e ao cidadão um mapa de espaços e eventos culturais da região. A plataforma está alinhada ao Sistema Nacional de Informação e Indicadores Culturais do Ministério da Cultura (SNIIC) e contribui para a realização de alguns dos objetivos do Plano Nacional de Cultura.
 
 A plataforma já está em uso em diversos municipios, estados, no governo federal em diversos projetos do ministério da cultura e até mesmo fora do Brasil no Uruguai. Instalações recentes: 
 
+<details>
 
+<summary>Instalações</summary>
+
+****
 ### Instalações em nível federal ou internacional
 - IberculturaViva - https://mapa.iberculturaviva.org/
 - Mapa Uruguai - http://culturaenlinea.uy/
@@ -100,28 +65,36 @@ A plataforma já está em uso em diversos municipios, estados, no governo federa
 - Guarulhos - http://grucultura.guarulhos.sp.gov.br/
 - Itapetininga - http://mapacultural.itapetininga.sp.gov.br/
 
-## Sobre a aplicação
+### Sobre a aplicação
 Mapas Culturais é uma aplicação web server-side baseada em linguagem PHP e banco de dados Postgres, entre outras tecnologias e componentes, que propicia um ambiente virtual para mapeamento, divulgação e gestão de ativos culturais. 
 
-## Projetos correlatos
+### Projetos correlatos
 * [Mapas Cuturais Base Project](https://github.com/hacklabr/mapasculturais-app) - Repositório de projeto base para novas instalações.
 * [Multiple Local Auth](https://github.com/mapasculturais/mapasculturais-MultipleLocalAuth) - Plugin de autenticação local + oauth.
 * [Mapas SDK](https://github.com/centroculturalsp/MapasSDK)
 * [Mapas Culturais APP](https://github.com/hacklabr/mapasculturais-app)
 * [Cultural Magazine Theme](https://github.com/hacklabr/cultural)
 
-## Instalação
+### Instalação
 A maneira mais simples e segura para instalar o Mapas Culturais é utilizando o [Mapas Culturais Base Project](https://github.com/mapasculturais/mapasculturais-base-project) como base para a criação de um repositório próprio para o seu projeto, que reunirá o tema, os plugins e as configurações da aplicação. O Mapas Culturais Base Project utiliza o Docker e o Docker Composer para rodar a aplicação, facilitando os processos de deploy e de atualizaçao.
 
 - [Instalação utilizando o Base Project ](https://github.com/mapasculturais/mapasculturais-base-project#readme) - **RECOMENDADO**
-## Documentação
+
+</details>
+
+<details>
+
+<summary>Documentação</summary>
+
+### Documentação v5
 
 Uma [nova documentação](https://mapasculturais.gitbook.io/bem-vindo-a-a-documentacao-do-mapas/) está sendo escrita no gitbook, organizada em três seções:
 - [Documentação para usuários](https://mapasculturais.gitbook.io/documentacao-para-usuarios/)
 - [Documentação para desenvolvedores](https://mapasculturais.gitbook.io/documentacao-para-desenvolvedores/formacao-para-desenvolvedores/)
 - [Documentação para devops](https://mapasculturais.gitbook.io/documentacao-para-devops/instalacao/)
 
-## Documentação Legada
+
+### Documentação v5 Legada
 
 A documentação pode ser navegada no endereço (http://docs.mapasculturais.org)
 
@@ -183,12 +156,48 @@ Recomendado:
 
 Vale lembrar que os requisitos de hardware podem variar de acordo com a latência da rede, velocidade dos cores dos cpus, uso de proxies, entre outros fatores. Recomendamos aos sysadmin da rede em que a aplicação será instalada um monitoramento de tráfego e uso durante o período de 6 meses a 1 ano para avaliação de cenário de uso. 
 
-### Canais de comunicação
+</details>
 
-* [Lista de discussão](https://groups.google.com/forum/?hl=en#!forum/mapas-culturais)
+## Como contribuir
+
+Encorajamos a comunidade a colaborar conosco criando issues para relatar problemas, sugerir melhorias ou novas funcionalidades. Ao reportar uma issue, você está ajudando a equipe de desenvolvimento a entender as necessidades dos usuários e aprimorar o sistema. Quanto mais detalhada for a sua issue, mais eficaz será a nossa resposta e resolução do problema. Seja parte do nosso esforço para tornar o Mapa Cultural uma ferramenta cada vez melhor para todos!
+
+### Sugestões
+
+- [Algo não está funcionando como esperado? Você encontrou uma falha ou bug no mapas?](https://github.com/RedeMapas/mapas/issues/new/choose)
+- [Você tem uma ideia ou sugestão e quer compartilhar?](https://github.com/RedeMapas/mapas/issues/new/choose)
+
+### Código-fonte
+
+É importante ressaltar que para contribuir com o código é necessário ter instalado o `docker`, `docker-compose`, `node` e `pnpm`. 
+Para contribuir, será necessário fazer um clone desse repositório, depois disso basta executar o comando `./dev/start.sh` e o site deve ficar disponível na porta 4242 do host.
+
+- [Quadro de atividades no github](https://github.com/orgs/RedeMapas/projects/2/views/3)
+- [Design dos protótipos no figma](https://www.figma.com/design/HkR1qdfHPn4riffcBBOQwR/Protótipos-|-Priorizações)
+
+As alterações precisam ser sugeridas através de um Pull Request e deve conter detalhes das alterações, conforme descrito no temaplate.
+
+Adotamos a utilização de 4 branches: 
+- `main`: código de produção
+- `develop`: código de estável de desenvolvimento
+- `feature/*`: código de novas funcionalidades
+- `fix/*`: código de novas correções
+
+Adotamos a utilização de 3 travas de segurança automatizadas:
+- verificação de estilo de escrita de código
+- verificação de testes unitários backend
+- verificação de testes de integração frontend
+
+Adotamos o uso de múltiplos ambientes de publicação:
+- ao atualizar a branch `main` atualizamos o [mapas.tec.br](https://mapas.tec.br)
+- ao atualizar a branch `develop` atualizamos o [experimente.mapas.tec.br](https://experimente.mapas.tec.br)
+- ao abrir um PR no github criamos uma nova instalação em `pr-#.mapas.tec.br`
+
+## Canais de comunicação
+
 * Telegram: [![Join the chat at https://t.me/joinchat/WCYOkiRbAWmxQM2y](https://patrolavia.github.io/telegram-badge/chat.png)](https://t.me/joinchat/WCYOkiRbAWmxQM2y)
 
-### Licença de uso e desenvolvimento
+## Licença de uso e desenvolvimento
 
 Mapas Culturais é um software livre licenciado com [GPLv3](http://gplv3.fsf.org). 
 

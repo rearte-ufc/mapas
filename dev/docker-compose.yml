@@ -41,6 +41,7 @@ services:
       - BUILD_ASSETS=0
       - PENDING_PCACHE_RECREATION_INTERVAL=5
       - JOBS_INTERVAL=5
+      - APP_MODE=development
       - REDIS_CACHE=redis
       - MAILER_TRANSPORT=smtp://mailhog:1025
       - MAILER_FROM=sysadmin@localhost

@@ -44,8 +44,8 @@ trait EntityOpportunityDuplicator {
         $dateTime = new \DateTime();
         $now = $dateTime->format('d-m-Y H:i:s');
         $name = $this->opportunity->name;
-        $this->newOpportunity->setName("$name  - [Cópia][$now]");
-        $this->newOpportunity->setStatus(Entity::STATUS_DRAFT);
+        $this->newOpportunity->name = "$name  - [Cópia][$now]";
+        $this->newOpportunity->status = Entity::STATUS_DRAFT;
         $this->newOpportunity->registrationCategories = [];
         $app->em->persist($this->newOpportunity);
         $app->em->flush();

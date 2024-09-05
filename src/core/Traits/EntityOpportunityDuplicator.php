@@ -1,12 +1,13 @@
 <?php
 namespace MapasCulturais\Traits;
+
 use MapasCulturais\App;
 use MapasCulturais\Entities\ProjectOpportunity;
-use MapasCulturais\Entities\User;
 use MapasCulturais\Entity;
 
 trait EntityOpportunityDuplicator {
 
+    private ProjectOpportunity $opportunity;
     private ProjectOpportunity $newOpportunity;
 
     function ALL_duplicate(){
@@ -44,8 +45,8 @@ trait EntityOpportunityDuplicator {
         $dateTime = new \DateTime();
         $now = $dateTime->format('d-m-Y H:i:s');
         $name = $this->opportunity->name;
-        $this->newOpportunity->setName("$name  - [Cópia][$now]");
-        $this->newOpportunity->setStatus(Entity::STATUS_DRAFT);
+        $this->newOpportunity->name = "$name  - [Cópia][$now]";
+        $this->newOpportunity->status = Entity::STATUS_DRAFT;
         $this->newOpportunity->registrationCategories = [];
         $app->em->persist($this->newOpportunity);
         $app->em->flush();
@@ -203,7 +204,7 @@ trait EntityOpportunityDuplicator {
 
     private function duplicateAgentRelations() : void
     {
-        foreach ($this->opportunity->getAgentRelations(null, true) as $agentRelation_) {
+        foreach ($this->opportunity->getAgentRelations() as $agentRelation_) {
             $agentRelation = clone $agentRelation_;
             $agentRelation->owner = $this->newOpportunity;
             $agentRelation->save(true);

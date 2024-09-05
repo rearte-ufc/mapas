@@ -6,30 +6,55 @@ on:
       - develop
 
 jobs:
-  CODE_STYLE:
-    name: CODE STYLE
+  CODE_STYLE_FIXER:
+    name: CODE STYLE CS FIXER
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - name: Run PHP-CS-Fixer
         uses: erkenes/php-cs-fixer-action@main
         with:
           args: '--dry-run --diff -vvv'
 
-  PHP_UNIT:
-    name: PHP UNIT
+  CODE_STYLE_PSALM:
+    name: CODE STYLE PSALM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Run Psalm
+        uses: docker://ghcr.io/psalm/psalm-github-actions
+        with:
+          composer_require_dev: true
+          composer_ignore_platform_reqs: true
+          security_analysis: true
+  CODE_TESTS:
+    name: CODE TESTS
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Baixando codigo
         uses: actions/checkout@v4
         with:
           submodules: recursive
-
-      - name: Add default env values
+      # See https://github.com/pnpm/action-setup
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      # See https://github.com/actions/setup-node
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          cache-dependency-path: ./pnpm-lock.yaml
+      - name: Configuração de valores padrões
         run: |
             cp .env.sample .env
-            cp .env.sample app
   
       - uses: hoverkraft-tech/compose-action@v1.5.1
         with:
@@ -40,36 +65,41 @@ jobs:
           up-flags: "-d --wait"
           down-flags: "-v"
 
-      - name: Run migrations
+      - name: Atualização da estrutura do banco de dados
         run: |
-          docker compose exec web mkdir var/logs/
-          docker compose exec web mkdir var/private-files/
-          docker compose exec web chmod 777 var/logs/
-          docker compose exec web chmod 777 var/private-files/
-          docker compose exec web chmod 777 var/sessions/
-          docker compose exec web chmod 777 var/DoctrineProxies/
-          docker compose exec web php src/tools/apply-updates.php
-          docker compose exec web php app/bin/doctrine migrations:migrate --no-interaction --all-or-nothing
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml exec web composer install
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml exec web mkdir var/logs/
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml exec web mkdir var/private-files/
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml exec web chmod 777 var/logs/
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml exec web chmod 777 var/private-files/
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml exec web chmod 777 var/sessions/
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml exec web chmod 777 var/DoctrineProxies/
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml exec web ./scripts/db-update.sh
         env:
           APP_MODE: development
 
-      - name: Run Phpunit tests
+      - name: Testes Unitários com PhpUnit
         run: |
-            docker compose exec web ./vendor/bin/phpunit -c phpunit.xml
+          docker compose exec web ./vendor/bin/phpunit -c phpunit.xml --coverage-clover ./coverage.xml
 
-      - name: Cypress run
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          verbose: true
+
+      - name: Testes de integração com Cypress
         uses: cypress-io/github-action@v6
         with:
-        # config: '{"e2e":{"viewportWidth":375,"viewportHeight":667}}'
-        # start: pnpm run cypress:run
+          config: '{"e2e":{"viewportWidth":375,"viewportHeight":667}}'
           wait-on: "http://localhost:4242"
           wait-on-timeout: 120
-          record: true
-          group: "UI - Chrome - Mobile"
-          working-directory: src
-            # config-file: src/cypress.config.js
-        #   start: npm start
           browser: chrome
+          # record: false
+          # parallel: true
+          # group: "UI - Chrome - Mobile"
+          config-file: cypress/cypress.config.js
         env:
           # CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -83,27 +113,6 @@ jobs:
           name: screenshots
           if-no-files-found: error
           path: src/cypress/screenshots
-      
-    # - name: "UI Tests - Chrome - Mobile"
-    #   uses: cypress-io/github-action@v6
-    #   with:
-    #     # config: '{"e2e":{"viewportWidth":375,"viewportHeight":667}}'
-    #     # start: pnpm run cypress:run
-    #     wait-on: "http://web"
-    #     wait-on-timeout: 120
-    #     browser: chrome
-    #     record: true
-    #     parallel: true
-    #     group: "UI - Chrome - Mobile"
-    #     spec: src/cypress/*
-    #     config-file: src/cypress/cypress.config.js
-    #   env:
-    #     # CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
-    #     # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-    #     # Recommended: pass the GitHub token lets this action correctly
-    #     # determine the unique run id necessary to re-run the checks
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     # - name: Install composer and dependencies
     #   uses: php-actions/composer@v6
     #   with:
@@ -118,12 +127,4 @@ jobs:
     #     php_version: 8.2
     #     configuration: phpunit.xml
     #     php_extensions: pdo_pgsql zip intl gd mbstring curl xml
-    #     args: tests --coverage-clover ./coverage.xml
-
-    # - name: Upload to Codecov
-    #   uses: codecov/codecov-action@v2
-    #   with:
-    #     token: ${{ secrets.CODE_COV_TOKEN }}
-    #     files: ./coverage.xml
-    #     verbose: true
 

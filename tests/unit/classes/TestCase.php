@@ -222,7 +222,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     // slim environment
     public function request($method, $path, $options = array())
     {
-        $baseUrl = 'http://localhost:8888';
+        $baseUrl = 'http://localhost';
         if (strpos($path, $baseUrl) !== 0) {
             $url = $baseUrl . $path;
         } else {

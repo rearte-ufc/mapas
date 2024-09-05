@@ -8,7 +8,7 @@ app.component('panel--entity-tabs', {
     },
 
     created() {
-        fetch('/api/findOpportunitiesModels')
+        fetch('/opportunity/findOpportunitiesModels')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

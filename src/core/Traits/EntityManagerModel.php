@@ -5,6 +5,7 @@ use MapasCulturais\App;
 use MapasCulturais\Entities\ProjectOpportunity;
 use MapasCulturais\Entity;
 use MapasCulturais\Definitions\Metadata AS DefinitionMetadata;
+use MapasCulturais\Entities\Opportunity;
 
 trait EntityManagerModel {
 
@@ -49,6 +50,59 @@ trait EntityManagerModel {
        
         $this->json($this->opportunityModel); 
     }
+    
+    function GET_findOpportunitiesModels()
+    {
+        $app = App::i();
+        $em = $app->em;
+        $queryBuilder = $em->createQueryBuilder()
+            ->select(
+                'o.id', 
+                'o.name', 
+                '(COUNT(p.id) + 2) AS numeroFases', 
+                'o.registrationTo', 
+                'o.registrationFrom', 
+                'o.shortDescription AS descricao',
+                'o.registrationProponentTypes AS tipoAgente'
+            )
+            ->from(Opportunity::class, 'o')
+            ->leftJoin(Opportunity::class, 'p', 'WITH', 'p.parent = o.id')
+            ->where('o.parent IS NULL')
+            ->andWhere('o.status = -1')
+            ->groupBy('o.id, o.name');
+        
+        $results = $queryBuilder->getQuery()->getArrayResult();
+
+        foreach ($results as &$result) {
+            if (isset($result['registrationTo']) && isset($result['registrationFrom'])) {
+                $registrationTo = $result['registrationTo'];
+                $registrationFrom = $result['registrationFrom'];
+
+                if (!$registrationTo instanceof \DateTime) {
+                    $registrationTo = new \DateTime($registrationTo);
+                }
+                if (!$registrationFrom instanceof \DateTime) {
+                    $registrationFrom = new \DateTime($registrationFrom);
+                }
+            
+                $interval = $registrationFrom->diff($registrationTo);
+                $days = $interval->days;
+                
+                $result['tempoEstimado'] = "$days dias";
+            } else {
+                $result['tempoEstimado'] = 'N/A';
+            }
+
+            if (isset($result['tipoAgente'])){
+                
+                $result['tipoAgente'] = implode(', ', $result['tipoAgente']);
+            }else {
+                $result['tipoAgente'] = 'N/A';
+            }
+        }
+
+        echo json_encode($results);
+    }
 
     private function generateModel() : ProjectOpportunity
     {
@@ -61,9 +115,9 @@ trait EntityManagerModel {
 
         $this->opportunityModel = clone $this->opportunity;
 
-        $this->opportunityModel->setName($name);
-        $this->opportunityModel->setStatus(-1);
-        $this->opportunityModel->setShortDescription($description);
+        $this->opportunityModel->name = $name;
+        $this->opportunityModel->status = -1;
+        $this->opportunityModel->shortDescription = $description;
         $this->opportunityModel->registrationCategories = [];
         $app->em->persist($this->opportunityModel);
         $app->em->flush();
@@ -81,8 +135,8 @@ trait EntityManagerModel {
 
         $this->opportunityModel = clone $this->opportunity;
 
-        $this->opportunityModel->setName($name);
-        $this->opportunityModel->setStatus(0);
+        $this->opportunityModel->name = $name;
+        $this->opportunityModel->status = Entity::STATUS_DRAFT;
         $this->opportunityModel->registrationCategories = [];
         $app->em->persist($this->opportunityModel);
         $app->em->flush();

@@ -4,7 +4,7 @@ $this->import('
     create-opportunity
     mc-icon 
     panel--entity-card
-    panel--entity-tabs-copy
+    panel--entity-tabs
 ');
 ?>
 
@@ -31,5 +31,5 @@ $this->import('
         </div>
     </header>
 
-    <panel--entity-tabs-copy type="opportunity"></panel--entity-tabs-copy>
+    <panel--entity-tabs type="opportunity"></panel--entity-tabs>
 </div>

@@ -12,6 +12,7 @@ $this->import('
     mc-tabs
     panel--entity-card
     registration-card
+    opportunity-create-based-model
 ');
 
 $tabs = $tabs ?? [
@@ -129,7 +130,11 @@ $this->applyComponentHook('.sortOptions', [&$tabs]);
                 <slot name="entity-actions-center" :entity="entity"></slot>
             </template>
             <template #entity-actions-right>
-                <slot name="entity-actions-right" :entity="entity"></slot>
+                <slot name="entity-actions-right" :entity="entity">
+                    <div v-if="entity.currentUserPermissions?.modify && entity.status != -2 && entity.__objectType == 'opportunity' && entity.isModel == 1">
+                        <opportunity-create-based-model :entity="entity" classes="col-12"></opportunity-create-based-model>
+                    </div>
+                </slot>
             </template>
         </panel--entity-card>
     </slot>

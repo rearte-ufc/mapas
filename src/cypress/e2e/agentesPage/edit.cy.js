@@ -11,7 +11,7 @@ describe("Agents Page Edit", () => {
 
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.visit('/');
+        cy.visit('https://experimente.mapas.tec.br/');
         cy.get('.logIn').click();
         cy.contains('Fazer login com este usuário').click();
         cy.wait(1000);

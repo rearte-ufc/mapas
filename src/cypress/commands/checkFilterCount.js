@@ -10,21 +10,18 @@ function checkFilterCount() {
     	switch (resultsType) {
         	case "Oportunidades":
         	    cy.get('.upper').should("have.length", resultsCountPerPage);
-        	    cy.wait(1000);
         	    cy.contains(resultsCount + " Oportunidades encontradas");
 			
         	    break;
 			
         	case "Projetos":
         		cy.get('.upper').should("have.length", resultsCountPerPage);
-        		cy.wait(1000);
         		cy.contains(resultsCount + " Projetos encontrados");
 			
         	    break;
 			
         	case "Espaços":
         	    cy.get('.upper').should("have.length", resultsCountPerPage);
-        	    cy.wait(1000);
         	    cy.contains(resultsCount + " Espaços encontrados");
 			
         	    break;

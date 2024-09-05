@@ -4,7 +4,7 @@ const { checkFilterCount } = require("../../commands/checkFilterCount");
 describe("Pagina de Projetos", () => {
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.visit("/projetos");
+        cy.visit("https://experimente.mapas.tec.br/projetos");
         cy.wait(1000);
     });
 

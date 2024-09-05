@@ -3,7 +3,7 @@ import { backHomepageCompact } from "../../commands/backHomepageCompact";
 describe("Homepage compactada", () => {
     beforeEach(() => {
         cy.viewport(1000, 768);
-        cy.visit("/");
+        cy.visit("https://experimente.mapas.tec.br/");
     });
 
     it("Garante o funcionamento do home", () => {
@@ -76,7 +76,7 @@ describe("Homepage compactada", () => {
         // backHomepageCompact();
         
         // Solução temporária
-        cy.visit('/');
+        cy.visit('https://experimente.mapas.tec.br/');
     });
 
     it("Acessa o botões de zoom do mapa", () => {
@@ -88,6 +88,6 @@ describe("Homepage compactada", () => {
     it("Acessa o botão \"Conheça o repositório\" da seção \"Alô desenvolvedores\"", () => {
         cy.get(".home-developers__content--link > .link").click();
         cy.url().should("include", "https://github.com/mapasculturais");
-        cy.visit("/");
+        cy.visit("https://experimente.mapas.tec.br/");
     });
 });

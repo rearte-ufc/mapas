@@ -3,7 +3,7 @@ const getNextMonth = require('../../commands/genNextMonth');
 describe("Events Page", () => {
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.visit('/eventos/');
+        cy.visit('https://experimente.mapas.tec.br/eventos/');
     });
 
     it("Garantir que após clicar em \"Eventos\" consiga carregar a página com a seção dos eventos e a seção de filtros, cada filtro com o valor padrão", () => {
@@ -47,17 +47,15 @@ describe("Events Page", () => {
     });
 
     it("Garantir que é possível acessar um evento e carregar as informações", () => {
-        cy.log('Impossível realizar testes pois ocorre erro na hora da criação de um evento');
-        
-        /*
-            cy.get(".dp__pointer").click();
-            cy.contains("2024").click();
-            cy.wait(1000);
-            cy.get(".filter-btn > :first-child").click();
-            cy.wait(1000);
-            cy.get(`[href="${Cypress.config().baseUrl}/evento/2/"]`).last().click();
-            cy.wait(1000);
-            cy.get(".opportunity-list__container").should("not.be.empty");
-        */
+        // cy.log('Impossível realizar testes pois ocorre erro na hora da criação de um evento');
+    
+        cy.get(".dp__pointer").click();
+        cy.contains("2024").click();
+        cy.wait(2000);
+        cy.get('.search-filter__actions--form-input').type("Teste Cypress");
+        cy.wait(2000);
+        cy.contains("Acessar").first().click();
+        cy.wait(1000);
+        cy.contains("Teste Cypress");
     });
 });

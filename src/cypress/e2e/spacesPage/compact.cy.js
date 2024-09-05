@@ -14,11 +14,11 @@ describe("Homepage compactada", () => {
 describe("Pagina de Espaços", () => {
     beforeEach(() => {
         cy.viewport(1000, 768);
-        cy.visit("/espacos/#list");
+        cy.visit("https://experimente.mapas.tec.br/espacos/#list");
     });
 
     it("clica em \"Acessar\" e entra na pagina no espaço selecionado", () => {
-        cy.get(':nth-child(5) > .entity-card__footer > .entity-card__footer--action > .button').click();
+        cy.contains('Acessar').first().click();
         
         cy.url().should("include", "/espaco/");
     });

@@ -5,7 +5,7 @@ const { generateString} = require("../../commands/genString")
 
 describe("LoginPage", () => {
     beforeEach(() => {
-        cy.visit("/");
+        cy.visit("https://experimente.mapas.tec.br/");
     });
 
     it("click no botão \"Entrar\"", () => {
@@ -16,15 +16,33 @@ describe("LoginPage", () => {
 
 describe("RegisterPage", () => {
     it("click no botão \"Fazer cadastro\"", () => {
-        cy.visit("/autenticacao/");
+        cy.visit("https://experimente.mapas.tec.br/autenticacao/");
         cy.contains("Fazer cadastro").click();
         cy.url().should("include", "/autenticacao/register/");
     });
 
     it("Garante que não haja contas com o mesmo cpf ou email", () => {
-        cy.visit("/autenticacao/register/");
+        cy.visit("https://experimente.mapas.tec.br/autenticacao/register/");
         cy.get("#email").type("fake3@email.com");
         cy.get("#email").should("have.value", "fake3@email.com");
+        cy.get("#cpf").type("68861193543");
+        cy.get("#pwd").type("Fakepassword@10");
+        cy.get("#pwd").should("have.attr", "type", "password");
+        cy.get(".seePassword").click({ multiple: true });
+        cy.get("#pwd").should("have.value", "Fakepassword@10");
+        cy.get("#pwd-check").type("Fakepassword@10");
+        cy.wait(1000);
+        confirmRecaptcha();
+        cy.wait(2000);
+        cy.contains("Continuar").click({ force: true });
+        cy.wait(1000);
+        //faz checagem de emasila repetido
+        cy.contains("Este endereço de email já está em uso. Tente recuperar a sua senha.");
+
+        //agora vai repetir o cpf e mudar o email para ver se tambem da erro
+        cy.reload();
+        cy.get("#email").type("fake345@email.com");
+        cy.get("#email").should("have.value", "fake34@email.com");
         cy.get("#cpf").type("68861193544");
         cy.get("#pwd").type("Fakepassword@10");
         cy.get("#pwd").should("have.attr", "type", "password");
@@ -34,16 +52,14 @@ describe("RegisterPage", () => {
         cy.wait(1000);
         confirmRecaptcha();
         cy.wait(2000);
-        cy.contains("Continuar").click();
-
+        cy.contains("Continuar").click({ force: true });
         cy.wait(1000);
 
         cy.contains("Este CPF já esta em uso. Tente recuperar a sua senha.");
-        cy.contains("Este endereço de email já está em uso. Tente recuperar a sua senha.");
     });
 
     it("Garante que cpf seja valido", () => {
-        cy.visit("/autenticacao/register/");
+        cy.visit("https://experimente.mapas.tec.br/autenticacao/register/");
         cy.get("#email").type("fake4@email.com");
         cy.get("#email").should("have.value", "fake4@email.com");
         cy.get("#cpf").type("68861193541");
@@ -55,7 +71,7 @@ describe("RegisterPage", () => {
         cy.wait(1000);
         confirmRecaptcha();
         cy.wait(2000);
-        cy.contains("Continuar").click();
+        cy.contains("Continuar").click({ force: true });
 
         cy.wait(1000);
 
@@ -64,9 +80,9 @@ describe("RegisterPage", () => {
 
     
     it("Continuar cadastro", () => {
-        cy.visit("/autenticacao/register/");  
+        cy.visit("https://experimente.mapas.tec.br/autenticacao/register/");  
 
-        let email = generateString(5) + "@email.com";  
+        let email = generateString(8) + "@email.com";  
         cy.get("#email").type(email);
         cy.get("#email").should("have.value", email);
 
@@ -79,9 +95,9 @@ describe("RegisterPage", () => {
         cy.get("#pwd").should("have.value", "Fakepassword@10");
         cy.get("#pwd-check").type("Fakepassword@10");
         cy.wait(1000);
-        confirmRecaptcha();
+        confirmRecaptcha({ force: true });
         cy.wait(2000);
-        cy.contains("Continuar").click();
+        cy.contains("Continuar").click({ force: true });
 
         cy.wait(4000);
 

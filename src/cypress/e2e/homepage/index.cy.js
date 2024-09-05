@@ -1,6 +1,6 @@
 describe("Homepage", () => {
     beforeEach(() => {
-        cy.visit("/");
+        cy.visit("https://experimente.mapas.tec.br/");
     });
 
     it("Garante que a home page funciona", () => {

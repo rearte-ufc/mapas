@@ -2,7 +2,7 @@ const { loginWith } = require("../../commands/login");
 
 describe("Loginpage", () => {
     beforeEach(() => {
-        cy.visit("/autenticacao/");
+        cy.visit("https://experimente.mapas.tec.br/autenticacao/");
     });
 
     it("Verifica se é possivel logar com email ou cpf e senha", () => {

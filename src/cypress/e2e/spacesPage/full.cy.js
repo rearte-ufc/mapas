@@ -4,13 +4,8 @@ const { checkFilterCount } = require("../../commands/checkFilterCount");
 describe("Pagina de Espaços", () => {
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.visit("/espacos/#list");
+        cy.visit("https://experimente.mapas.tec.br/espacos/#list");
         cy.wait(1000);
-    });
-
-    it("clica em \"Acessar\" e entra na pagina no espaço selecionado", () => {
-        cy.get(':nth-child(5) > .entity-card__footer > .entity-card__footer--action > .button').click();
-        cy.url().should("include", "/espaco/");
     });
 
     it("Garante que os filtros de tipos de espaços funcionem", () => {

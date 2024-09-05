@@ -179,9 +179,12 @@ class Event extends EntityController {
             'date_to' => $date_to
         ]);
 
-        if($app->config['app.useEventsCache']){
-            $query->useResultCache(true, $app->config['app.eventsCache.lifetime']);
-        }
+        $query->useResultCache(false);
+        $app->config['app.useEventsCache'] = false;
+
+        // if($app->config['app.useEventsCache']){
+        //     $query->useResultCache(true, $app->config['app.eventsCache.lifetime']);
+        // }
 
         $_result = $query->getScalarResult();
 

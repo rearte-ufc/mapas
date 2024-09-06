@@ -223,7 +223,7 @@ trait EntityManagerModel {
     }
 
 
-    private function generateMetadata($isModel = 1, $isModelOfficial = 0) : void
+    private function generateMetadata($isModel = 1, $isModelPublic = 0) : void
     {
         foreach ($this->opportunity->getMetadata() as $metadataKey => $metadataValue) {
             if (!is_null($metadataValue) && $metadataValue != '') {
@@ -232,7 +232,7 @@ trait EntityManagerModel {
         }
 
         $this->opportunityModel->setMetadata('isModel', $isModel);
-        $this->opportunityModel->setMetadata('isModelOfficial', $isModelOfficial);
+        $this->opportunityModel->setMetadata('isModelPublic', $isModelPublic);
 
         $this->opportunityModel->saveTerms();
     }

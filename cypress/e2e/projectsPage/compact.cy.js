@@ -1,7 +1,7 @@
 describe("Homepage compactada", () => {
     beforeEach(() => {
         cy.viewport(1000, 768);
-        cy.visit("https://experimente.mapas.tec.br/");
+        cy.visit("/");
     });
 
     it("acessa \"Projetos\" no navbar", () => {
@@ -14,7 +14,7 @@ describe("Homepage compactada", () => {
 describe("Pagina de Projetos", () => {
     beforeEach(() => {
         cy.viewport(1000, 768);
-        cy.visit("https://experimente.mapas.tec.br/projetos");
+        cy.visit("/projetos");
     });
 
     it("Clica em \"Acessar\" e entra na pagina no projeto selecionado", () => {

@@ -51,7 +51,9 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
-          cache-dependency-path: ./pnpm-lock.yaml
+          # cache-dependency-path: ./pnpm-lock.yaml
+      - run: pnpm i
+      - run: pnpm run build
       - name: Configuração de valores padrões
         run: |
             cp .env.sample .env

@@ -3,7 +3,7 @@ const getNextMonth = require('../../commands/genNextMonth');
 describe("Events Page", () => {
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.visit('https://experimente.mapas.tec.br/eventos/');
+        cy.visit('/eventos/');
     });
 
     it("Garantir que após clicar em \"Eventos\" consiga carregar a página com a seção dos eventos e a seção de filtros, cada filtro com o valor padrão", () => {

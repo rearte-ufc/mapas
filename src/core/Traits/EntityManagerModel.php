@@ -62,7 +62,7 @@ trait EntityManagerModel {
                 $lastPhase = array_pop($phases);
                 
                 $days = !is_null($opp->registrationFrom) && !is_null($lastPhase->publishTimestamp) ? $lastPhase->publishTimestamp->diff($opp->registrationFrom)->days . " Dia(s)" : 'N/A';
-                $tipoAgente = implode(', ', $opp->registrationProponentTypes);
+                $tipoAgente = $opp->registrationProponentTypes ? implode(', ', $opp->registrationProponentTypes) : 'N/A';
                 $dataModels[] = [
                     'id' => $opp->id,
                     'numeroFases' => count($opp->phases),

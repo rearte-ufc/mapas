@@ -13,7 +13,7 @@ describe("Agents Page Edit", () => {
         cy.viewport(1920, 1080);
         cy.visit('https://experimente.mapas.tec.br/');
         cy.get('.logIn').click();
-        cy.contains('Fazer login com este usuário').click();
+        loginWith("Admin@local", "mapas123");
         cy.wait(1000);
         cy.visit("/edicao-de-agente/1/");
     });

@@ -1,7 +1,7 @@
 describe("Homepage compactada", () => {
     beforeEach(() => {
         cy.viewport(1000, 768);
-        cy.visit("/");
+        cy.visit("https://experimente.mapas.tec.br/");
     });
     it("acessa \"Agentes\" no navbar", () => {
         cy.get(".mc-header-menu__btn-mobile").click();
@@ -12,7 +12,7 @@ describe("Homepage compactada", () => {
 describe("Pagina de Agentes", () => {
     beforeEach(() => {
         cy.viewport(1000, 768);
-        cy.visit("/agentes");
+        cy.visit("https://experimente.mapas.tec.br/agentes");
     });
 
     it("clica em \"Acessar\" e entra na pagina no agente selecionado", () => {

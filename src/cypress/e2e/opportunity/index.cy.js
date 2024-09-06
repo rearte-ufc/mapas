@@ -1,5 +1,7 @@
 const { clearAllFilters } = require("../../commands/clearAllFilters");
 const { checkFilterCount } = require("../../commands/checkFilterCount");
+const { loginWith } = require("../../commands/login");
+
 
 describe("Opportunity Page", () => {
     beforeEach(() => {
@@ -7,7 +9,7 @@ describe("Opportunity Page", () => {
     });
 
     it("Garante que a oportunidades funciona", () => {
-        cy.visit("/");
+        cy.visit("https://experimente.mapas.tec.br/");
         cy.contains("Boas vindas ao Mapa Cultural");
         cy.contains("a", "Oportunidades").click();
         cy.url().should("include", "oportunidades");
@@ -21,22 +23,22 @@ describe("Opportunity Page", () => {
     });
 
     it("Garante que os filtros de oportunidades funcionam quando não existem resultados pra busca textual", () => {
-        cy.visit("/oportunidades");
+        cy.visit("https://experimente.mapas.tec.br/oportunidades");
         cy.get(".search-filter__actions--form-input").type("Edital 03/18");
         cy.wait(1000);
         cy.contains("Nenhuma entidade encontrada");
     });
 
     it("Garante que os filtros de oportunidades funcionam quando existem resultados para a busca textual", () => {
-        cy.visit("/oportunidades");
-        cy.get(".search-filter__actions--form-input").type("f");
+        cy.visit("https://experimente.mapas.tec.br/oportunidades");
+        cy.get(".search-filter__actions--form-input").type("Teste");
         cy.wait(1000);
 
         checkFilterCount("opportunity");
     });
 
     it("Garante que os filtros por status das oportunidades funcionam", () => {
-        cy.visit("/oportunidades");
+        cy.visit("https://experimente.mapas.tec.br/oportunidades");
         cy.wait(1000);
         cy.contains("Status das oportunidades");
         cy.get(".form > :nth-child(1) > :nth-child(2)").click();
@@ -51,7 +53,7 @@ describe("Opportunity Page", () => {
     });
 
     it("Garante que o filtro de oportunidades de editais oficiais funciona", () => {
-        cy.visit("/oportunidades");
+        cy.visit("https://experimente.mapas.tec.br/oportunidades");
         cy.wait(1000);
         cy.contains("Status das oportunidades");
         cy.get(".verified > input").click();
@@ -63,7 +65,7 @@ describe("Opportunity Page", () => {
     it("Garante que os filtros por tipo de oportunidade funcionam", () => {
         // Algumas oportunidades apresentam, um tipo de oportunidade diferente do que foi dado na hora da criação delas. É um bug visual
 
-        cy.visit("/oportunidades");
+        cy.visit("https://experimente.mapas.tec.br/oportunidades");
         cy.wait(1000);
         cy.contains("Tipo de oportunidade");
         cy.get(':nth-child(2) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input').click();
@@ -84,7 +86,7 @@ describe("Opportunity Page", () => {
     });
 
     it("Garante que os filtros por área de interesse funcionam", () => {
-        cy.visit("/oportunidades");
+        cy.visit("https://experimente.mapas.tec.br/oportunidades");
         cy.wait(1000);
         cy.contains("Área de interesse");
         cy.get(":nth-child(3) > .mc-multiselect > :nth-child(1) > .v-popper > .mc-multiselect--input").click();
@@ -103,7 +105,7 @@ describe("Opportunity Page", () => {
     });
 
     it("Garante que o botão limpar filtros na pagina de oportunidades funciona", () => {
-        cy.visit("/oportunidades");
+        cy.visit("https://experimente.mapas.tec.br/oportunidades");
         cy.wait(1000);
         checkFilterCount();
         
@@ -121,11 +123,8 @@ describe("Opportunity Page", () => {
     });
 
     it("Garante que botão de duplicar modelo seja clicável", () => {
-        cy.visit("/autenticacao/");
-        cy.get('.logIn').click();
-        cy.wait(1000);
-        cy.get('.right > .button').click();
-        cy.wait(1000);
+        cy.visit("https://experimente.mapas.tec.br/autenticacao/");
+        loginWith("Admin@local", "mapas123");
         cy.visit('/oportunidades/');
         cy.wait(1000);
         cy.get(':nth-child(2) > .entity-card__footer > .entity-card__footer--action > .button').click();
@@ -137,6 +136,7 @@ describe("Opportunity Page", () => {
         cy.get('.modal__action > .button--primary').click();
 
         // O teste original checava se a duplicação de modelo ocorria, mas aparentemente essa parte ainda não funciona
+        // O teste tambem esta falhando pq depende do login que nao funciona por causa do recaptcha
 
         cy.log('Impossível testar se a duplicação de modelo funciona, a feature não está implementada');
 
@@ -155,7 +155,7 @@ describe("Opportunity Page", () => {
         // O modelo não é gerado, portanto o teste não é possível por enquanto
 
         /*
-            cy.visit("/autenticacao/");
+            cy.visit("https://experimente.mapas.tec.br/autenticacao/");
             cy.get('.logIn').click();
             cy.wait(1000);
             cy.get('.right > .button').click();
@@ -176,7 +176,7 @@ describe("Opportunity Page", () => {
         // O modelo não é gerado, portanto o teste não é possível por enquanto
 
         /*
-            cy.visit("/autenticacao/");
+            cy.visit("https://experimente.mapas.tec.br/autenticacao/");
             cy.get('.logIn').click();
             cy.wait(1000);
             cy.get('.right > .button').click();
@@ -200,10 +200,11 @@ describe("Opportunity Page", () => {
     });
 
     it("Garante geração de oportunidade baseado em um modelo", () => {
-        cy.visit("/autenticacao/");
+        // O teste tambem esta falhando pq depende do login que nao funciona por causa do recaptcha
+        cy.visit("https://experimente.mapas.tec.br/autenticacao/");
         loginWith("Admin@local", "mapas123");
 
-        cy.visit("/minhas-oportunidades/#mymodels");
+        cy.visit("https://experimente.mapas.tec.br/minhas-oportunidades/#mymodels");
         cy.wait(1000);
 
         cy.get(':nth-child(2) > .panel-entity-card__footer > :nth-child(1) > .right > :nth-child(1) > [classes="col-12"] > .button').click();

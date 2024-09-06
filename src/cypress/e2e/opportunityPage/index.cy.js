@@ -1,18 +1,18 @@
 describe("Oportunidade", () => {
     it("Garante que o oportunidades seja clicável, permite digitar no campo de busca e navega para uma URL específica", () => {
-        cy.visit("/");
+        cy.visit("https://experimente.mapas.tec.br/");
         cy.wait(1000);
         cy.get(".mc-header-menu__btn-mobile").click();
         cy.contains(".mc-header-menu__itens a", "Oportunidades").click();
         cy.url().should("include", "/oportunidades");
-        cy.get(".search-filter__actions--form-input").type("f");
+        cy.get(".search-filter__actions--form-input").type("Teste Cypress Oportunidade");
         cy.wait(1000);
-        cy.get(':nth-child(3) > .entity-card__footer > .entity-card__footer--action > .button').click();
+        cy.contains('Acessar').first().click();
         cy.url().should("include", "/oportunidade/");
     });
 
     it("Garante que os cards de indicadores das oportunidades funciona", () => {
-        cy.visit("/oportunidades");
+        cy.visit("https://experimente.mapas.tec.br/oportunidades");
         cy.get(':nth-child(1) > .entity-cards-cards__content > .entity-cards-cards__info > .entity-cards-cards__label').should('have.text', 'Oportunidades criadas');
         cy.get(':nth-child(2) > .entity-cards-cards__content > .entity-cards-cards__info > .entity-cards-cards__label').should('have.text', 'Oportunidades certificadas');
 
@@ -28,7 +28,7 @@ describe("Oportunidade", () => {
     });
 
     it("Garante que a tab dashboard de oportunidades funciona", () => {
-        cy.visit("/oportunidades");
+        cy.visit("https://experimente.mapas.tec.br/oportunidades");
         cy.get('.indicator > a > span').should('have.text', 'Indicadores');
         cy.get('.indicator > a').click();
 

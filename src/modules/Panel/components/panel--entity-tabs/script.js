@@ -43,6 +43,7 @@ app.component('panel--entity-tabs', {
 
         if (this.user) {
             query.user = `EQ(${this.user})`
+            queryGetModel.user = `EQ(${this.user})`
         }
 
         return {

@@ -96,11 +96,10 @@ $this->applyComponentHook('.sortOptions', [&$tabs]);
             </template>
             <template #subtitle="{ entity }">
                 <slot name="card-content" :entity="entity">
-                    <span v-if="entity.type && entity.isModel != null">
-                        <span class="card-info">MEU MODELO</span>
+                    <span v-if="entity.type && entity.isModel == 1">
+                        <span class="card-info">{{ entity.isModelPublic == 0 ? 'MEU MODELO' : 'MODELO PÚBLICO' }}</span>
                         <div class="card-desc">
                             <div v-for="model in models" :key="model.id">
-                                
                                 <span v-if="model.id == entity.id">
                                     <p>{{ model.descricao }}</p>
                                     <mc-icon name="project" class="icon-model"></mc-icon> 

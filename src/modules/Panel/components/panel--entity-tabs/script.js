@@ -72,7 +72,7 @@ app.component('panel--entity-tabs', {
         },
         select: {
             type: String,
-            default: 'id,status,name,type,createTimestamp,terms,files.avatar,currentUserPermissions,isModel'
+            default: 'id,status,name,type,createTimestamp,terms,files.avatar,currentUserPermissions,isModel,isModelPublic'
         },
         tabs: {
             type: String,

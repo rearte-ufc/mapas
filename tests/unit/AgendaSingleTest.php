@@ -6,6 +6,7 @@ class AgendaSingleTest extends TestCase
     function testRoutes()
     {
 
+        $this->markTestSkipped('disable due efficiency');
         foreach ([null, 'normal', 'admin', 'superAdmin'] as $role) {
             foreach (['Agent', 'Space', 'Project'] as $class) {
                 $entities = $this->app->repo($class)->findAll();

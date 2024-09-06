@@ -8,11 +8,12 @@
     "postinstall": "sass src/themes/BaseV1/assets/css/sass/main.scss:src/themes/BaseV1/assets/css/main.css"
   },
   "devDependencies": {
-    "@mapas/scripts": "workspace:0.0.0",
-    "@babel/plugin-transform-runtime": "*",
     "@babel/plugin-proposal-object-rest-spread": "*",
     "@babel/plugin-syntax-dynamic-import": "*",
+    "@babel/plugin-transform-runtime": "*",
     "@babel/preset-env": "*",
+    "@mapas/scripts": "workspace:0.0.0",
+    "cypress": "^13.14.2",
     "fast-glob": "^3.3.2",
     "laravel-mix": "^6.0.49",
     "postcss": "^8.4.38",

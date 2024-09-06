@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y \
     gd \
     mbstring
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 # Clean up to reduce the image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 

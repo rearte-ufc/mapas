@@ -9,6 +9,7 @@ services:
       - database
     environment:
       CACHE_ASSETS_URL: 'false'
+      XDEBUG_MODE: coverage
     ports:
       - 4242:80
     volumes:

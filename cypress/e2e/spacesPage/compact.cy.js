@@ -14,7 +14,7 @@ describe("Homepage compactada", () => {
 describe("Pagina de Espaços", () => {
     beforeEach(() => {
         cy.viewport(1000, 768);
-        cy.visit("https://experimente.mapas.tec.br/espacos/#list");
+        cy.visit("/espacos/#list");
     });
 
     it("clica em \"Acessar\" e entra na pagina no espaço selecionado", () => {

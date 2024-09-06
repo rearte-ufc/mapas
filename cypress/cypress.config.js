@@ -1,7 +1,6 @@
 module.exports = {
   e2e: {
-
-    baseUrl: 'https://experimente.mapas.tec.br/',
+    baseUrl: 'http://localhost:4242',
     chromeWebSecurity: false,
     setupNodeEvents(on, config) {
       // implement node event listeners here

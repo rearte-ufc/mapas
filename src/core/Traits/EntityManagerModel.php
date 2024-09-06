@@ -49,6 +49,33 @@ trait EntityManagerModel {
         $this->json($this->opportunityModel); 
     }
 
+    function GET_findOpportunitiesModels()
+    {
+        $app = App::i();
+        $dataModels = [];
+
+        $opportunities = $app->repo('Opportunity')->findAll();
+        foreach ($opportunities as $opp) {
+            if ($opp->isModel) {
+                $phases = $opp->phases;
+
+                $lastPhase = array_pop($phases);
+                
+                $days = !is_null($opp->registrationFrom) && !is_null($lastPhase->publishTimestamp) ? $lastPhase->publishTimestamp->diff($opp->registrationFrom)->days . " Dia(s)" : 'N/A';
+                $tipoAgente = implode(', ', $opp->registrationProponentTypes);
+                $dataModels[] = [
+                    'id' => $opp->id,
+                    'numeroFases' => count($opp->phases),
+                    'descricao' => $opp->shortDescription,
+                    'tempoEstimado' => $days,
+                    'tipoAgente'   =>  $tipoAgente  
+                ];
+            }
+        }
+
+        echo json_encode($dataModels);
+    }
+
     private function generateModel() : ProjectOpportunity
     {
         $app = App::i();

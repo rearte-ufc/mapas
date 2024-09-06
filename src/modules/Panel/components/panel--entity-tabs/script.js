@@ -8,7 +8,7 @@ app.component('panel--entity-tabs', {
     },
 
     created() {
-        fetch('/api/findOpportunitiesModels')
+        fetch('/opportunity/findOpportunitiesModels')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -72,7 +72,7 @@ app.component('panel--entity-tabs', {
         },
         select: {
             type: String,
-            default: 'id,status,name,type,createTimestamp,terms,files.avatar,currentUserPermissions,isModel'
+            default: 'id,status,name,type,createTimestamp,terms,files.avatar,currentUserPermissions,isModel,isModelPublic'
         },
         tabs: {
             type: String,

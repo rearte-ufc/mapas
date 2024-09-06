@@ -47,9 +47,13 @@ trait EntityOpportunityDuplicator {
         $name = $this->opportunity->name;
         $this->newOpportunity->name = "$name  - [Cópia][$now]";
         $this->newOpportunity->status = Entity::STATUS_DRAFT;
-        $this->newOpportunity->registrationCategories = [];
         $app->em->persist($this->newOpportunity);
         $app->em->flush();
+
+        $this->newOpportunity->registrationCategories = $this->opportunity->registrationCategories;
+        $this->newOpportunity->registrationProponentTypes = $this->opportunity->registrationProponentTypes;
+        $this->newOpportunity->registrationRanges = $this->opportunity->registrationRanges;
+        $this->newOpportunity->save(true);
 
         return $this->newOpportunity;
     }

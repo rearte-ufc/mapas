@@ -4,7 +4,6 @@ namespace MapasCulturais\Traits;
 use MapasCulturais\App;
 use MapasCulturais\Entities\ProjectOpportunity;
 use MapasCulturais\Entity;
-use MapasCulturais\Definitions\Metadata AS DefinitionMetadata;
 
 trait EntityManagerModel {
 
@@ -50,6 +49,33 @@ trait EntityManagerModel {
         $this->json($this->opportunityModel); 
     }
 
+    function GET_findOpportunitiesModels()
+    {
+        $app = App::i();
+        $dataModels = [];
+
+        $opportunities = $app->repo('Opportunity')->findAll();
+        foreach ($opportunities as $opp) {
+            if ($opp->isModel) {
+                $phases = $opp->phases;
+
+                $lastPhase = array_pop($phases);
+                
+                $days = !is_null($opp->registrationFrom) && !is_null($lastPhase->publishTimestamp) ? $lastPhase->publishTimestamp->diff($opp->registrationFrom)->days . " Dia(s)" : 'N/A';
+                $tipoAgente = $opp->registrationProponentTypes ? implode(', ', $opp->registrationProponentTypes) : 'N/A';
+                $dataModels[] = [
+                    'id' => $opp->id,
+                    'numeroFases' => count($opp->phases),
+                    'descricao' => $opp->shortDescription,
+                    'tempoEstimado' => $days,
+                    'tipoAgente'   =>  $tipoAgente  
+                ];
+            }
+        }
+
+        echo json_encode($dataModels);
+    }
+
     private function generateModel() : ProjectOpportunity
     {
         $app = App::i();
@@ -61,14 +87,21 @@ trait EntityManagerModel {
 
         $this->opportunityModel = clone $this->opportunity;
 
-        $this->opportunityModel->setName($name);
-        $this->opportunityModel->setStatus(-1);
-        $this->opportunityModel->setShortDescription($description);
-        $this->opportunityModel->registrationCategories = [];
+        $this->opportunityModel->name = $name;
+        $this->opportunityModel->status = -1;
+        $this->opportunityModel->shortDescription = $description;
         $app->em->persist($this->opportunityModel);
         $app->em->flush();
 
+        // necessário adicionar as categorias, proponetes e ranges após salvar devido a trigger public.fn_propagate_opportunity_insert
+        $this->opportunityModel->registrationCategories = $this->opportunity->registrationCategories;
+        $this->opportunityModel->registrationProponentTypes = $this->opportunity->registrationProponentTypes;
+        $this->opportunityModel->registrationRanges = $this->opportunity->registrationRanges;
+        $this->opportunityModel->save(true);
+
         return $this->opportunityModel;
+
+        
     }
 
     private function generateOpportunity() : ProjectOpportunity
@@ -81,11 +114,16 @@ trait EntityManagerModel {
 
         $this->opportunityModel = clone $this->opportunity;
 
-        $this->opportunityModel->setName($name);
-        $this->opportunityModel->setStatus(0);
-        $this->opportunityModel->registrationCategories = [];
+        $this->opportunityModel->name = $name;
+        $this->opportunityModel->status = Entity::STATUS_DRAFT;
         $app->em->persist($this->opportunityModel);
         $app->em->flush();
+
+        // necessário adicionar as categorias, proponetes e ranges após salvar devido a trigger public.fn_propagate_opportunity_insert
+        $this->opportunityModel->registrationCategories = $this->opportunity->registrationCategories;
+        $this->opportunityModel->registrationProponentTypes = $this->opportunity->registrationProponentTypes;
+        $this->opportunityModel->registrationRanges = $this->opportunity->registrationRanges;
+        $this->opportunityModel->save(true);
 
         return $this->opportunityModel;
     }
@@ -169,7 +207,7 @@ trait EntityManagerModel {
     }
 
 
-    private function generateMetadata($isModel = 1, $isModelOfficial = 0) : void
+    private function generateMetadata($isModel = 1, $isModelPublic = 0) : void
     {
         foreach ($this->opportunity->getMetadata() as $metadataKey => $metadataValue) {
             if (!is_null($metadataValue) && $metadataValue != '') {
@@ -178,7 +216,7 @@ trait EntityManagerModel {
         }
 
         $this->opportunityModel->setMetadata('isModel', $isModel);
-        $this->opportunityModel->setMetadata('isModelOfficial', $isModelOfficial);
+        $this->opportunityModel->setMetadata('isModelPublic', $isModelPublic);
 
         $this->opportunityModel->saveTerms();
     }

@@ -11,7 +11,7 @@ $this->import("
     entity-field
 ");
 ?>
-<div class="grid-12 col-12">
+<div>
     <mc-modal title="<?= i::__('Título do edital') ?>">
         <template #default>
             <div>
@@ -28,7 +28,7 @@ $this->import("
         </template>
 
         <template #button="modal">
-            <button type="button" @click="modal.open();" class="button button--icon button--sm"><?= i::__('Usar modelo') ?></button>
+            <button type="button" @click="modal.open();" class="button button--primary button--icon"><?= i::__('Usar modelo') ?></button>
         </template>
     </mc-modal>
 </div>

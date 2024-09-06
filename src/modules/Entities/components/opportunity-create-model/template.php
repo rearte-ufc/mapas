@@ -16,12 +16,12 @@ $this->import("
             <p>Para salvar um modelo, preencha os campos abaixo.</p><br>
             <div>
                 <div class="field">
-                    <label><?= i::__('Nome do modelo') ?></label>
+                    <label><?= i::__('Nome do modelo') ?><span class="required">*</span></label>
                     <input type="text" v-model="formData.name">
                 </div><br>
 
                 <div class="field">
-                    <label><?= i::__('Breve descrição do modelo') ?></label>
+                    <label><?= i::__('Breve descrição do modelo') ?><span class="required">*</span></label>
                     <textarea placeholder="Breve descrição" v-model="formData.description"></textarea>
                 </div>
             </div>

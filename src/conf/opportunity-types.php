@@ -250,9 +250,9 @@ return array(
             'label' => \MapasCulturais\i::__('É modelo?'),
             'default_value' => 0
         ),
-        'isModelOfficial' => array(
+        'isModelPublic' => array(
             'type' => 'integer',
-            'label' => \MapasCulturais\i::__('É modelo oficial?'),
+            'label' => \MapasCulturais\i::__('É modelo público?'),
         ),
         
     ),

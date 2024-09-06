@@ -12,6 +12,7 @@ $this->import('
     mc-tabs
     panel--entity-card
     registration-card
+    opportunity-create-based-model
 ');
 
 $tabs = $tabs ?? [
@@ -95,11 +96,10 @@ $this->applyComponentHook('.sortOptions', [&$tabs]);
             </template>
             <template #subtitle="{ entity }">
                 <slot name="card-content" :entity="entity">
-                    <span v-if="entity.type && entity.isModel != null">
-                        <span class="card-info">MEU MODELO</span>
+                    <span v-if="entity.type && entity.isModel == 1">
+                        <span class="card-info">{{ entity.isModelPublic == 0 ? 'MEU MODELO' : 'MODELO PÚBLICO' }}</span>
                         <div class="card-desc">
                             <div v-for="model in models" :key="model.id">
-                                
                                 <span v-if="model.id == entity.id">
                                     <p>{{ model.descricao }}</p>
                                     <mc-icon name="project" class="icon-model"></mc-icon> 
@@ -129,7 +129,11 @@ $this->applyComponentHook('.sortOptions', [&$tabs]);
                 <slot name="entity-actions-center" :entity="entity"></slot>
             </template>
             <template #entity-actions-right>
-                <slot name="entity-actions-right" :entity="entity"></slot>
+                <slot name="entity-actions-right" :entity="entity">
+                    <div v-if="entity.currentUserPermissions?.modify && entity.status != -2 && entity.__objectType == 'opportunity' && entity.isModel == 1">
+                        <opportunity-create-based-model :entity="entity" classes="col-12"></opportunity-create-based-model>
+                    </div>
+                </slot>
             </template>
         </panel--entity-card>
     </slot>

@@ -2,30 +2,29 @@
 namespace MapasCulturais\Traits;
 
 use MapasCulturais\App;
-use MapasCulturais\Entities\ProjectOpportunity;
 use MapasCulturais\Entity;
 
 trait EntityManagerModel {
 
-    private ProjectOpportunity $opportunity;
-    private ProjectOpportunity $opportunityModel;
+    private $entityOpportunity;
+    private $entityOpportunityModel;
 
     function ALL_generatemodel(){
         $app = App::i();
 
         $this->requireAuthentication();
-        $this->opportunity = $this->requestedEntity;
-        $this->opportunityModel = $this->generateModel();
+        $this->entityOpportunity = $this->requestedEntity;
+        $this->entityOpportunityModel = $this->generateModel();
 
         $this->generateEvaluationMethods();
         $this->generatePhases();
         $this->generateMetadata();
         $this->generateRegistrationFieldsAndFiles();
 
-        $this->opportunityModel->save(true);
+        $this->entityOpportunityModel->save(true);
         
         if($this->isAjax()){
-            $this->json($this->opportunity);
+            $this->json($this->entityOpportunity);
         }else{
             $app->redirect($app->request->getReferer());
         }
@@ -35,27 +34,34 @@ trait EntityManagerModel {
         $app = App::i();
 
         $this->requireAuthentication();
-        $this->opportunity = $this->requestedEntity;
+        $this->entityOpportunity = $this->requestedEntity;
 
-        $this->opportunityModel = $this->generateOpportunity();
+        $this->entityOpportunityModel = $this->generateOpportunity();
 
         $this->generateEvaluationMethods();
         $this->generatePhases();
         $this->generateMetadata(0, 0);
         $this->generateRegistrationFieldsAndFiles();
 
-        $this->opportunityModel->save(true);
+        $this->entityOpportunityModel->save(true);
        
-        $this->json($this->opportunityModel); 
+        $this->json($this->entityOpportunityModel); 
     }
 
     function GET_findOpportunitiesModels()
     {
         $app = App::i();
         $dataModels = [];
+        
+        $opportunities = $app->em->createQuery("
+            SELECT 
+                op.id
+            FROM
+                MapasCulturais\Entities\Opportunity op
+        ");
 
-        $opportunities = $app->repo('Opportunity')->findAll();
-        foreach ($opportunities as $opp) {
+        foreach ($opportunities->getResult() as $opportunity) {
+            $opp = $app->repo('Opportunity')->find($opportunity['id']);
             if ($opp->isModel) {
                 $phases = $opp->phases;
 
@@ -76,7 +82,7 @@ trait EntityManagerModel {
         echo json_encode($dataModels);
     }
 
-    private function generateModel() : ProjectOpportunity
+    private function generateModel()
     {
         $app = App::i();
 
@@ -85,26 +91,26 @@ trait EntityManagerModel {
         $name = $postData['name'];
         $description = $postData['description'];
 
-        $this->opportunityModel = clone $this->opportunity;
+        $this->entityOpportunityModel = clone $this->entityOpportunity;
 
-        $this->opportunityModel->name = $name;
-        $this->opportunityModel->status = -1;
-        $this->opportunityModel->shortDescription = $description;
-        $app->em->persist($this->opportunityModel);
+        $this->entityOpportunityModel->name = $name;
+        $this->entityOpportunityModel->status = -1;
+        $this->entityOpportunityModel->shortDescription = $description;
+        $app->em->persist($this->entityOpportunityModel);
         $app->em->flush();
 
         // necessário adicionar as categorias, proponetes e ranges após salvar devido a trigger public.fn_propagate_opportunity_insert
-        $this->opportunityModel->registrationCategories = $this->opportunity->registrationCategories;
-        $this->opportunityModel->registrationProponentTypes = $this->opportunity->registrationProponentTypes;
-        $this->opportunityModel->registrationRanges = $this->opportunity->registrationRanges;
-        $this->opportunityModel->save(true);
+        $this->entityOpportunityModel->registrationCategories = $this->entityOpportunity->registrationCategories;
+        $this->entityOpportunityModel->registrationProponentTypes = $this->entityOpportunity->registrationProponentTypes;
+        $this->entityOpportunityModel->registrationRanges = $this->entityOpportunity->registrationRanges;
+        $this->entityOpportunityModel->save(true);
 
-        return $this->opportunityModel;
+        return $this->entityOpportunityModel;
 
         
     }
 
-    private function generateOpportunity() : ProjectOpportunity
+    private function generateOpportunity()
     {
         $app = App::i();
 
@@ -112,20 +118,20 @@ trait EntityManagerModel {
 
         $name = $postData['name'];
 
-        $this->opportunityModel = clone $this->opportunity;
+        $this->entityOpportunityModel = clone $this->entityOpportunity;
 
-        $this->opportunityModel->name = $name;
-        $this->opportunityModel->status = Entity::STATUS_DRAFT;
-        $app->em->persist($this->opportunityModel);
+        $this->entityOpportunityModel->name = $name;
+        $this->entityOpportunityModel->status = Entity::STATUS_DRAFT;
+        $app->em->persist($this->entityOpportunityModel);
         $app->em->flush();
 
         // necessário adicionar as categorias, proponetes e ranges após salvar devido a trigger public.fn_propagate_opportunity_insert
-        $this->opportunityModel->registrationCategories = $this->opportunity->registrationCategories;
-        $this->opportunityModel->registrationProponentTypes = $this->opportunity->registrationProponentTypes;
-        $this->opportunityModel->registrationRanges = $this->opportunity->registrationRanges;
-        $this->opportunityModel->save(true);
+        $this->entityOpportunityModel->registrationCategories = $this->entityOpportunity->registrationCategories;
+        $this->entityOpportunityModel->registrationProponentTypes = $this->entityOpportunity->registrationProponentTypes;
+        $this->entityOpportunityModel->registrationRanges = $this->entityOpportunity->registrationRanges;
+        $this->entityOpportunityModel->save(true);
 
-        return $this->opportunityModel;
+        return $this->entityOpportunityModel;
     }
 
     private function generateEvaluationMethods() : void
@@ -134,11 +140,11 @@ trait EntityManagerModel {
 
         // duplica o método de avaliação para a oportunidade primária
         $evaluationMethodConfigurations = $app->repo('EvaluationMethodConfiguration')->findBy([
-            'opportunity' => $this->opportunity
+            'opportunity' => $this->entityOpportunity
         ]);
         foreach ($evaluationMethodConfigurations as $evaluationMethodConfiguration) {
             $newMethodConfiguration = clone $evaluationMethodConfiguration;
-            $newMethodConfiguration->setOpportunity($this->opportunityModel);
+            $newMethodConfiguration->setOpportunity($this->entityOpportunityModel);
             $newMethodConfiguration->save(true);
 
             // duplica os metadados das configurações do modelo de avaliação
@@ -154,12 +160,12 @@ trait EntityManagerModel {
         $app = App::i();
 
         $phases = $app->repo('Opportunity')->findBy([
-            'parent' => $this->opportunity
+            'parent' => $this->entityOpportunity
         ]);
         foreach ($phases as $phase) {
             if (!$phase->getMetadata('isLastPhase')) {
                 $newPhase = clone $phase;
-                $newPhase->setParent($this->opportunityModel);
+                $newPhase->setParent($this->entityOpportunityModel);
 
                 foreach ($phase->getMetadata() as $metadataKey => $metadataValue) {
                     if (!is_null($metadataValue) && $metadataValue != '') {
@@ -194,7 +200,7 @@ trait EntityManagerModel {
 
         if (isset($publishDate)) {
             $phases = $app->repo('Opportunity')->findBy([
-                'parent' => $this->opportunityModel
+                'parent' => $this->entityOpportunityModel
             ]);
     
             foreach ($phases as $phase) {
@@ -209,29 +215,29 @@ trait EntityManagerModel {
 
     private function generateMetadata($isModel = 1, $isModelPublic = 0) : void
     {
-        foreach ($this->opportunity->getMetadata() as $metadataKey => $metadataValue) {
+        foreach ($this->entityOpportunity->getMetadata() as $metadataKey => $metadataValue) {
             if (!is_null($metadataValue) && $metadataValue != '') {
-                $this->opportunityModel->setMetadata($metadataKey, $metadataValue);
+                $this->entityOpportunityModel->setMetadata($metadataKey, $metadataValue);
             }
         }
 
-        $this->opportunityModel->setMetadata('isModel', $isModel);
-        $this->opportunityModel->setMetadata('isModelPublic', $isModelPublic);
+        $this->entityOpportunityModel->setMetadata('isModel', $isModel);
+        $this->entityOpportunityModel->setMetadata('isModelPublic', $isModelPublic);
 
-        $this->opportunityModel->saveTerms();
+        $this->entityOpportunityModel->saveTerms();
     }
 
     private function generateRegistrationFieldsAndFiles() : void
     {
-        foreach ($this->opportunity->getRegistrationFieldConfigurations() as $registrationFieldConfiguration) {
+        foreach ($this->entityOpportunity->getRegistrationFieldConfigurations() as $registrationFieldConfiguration) {
             $fieldConfiguration = clone $registrationFieldConfiguration;
-            $fieldConfiguration->setOwnerId($this->opportunityModel->getId());
+            $fieldConfiguration->setOwnerId($this->entityOpportunityModel->getId());
             $fieldConfiguration->save(true);
         }
 
-        foreach ($this->opportunity->getRegistrationFileConfigurations() as $registrationFileConfiguration) {
+        foreach ($this->entityOpportunity->getRegistrationFileConfigurations() as $registrationFileConfiguration) {
             $fileConfiguration = clone $registrationFileConfiguration;
-            $fileConfiguration->setOwnerId($this->opportunityModel->getId());
+            $fileConfiguration->setOwnerId($this->entityOpportunityModel->getId());
             $fileConfiguration->save(true);
         }
 

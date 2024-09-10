@@ -7,15 +7,15 @@ use MapasCulturais\Entity;
 
 trait EntityOpportunityDuplicator {
 
-    private ProjectOpportunity $opportunity;
-    private ProjectOpportunity $newOpportunity;
+    private $entityOpportunity;
+    private $entityNewOpportunity;
 
     function ALL_duplicate(){
         $app = App::i();
 
         $this->requireAuthentication();
-        $this->opportunity = $this->requestedEntity;
-        $this->newOpportunity = $this->cloneOpportunity();
+        $this->entityOpportunity = $this->requestedEntity;
+        $this->entityNewOpportunity = $this->cloneOpportunity();
 
 
         $this->duplicateEvaluationMethods();
@@ -27,35 +27,35 @@ trait EntityOpportunityDuplicator {
         $this->duplicateAgentRelations();
         $this->duplicateSealsRelations();
 
-        $this->newOpportunity->save(true);
+        $this->entityNewOpportunity->save(true);
        
         if($this->isAjax()){
-            $this->json($this->opportunity);
+            $this->json($this->entityOpportunity);
         }else{
             $app->redirect($app->request->getReferer());
         }
     }
 
-    private function cloneOpportunity() : ProjectOpportunity
+    private function cloneOpportunity()
     {
         $app = App::i();
 
-        $this->newOpportunity = clone $this->opportunity;
+        $this->entityNewOpportunity = clone $this->entityOpportunity;
 
         $dateTime = new \DateTime();
         $now = $dateTime->format('d-m-Y H:i:s');
-        $name = $this->opportunity->name;
-        $this->newOpportunity->name = "$name  - [Cópia][$now]";
-        $this->newOpportunity->status = Entity::STATUS_DRAFT;
-        $app->em->persist($this->newOpportunity);
+        $name = $this->entityOpportunity->name;
+        $this->entityNewOpportunity->name = "$name  - [Cópia][$now]";
+        $this->entityNewOpportunity->status = Entity::STATUS_DRAFT;
+        $app->em->persist($this->entityNewOpportunity);
         $app->em->flush();
 
-        $this->newOpportunity->registrationCategories = $this->opportunity->registrationCategories;
-        $this->newOpportunity->registrationProponentTypes = $this->opportunity->registrationProponentTypes;
-        $this->newOpportunity->registrationRanges = $this->opportunity->registrationRanges;
-        $this->newOpportunity->save(true);
+        $this->entityNewOpportunity->registrationCategories = $this->entityOpportunity->registrationCategories;
+        $this->entityNewOpportunity->registrationProponentTypes = $this->entityOpportunity->registrationProponentTypes;
+        $this->entityNewOpportunity->registrationRanges = $this->entityOpportunity->registrationRanges;
+        $this->entityNewOpportunity->save(true);
 
-        return $this->newOpportunity;
+        return $this->entityNewOpportunity;
     }
 
     private function duplicateEvaluationMethods() : void
@@ -64,11 +64,11 @@ trait EntityOpportunityDuplicator {
 
         // duplica o método de avaliação para a oportunidade primária
         $evaluationMethodConfigurations = $app->repo('EvaluationMethodConfiguration')->findBy([
-            'opportunity' => $this->opportunity
+            'opportunity' => $this->entityOpportunity
         ]);
         foreach ($evaluationMethodConfigurations as $evaluationMethodConfiguration) {
             $newMethodConfiguration = clone $evaluationMethodConfiguration;
-            $newMethodConfiguration->setOpportunity($this->newOpportunity);
+            $newMethodConfiguration->setOpportunity($this->entityNewOpportunity);
             $newMethodConfiguration->save(true);
 
             // duplica os metadados das configurações do modelo de avaliação
@@ -90,12 +90,12 @@ trait EntityOpportunityDuplicator {
         $app = App::i();
 
         $phases = $app->repo('Opportunity')->findBy([
-            'parent' => $this->opportunity
+            'parent' => $this->entityOpportunity
         ]);
         foreach ($phases as $phase) {
             if (!$phase->getMetadata('isLastPhase')) {
                 $newPhase = clone $phase;
-                $newPhase->setParent($this->newOpportunity);
+                $newPhase->setParent($this->entityNewOpportunity);
 
                 // duplica os metadados das fases
                 foreach ($phase->getMetadata() as $metadataKey => $metadataValue) {
@@ -138,7 +138,7 @@ trait EntityOpportunityDuplicator {
 
         if (isset($publishDate)) {
             $phases = $app->repo('Opportunity')->findBy([
-                'parent' => $this->newOpportunity
+                'parent' => $this->entityNewOpportunity
             ]);
     
             foreach ($phases as $phase) {
@@ -152,28 +152,28 @@ trait EntityOpportunityDuplicator {
 
     private function duplicateMetadata() : void
     {
-        foreach ($this->opportunity->getMetadata() as $metadataKey => $metadataValue) {
+        foreach ($this->entityOpportunity->getMetadata() as $metadataKey => $metadataValue) {
             if (!is_null($metadataValue) && $metadataValue != '') {
-                $this->newOpportunity->setMetadata($metadataKey, $metadataValue);
+                $this->entityNewOpportunity->setMetadata($metadataKey, $metadataValue);
             }
         }
 
-        $this->newOpportunity->setTerms(['area' => $this->opportunity->terms['area']]);
-        $this->newOpportunity->setTerms(['tag' => $this->opportunity->terms['tag']]);
-        $this->newOpportunity->saveTerms();
+        $this->entityNewOpportunity->setTerms(['area' => $this->entityOpportunity->terms['area']]);
+        $this->entityNewOpportunity->setTerms(['tag' => $this->entityOpportunity->terms['tag']]);
+        $this->entityNewOpportunity->saveTerms();
     }
    
     private function duplicateRegistrationFieldsAndFiles() : void
     {
-        foreach ($this->opportunity->getRegistrationFieldConfigurations() as $registrationFieldConfiguration) {
+        foreach ($this->entityOpportunity->getRegistrationFieldConfigurations() as $registrationFieldConfiguration) {
             $fieldConfiguration = clone $registrationFieldConfiguration;
-            $fieldConfiguration->setOwnerId($this->newOpportunity->getId());
+            $fieldConfiguration->setOwnerId($this->entityNewOpportunity->getId());
             $fieldConfiguration->save(true);
         }
 
-        foreach ($this->opportunity->getRegistrationFileConfigurations() as $registrationFileConfiguration) {
+        foreach ($this->entityOpportunity->getRegistrationFileConfigurations() as $registrationFileConfiguration) {
             $fileConfiguration = clone $registrationFileConfiguration;
-            $fileConfiguration->setOwnerId($this->newOpportunity->getId());
+            $fileConfiguration->setOwnerId($this->entityNewOpportunity->getId());
             $fileConfiguration->save(true);
         }
 
@@ -181,10 +181,10 @@ trait EntityOpportunityDuplicator {
 
     private function duplicateMetalist() : void
     {
-        foreach ($this->opportunity->getMetaLists() as $metaList_) {
+        foreach ($this->entityOpportunity->getMetaLists() as $metaList_) {
             foreach ($metaList_ as $metaList__) {
                 $metalist = clone $metaList__;
-                $metalist->setOwner($this->newOpportunity);
+                $metalist->setOwner($this->entityNewOpportunity);
             
                 $metalist->save(true);
             }
@@ -196,29 +196,29 @@ trait EntityOpportunityDuplicator {
         $app = App::i();
 
         $opportunityFiles = $app->repo('OpportunityFile')->findBy([
-            'owner' => $this->opportunity
+            'owner' => $this->entityOpportunity
         ]);
 
         foreach ($opportunityFiles as $opportunityFile) {
             $newMethodOpportunityFile = clone $opportunityFile;
-            $newMethodOpportunityFile->owner = $this->newOpportunity;
+            $newMethodOpportunityFile->owner = $this->entityNewOpportunity;
             $newMethodOpportunityFile->save(true);
         }
     }
 
     private function duplicateAgentRelations() : void
     {
-        foreach ($this->opportunity->getAgentRelations() as $agentRelation_) {
+        foreach ($this->entityOpportunity->getAgentRelations() as $agentRelation_) {
             $agentRelation = clone $agentRelation_;
-            $agentRelation->owner = $this->newOpportunity;
+            $agentRelation->owner = $this->entityNewOpportunity;
             $agentRelation->save(true);
         }
     }
 
     private function duplicateSealsRelations() : void
     {
-        foreach ($this->opportunity->getSealRelations() as $sealRelation) {
-            $this->newOpportunity->createSealRelation($sealRelation->seal, true, true);
+        foreach ($this->entityOpportunity->getSealRelations() as $sealRelation) {
+            $this->entityNewOpportunity->createSealRelation($sealRelation->seal, true, true);
         }
     }
 }

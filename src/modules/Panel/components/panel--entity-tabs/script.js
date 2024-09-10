@@ -6,23 +6,6 @@ app.component('panel--entity-tabs', {
         const hasSlot = name => !!slots[name]
         return { hasSlot }
     },
-
-    created() {
-        fetch('/opportunity/findOpportunitiesModels')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            this.models = data;
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-    },
-
     data() {
         let query = {};
 
@@ -57,8 +40,6 @@ app.component('panel--entity-tabs', {
                 archived: { status: 'EQ(-2)', ...query },
             },
             showPrivateKey: false,
-            models: [],
-
         }
     },
     computed: {

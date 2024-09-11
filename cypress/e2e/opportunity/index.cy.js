@@ -7,96 +7,96 @@ describe("Opportunity Page", () => {
     cy.viewport(1920, 1080);
   });
 
-  // it("Garante que é possível criar oportunidades", () => {
-  //   cy.visit("/autenticacao");
-  //   login();
-  //   cy.visit("/oportunidades");
-  //   cy.get(
-  //     "header > div > div.search__header--content--right > button"
-  //   ).click();
-  //   cy.get("div.modal__content form select")
-  //     .should("be.visible")
-  //     .select("Mostra");
-  //   cy.get(
-  //     "div > div.modal__content > form > div:nth-child(2) > input[type=text]"
-  //   ).type("TesteCypress");
-  //   cy.get("div > div.mc-multiselect > div > div > button").click();
-  //   cy.get("div > div > ul > li:nth-child(7) > label > input").click({
-  //     force: true,
-  //   });
-  //   cy.get("div > div > ul > li:nth-child(31) > label > input").click({
-  //     force: true,
-  //   });
-  //   cy.get("div > div.mc-multiselect > div > div > button").click();
-  //   cy.get(
-  //     "div > div.modal__content > form > div.select-list > div:nth-child(5) > div > div"
-  //   ).click();
-  //   cy.wait(1000);
-  //   cy.contains("Admin@local").click();
-  //   cy.get(
-  //     "div > div.modal__action > button.button.button--primary.button--icon"
-  //   ).click();
-  //   cy.contains("Completar Informações").click();
-  //   cy.get("div.dp__input_wrap input").first().type("12/12/2023 14:30");
-  //   cy.get("div.dp__input_wrap input").eq(1).type("12/12/2030 14:30");
-  //   cy.get(
-  //     "#main-app > div.main-app > div.tabs-component.tabs > div.tabs-component__panels > section > div.container > main > article > main > div > div:nth-child(4) > div > textarea"
-  //   ).type("teste");
-  //   cy.wait(1000);
-  //   cy.get(
-  //     "div.entity-actions > div > div:nth-child(2) > button:nth-child(5)"
-  //   ).click({ force: true });
-  //   cy.wait(1000);
-  //   cy.get(
-  //     "div.vfm__container.vfm--absolute.vfm--inset.vfm--outline-none.modal-container.modal-confirm > div > div.modal__action > button.button.button--primary"
-  //   ).click();
-  //   cy.wait(1000);
+  it("Garante que é possível criar oportunidades", () => {
+    cy.visit("/autenticacao");
+    login();
+    cy.visit("/oportunidades");
+    cy.get(
+      "header > div > div.search__header--content--right > button"
+    ).click();
+    cy.get("div.modal__content form select")
+      .should("be.visible")
+      .select("Mostra");
+    cy.get(
+      "div > div.modal__content > form > div:nth-child(2) > input[type=text]"
+    ).type("TesteCypress");
+    cy.get("div > div.mc-multiselect > div > div > button").click();
+    cy.get("div > div > ul > li:nth-child(7) > label > input").click({
+      force: true,
+    });
+    cy.get("div > div > ul > li:nth-child(31) > label > input").click({
+      force: true,
+    });
+    cy.get("div > div.mc-multiselect > div > div > button").click();
+    cy.get(
+      "div > div.modal__content > form > div.select-list > div:nth-child(5) > div > div"
+    ).click();
+    cy.wait(1000);
+    cy.contains("Admin@local").click();
+    cy.get(
+      "div > div.modal__action > button.button.button--primary.button--icon"
+    ).click();
+    cy.contains("Completar Informações").click();
+    cy.get("div.dp__input_wrap input").first().type("12/12/2023 14:30");
+    cy.get("div.dp__input_wrap input").eq(1).type("12/12/2030 14:30");
+    cy.get(
+      "#main-app > div.main-app > div.tabs-component.tabs > div.tabs-component__panels > section > div.container > main > article > main > div > div:nth-child(4) > div > textarea"
+    ).type("teste");
+    cy.wait(1000);
+    cy.get(
+      "div.entity-actions > div > div:nth-child(2) > button:nth-child(5)"
+    ).click({ force: true });
+    cy.wait(1000);
+    cy.get(
+      "div.vfm__container.vfm--absolute.vfm--inset.vfm--outline-none.modal-container.modal-confirm > div > div.modal__action > button.button.button--primary"
+    ).click();
+    cy.wait(1000);
 
-  //   //segunda oportunidade
-  //   cy.visit("/oportunidades");
-  //   cy.get(
-  //     "header > div > div.search__header--content--right > button"
-  //   ).click();
-  //   cy.get("div.modal__content form select")
-  //     .should("be.visible")
-  //     .select("Concurso");
-  //   cy.get(
-  //     "div > div.modal__content > form > div:nth-child(2) > input[type=text]"
-  //   ).type("TesteCypress2");
-  //   cy.get("div > div.mc-multiselect > div > div > button").click();
-  //   cy.get("div > div > ul > li:nth-child(7) > label > input").click({
-  //     force: true,
-  //   });
-  //   cy.get("div > div > ul > li:nth-child(31) > label > input").click({
-  //     force: true,
-  //   });
-  //   cy.get("div > div.mc-multiselect > div > div > button").click();
-  //   cy.get(
-  //     "div > div.modal__content > form > div.select-list > div:nth-child(5) > div > div"
-  //   ).click();
-  //   cy.wait(1000);
-  //   cy.contains("Admin@local").click();
-  //   cy.get(
-  //     "div > div.modal__action > button.button.button--primary.button--icon"
-  //   ).click();
-  //   cy.contains("Completar Informações").click();
-  //   cy.get("div.dp__input_wrap input").first().type("12/12/2029 14:30");
-  //   cy.get("div.dp__input_wrap input").eq(1).type("12/12/2030 14:30");
-  //   cy.get(
-  //     "#main-app > div.main-app > div.tabs-component.tabs > div.tabs-component__panels > section > div.container > main > article > main > div > div:nth-child(4) > div > textarea"
-  //   ).type("teste");
-  //   cy.get('.entity-seals__seals--addSeal').first().click();
-  //   cy.contains("Selo Mapas").click();
-  //   cy.wait(1000);
-  //   cy.get(
-  //     "div.entity-actions > div > div:nth-child(2) > button:nth-child(5)"
-  //   ).click({ force: true });
-  //   cy.wait(1000);
-  //   cy.get(
-  //     "div.vfm__container.vfm--absolute.vfm--inset.vfm--outline-none.modal-container.modal-confirm > div > div.modal__action > button.button.button--primary"
-  //   ).click();
-  //   cy.wait(1000);
-  // });
+    //segunda oportunidade
+    cy.visit("/oportunidades");
+    cy.get(
+      "header > div > div.search__header--content--right > button"
+    ).click();
+    cy.get("div.modal__content form select")
+      .should("be.visible")
+      .select("Concurso");
+    cy.get(
+      "div > div.modal__content > form > div:nth-child(2) > input[type=text]"
+    ).type("TesteCypress2");
+    cy.get("div > div.mc-multiselect > div > div > button").click();
+    cy.get("div > div > ul > li:nth-child(7) > label > input").click({
+      force: true,
+    });
+    cy.get("div > div > ul > li:nth-child(31) > label > input").click({
+      force: true,
+    });
+    cy.get("div > div.mc-multiselect > div > div > button").click();
+    cy.get(
+      "div > div.modal__content > form > div.select-list > div:nth-child(5) > div > div"
+    ).click();
+    cy.wait(1000);
+    cy.contains("Admin@local").click();
+    cy.get(
+      "div > div.modal__action > button.button.button--primary.button--icon"
+    ).click();
+    cy.contains("Completar Informações").click();
+    cy.get("div.dp__input_wrap input").first().type("12/12/2029 14:30");
+    cy.get("div.dp__input_wrap input").eq(1).type("12/12/2030 14:30");
+    cy.get(
+      "#main-app > div.main-app > div.tabs-component.tabs > div.tabs-component__panels > section > div.container > main > article > main > div > div:nth-child(4) > div > textarea"
+    ).type("teste");
+    cy.get('.entity-seals__seals--addSeal').first().click();
+    cy.contains("Selo Mapas").click();
+    cy.wait(1000);
+    cy.get(
+      "div.entity-actions > div > div:nth-child(2) > button:nth-child(5)"
+    ).click({ force: true });
+    cy.wait(1000);
+    cy.get(
+      "div.vfm__container.vfm--absolute.vfm--inset.vfm--outline-none.modal-container.modal-confirm > div > div.modal__action > button.button.button--primary"
+    ).click();
+    cy.wait(1000);
+  });
 
   it("Garante que a oportunidades funciona", () => {
     cy.visit("/");

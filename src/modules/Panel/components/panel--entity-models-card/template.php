@@ -15,7 +15,7 @@ $this->import('
 
 ');
 ?>
-<article class="panel__row panel-entity-card" :class="{classes, 'col-6': entity.isModel == 1}">
+<article class="panel__row panel-entity-card col-6" v-if="showModel">
     <header class="panel-entity-card__header">
         <div class="left">
             <slot name="picture" :entity="entity">
@@ -44,7 +44,7 @@ $this->import('
         <div class="card-desc">
             <div v-for="model in models" :key="model.id">
                 <span v-if="model.id == entity.id">
-                    <p>{{ model.descricao }}</p>
+                    <p>{{ model.descricao.substring(0, 150) }}</p>
                     <mc-icon name="project" class="icon-model"></mc-icon> 
                     <strong><?=i::__('Tipo de Oportunidade: ')?></strong>{{ entity.type.name }}
                     <br>
@@ -56,6 +56,14 @@ $this->import('
                     <br>
                     <mc-icon name="agent" class="icon-model"></mc-icon>
                     <strong><?=i::__('Tipo de agente: ')?></strong> {{ model.tipoAgente }}
+                    <br><br>
+                    <?php if($app->user->is('admin')): ?>
+                    <label v-if="entity.currentUserPermissions?.modify">
+                        <input type="checkbox" v-model="isModelPublic" />
+                        <?= i::__("Modelo público") ?>
+                    </label>
+                    <br><br>
+                    <?php endif; ?>
                 </span>
             </div>
         </div>
@@ -77,7 +85,7 @@ $this->import('
                     <slot name="entity-actions-center" >
                     </slot>
                     <slot name="entity-actions-right" >
-                        <div v-if="entity.currentUserPermissions?.modify && entity.status != -2 && entity.__objectType == 'opportunity' && entity.isModel == 1">
+                        <div v-if="showModel && entity.status != -2 && entity.__objectType == 'opportunity' && entity.isModel == 1">
                             <opportunity-create-based-model :entity="entity" classes="col-12"></opportunity-create-based-model>
                         </div>
                     </slot>

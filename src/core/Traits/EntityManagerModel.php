@@ -36,6 +36,7 @@ trait EntityManagerModel {
         $this->requireAuthentication();
         $this->entityOpportunity = $this->requestedEntity;
 
+        $app->disableAccessControl();
         $this->entityOpportunityModel = $this->generateOpportunity();
 
         $this->generateEvaluationMethods();
@@ -45,6 +46,8 @@ trait EntityManagerModel {
 
         $this->entityOpportunityModel->save(true);
        
+        $app->enableAccessControl();
+
         $this->json($this->entityOpportunityModel); 
     }
 
@@ -82,6 +85,21 @@ trait EntityManagerModel {
         echo json_encode($dataModels);
     }
 
+    function POST_modelpublic(){
+        $app = App::i();
+
+        $this->requireAuthentication();
+        $this->entityOpportunity = $this->requestedEntity;
+
+        $isModelPublic = $this->postData['isModelPublic'];
+    
+        $this->entityOpportunity->setMetadata('isModelPublic', $isModelPublic);
+        $this->entityOpportunity->saveTerms();
+        $this->entityOpportunity->save(true);
+       
+        $this->json($isModelPublic); 
+    }
+
     private function generateModel()
     {
         $app = App::i();
@@ -113,17 +131,18 @@ trait EntityManagerModel {
     private function generateOpportunity()
     {
         $app = App::i();
-
         $postData = $this->postData;
 
         $name = $postData['name'];
-
+        
         $this->entityOpportunityModel = clone $this->entityOpportunity;
-
         $this->entityOpportunityModel->name = $name;
         $this->entityOpportunityModel->status = Entity::STATUS_DRAFT;
+        $this->entityOpportunityModel->owner = $app->user->profile;
         $app->em->persist($this->entityOpportunityModel);
         $app->em->flush();
+
+        
 
         // necessário adicionar as categorias, proponetes e ranges após salvar devido a trigger public.fn_propagate_opportunity_insert
         $this->entityOpportunityModel->registrationCategories = $this->entityOpportunity->registrationCategories;
@@ -158,14 +177,15 @@ trait EntityManagerModel {
     private function generatePhases() : void
     {
         $app = App::i();
-
         $phases = $app->repo('Opportunity')->findBy([
             'parent' => $this->entityOpportunity
         ]);
         foreach ($phases as $phase) {
+            
             if (!$phase->getMetadata('isLastPhase')) {
                 $newPhase = clone $phase;
                 $newPhase->setParent($this->entityOpportunityModel);
+                $newPhase->owner = $app->user->profile;
 
                 foreach ($phase->getMetadata() as $metadataKey => $metadataValue) {
                     if (!is_null($metadataValue) && $metadataValue != '') {
@@ -192,6 +212,7 @@ trait EntityManagerModel {
                     }
                 }
             }
+            
 
             if ($phase->getMetadata('isLastPhase')) {
                 $publishDate = $phase->getPublishTimestamp();
@@ -209,7 +230,7 @@ trait EntityManagerModel {
                     $phase->save(true);
                 }
             }
-        }       
+        }   
     }
 
 

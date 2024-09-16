@@ -15,15 +15,15 @@ $this->import('
 
 ');
 ?>
-<article class="panel__row panel-entity-card col-6" v-if="showModel">
-    <header class="panel-entity-card__header">
+<article class="panel__row panel-entity-models-card col-6" v-if="showModel">
+    <header class="panel-entity-models-card__header">
         <div class="left">
             <slot name="picture" :entity="entity">
                 <mc-avatar :entity="entity" size="medium"></mc-avatar>
             </slot>
-            <div class="panel-entity-card__header--info">
+            <div class="panel-entity-models-card__header--info">
                 <slot name="title" :entity="entity">
-                    <a :href="entity.singleUrl" class="panel-entity-card__header--info-link">
+                    <a :href="entity.singleUrl" class="panel-entity-models-card__header--info-link">
                         <mc-title tag="h2" :shortLength="100" :longLength="110">
                             {{ entity.name }}
                         </mc-title>
@@ -32,14 +32,14 @@ $this->import('
             </div>
         </div>
         <div class="right">
-            <div class="panel-entity-card__header-actions">
+            <div class="panel-entity-models-card__header-actions">
                 <slot name="header-actions" :entity="entity">
                     {{ entity.isModelPublic == 0 ? 'MEU MODELO' : 'MODELO PÚBLICO' }}
                 </slot>
             </div>
         </div>
     </header>
-    <main class="panel-entity-card__main">
+    <main class="panel-entity-models-card__main">
         <span class="card-info"></span>
         <div class="card-desc">
             <div v-for="model in models" :key="model.id">
@@ -68,10 +68,10 @@ $this->import('
             </div>
         </div>
     </main>
-    <footer class="panel-entity-card__footer">
-        <div class="panel-entity-card__footer-actions">
+    <footer class="panel-entity-models-card__footer">
+        <div class="panel-entity-models-card__footer-actions">
             <slot name="footer-actions">
-                <div class="panel-entity-card__footer-actions left">
+                <div class="panel-entity-models-card__footer-actions left">
                     <slot name="entity-actions-left" :entity="entity">
                         <panel--entity-actions 
                             :entity="entity" 
@@ -81,7 +81,7 @@ $this->import('
                         ></panel--entity-actions>
                     </slot>
                 </div>
-                <div class="panel-entity-card__footer-actions right">
+                <div class="panel-entity-models-card__footer-actions right">
                     <slot name="entity-actions-center" >
                     </slot>
                     <slot name="entity-actions-right" >

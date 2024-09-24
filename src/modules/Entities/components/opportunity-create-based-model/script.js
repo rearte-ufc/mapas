@@ -23,8 +23,6 @@ app.component('opportunity-create-based-model', {
 
     methods: {
         async save() {
-            this.__processing = this.text('Gerando oportunidade baseado no modelo...');
-
             const api = new API(this.entity.__objectType);
 
             let objt = this.formData;
@@ -40,9 +38,13 @@ app.component('opportunity-create-based-model', {
             }
 
             await api.POST(`/opportunity/generateopportunity/${objt.entityId}`, objt).then(response => response.json().then(dataReturn => {
-                this.messages.success(this.text('Oportunidade gerada com sucesso'));
+                this.messages.success(this.text('Aguarde, estamos gerando a oportunidade baseada no modelo.'));
+
                 this.sendSuccess = true;
-                window.location.href = `/gestao-de-oportunidade/${dataReturn.id}/#info`;
+
+                setTimeout(() => {
+                    window.location.href = `/gestao-de-oportunidade/${dataReturn.id}/#info`;
+                }, "5000");                
             }));
         },
         validade(objt) {

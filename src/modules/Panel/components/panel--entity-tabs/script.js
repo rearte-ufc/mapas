@@ -26,7 +26,7 @@ app.component('panel--entity-tabs', {
 
         if (this.user) {
             query.user = `EQ(${this.user})`
-            queryGetModel.user = `EQ(${this.user})`
+            // queryGetModel.user = `EQ(${this.user})`
         }
 
         return {
@@ -42,10 +42,6 @@ app.component('panel--entity-tabs', {
             showPrivateKey: false,
         }
     },
-    computed: {
-        
-    },
-
     props: {
         type: String,
         user: {
@@ -54,7 +50,7 @@ app.component('panel--entity-tabs', {
         },
         select: {
             type: String,
-            default: 'id,status,name,type,createTimestamp,terms,files.avatar,currentUserPermissions,isModel,isModelPublic'
+            default: 'id,status,name,type,createTimestamp,terms,files.avatar,currentUserPermissions,isModel,isModelPublic,owner'
         },
         tabs: {
             type: String,
@@ -62,9 +58,7 @@ app.component('panel--entity-tabs', {
         },
 
     },
-
     methods: {
-        
         showTab(status) {
             const tabs = this.tabs.split(',');
 

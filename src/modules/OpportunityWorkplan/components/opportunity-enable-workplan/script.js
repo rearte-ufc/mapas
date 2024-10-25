@@ -29,24 +29,21 @@ app.component('opportunity-enable-workplan', {
             this.entity.save(3000);
         },
         disabledWorkPlan(){
-            this.entity.dataProjectlimitMaximumDurationOfProjects = false;
-            this.entity.dataProjectmaximumDurationInMonths = 0;
-            this.entity.metaInformTheStageOfCulturalMaking = false;
-            this.entity.metaLimitNumberOfGoals = false;
-            this.entity.metaMaximumNumberOfGoals = 0;
-            this.entity.deliveryReportTheDeliveriesLinkedToTheGoals = false;
-            this.entity.deliveryReportTheNumberOfParticipants = false;
-            this.entity.deliveryReportExpectedRenevue = false;
-            this.entity.monitoringInformAccessibilityMeasures = false;
-            this.entity.monitoringProvideTheProfileOfParticipants = false;
-            this.entity.monitoringInformThePriorityAudience = false;
-            this.entity.monitoringInformDeliveryType = false;
-            this.entity.monitoringReportExecutedRevenue = false;
-            this.entity.monitoringLimitNumberOfDeliveries = false;
-            this.entity.monitoringMaximumNumberOfDeliveries = 0;
+            this.entity.workplan_dataProjectlimitMaximumDurationOfProjects = false;
+            this.entity.workplan_dataProjectmaximumDurationInMonths = 0;
+            this.entity.workplan_metaInformTheStageOfCulturalMaking = false;
+            this.entity.workplan_metaLimitNumberOfGoals = false;
+            this.entity.workplan_metaMaximumNumberOfGoals = 0;
+            this.entity.workplan_deliveryReportTheDeliveriesLinkedToTheGoals = false;
+            this.entity.workplan_deliveryReportTheNumberOfParticipants = false;
+            this.entity.workplan_deliveryReportExpectedRenevue = false;
+            this.entity.workplan_monitoringInformAccessibilityMeasures = false;
+            this.entity.workplan_monitoringProvideTheProfileOfParticipants = false;
+            this.entity.workplan_monitoringInformThePriorityAudience = false;
+            this.entity.workplan_monitoringInformDeliveryType = false;
+            this.entity.workplan_monitoringReportExecutedRevenue = false;
+            this.entity.workplan_monitoringLimitNumberOfDeliveries = false;
+            this.entity.workplan_monitoringMaximumNumberOfDeliveries = 0;
         }
     },
-    computed: {
-
-    }
 })

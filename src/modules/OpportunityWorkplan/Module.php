@@ -24,89 +24,89 @@ class Module extends \MapasCulturais\Module{
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('dataProjectlimitMaximumDurationOfProjects', [
+        $this->registerOpportunityMetadata('workplan_dataProjectlimitMaximumDurationOfProjects', [
             'label' => i::__('Limitar duração máxima dos projetos'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('dataProjectmaximumDurationInMonths', [
+        $this->registerOpportunityMetadata('workplan_dataProjectmaximumDurationInMonths', [
             'label' => i::__('Duração máxima em meses'),
             'type' => 'integer'
         ]);
 
-        $this->registerOpportunityMetadata('metaInformTheStageOfCulturalMaking', [
+        $this->registerOpportunityMetadata('workplan_metaInformTheStageOfCulturalMaking', [
             'label' => i::__('Informar a etapa do fazer cultural'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('metaLimitNumberOfGoals', [
+        $this->registerOpportunityMetadata('workplan_metaLimitNumberOfGoals', [
             'label' => i::__('Limitar número de metas'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('metaMaximumNumberOfGoals', [
+        $this->registerOpportunityMetadata('workplan_metaMaximumNumberOfGoals', [
             'label' => i::__('Número máximo de metas'),
             'type' => 'integer'
         ]);
 
-        $this->registerOpportunityMetadata('deliveryReportTheDeliveriesLinkedToTheGoals', [
+        $this->registerOpportunityMetadata('workplan_deliveryReportTheDeliveriesLinkedToTheGoals', [
             'label' => i::__('Informar as entregas vinculadas à meta'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('deliveryReportTheNumberOfParticipants', [
+        $this->registerOpportunityMetadata('workplan_deliveryReportTheNumberOfParticipants', [
             'label' => i::__('Informar a quantidade de participantes'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('deliveryReportExpectedRenevue', [
+        $this->registerOpportunityMetadata('workplan_deliveryReportExpectedRenevue', [
             'label' => i::__('Informar receita prevista'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('monitoringInformAccessibilityMeasures', [
+        $this->registerOpportunityMetadata('workplan_monitoringInformAccessibilityMeasures', [
             'label' => i::__('Informar as medidas de acessibilidade'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('monitoringProvideTheProfileOfParticipants', [
+        $this->registerOpportunityMetadata('workplan_monitoringProvideTheProfileOfParticipants', [
             'label' => i::__('Informar o perfil dos participantes'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('monitoringInformThePriorityAudience', [
+        $this->registerOpportunityMetadata('workplan_monitoringInformThePriorityAudience', [
             'label' => i::__('Informar o público prioritário'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('monitoringInformDeliveryType', [
+        $this->registerOpportunityMetadata('workplan_monitoringInformDeliveryType', [
             'label' => i::__('Informar tipo de entrega'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('monitoringReportExecutedRevenue', [
+        $this->registerOpportunityMetadata('workplan_monitoringReportExecutedRevenue', [
             'label' => i::__('Informar receita executada'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('monitoringLimitNumberOfDeliveries', [
+        $this->registerOpportunityMetadata('workplan_monitoringLimitNumberOfDeliveries', [
             'label' => i::__('Limitar número de entregas'),
             'type' => 'boolean',
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('monitoringMaximumNumberOfDeliveries', [
+        $this->registerOpportunityMetadata('workplan_monitoringMaximumNumberOfDeliveries', [
             'label' => i::__('Número máximo de entregas'),
             'type' => 'integer'
         ]);

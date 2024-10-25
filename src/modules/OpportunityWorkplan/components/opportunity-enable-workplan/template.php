@@ -25,15 +25,15 @@ use MapasCulturais\i;
                 <div class="field col-12">
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.dataProjectlimitMaximumDurationOfProjects" @click="autoSave()"/><?= i::__("Limitar a duração máxima dos projetos") ?>
+                            <input type="checkbox" v-model="entity.workplan_dataProjectlimitMaximumDurationOfProjects" @click="autoSave()"/><?= i::__("Limitar a duração máxima dos projetos") ?>
                         </label>
                     </div>
 
-                    <div v-if="entity.dataProjectlimitMaximumDurationOfProjects" class="field__group">
+                    <div v-if="entity.workplan_dataProjectlimitMaximumDurationOfProjects" class="field__group">
                         <label class="field__group">
                             <?php i::_e('Duração máxima (meses):') ?>
                         </label>
-                        <input type="number" v-model="entity.dataProjectmaximumDurationInMonths" @click="autoSave()">
+                        <input type="number" v-model="entity.workplan_dataProjectmaximumDurationInMonths" @click="autoSave()">
                     </div>
                 </div>
             </div>
@@ -43,21 +43,21 @@ use MapasCulturais\i;
                 <div class="field col-12">
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.metaInformTheStageOfCulturalMaking" @click="autoSave()"/><?= i::__("Informar a etapa do fazer cultural") ?>
+                            <input type="checkbox" v-model="entity.workplan_metaInformTheStageOfCulturalMaking" @click="autoSave()"/><?= i::__("Informar a etapa do fazer cultural") ?>
                         </label>
                     </div>
 
                     <div class="field__group">
                         <label class="field__checkbox">
-                        <input type="checkbox" v-model="entity.metaLimitNumberOfGoals" @click="autoSave()"/><?= i::__("Limitar número de metas") ?>
+                        <input type="checkbox" v-model="entity.workplan_metaLimitNumberOfGoals" @click="autoSave()"/><?= i::__("Limitar número de metas") ?>
                         </label>
                     </div>
 
-                    <div v-if="entity.metaLimitNumberOfGoals" class="field__group">
+                    <div v-if="entity.workplan_metaLimitNumberOfGoals" class="field__group">
                         <label>
                             <?php i::_e('Número máximo de metas:') ?>   
                         </label>
-                        <input type="number" v-model="entity.metaMaximumNumberOfGoals" @click="autoSave()">
+                        <input type="number" v-model="entity.workplan_metaMaximumNumberOfGoals" @click="autoSave()">
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@ use MapasCulturais\i;
                 <div class="field col-12">
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.deliveryReportTheDeliveriesLinkedToTheGoals" @click="autoSave()"/><?= i::__("Informar as entregas vinculadas à meta") ?>
+                            <input type="checkbox" v-model="entity.workplan_deliveryReportTheDeliveriesLinkedToTheGoals" @click="autoSave()"/><?= i::__("Informar as entregas vinculadas à meta") ?>
                         </label>
                     </div>
                 </div>
@@ -78,12 +78,12 @@ use MapasCulturais\i;
                 <div class="field col-12">
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.deliveryReportTheNumberOfParticipants" @click="autoSave()"/><?= i::__("Informar a quantidade de participantes") ?>
+                            <input type="checkbox" v-model="entity.workplan_deliveryReportTheNumberOfParticipants" @click="autoSave()"/><?= i::__("Informar a quantidade de participantes") ?>
                         </label>
                     </div>
                     <div class="field__group">
                         <label class="field__checkbox">
-                        <input type="checkbox" v-model="entity.deliveryReportExpectedRenevue" @click="autoSave()"/><?= i::__("Informar receita prevista") ?>
+                        <input type="checkbox" v-model="entity.workplan_deliveryReportExpectedRenevue" @click="autoSave()"/><?= i::__("Informar receita prevista") ?>
                         </label>
                     </div>
                 </div>
@@ -94,45 +94,45 @@ use MapasCulturais\i;
                 <div class="field col-12">
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.monitoringInformAccessibilityMeasures" @click="autoSave()"/><?= i::__("Informar as medidas de acessibilidade") ?>
+                            <input type="checkbox" v-model="entity.workplan_monitoringInformAccessibilityMeasures" @click="autoSave()"/><?= i::__("Informar as medidas de acessibilidade") ?>
                         </label>
                     </div>
 
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.monitoringProvideTheProfileOfParticipants" @click="autoSave()"/><?= i::__("Informar o perfil dos participantes") ?>
+                            <input type="checkbox" v-model="entity.workplan_monitoringProvideTheProfileOfParticipants" @click="autoSave()"/><?= i::__("Informar o perfil dos participantes") ?>
                         </label>
                     </div>
 
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.monitoringInformThePriorityAudience" @click="autoSave()"/><?= i::__("Informar o público prioritário") ?>
+                            <input type="checkbox" v-model="entity.workplan_monitoringInformThePriorityAudience" @click="autoSave()"/><?= i::__("Informar o público prioritário") ?>
                         </label>
                     </div>
 
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.monitoringInformDeliveryType" @click="autoSave()"/><?= i::__("Informar tipo de entrega") ?>
+                            <input type="checkbox" v-model="entity.workplan_monitoringInformDeliveryType" @click="autoSave()"/><?= i::__("Informar tipo de entrega") ?>
                         </label>
                     </div>
 
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.monitoringReportExecutedRevenue" @click="autoSave()"/><?= i::__("Informar receita executada") ?>
+                            <input type="checkbox" v-model="entity.workplan_monitoringReportExecutedRevenue" @click="autoSave()"/><?= i::__("Informar receita executada") ?>
                         </label>
                     </div>
 
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.monitoringLimitNumberOfDeliveries" @click="autoSave()"/><?= i::__("Limitar número de entregas") ?>
+                            <input type="checkbox" v-model="entity.workplan_monitoringLimitNumberOfDeliveries" @click="autoSave()"/><?= i::__("Limitar número de entregas") ?>
                         </label>
                     </div>
 
-                    <div v-if="entity.monitoringLimitNumberOfDeliveries"  class="field__group">
+                    <div v-if="entity.workplan_monitoringLimitNumberOfDeliveries"  class="field__group">
                         <label>
                             <?php i::_e('Número máximo de entregas:') ?>  
                         </label>
-                        <input type="number" v-model="entity.monitoringMaximumNumberOfDeliveries" @click="autoSave()">
+                        <input type="number" v-model="entity.workplan_monitoringMaximumNumberOfDeliveries" @click="autoSave()">
                     </div>
                 </div>
             </div>

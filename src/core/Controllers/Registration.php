@@ -6,6 +6,7 @@ use MapasCulturais\App;
 use MapasCulturais\Traits;
 use MapasCulturais\Entities;
 use MapasCulturais\Definitions;
+use MapasCulturais\Entities\Registration as EntityRegistration;
 use MapasCulturais\Entities\OpportunityMeta;
 use MapasCulturais\Entities\RegistrationEvaluation;
 use MapasCulturais\Entities\RegistrationSpaceRelation as RegistrationSpaceRelationEntity;
@@ -21,6 +22,7 @@ class Registration extends EntityController {
     use Traits\ControllerUploads,
         Traits\ControllerAgentRelation,
     	Traits\ControllerSealRelation,
+        Traits\ControllerLock,
         Traits\ControllerAPI;
 
     function __construct() {
@@ -241,7 +243,7 @@ class Registration extends EntityController {
                 $evaluation->registration->checkPermission('evaluate');
                 $evaluation->status = RegistrationEvaluation::STATUS_DRAFT;
                 $evaluation->save(true);
-                $this->json($entity);
+                $this->json($evaluation);
             }
 
             return null;
@@ -267,7 +269,7 @@ class Registration extends EntityController {
            
             if($today >= $evaluationMethod->evaluationFrom && $today < $evaluationMethod->evaluationTo){
                 $evaluation->send(true);
-                $this->json($entity);
+                $this->json($evaluation);
             }
 
             return null;
@@ -390,6 +392,21 @@ class Registration extends EntityController {
         $app->redirect($this->createUrl('view', [$this->data['id']]));
     }
 
+    function GET_registrationEdit() {
+        $this->requireAuthentication();
+
+        $this->entityClassName = "MapasCulturais\\Entities\\Registration";
+        
+        $this->layout = "registration";
+
+        $entity = $this->requestedEntity;
+        $entity->checkPermission('sendEditableFields');
+        
+        $this->layout = 'edit-layout';
+
+        $this->render("registration-editable-field", ['entity' => $entity]);
+    }
+
     function POST_setStatusTo(){
         $this->requireAuthentication();
         $app = App::i();
@@ -402,7 +419,14 @@ class Registration extends EntityController {
 
         $status = isset($this->postData['status']) ? $this->postData['status'] : null;
 
-        $method_name = 'setStatusTo' . ucfirst($status);
+        if($registration->status === EntityRegistration::STATUS_DRAFT && $status != EntityRegistration::STATUS_SENT) {
+            $this->errorJson('First status change should be pending');
+        }
+
+        $status_dict = $registration->getStatuses();
+        $status_dict[1] = 'Sent';
+
+        $method_name = 'setStatusTo' . ucfirst($status_dict[$status]);
 
         if(!method_exists($registration, $method_name)){
             if($this->isAjax()){
@@ -411,7 +435,7 @@ class Registration extends EntityController {
                 $app->halt(200, 'Invalid status name');
             }
         }
-
+        
         $registration->$method_name();
 
         $app->applyHookBoundTo($this, 'registration.setStatusTo:after', [$registration]);
@@ -657,5 +681,24 @@ class Registration extends EntityController {
         $entity->checkPermission('viewUserEvaluation');
 
         $this->render('evaluation', ['entity' => $entity, 'valuer_user' => $valuer_user]);
+    }
+
+    function POST_sendEditableFields() {
+        $this->requireAuthentication();
+        $entity = $this->requestedEntity;
+        
+        $entity->sendEditableFields();
+
+        $this->json(true);
+    
+    }
+
+    function POST_reopenEditableFields() {
+        $this->requireAuthentication();
+        $entity = $this->requestedEntity;
+        
+        $entity->reopenEditableFields();
+
+        $this->json(true);
     }
 }

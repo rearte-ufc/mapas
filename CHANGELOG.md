@@ -5,6 +5,164 @@ Todas as mudanças notáveis no projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/)
 e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [7.5.6] - 2024-10-23
+### Correções
+ - Corrige visibilidade do botão de enviar avaliações na página de avaliações
+ - Corrige exibição da planilha de inscrições, inserindo a coluna 'Nome do projeto'
+ - Corrige botão de reabrir avaliação quando há erros de validação na avaliação
+ - Corrige mensagem de erro do componente de upload de arquivo
+ - Remove o botão de baixar rascunhos da tabela de inscrições
+ - Correção no campo de ordenação da tabela de inscrições 
+ - Evita que as consultas na API fiquem sem ordenação quando é utilizada uma propriedade com valores vazios ou iguais
+
+### Melhorias
+ - Melhora a performance da geração da planilha de inscrições
+
+### [7.5.5] - 2024-10-21
+### Correções
+ - Adiciona cache na compilação do css do customizador de temas dos subsites
+ - Evita o reprocessamento do cache do avaliador toda vez que ele termina uma avaliação
+ - Correções e reformatações na planilha de avaliações
+ - Corrige ordenação dos campos no componente de seleção de campos visíveis para os avaliadores
+ - Corrige salvamento da seleção de anexos visíveis para os avaliadores
+ - Correções no formulário de avaliação técnica
+ - Corrige caixa com resumo da fase de avaliação para avaliação técnica que ainda não teve avaliações
+
+### Melhorias
+ - Melhora o enfileiramento e reprocessamento de caches de permissão (pcache), diminuindo o tempo de processamento
+
+### [7.5.4] - 2024-10-11
+### Correções
+- Impede que o javascript das tabelas quebre quando um objeto não é retornado pela API
+- Evita que o ranqueamento das cotas quebre quando o número de vadas do edital não está definido
+
+### [7.5.3] - 2024-10-11
+### Correções
+- Corrige erro na listagem de avaliações por ainda nao ter avaliações feitas
+- Corrige erro na seleção dos campos visíveis para o avaliador
+- Cirrige erro no ranqueamento de cotas caso não exista percentual de vagas definido
+
+### Melhorias
+- Implementa registro de histórico de revisões para os projetos
+- Ajusta permissão de deleção de agentes para permitir que admnistradores possam deletar agentes de perfil
+- Faz com que o botão de excluir entidades no card da gestão de usuários seja exibido para qualquer usuário do grupo admin
+- Altera distribuição de inscrições de novos avaliadores - por padrão, novos avaliadores não recebem inscrições para avaliar
+
+## [7.4.26] - 2024-10-11
+### Melhorias
+- Permite que o dono da inscrição visualize as suas inscrições em rascunho mesmo que o período naoe steja aberto
+- Corrige busca de agentes de inscrição no painel Minhas Inscrições
+- Evita que seja exibido o resumo dos agentes caso a inscrição ainda nao esteja enviada
+- Permite que na tela de acompanhamento da inscrição tenha acesso ao formulario qualquer pessoa que tenha permissão de visualização
+
+## [7.5.2] - 2024-10-10
+### Correções
+- Corrige distribuição de cotas dentro das faixas de modo a garantir o número de vagas dentro de cada faixa
+- Corrige filtros das tabelas das entidades das páginas de busca
+
+## [7.4.25] - 2024-10-08
+### Melhorias
+- Implementa novos hooks no painel de controle
+
+## [7.4.24] - 2024-10-07
+### Correções
+- Deleta pasta do plugin MultipleLocalAuth 
+
+## [7.4.23] - 2024-10-04
+### Correções
+- Corrige erro que deixa gestor da oportunidade sem permissão de modificar uma inscrição enviada
+
+## [7.5.1] - 2024-10-03
+### Correções
+- Corrige exibição do tipo de avaliação na listagem de avaliações disponíveis para o avaliador
+- Corrige erros no processo da avaliação documental
+- Ajusta a entity-field para interpretar corretamente campos do tipo 'readonly'
+- Corrigir erro que impedia a listagem de campos para um agente de suporte
+
+## [7.4.22] - 2024-10-01
+### Correções
+- Corrige erro ao definir comissão de avaliação pelo gestores de oportunidades 
+- Corrige erro na criação de anexos
+
+### Melhorias
+- Implementa novos hooks na single e edit do agente
+
+## [7.4.21] - 2024-10-01
+### Melhorias
+- Implementa o método getHumanReadable no Entity.js para facilitar a exibição de valores de metadados que possuem listas predefinidas, transformando-os em formatos mais legíveis para o usuário
+
+## [7.4.20] - 2024-09-27
+### Correções
+- Corrige o erro que impede a distribuição de avaliação com base no número final da inscrição
+
+## [7.5.0] - 2024-09-25
+### Novas funcionalidades
+- **Bloqueio de edição de entidades**: impede que dois usuários diferentes editem a mesma entidade simultaneamente.
+- **Customizador do tema BaseV2 para subsites**: permite a configuração de cores, imagens, textos, posição do mapa, entre outros.
+- **Nova exportação de planilhas**
+  - Permite que o usuário escolha o formato do arquivo exportado entre `.csv`, `.xlsx` e `.ods`.
+  - Processamento em segundo plano, enviando o link para download do arquivo por e-mail quando a planilha estiver pronta.
+- **Edição de inscrições enviadas**: possibilita ao gestor configurar um ou mais campos de uma determinada inscrição, por um tempo definido, permitindo que o proponente os modifique sem precisar reabrir a inscrição completa como rascunho.
+- **Visualização de entidades em tabelas na página de busca**: para administradores do sistema, com botão para exportar planilhas com as entidades filtradas.
+- Nova opção para o gestor solicitar o avatar do agente responsável no formulário de inscrição.
+- Implementada a possibilidade de exigir que o proponente defina uma imagem de avatar no momento da inscrição.
+- Implementada nova tela para configuração dos agentes de suporte.
+- Implementada a exibição da data de envio das avaliações.
+- O endpoint `opportunity/findRegistrations`, quando ordenado por `@quota`, agora retorna as cotas aplicadas, os critérios de desempate e a região das inscrições.
+
+### Melhorias
+- Novas perguntas no FAQ e botões de ajuda na interface
+- Salva a revisão dos campos dos formulários de oportunidades, tornando possível a auditoria das modificações.
+- Refatoração dos campos *datepicker* e *datetimepicker* para melhorar a usabilidade.
+- Tornados os campos CPF e CNPJ somente leitura.
+- Redesign da tabela de avaliações.
+- Refatoração na configuração de cotas, permitindo escolher os campos que representam as cotas por tipo de proponente, evitando conflitos.
+- Refatoração na configuração de distribuição de vagas por território, permitindo definir quais campos representam a região para cada tipo de proponente.
+- Refatoração no cálculo das cotas, garantindo seu respeito dentro de cada faixa/linha e região.
+- Implementado *slot* no `entity-table` para permitir a substituição do filtro por palavra-chave.
+- Implementado o método `detectDateFormat()` no *Utils* para detectar o formato de uma data.
+- Implementada nova tabela de listagem de avaliações.
+- Exibidas, na tabela de inscrições, colunas mostrando em quais cotas o proponente foi incluído, os critérios de desempate aplicados e a região do proponente.
+- Implementado novo componente de configuração de campos visíveis para o avaliador.
+
+#### Refatoração das políticas afirmativas
+- Os percentuais configurados para as cotas agora são garantidos dentro das regiões e faixas/linhas de inscrição.
+- A configuração dos campos que representam os valores utilizados para identificar os cotistas e a região do proponente deve ser feita para cada tipo de proponente configurado.
+
+### Correções
+- Impedida a exibição da coluna "Agente Responsável" no componente `opportunity-evaluation-table` quando a configuração de campos visíveis não permite o resumo dos agentes.
+- Corrigida a `API.js` para que o `rawProcessor` funcione corretamente.
+- Corrigida a atualização de status da entidade após a publicação.
+
+### Melhorias não funcionais
+- Atualizado o PHP para a versão 8.3.
+- Atualizadas bibliotecas PHP.
+- Possibilidade de configurar metadados como `readonly`, que após definidos, não podem ser alterados por usuários comuns.
+- Exibida a coluna "Nome do Avaliador" na tabela de listagem de avaliações.
+- Quando a oportunidade é multifases e ocorre uma alteração na propriedade, essa mudança agora reflete nas fases subsequentes.
+
+## [7.4.19] - 2024-09-25
+### Correções
+- Corrige getter nextPhase para evitar que entre em loop infinito
+
+## [7.4.18] - 2024-09-24
+### Correções
+- Corrige sincronização das inscrições entre fases
+- Corrige exibição da descrição no campo 'Telefone do Brasil'
+
+## [7.4.17] - 2024-09-23
+### Correções
+- Corrigida a criação de eventos semanais e mensais.
+- Corrigido o uso do *hook* no método `sendValidationErrors`.
+- Corrigida a exibição dos nomes dos campos durante a validação de erros no formulário de inscrição.
+- Corrigido para que as alterações de propriedade das entidades funcionem e sejam salvas corretamente.
+- Corrigidas as verificações de exibição dos resumos de agentes, projetos e espaços para o avaliador.
+- Corrigido *db-update* que migra valores das colunas do tipo *array* para o tipo *json*.
+
+### Melhorias não funcionais
+- Implementados novos *templateHooks* e *componentHooks*.
+- Ativada a criação de *setters* via *hook* na entidade de registro.
+- Implementado *db-update* para corrigir erro causado por valores inválidos na tabela `request`.
 
 ## [7.4.16] - 2024-09-04
 ### Correções
@@ -497,6 +655,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Correções- Corrige erro na listagem de inscrições de um edital quando não exitia nehuma inscrição
 - Corrige erro que ocorria no momento da publicação de resultado final ocasionado pela tentativa de enviar os e-mails
+- Corrige filtros da api de oportunidades e projetos de subsites, fazendo só serem exibidos aqueles criados no subsite atual
 - Corrige validação de metadados preenchidos com valores que o php, com cast para boolean, resolve como false (Ex: 0, [], '')
 - Corrige criação de fase de coleta de dados que ficou quebrada após a implementação das áreas de interesse
 

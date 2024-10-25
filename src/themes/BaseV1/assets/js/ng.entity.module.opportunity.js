@@ -679,6 +679,10 @@ module.controller('RegistrationConfigurationsController', ['$scope', '$rootScope
                     MapasCulturais.Messages.success(labels['attachmentCreated']);
                 }
             });
+            
+            $scope.data.newFileConfiguration.conditional = false;
+            $scope.data.newFileConfiguration.conditionalField = "";
+            $scope.data.newFileConfiguration.conditionalValue = "";
         };
 
         $scope.removeFileConfiguration = function (id, $index) {
@@ -1039,7 +1043,6 @@ module.controller('EvaluationsFieldsConfigController', ['$scope', 'EvaluationsFi
 
     if(MapasCulturais.evaluationFieldsList){
         MapasCulturais.evaluationFieldsList = MapasCulturais.evaluationFieldsList.sort((a,b) => {
-            console.log(a,b)
             if(a.displayOrder > b.displayOrder){
                 return 1;
             }else if(a.displayOrder < b.displayOrder){
@@ -1210,6 +1213,22 @@ module.controller('RegistrationFieldsController', ['$scope', '$rootScope', '$int
         avaliableEvaluationFields: MapasCulturais.avaliableEvaluationFields
     };
 
+    $scope.canUserEdit = function(field){
+        if(!MapasCulturais.registrationEditableFields.canUserSendEditableFields) {
+            return false;
+        }
+
+        if(MapasCulturais.registrationEditableFields.fields.includes(field.fieldType == 'file' ? field.groupName : field.fieldName)) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    $scope.getFieldType = function(field) {
+        return field?.fieldName ? 'field' : 'file';
+    }
+    
     $scope.openTemplateLink = function($event, url) {
         $event.preventDefault();
         window.open(url, '_blank');
@@ -1614,19 +1633,36 @@ module.controller('RegistrationFieldsController', ['$scope', '$rootScope', '$int
     $scope.sendFile = function(attrs){
         $('.carregando-arquivo').show();
         $('.submit-attach-opportunity').hide();
-
+    
         var $form = $('#' + attrs.id + ' form');
+        var fieldName = $form[0][0].name;
+
+        $form.ajaxSubmit({
+            success: function(response) {
+                if (response[fieldName]) {      
+                    MapasCulturais.Messages.success(labels['changesSaved']);
+                    MapasCulturais.AjaxUploader.resetProgressBar($form);
+                    if(fieldName){
+                        $scope.removeFieldErrors(fieldName);
+                    }
+                } else {
+                    MapasCulturais.Messages.error(labels['fileTooBig']);
+                    MapasCulturais.AjaxUploader.resetProgressBar($form);
+                    $('.carregando-arquivo').hide();
+                    $('.submit-attach-opportunity').show();
+                }
+            },
+            error: function(xhr, status, error) {
+                let response = xhr.responseJSON;
+                MapasCulturais.Messages.error(response.data);
+                MapasCulturais.AjaxUploader.resetProgressBar($form);
+               
+                $('.carregando-arquivo').hide();
+                $('.submit-attach-opportunity').show();
+            }
+        });
+
         $form.submit();
-        if(!$form.data('onSuccess')){
-            $form.data('onSuccess', true);
-            $form.on('ajaxForm.success', function(){
-                MapasCulturais.Messages.success(labels['changesSaved']);
-                var fieldName = $form.parents('.attachment-list-item').data('fieldName');
-                if(fieldName){
-                    $scope.removeFieldErrors(fieldName);
-                } 
-            });
-        }
     };
 
     $scope.openFileEditBox = function(id, index, event){
@@ -1770,6 +1806,19 @@ module.controller('RegistrationFieldsController', ['$scope', '$rootScope', '$int
             }
         }
 
+        if(MapasCulturais.isUserSupport) {
+            let fieldName = "";
+            if(field.fieldType == "file") {
+                fieldName = field.groupName
+            }else {
+                fieldName = field.fieldName
+            }
+    
+            if (fieldName in MapasCulturais.userAllowedFields) {
+                result = true;
+            } 
+        }
+
         return result;
     };
 
@@ -1802,7 +1851,7 @@ module.controller('RegistrationFieldsController', ['$scope', '$rootScope', '$int
     }
 
     $scope.printField = function(field, value){
-
+        
         if (field.fieldType === 'date') {
             return moment(value).format('DD-MM-YYYY');
         }else if (field.fieldType === "checkbox") {

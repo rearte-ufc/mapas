@@ -44,6 +44,10 @@ class Entity {
                 val = this[prop];
             }
 
+            if(prop === 'status' && preserveValues && this[prop] <= 0 && obj[prop] > 0) {
+                this[prop] = obj[prop];
+            }
+
             if ((definition.type == 'datetime' || definition.type == 'date' ) && val && !(val instanceof McDate)) {
                 if (typeof val == 'string') {
                     val = new McDate(val);
@@ -590,7 +594,7 @@ class Entity {
                 return file;
             });
         } catch (error) {
-            this.doCatch(error);
+            return this.doCatch(error);
         }
     }
 
@@ -775,6 +779,16 @@ class Entity {
             });
         } catch (error) {
             return this.doCatch(error);
+        }
+    }
+
+    getHumanReadable(prop) {
+        const propDefinitions = this.$PROPERTIES[prop];
+
+        if(!propDefinitions?.options) {
+            return this[prop]
+        }else {
+            return propDefinitions.options[this[prop]];
         }
     }
 }

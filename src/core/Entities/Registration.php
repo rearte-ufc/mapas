@@ -9,6 +9,7 @@ use MapasCulturais\Traits;
 use MapasCulturais\App;
 use MapasCulturais\Exceptions\PermissionDenied;
 use MapasCulturais\Definitions\EvaluationMethod;
+use MapasCulturais\GuestUser;
 
 /**
  * Registration
@@ -41,6 +42,7 @@ class Registration extends \MapasCulturais\Entity
         Traits\EntityAgentRelation,
         Traits\EntityPermissionCache,
         Traits\EntityOriginSubsite,
+        Traits\EntityLock,
         Traits\EntityRevision {
             Traits\EntityMetadata::canUserViewPrivateData as __canUserViewPrivateData;
         }
@@ -54,6 +56,7 @@ class Registration extends \MapasCulturais\Entity
 
 
     protected $__enableMagicGetterHook = true;
+    protected $__enableMagicSetterHook = true;
 
     /**
      * @var integer
@@ -225,6 +228,27 @@ class Registration extends \MapasCulturais\Entity
      */
     protected $eligible;
 
+    /**
+     * @var dateTime
+     *
+     * @ORM\Column(name="editable_until", type="datetime", nullable=true)
+     */
+    protected $editableUntil;
+
+    /**
+     * @var dateTime
+     *
+     * @ORM\Column(name="edit_sent_timestamp", type="datetime", nullable=true)
+     */
+    protected $editSentTimestamp;
+
+     /**
+     * @var array
+     *
+     * @ORM\Column(name="editable_fields", type="json", nullable=true)
+     */
+    protected $editableFields;
+
      /**
      * @var \MapasCulturais\Entities\Subsite
      *
@@ -255,6 +279,13 @@ class Registration extends \MapasCulturais\Entity
         }
 
         parent::__construct();
+    }
+
+    public static function getEntityTypeLabel($plural = false): string {
+        if ($plural)
+            return \MapasCulturais\i::__('Inscrições');
+        else
+            return \MapasCulturais\i::__('Inscrição');
     }
 
     function save($flush = false){
@@ -347,7 +378,10 @@ class Registration extends \MapasCulturais\Entity
             'files' => [],
             'singleUrl' => $this->singleUrl,
             'editUrl' => $this->editUrl,
-            'appliedForQuota' => $this->appliedForQuota
+            'appliedForQuota' => $this->appliedForQuota,
+            'editableUntil' => $this->editableUntil,
+            'editableFields' => $this->editableFields,
+            'editSentTimestamp' => $this->editSentTimestamp,
         ];
 
         if($this->canUser('viewConsolidatedResult')){
@@ -457,6 +491,37 @@ class Registration extends \MapasCulturais\Entity
 
     static function getSpaceRelationEntityClassName() {
         return RegistrationSpaceRelation::class;
+    }
+
+    function setEditableUntil($datetime) {
+        if ($this->opportunity->canUser('@control')) {
+            $this->editableUntil = new DateTime($datetime);
+        }
+    }
+
+    function setEditableFields($fields) {
+        if ($this->opportunity->canUser('@control')) {
+            $this->editableFields = $fields;
+        }
+    }
+
+    protected function setEditSentTimestamp($datetime) {
+        return false;
+    }
+
+    function reopenEditableFields() {
+        $this->opportunity->checkPermission('@control');
+        $this->editSentTimestamp = null;
+        $this->save(true);
+    }
+
+    function sendEditableFields() {
+        $app = App::i();
+        $this->checkPermission('sendEditableFields');
+        $this->editSentTimestamp = new DateTime();
+        $app->disableAccessControl();
+        $this->save(true);
+        $app->enableAccessControl();
     }
 
     function setOwnerId($id){
@@ -716,11 +781,6 @@ class Registration extends \MapasCulturais\Entity
         $exceptions = $this->getValuersExceptionsList();
         return $exceptions->exclude;
     }
-    
-
-    // function setStatus($status){
-    //     // do nothing
-    // }
 
     function _setStatusTo($status, $flush = true){
         if($this->status === self::STATUS_DRAFT && $status === self::STATUS_SENT){
@@ -1065,6 +1125,10 @@ class Registration extends \MapasCulturais\Entity
             $errorsResult['category'] = [i::__('Categoria é um campo obrigatório.')];
         }
 
+        if($this->opportunity->requestAgentAvatar && !array_key_exists("avatar", $this->owner->files)){
+            $errorsResult['avatar'] = [sprintf(\MapasCulturais\i::__('A imagem avatar do agente "%s" é obrigatório.'),$this->owner->name)];
+        }
+
         $definitionsWithAgents = $this->_getDefinitionsWithAgents();
         
         // validate agents
@@ -1080,6 +1144,7 @@ class Registration extends \MapasCulturais\Entity
             }
 
             if($def->agent){
+
                 if($def->relationStatus < 0){
                     $errors[] = sprintf(i::__('O agente %s ainda não confirmou sua participação neste projeto.'), $def->agent->name);
                 }else{
@@ -1219,7 +1284,7 @@ class Registration extends \MapasCulturais\Entity
             $errorsResult['projectName'] = [i::__('O nome do projeto é obrigatório.')];
         }
 
-        $app->applyHookBoundTo($this, "entity($this->getHookClassPath()).sendValidationErrors", [&$errorsResult]);
+        $app->applyHookBoundTo($this, "{$this->hookPrefix}.sendValidationErrors", [&$errorsResult]);
 
         return $errorsResult;
     }
@@ -1329,13 +1394,8 @@ class Registration extends \MapasCulturais\Entity
             return true;
         }
      
-        if($this->canUser('@control', $user)){          
-            if((new \DateTime()) >= $this->opportunity->registrationFrom ){
-              return true;
-            }
-            
-            return false;
-            
+        if($this->canUser('@control', $user)){                      
+            return true;
         }
 
         if($this->opportunity->canUser('@control', $user)){
@@ -1450,6 +1510,18 @@ class Registration extends \MapasCulturais\Entity
         }
 
         return $this->canUser('@control');
+    }
+
+    protected function canUserSendEditableFields(User | GuestUser $user):bool {
+        if (!$this->canUser('@control')) {
+            return false;
+        }
+
+        if ($this->editableUntil < new DateTime() || $this->editSentTimestamp) {
+            return false;
+        }
+
+        return true;
     }
 
     protected function canUserModify($user){
@@ -1592,6 +1664,14 @@ class Registration extends \MapasCulturais\Entity
         $canUserEvaluate = $em && $em->canUserEvaluateRegistration($this, $user) || $canUserEvaluateNextPhase;
 
         return $can || $canUserEvaluate;
+    }
+    
+    function getExtraEntitiesToRecreatePermissionCache(): array {
+        if ($previous_phase = $this->previousPhase) {
+            return [$previous_phase];
+        } else {
+            return [];
+        }
     }
 
     function getExtraPermissionCacheUsers(){

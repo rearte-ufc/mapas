@@ -810,6 +810,14 @@ abstract class Entity implements \JsonSerializable{
 
         $hook_prefix = $this->getHookPrefix();
 
+        if($this->usesLock() && $this->isLocked()) {
+            $lock_info = $this->isLocked();
+
+            if($lock_info['userId'] != $app->user->id) {
+                throw new Exceptions\PermissionDenied($app->user, message: i::__('A entidade está bloqueada por outro usuário.'), code: Exceptions\PermissionDenied::CODE_ENTITY_LOCKED);
+            }
+        }
+
         try {
             $app->applyHookBoundTo($this, "{$hook_prefix}.save:requests", [&$requests]);
             $app->applyHookBoundTo($this, "entity({$this}).save:requests", [&$requests]);
@@ -1136,8 +1144,9 @@ abstract class Entity implements \JsonSerializable{
         elseif($this->usesTypes() && !$this->validateType())
             $errors['type'] = [\MapasCulturais\i::__('Tipo inválido')];
 
-        if($this->usesMetadata())
+        if($this->usesMetadata()) {
             $errors = $errors + $this->getMetadataValidationErrors();
+        }
 
         if($this->usesTaxonomies())
             $errors = $errors + $this->getTaxonomiesValidationErrors();

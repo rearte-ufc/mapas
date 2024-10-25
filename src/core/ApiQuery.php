@@ -3027,7 +3027,11 @@ class ApiQuery {
             } elseif (strtolower($key) == '@select') {
                 $this->_parseSelect($value);
             } elseif (strtolower($key) == '@order') {
-                $this->_order = $value;
+                if(in_array('createTimestamp', $this->entityProperties)) {
+                    $this->_order = $value . ',createTimestamp ASC';
+                } else {
+                    $this->_order = $value . ',id ASC';
+                }
             } elseif (strtolower($key) == '@offset') {
                 $this->_offset = $value;
             } elseif (strtolower($key) == '@page') {

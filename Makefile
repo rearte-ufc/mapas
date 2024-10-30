@@ -55,13 +55,14 @@ down:
 .PHONY: init
 init:
 	cp .env.sample .env
-	$(COMPOSE) exec backend mkdir var/logs/
-	$(COMPOSE) exec backend mkdir var/private-files/
+	# $(COMPOSE) exec backend mkdir var/logs/
+	# $(COMPOSE) exec backend mkdir var/private-files/
 	@echo "Folders created."
 	$(COMPOSE) exec backend chmod 777 var/logs/
 	$(COMPOSE) exec backend chmod 777 var/private-files/
 	$(COMPOSE) exec backend chmod 777 var/sessions/
 	$(COMPOSE) exec backend chmod 777 var/DoctrineProxies/
+	$(COMPOSE) exec backend chmod 777 public/assets/
 	@echo "Permissions granted."
 
 # Run Migrations

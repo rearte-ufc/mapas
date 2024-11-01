@@ -6,6 +6,13 @@
  */
 
 use MapasCulturais\i;
+
+
+$this->import('
+    mc-tag-list
+    
+');
+
 ?>
 <div class="opportunity-enable-workplan">
     <h4 class="bold opportunity-enable-workplan__title"><?= i::__('Plano de trabalho') ?></h4>
@@ -29,11 +36,11 @@ use MapasCulturais\i;
                         </label>
                     </div>
 
-                    <div v-if="entity.workplan_dataProjectlimitMaximumDurationOfProjects" class="field__group">
+                    <div class="field__group">
                         <label class="field__group">
                             <?php i::_e('Duração máxima (meses):') ?>
                         </label>
-                        <input type="number" v-model="entity.workplan_dataProjectmaximumDurationInMonths" @click="autoSave()">
+                        <input type="number" :disabled="!entity.workplan_dataProjectlimitMaximumDurationOfProjects" v-model="entity.workplan_dataProjectmaximumDurationInMonths" @change="autoSave()">
                     </div>
                 </div>
             </div>
@@ -49,15 +56,21 @@ use MapasCulturais\i;
 
                     <div class="field__group">
                         <label class="field__checkbox">
+                        <input type="checkbox" v-model="entity.workplan_metaInformTheValueGoals" @click="autoSave()"/><?= i::__("Informar o valor da meta") ?>
+                        </label>
+                    </div>
+
+                    <div class="field__group">
+                        <label class="field__checkbox">
                         <input type="checkbox" v-model="entity.workplan_metaLimitNumberOfGoals" @click="autoSave()"/><?= i::__("Limitar número de metas") ?>
                         </label>
                     </div>
 
-                    <div v-if="entity.workplan_metaLimitNumberOfGoals" class="field__group">
+                    <div class="field__group">
                         <label>
-                            <?php i::_e('Número máximo de metas:') ?>   
+                            <?php i::_e('Limitar número de metas:') ?>   
                         </label>
-                        <input type="number" v-model="entity.workplan_metaMaximumNumberOfGoals" @click="autoSave()">
+                        <input type="number" :disabled="!entity.workplan_metaLimitNumberOfGoals" v-model="entity.workplan_metaMaximumNumberOfGoals" @change="autoSave()">
                     </div>
                 </div>
             </div>
@@ -70,6 +83,36 @@ use MapasCulturais\i;
                             <input type="checkbox" v-model="entity.workplan_deliveryReportTheDeliveriesLinkedToTheGoals" @click="autoSave()"/><?= i::__("Informar as entregas vinculadas à meta") ?>
                         </label>
                     </div>
+
+                    <div class="field__group">
+                        <label class="field__checkbox">
+                            <input type="checkbox" v-model="entity.workplan_deliveryLimitNumberOfDeliveries" @click="autoSave()"/><?= i::__("Limitar número de entregas") ?>
+                        </label>
+                    </div>
+
+                    <div  class="field__group">
+                        <label>
+                            <?php i::_e('Número máximo de entregas:') ?>  
+                        </label>
+                        <input type="number" :disabled="!entity.workplan_deliveryLimitNumberOfDeliveries" v-model="entity.workplan_deliveryMaximumNumberOfDeliveries" @change="autoSave()">
+                    </div>
+
+                    <!-- <div class="field__group field-delivery-type">
+                        <label class="field__checkbox">
+                            <entity-field :entity="entity" classes="col-12" prop="workplan_monitoringInformDeliveryType" class="col-12 block" label="<?= i::__('Tipos de entrega (Selecione as entregas aceitas no edital)') ?>" @change="autoSave()"></entity-field>
+                        </label>
+                    </div> -->
+
+                    <div class="field">
+                        <label> <?php i::_e('Informar tipo de entrega') ?></label>
+                        <mc-multiselect :model="entity.workplan_monitoringInformDeliveryType" title="<?php i::_e('Selecione as áreas de atuação') ?>" :items="workplan_monitoringInformDeliveryTypeList" hide-filter hide-button>
+                            <template #default="{setFilter, popover}">
+                                <input class="mc-multiselect--input" @keyup="setFilter($event.target.value)" @focus="popover.open()" placeholder="<?= i::esc_attr__('Selecione as entregas aceitas no edital') ?>">
+                            </template>
+                        </mc-multiselect>
+                        <mc-tag-list editable :tags="entity.workplan_monitoringInformDeliveryType" classes="opportunity__background opportunity__color"></mc-tag-list>
+                    </div>
+                    
                 </div>
             </div>
             <div id="data-registration" class="opportunity-enable-workplan__block  col-12">
@@ -78,12 +121,12 @@ use MapasCulturais\i;
                 <div class="field col-12">
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.workplan_deliveryReportTheNumberOfParticipants" @click="autoSave()"/><?= i::__("Informar a quantidade de participantes") ?>
+                            <input type="checkbox" v-model="entity.workplan_registrationReportTheNumberOfParticipants" @click="autoSave()"/><?= i::__("Informar a quantidade estimada de público") ?>
                         </label>
                     </div>
                     <div class="field__group">
                         <label class="field__checkbox">
-                        <input type="checkbox" v-model="entity.workplan_deliveryReportExpectedRenevue" @click="autoSave()"/><?= i::__("Informar receita prevista") ?>
+                        <input type="checkbox" v-model="entity.workplan_registrationReportExpectedRenevue" @click="autoSave()"/><?= i::__("Informar receita prevista") ?>
                         </label>
                     </div>
                 </div>
@@ -94,13 +137,23 @@ use MapasCulturais\i;
                 <div class="field col-12">
                     <div class="field__group">
                         <label class="field__checkbox">
+                            <input type="checkbox" v-model="entity.workplan_monitoringInformActionPAAR" @click="autoSave()"/><?= i::__("Informar a ação orçamentária (PAAR)") ?>
+                        </label>
+                    </div>
+                    <div class="field__group">
+                        <label class="field__checkbox">
                             <input type="checkbox" v-model="entity.workplan_monitoringInformAccessibilityMeasures" @click="autoSave()"/><?= i::__("Informar as medidas de acessibilidade") ?>
+                        </label>
+                    </div>
+                    <div class="field__group">
+                        <label class="field__checkbox">
+                            <input type="checkbox" v-model="entity.workplan_monitoringInformThePriorityTerritories" @click="autoSave()"/><?= i::__("Informar os territórios prioritários") ?>
                         </label>
                     </div>
 
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.workplan_monitoringProvideTheProfileOfParticipants" @click="autoSave()"/><?= i::__("Informar o perfil dos participantes") ?>
+                            <input type="checkbox" v-model="entity.workplan_monitoringProvideTheProfileOfParticipants" @click="autoSave()"/><?= i::__("Informar o perfil do público") ?>
                         </label>
                     </div>
 
@@ -112,28 +165,11 @@ use MapasCulturais\i;
 
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.workplan_monitoringInformDeliveryType" @click="autoSave()"/><?= i::__("Informar tipo de entrega") ?>
-                        </label>
-                    </div>
-
-                    <div class="field__group">
-                        <label class="field__checkbox">
                             <input type="checkbox" v-model="entity.workplan_monitoringReportExecutedRevenue" @click="autoSave()"/><?= i::__("Informar receita executada") ?>
                         </label>
                     </div>
 
-                    <div class="field__group">
-                        <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.workplan_monitoringLimitNumberOfDeliveries" @click="autoSave()"/><?= i::__("Limitar número de entregas") ?>
-                        </label>
-                    </div>
-
-                    <div v-if="entity.workplan_monitoringLimitNumberOfDeliveries"  class="field__group">
-                        <label>
-                            <?php i::_e('Número máximo de entregas:') ?>  
-                        </label>
-                        <input type="number" v-model="entity.workplan_monitoringMaximumNumberOfDeliveries" @click="autoSave()">
-                    </div>
+                    
                 </div>
             </div>
         </div>

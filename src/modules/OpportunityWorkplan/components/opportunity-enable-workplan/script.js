@@ -15,12 +15,28 @@ app.component('opportunity-enable-workplan', {
         return {
             entity: this.entity,
             timeOut: null,
+            workplan_monitoringInformDeliveryTypeList: Object.values($MAPAS.EntitiesDescription.opportunity.workplan_monitoringInformDeliveryType.options)
         }
     },
     watch: {
-        'entity.enableWorkplan'(_new,_old){
+        'entity.enableWorkplan'(_new){
             if (!_new) {
                 this.disabledWorkPlan();
+            }
+        },
+        'entity.workplan_dataProjectlimitMaximumDurationOfProjects'(_new){
+            if (!_new) {
+                this.entity.workplan_dataProjectmaximumDurationInMonths = 0;
+            }
+        },
+        'entity.workplan_metaLimitNumberOfGoals'(_new){
+            if (!_new) {
+                this.entity.workplan_metaMaximumNumberOfGoals = 0;
+            }
+        },
+        'entity.workplan_deliveryLimitNumberOfDeliveries'(_new){
+            if (!_new) {
+                this.entity.workplan_deliveryMaximumNumberOfDeliveries = 0;
             }
         },
     },
@@ -32,18 +48,21 @@ app.component('opportunity-enable-workplan', {
             this.entity.workplan_dataProjectlimitMaximumDurationOfProjects = false;
             this.entity.workplan_dataProjectmaximumDurationInMonths = 0;
             this.entity.workplan_metaInformTheStageOfCulturalMaking = false;
+            this.entity.workplan_metaInformTheValueGoals = false;
             this.entity.workplan_metaLimitNumberOfGoals = false;
             this.entity.workplan_metaMaximumNumberOfGoals = 0;
             this.entity.workplan_deliveryReportTheDeliveriesLinkedToTheGoals = false;
-            this.entity.workplan_deliveryReportTheNumberOfParticipants = false;
-            this.entity.workplan_deliveryReportExpectedRenevue = false;
+            this.entity.workplan_deliveryLimitNumberOfDeliveries = false;
+            this.entity.workplan_deliveryMaximumNumberOfDeliveries = 0;
+            this.entity.workplan_monitoringInformDeliveryType = [];
+            this.entity.workplan_registrationReportTheNumberOfParticipants = false;
+            this.entity.workplan_registrationReportExpectedRenevue = false;
+            this.entity.workplan_monitoringInformActionPAAR = false;
             this.entity.workplan_monitoringInformAccessibilityMeasures = false;
+            this.entity.workplan_monitoringInformThePriorityTerritories = false;
             this.entity.workplan_monitoringProvideTheProfileOfParticipants = false;
             this.entity.workplan_monitoringInformThePriorityAudience = false;
-            this.entity.workplan_monitoringInformDeliveryType = false;
-            this.entity.workplan_monitoringReportExecutedRevenue = false;
-            this.entity.workplan_monitoringLimitNumberOfDeliveries = false;
-            this.entity.workplan_monitoringMaximumNumberOfDeliveries = 0;
+            this.entity.workplan_monitoringReportExecutedRevenue = false;   
         }
     },
 })

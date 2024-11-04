@@ -23,7 +23,7 @@
         gap: size(12); 
     }
 
-    &__delete-goal {
+    &__delete-goal, &__delete-delivery {
         margin-top: size(12);
         display:flex;
         align-items:right;

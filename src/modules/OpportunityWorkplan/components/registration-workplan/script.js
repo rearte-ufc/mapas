@@ -15,6 +15,22 @@ app.component('registration-workplan', {
           this.registration.workplan_goals = [];
         }
 
+        let objectDelivery = {
+          id: this.generateUUIDv4(),
+          name: '',
+        };
+
+        let objectGoal = {
+          id: this.generateUUIDv4(),
+          mesInicial: '',
+          mesFinal: '',
+          titulo: '',
+          descricao: '',
+          etapaFazerCultural: '',
+          valor: '',
+          deliveries: []
+        };
+
         return {
             registration: this.registration,
             duracaoProjeto: '',
@@ -23,6 +39,8 @@ app.component('registration-workplan', {
               "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
               "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
             ],
+            objectGoal,
+            objectDelivery
           };
     },
     methods: {
@@ -33,21 +51,15 @@ app.component('registration-workplan', {
             return v.toString(16);
           });
         },
-        async adicionarMeta() {          
-          this.registration.workplan_goals.push({
-            id: this.generateUUIDv4(),
-            mesInicial: '',
-            mesFinal: '',
-            titulo: '',
-            descricao: '',
-            etapaFazerCultural: '',
-            acaoOrcamentaria: '',
-            valor: '',
-          });
+        async newGoal() {          
+          this.registration.workplan_goals.push(this.objectGoal);
         },
-        async removerMeta(index) {
+        async deleteGoal(index) {
           this.registration.workplan_goals.splice(index, 1);
           await this.save_();
+        },
+        async newDelivery(index) {        
+          this.registration.workplan_goals[index].deliveries.push(this.objectDelivery);
         },
         async save_() {
           const registration = this.registration;

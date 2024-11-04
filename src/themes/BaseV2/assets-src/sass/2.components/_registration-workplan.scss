@@ -1,0 +1,30 @@
+@use '../0.settings/mixins' as *;
+
+.registration-workplan {
+    &__goals {
+        border: 1px solid #ddd; 
+        padding: size(12);
+        margin-top: size(12);
+    }
+
+    &__goals-months {
+        display: flex; 
+        gap: size(12); 
+        margin-bottom: size(12);
+    }
+
+    &__delete-meta {
+        margin-top: size(12);
+        display:flex;
+        align-items:right;
+        justify-content: flex-end;
+    }
+
+    &__new-meta {
+        margin-top: size(12);
+    }
+
+    .field {
+        margin-top: size(12);
+    }
+}

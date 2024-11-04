@@ -271,7 +271,7 @@ class Module extends \MapasCulturais\Module{
 
         // metadados registrations
         $this->registerRegistrationMetadata('workplan_projectDuration', [
-            'label' => i::__('Duração do projeto'),
+            'label' => i::__('Duração do projeto (meses)'),
             'type' => 'integer',
         ]);
 

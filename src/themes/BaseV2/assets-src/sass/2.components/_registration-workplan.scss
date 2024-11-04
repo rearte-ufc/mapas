@@ -2,9 +2,13 @@
 
 .registration-workplan {
     &__goals {
-        border: 1px solid #ddd; 
         padding: size(12);
         margin-top: size(12);
+        background-color: #f7f7f7;
+        border-radius: 4px 4px 4px 4px;
+        -webkit-border-radius: 4px 4px 4px 4px;
+        -moz-border-radius: 4px 4px 4px 4px;
+        border: 1px solid #ccc;
     }
 
     &__goals-title {
@@ -28,12 +32,17 @@
         display:flex;
         align-items:right;
         justify-content: flex-end;
+        
     }
 
     &__goals__deliveries {
-        border: 1px solid #ddd; 
+        border-radius: 4px 4px 4px 4px;
+        -webkit-border-radius: 4px 4px 4px 4px;
+        -moz-border-radius: 4px 4px 4px 4px;
+        border: 1px solid #ccc;
         padding: size(24);
         margin-top: size(12);
+        background-color: #f3f3f3;
     }
 
     &__new-delivery {

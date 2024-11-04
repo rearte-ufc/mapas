@@ -57,12 +57,16 @@ app.component('opportunity-enable-workplan', {
             this.entity.workplan_monitoringInformDeliveryType = [];
             this.entity.workplan_registrationReportTheNumberOfParticipants = false;
             this.entity.workplan_registrationReportExpectedRenevue = false;
-            this.entity.workplan_monitoringInformActionPAAR = false;
+            this.entity.workplan_registrationInformActionPAAR = false;
             this.entity.workplan_monitoringInformAccessibilityMeasures = false;
             this.entity.workplan_monitoringInformThePriorityTerritories = false;
             this.entity.workplan_monitoringProvideTheProfileOfParticipants = false;
             this.entity.workplan_monitoringInformThePriorityAudience = false;
             this.entity.workplan_monitoringReportExecutedRevenue = false;   
+            this.entity.workplan_metaReportTheBudgetAction = false;
+            this.entity.workplan_registrationInformCulturalArtisticSegment = false;
+            this.entity.workplan_monitoringInformTheFormOfAvailability = false;
+            this.entity.workplan_monitoringEnterDeliverySubtype = false;
         }
     },
 })

@@ -60,6 +60,12 @@ class Module extends \MapasCulturais\Module{
             'default_value' => false
         ]);
 
+        $this->registerOpportunityMetadata('workplan_metaReportTheBudgetAction', [
+            'label' => i::__('Informar a ação orçamentária'),
+            'type' => 'boolean',
+            'default_value' => false
+        ]);
+
         
         $this->registerOpportunityMetadata('workplan_metaInformTheValueGoals', [
             'label' => i::__('Informar o valor da meta'),
@@ -226,6 +232,12 @@ class Module extends \MapasCulturais\Module{
             'type' => 'boolean',
             'default_value' => false
         ]);
+
+        $this->registerOpportunityMetadata('workplan_registrationInformCulturalArtisticSegment', [
+            'label' => i::__('Informar segmento artístico cultural'),
+            'type' => 'boolean',
+            'default_value' => false
+        ]);
          
         $this->registerOpportunityMetadata('workplan_registrationReportExpectedRenevue', [
             'label' => i::__('Informar receita prevista'),
@@ -233,8 +245,20 @@ class Module extends \MapasCulturais\Module{
             'default_value' => false
         ]);
 
-        $this->registerOpportunityMetadata('workplan_monitoringInformActionPAAR', [
+        $this->registerOpportunityMetadata('workplan_registrationInformActionPAAR', [
             'label' => i::__('Informar a ação orçamentária (PAAR)'),
+            'type' => 'boolean',
+            'default_value' => false
+        ]);
+
+        $this->registerOpportunityMetadata('workplan_monitoringInformTheFormOfAvailability', [
+            'label' => i::__('Informar forma de disponibilização'),
+            'type' => 'boolean',
+            'default_value' => false
+        ]);
+
+        $this->registerOpportunityMetadata('workplan_monitoringEnterDeliverySubtype', [
+            'label' => i::__('Informar subtipo de entrega'),
             'type' => 'boolean',
             'default_value' => false
         ]);

@@ -7,12 +7,9 @@
 
 use MapasCulturais\i;
 
-
 $this->import('
     mc-tag-list
-    
 ');
-
 ?>
 <div class="opportunity-enable-workplan">
     <h4 class="bold opportunity-enable-workplan__title"><?= i::__('Plano de trabalho') ?></h4>
@@ -96,12 +93,6 @@ $this->import('
                         </label>
                         <input type="number" :disabled="!entity.workplan_deliveryLimitNumberOfDeliveries" v-model="entity.workplan_deliveryMaximumNumberOfDeliveries" @change="autoSave()">
                     </div>
-
-                    <!-- <div class="field__group field-delivery-type">
-                        <label class="field__checkbox">
-                            <entity-field :entity="entity" classes="col-12" prop="workplan_monitoringInformDeliveryType" class="col-12 block" label="<?= i::__('Tipos de entrega (Selecione as entregas aceitas no edital)') ?>" @change="autoSave()"></entity-field>
-                        </label>
-                    </div> -->
 
                     <div class="field">
                         <label> <?php i::_e('Informar tipo de entrega') ?></label>

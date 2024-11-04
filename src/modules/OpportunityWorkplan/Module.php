@@ -275,6 +275,16 @@ class Module extends \MapasCulturais\Module{
             'type' => 'integer',
         ]);
 
+        $this->registerRegistrationMetadata('workplan_culturalArtisticSegment', [
+            'label' => i::__('Segmento artistico cultural'),
+            'type' => 'select',
+            'options' => [
+                \MapasCulturais\i::__("Segmento 1"),
+                \MapasCulturais\i::__("Segmento 2"),
+            ],
+            'placeholder' => "Selecione",
+        ]);
+
         $this->registerRegistrationMetadata('workplan_goals', [
             'label' => i::__('Metas'),
             'type' => 'json',

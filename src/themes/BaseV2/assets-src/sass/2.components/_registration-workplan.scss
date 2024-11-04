@@ -7,10 +7,20 @@
         margin-top: size(12);
     }
 
+    &__goals-title {
+        color: #117C83;
+    }
+
+    &__goals-period {
+        margin-top: size(12);
+        p {
+            font-weight: bold;
+        }
+    }
+
     &__goals-months {
         display: flex; 
         gap: size(12); 
-        margin-bottom: size(12);
     }
 
     &__delete-meta {

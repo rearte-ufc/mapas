@@ -12,6 +12,7 @@ $this->import('
     mc-card
     mc-icon
     mc-confirm-button
+    mc-currency-input
 ');
 ?>
 <mc-card class="registration-workplan" v-if="registration.opportunity.enableWorkplan">
@@ -74,7 +75,7 @@ $this->import('
             <!-- Valor da meta -->
             <div class="field">
                 <label><?= i::esc_attr__('Valor da meta (R$)') ?></label>
-                <input v-model="goal.amount" type="number" placeholder="R$" @change="save_">
+                <mc-currency-input v-model="goal.amount" :name="amount" @input="save_" @blur="save_"></mc-currency-input>
             </div>
 
             <div v-for="(delivery, index_) in goal.deliveries" :key="delivery.id" class="registration-workplan__goals__deliveries">
@@ -139,12 +140,12 @@ $this->import('
 
                     <div class="field col-4 sm:col-12">
                         <label><?= i::esc_attr__('Previsão de valor unitário') ?></label>
-                        <input v-model="delivery.unitValueForecast" type="text" @change="save_">
+                        <mc-currency-input v-model="delivery.unitValueForecast" :name="unitValueForecast" @input="save_" @blur="save_"></mc-currency-input>
                     </div>
 
                     <div class="field col-4 sm:col-12">
                         <label><?= i::esc_attr__(text: 'Previsão de valor total') ?></label>
-                        <input v-model="delivery.TotalValueForecast" type="text" @change="save_">
+                        <mc-currency-input v-model="delivery.TotalValueForecast" :name="TotalValueForecast" @input="save_" @blur="save_"></mc-currency-input>
                     </div>
                 </div>
                 

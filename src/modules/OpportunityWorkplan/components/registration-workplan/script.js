@@ -11,13 +11,22 @@ app.component('registration-workplan', {
         },
     },
     data() {
+        const api = new API('workplan');
+            
+        const response = api.GET(`${this.registration.id}`);
+        response.then((res) => res.json().then((data) => {
+            this.workplan = data;
+        }));
+
         if (this.registration.workplan_goals == null) {
             this.registration.workplan_goals = [];
         }
 
+        
         const workplan_goals = this.registration.workplan_goals;
 
         return {
+            workplan: [],
             registration: this.registration,
             workplan_goals,
             duracaoProjeto: '',

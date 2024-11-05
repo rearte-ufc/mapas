@@ -21,9 +21,19 @@ $this->import('
         <p><?= i::esc_attr__('Descrição do plano de trabalho.') ?></p>
     </template>
     <template #content>
-        <entity-field :entity="registration" prop="workplan_projectDuration" :autosave="30000"></entity-field>
-        <entity-field :entity="registration" prop="workplan_culturalArtisticSegment" :autosave="30000"></entity-field>
+        <!-- <entity-field :entity="registration" prop="workplan_projectDuration" :autosave="30000"></entity-field> -->
+        <!-- <entity-field :entity="registration" prop="workplan_culturalArtisticSegment" :autosave="30000"></entity-field> -->
+        
+        <div class="field">
+            <label><?= i::esc_attr__('Duração do projeto (meses)') ?></label>
+            <input v-model="workplan.projectDuration" type="number" @change="save_">
+        </div>
 
+        <div class="field">
+            <label><?= i::esc_attr__('Segmento artistico cultural') ?></label>
+            <input v-model="workplan.culturalArtisticSegment" type="number" @change="save_">
+        </div>       
+        
         <!-- Metas -->
         <div v-for="(goal, index) in workplan_goals" :key="goal.id" class="registration-workplan__goals">
             <div @click="toggleCollapse(index)" class="registration-workplan__header-goals">

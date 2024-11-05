@@ -15,10 +15,12 @@ app.component('registration-workplan', {
             this.registration.workplan_goals = [];
         }
 
+        const workplan_goals = this.registration.workplan_goals;
+
         return {
             registration: this.registration,
+            workplan_goals,
             duracaoProjeto: '',
-            workplan_goals: this.registration.workplan_goals,
             meses: [
                 "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
                 "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
@@ -42,12 +44,14 @@ app.component('registration-workplan', {
                 description: '',
                 culturalMakingStage: '',
                 amount: '',
-                deliveries: []
+                deliveries: [],
+                isCollapsed: true
             };
-            this.registration.workplan_goals.push(objectGoal);
+
+            this.workplan_goals.push(objectGoal);
         },
         async deleteGoal(index) {
-            this.registration.workplan_goals.splice(index, 1);
+            this.workplan_goals.splice(index, 1);
             await this.save_();
         },
         async newDelivery(indexGoal) {
@@ -64,16 +68,17 @@ app.component('registration-workplan', {
                 unitValueForecast: '',
                 TotalValueForecast: '',
             };
-            this.registration.workplan_goals[indexGoal].deliveries.push(objectDelivery);
+            this.workplan_goals[indexGoal].deliveries.push(objectDelivery);
         },
         async deleteDelivery(indexGoal, indexDelivery) {
-            this.registration.workplan_goals[indexGoal].deliveries.splice(indexDelivery, 1);
+            this.workplan_goals[indexGoal].deliveries.splice(indexDelivery, 1);
             await this.save_();
         },
         async save_() {
-            const registration = this.registration;
-            registration.workplan_goals = this.workplan_goals;
-            return registration.save(300, true);
-        }
+            return this.registration.save(300, true);
+        },
+        toggleCollapse(index) {
+            this.workplan_goals[index].isCollapsed = !this.workplan_goals[index].isCollapsed;
+        },
     },
 })

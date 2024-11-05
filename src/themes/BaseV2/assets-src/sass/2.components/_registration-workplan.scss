@@ -11,8 +11,15 @@
         border: 1px solid #ccc;
     }
 
+    &__header-goals {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        color: var(--mc-primary-500);
+    }
+
     &__goals-title {
-        color: #117C83;
+        color: var(--mc-primary-500);
     }
 
     &__goals-period {

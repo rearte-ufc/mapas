@@ -5,6 +5,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+use MapasCulturais\Traits\EntityMetadata;
+use MapasCulturais\Traits\EntityOwnerAgent;
+
 /**
  * 
  * @ORM\Table(name="registration_workplan_goal")
@@ -13,6 +16,9 @@ use Doctrine\Common\Collections\Collection;
  */
 class WorkplanGoal extends \MapasCulturais\Entity {
 
+
+    use EntityMetadata,
+        EntityOwnerAgent;
 
     /**
      *
@@ -23,45 +29,14 @@ class WorkplanGoal extends \MapasCulturais\Entity {
     protected $id;
 
     /**
-     * @var string
+     * @var \MapasCulturais\Entities\Agent
      *
-     * @ORM\Column(name="month_initial", type="string", length=50)
+     * @ORM\ManyToOne(targetEntity="MapasCulturais\Entities\Agent", fetch="LAZY")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="agent_id", referencedColumnName="id", onDelete="CASCADE")
+     * })
      */
-    protected $monthInitial;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="month_end", type="string", length=50)
-     */
-    protected $monthEnd;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    protected $title;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text")
-     */
-    protected $description;
-
-     /**
-     * @var string
-     *
-     * @ORM\Column(name="cultural_making_stage", type="string", length=50)
-     */
-    protected $culturalMakingStage;
-
-    /**
-     *
-     * @ORM\Column(name="amount", type="decimal", precision=15, scale=2)
-     */
-    protected $amount;
+    protected $owner;
 
     /**
      *
@@ -76,6 +51,25 @@ class WorkplanGoal extends \MapasCulturais\Entity {
     * @ORM\OneToMany(targetEntity=\OpportunityWorkplan\Entities\GoalDelivery::class, mappedBy="goal", cascade={"persist", "remove"}, orphanRemoval=true)
     */
     protected $deliveries;
+
+    /**
+    * @ORM\OneToMany(targetEntity=\OpportunityWorkplan\Entities\WorkplanGoalMeta::class, mappedBy="owner", cascade={"remove","persist"}, orphanRemoval=true)
+    */
+    protected $__metadata;
+
+       /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="create_timestamp", type="datetime", nullable=false)
+     */
+    protected $createTimestamp;
+
+        /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_timestamp", type="datetime", nullable=true)
+     */
+    protected $updateTimestamp;
 
     public function getDeliveries(): Collection
     {
@@ -95,15 +89,12 @@ class WorkplanGoal extends \MapasCulturais\Entity {
             return $a->id <=> $b->id;
         });
 
+        $metadatas = $this->getMetadata();
+
         return [
             'id' => $this->id,
-            'monthInitial' => $this->monthInitial,
-            'monthEnd' => $this->monthEnd,
-            'title' => $this->title,
-            'description' => $this->description,
-            'culturalMakingStage' => $this->culturalMakingStage,
-            'amount' => $this->amount,
-            'deliveries' => $sortedDeliveries
+            'deliveries' => $sortedDeliveries,
+            ...$metadatas
         ];
     }
 }

@@ -3,6 +3,9 @@ namespace OpportunityWorkplan\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use MapasCulturais\Traits\EntityMetadata;
+use MapasCulturais\Traits\EntityOwnerAgent;
+
 /**
  * 
  * @ORM\Table(name="registration_workplan_goal_delivery")
@@ -11,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class GoalDelivery extends \MapasCulturais\Entity {
 
+    use EntityMetadata,
+        EntityOwnerAgent;
 
     /**
      *
@@ -21,70 +26,14 @@ class GoalDelivery extends \MapasCulturais\Entity {
     protected $id;
 
     /**
-     * @var string
+     * @var \MapasCulturais\Entities\Agent
      *
-     * @ORM\Column(name="name", type="string", length=50)
+     * @ORM\ManyToOne(targetEntity="MapasCulturais\Entities\Agent", fetch="LAZY")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="agent_id", referencedColumnName="id", onDelete="CASCADE")
+     * })
      */
-    protected $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255)
-     */
-    protected $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=50)
-     */
-    protected $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="segment_delivery", type="string", length=50)
-     */
-    protected $segmentDelivery;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="budget_action", type="string", length=50)
-     */
-    protected $budgetAction;
-
-     /**
-     * @var integer
-     *
-     * @ORM\Column(name="expected_number_people", type="integer")
-     */
-    protected $expectedNumberPeople;
-
-    /**
-     *
-     * @ORM\Column(name="generate_revenue", type="boolean")
-     */
-    protected $generaterRevenue;
-
-    /**
-     *
-     * @ORM\Column(name="renevue_qtd", type="integer")
-     */
-    protected $renevueQtd;
-
-    /**
-     *
-     * @ORM\Column(name="unit_value_forecast", type="decimal", precision=15, scale=2)
-     */
-    protected $unitValueForecast;
-
-    /**
-     *
-     * @ORM\Column(name="total_value_forecast", type="decimal", precision=15, scale=2)
-     */
-    protected $totalValueForecast;
+    protected $owner;
 
     /**
      *
@@ -95,20 +44,32 @@ class GoalDelivery extends \MapasCulturais\Entity {
      */
     protected $goal;
 
+    /**
+    * @ORM\OneToMany(targetEntity=\OpportunityWorkplan\Entities\GoalDeliveryMeta::class, mappedBy="owner", cascade={"remove","persist"}, orphanRemoval=true)
+    */
+    protected $__metadata;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="create_timestamp", type="datetime", nullable=false)
+     */
+    protected $createTimestamp;
+
+        /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_timestamp", type="datetime", nullable=true)
+     */
+    protected $updateTimestamp;
+
     public function jsonSerialize(): array
     {
+        $metadatas = $this->getMetadata();
+
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'type' => $this->type,
-            'segmentDelivery' => $this->segmentDelivery,
-            'budgetAction' => $this->budgetAction,
-            'expectedNumberPeople' => $this->expectedNumberPeople,
-            'generaterRevenue' => $this->generaterRevenue,
-            'renevueQtd' => $this->renevueQtd,
-            'unitValueForecast' => $this->unitValueForecast,
-            'totalValueForecast' => $this->totalValueForecast,
+            ...$metadatas
         ];
     }
 }

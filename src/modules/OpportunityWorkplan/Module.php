@@ -3,10 +3,13 @@ namespace OpportunityWorkplan;
 
 use MapasCulturais\App,
     MapasCulturais\i;
+use MapasCulturais\Definitions\EntityType;
 use MapasCulturais\Entities\Registration;
 use OpportunityWorkplan\Controllers\Workplan as ControllersWorkplan;
 use OpportunityWorkplan\Entities\Workplan;
 use OpportunityWorkplan\Entities\WorkplanGoal;
+use MapasCulturais\Definitions\Metadata;
+use OpportunityWorkplan\Entities\GoalDelivery;
 
 class Module extends \MapasCulturais\Module{
     function _init(){
@@ -71,7 +74,7 @@ class Module extends \MapasCulturais\Module{
         $app = App::i();
 
         $app->registerController('workplan', ControllersWorkplan::class);
-
+       
         // metadados opportunity
         $this->registerOpportunityMetadata('enableWorkplan', [
             'label' => i::__('Habilitar plano de trabalho'),
@@ -332,25 +335,62 @@ class Module extends \MapasCulturais\Module{
             'default_value' => false
         ]);
 
-        // metadados registrations
-        $this->registerRegistrationMetadata('workplan_projectDuration', [
-            'label' => i::__('Duração do projeto (meses)'),
-            'type' => 'integer',
-        ]);
+        // metadados workplan
+        $projectDuration = new Metadata('projectDuration', ['label' => \MapasCulturais\i::__('Duração do projeto (meses)')]);
+        $app->registerMetadata($projectDuration, Workplan::class);
 
-        $this->registerRegistrationMetadata('workplan_culturalArtisticSegment', [
-            'label' => i::__('Segmento artistico cultural'),
-            'type' => 'select',
-            'options' => [
-                \MapasCulturais\i::__("Segmento 1"),
-                \MapasCulturais\i::__("Segmento 2"),
-            ],
-            'placeholder' => "Selecione",
-        ]);
+        $culturalArtisticSegment = new Metadata('culturalArtisticSegment', ['label' => \MapasCulturais\i::__('Segmento artistico cultural')]);
+        $app->registerMetadata($culturalArtisticSegment, Workplan::class);
 
-        $this->registerRegistrationMetadata('workplan_goals', [
-            'label' => i::__('Metas'),
-            'type' => 'json',
-        ]);
+        // metadados goal
+        $monthInitial = new Metadata('monthInitial', ['label' => \MapasCulturais\i::__('Mês inicial')]);
+        $app->registerMetadata($monthInitial, WorkplanGoal::class);
+
+        $monthEnd = new Metadata('monthEnd', ['label' => \MapasCulturais\i::__('Mês final')]);
+        $app->registerMetadata($monthEnd, WorkplanGoal::class);
+
+        $title = new Metadata('title', ['label' => \MapasCulturais\i::__('Título da meta')]);
+        $app->registerMetadata($title, WorkplanGoal::class);
+
+        $description = new Metadata('description', ['label' => \MapasCulturais\i::__('Descrição')]);
+        $app->registerMetadata($description, WorkplanGoal::class);
+
+        $culturalMakingStage = new Metadata('culturalMakingStage', ['label' => \MapasCulturais\i::__('Etapa do fazer cultural')]);
+        $app->registerMetadata($culturalMakingStage, WorkplanGoal::class);
+
+        $amount = new Metadata('amount', ['label' => \MapasCulturais\i::__('Valor da meta (R$)')]);
+        $app->registerMetadata($amount, WorkplanGoal::class);
+    
+        // metadados delivery
+        $name = new Metadata('name', ['label' => \MapasCulturais\i::__('Nome da entrega')]);
+        $app->registerMetadata($name, GoalDelivery::class);
+
+        $description = new Metadata('description', ['label' => \MapasCulturais\i::__('Descrição')]);
+        $app->registerMetadata($description, GoalDelivery::class);
+
+        $type = new Metadata('type', ['label' => \MapasCulturais\i::__('Tipo de entrega')]);
+        $app->registerMetadata($type, GoalDelivery::class);
+
+        $segmentDelivery = new Metadata('segmentDelivery', ['label' => \MapasCulturais\i::__('Segmento artístico cultural da entrega')]);
+        $app->registerMetadata($segmentDelivery, GoalDelivery::class);
+
+        $budgetAction = new Metadata('budgetAction', ['label' => \MapasCulturais\i::__('Ação orçamentária')]);
+        $app->registerMetadata($budgetAction, GoalDelivery::class);
+
+
+        $expectedNumberPeople = new Metadata('expectedNumberPeople', ['label' => \MapasCulturais\i::__('Número previsto de pessoas')]);
+        $app->registerMetadata($expectedNumberPeople, GoalDelivery::class);
+
+        $generaterRevenue = new Metadata('generaterRevenue', ['label' => \MapasCulturais\i::__('A entrega irá gerar receita?')]);
+        $app->registerMetadata($generaterRevenue, GoalDelivery::class);
+
+        $renevueQtd = new Metadata('renevueQtd', ['label' => \MapasCulturais\i::__('Quantidade')]);
+        $app->registerMetadata($renevueQtd, GoalDelivery::class);
+
+        $unitValueForecast = new Metadata('unitValueForecast', ['label' => \MapasCulturais\i::__('Previsão de valor unitário')]);
+        $app->registerMetadata($unitValueForecast, GoalDelivery::class);
+
+        $totalValueForecast = new Metadata('totalValueForecast', ['label' => \MapasCulturais\i::__('Previsão de valor total')]);
+        $app->registerMetadata($totalValueForecast, GoalDelivery::class);
     }
 }

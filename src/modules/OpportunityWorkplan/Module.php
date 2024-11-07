@@ -6,7 +6,7 @@ use MapasCulturais\App,
 use MapasCulturais\Entities\Registration;
 use OpportunityWorkplan\Controllers\Workplan as ControllersWorkplan;
 use OpportunityWorkplan\Entities\Workplan;
-use OpportunityWorkplan\Entities\WorkplanGoals;
+use OpportunityWorkplan\Entities\WorkplanGoal;
 
 class Module extends \MapasCulturais\Module{
     function _init(){
@@ -22,47 +22,47 @@ class Module extends \MapasCulturais\Module{
             });
 
 
-            $app->hook("PATCH(registration.single):before", function() use($app) {
-                /** @var Registration $this */
-                $app->disableAccessControl();
+            // $app->hook("PATCH(registration.single):before", function() use($app) {
+            //     /** @var Registration $this */
+            //     $app->disableAccessControl();
 
-                $app = App::i();
+            //     $app = App::i();
 
-                $registration = $app->repo(Registration::class)->find($this->data['id']);
-                $workplan = $app->repo(entity_name: Workplan::class)->findOneBy(['registration' => $registration->id]);
+            //     $registration = $app->repo(Registration::class)->find($this->data['id']);
+            //     $workplan = $app->repo(entity_name: Workplan::class)->findOneBy(['registration' => $registration->id]);
 
-                if (!$workplan) {
-                    $workplan = new Workplan();
-                }
+            //     if (!$workplan) {
+            //         $workplan = new Workplan();
+            //     }
 
-                if (array_key_exists('workplan_projectDuration', $this->data)) {
-                    $workplan->projectDuration = $this->data['workplan_projectDuration'];
-                }
+            //     if (array_key_exists('workplan_projectDuration', $this->data)) {
+            //         $workplan->projectDuration = $this->data['workplan_projectDuration'];
+            //     }
         
-                if (array_key_exists('workplan_culturalArtisticSegment', $this->data)) {
-                    $workplan->culturalArtisticSegment = $this->data['workplan_culturalArtisticSegment'];
-                }
+            //     if (array_key_exists('workplan_culturalArtisticSegment', $this->data)) {
+            //         $workplan->culturalArtisticSegment = $this->data['workplan_culturalArtisticSegment'];
+            //     }
             
-                $workplan->registration = $registration;
-                $workplan->save(true);
+            //     $workplan->registration = $registration;
+            //     $workplan->save(true);
 
-                $goals = [];
-                if (array_key_exists('workplan_goals', $this->data)) {
-                    foreach ($this->data['workplan_goals'] as $g) {
-                        $goals = new WorkplanGoals();
-                        $goals->monthInitial = $g['monthInitial'];
-                        $goals->monthEnd = $g['monthEnd'];
-                        $goals->title = $g['title'];
-                        $goals->description = $g['description'];
-                        $goals->culturalMakingStage = $g['culturalMakingStage'];
-                        $goals->amount = $g['amount'];
-                        $goals->workplan = $workplan;
-                        $goals->save(true);
-                    }      
-                }          
+            //     $goals = [];
+            //     if (array_key_exists('workplan_goals', $this->data)) {
+            //         foreach ($this->data['workplan_goals'] as $g) {
+            //             $goals = new WorkplanGoal();
+            //             $goals->monthInitial = $g['monthInitial'];
+            //             $goals->monthEnd = $g['monthEnd'];
+            //             $goals->title = $g['title'];
+            //             $goals->description = $g['description'];
+            //             $goals->culturalMakingStage = $g['culturalMakingStage'];
+            //             $goals->amount = $g['amount'];
+            //             $goals->workplan = $workplan;
+            //             $goals->save(true);
+            //         }      
+            //     }          
                 
-                $app->enableAccessControl();
-            });
+            //     $app->enableAccessControl();
+            // });
         });
     }
 

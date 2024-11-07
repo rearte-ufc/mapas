@@ -11,25 +11,17 @@ app.component('registration-workplan', {
         },
     },
     data() {
-        const api = new API('workplan');
-            
-        const response = api.GET(`${this.registration.id}`);
-        response.then((res) => res.json().then((data) => {
-            this.workplan = data;
-        }));
 
-        if (this.registration.workplan_goals == null) {
-            this.registration.workplan_goals = [];
-        }
-
-        
-        const workplan_goals = this.registration.workplan_goals;
+        this.getWorkplan();
 
         return {
-            workplan: [],
-            registration: this.registration,
-            workplan_goals,
-            duracaoProjeto: '',
+            workplan: {
+                id: null,
+                registrationId: this.registration.id,
+                projectDuration: null,
+                culturalArtisticSegment: null,
+                goals: []
+            },
             meses: [
                 "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
                 "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
@@ -37,57 +29,87 @@ app.component('registration-workplan', {
         };
     },
     methods: {
-        generateUUIDv4() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                const r = (Math.random() * 16) | 0;
-                const v = c === 'x' ? r : (r & 0x3) | 0x8;
-                return v.toString(16);
-            });
+        getWorkplan() {
+            const api = new API('workplan');
+            
+            const response = api.GET(`${this.registration.id}`);
+            response.then((res) => res.json().then((data) => {
+                if (data != null) {
+                    this.workplan = data.workplan;
+                }
+            }));
         },
         async newGoal() {
             const objectGoal = {
-                id: this.generateUUIDv4(),
-                monthInitial: '',
-                monthEnd: '',
-                title: '',
-                description: '',
-                culturalMakingStage: '',
-                amount: '',
+                id: null,
+                monthInitial: null,
+                monthEnd: null,
+                title: null,
+                description: null,
+                culturalMakingStage: null,
+                amount: null,
                 deliveries: [],
                 isCollapsed: true
             };
+            this.workplan.goals.push(objectGoal);
+        },
+        async deleteGoal(goalId) {
+            const api = new API('workplan');
 
-            this.workplan_goals.push(objectGoal);
+            const response = api.DELETE('goal', {id: goalId});
+            response.then((res) => res.json().then((data) => {
+                this.workplan.goals = this.workplan.goals.filter(goal => goal.id !== goalId);
+            }));
         },
-        async deleteGoal(index) {
-            this.workplan_goals.splice(index, 1);
-            await this.save_();
-        },
-        async newDelivery(indexGoal) {
+        async newDelivery(goal) {
             const objectDelivery = {
-                id: this.generateUUIDv4(),
-                name: '',
-                description: '',
-                type: '',
-                artisticCulturalSegmentOfDelivery: '',
-                budgetAction: '',
-                expectedNumberOfPeople: '',
-                deliveryWillGenerateRevenue: '',
-                renevueQtd: '',
-                unitValueForecast: '',
-                TotalValueForecast: '',
+                id: null,
+                name: null,
+                description: null,
+                type: null,
+                segmentDelivery: null,
+                budgetAction: null,
+                expectedNumberPeople: null,
+                generaterRevenue: null,
+                renevueQtd: null,
+                unitValueForecast: null,
+                totalValueForecast: null,
             };
-            this.workplan_goals[indexGoal].deliveries.push(objectDelivery);
+            goal.deliveries.push(objectDelivery);
         },
-        async deleteDelivery(indexGoal, indexDelivery) {
-            this.workplan_goals[indexGoal].deliveries.splice(indexDelivery, 1);
-            await this.save_();
+        async deleteDelivery(deliveryId) {
+            const api = new API('workplan');
+
+            const response = api.DELETE('delivery', {id: deliveryId});
+            response.then((res) => res.json().then((data) => {
+                this.workplan.goals = this.workplan.goals.map(goal => {
+                    if (goal.deliveries) {
+                        goal.deliveries = goal.deliveries.filter(delivery => delivery.id !== deliveryId);
+                    }
+                    return goal;
+                });
+
+
+            }));
         },
         async save_() {
-            return this.registration.save(300, true);
+            // return this.registration.save(300, true);
+
+            const api = new API('workplan');
+            
+            console.log();
+
+            const response = api.POST(`save`, this.workplan);
+            response.then((res) => res.json().then((data) => {
+                this.workplan = data.workplan;
+                
+                // this.messages.success('Modificações salvas');
+            }));
+
+            
         },
         toggleCollapse(index) {
-            this.workplan_goals[index].isCollapsed = !this.workplan_goals[index].isCollapsed;
+            this.workplan.goals[index].isCollapsed = !this.workplan.goals[index].isCollapsed;
         },
     },
 })

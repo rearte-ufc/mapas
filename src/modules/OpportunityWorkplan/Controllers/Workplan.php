@@ -7,6 +7,7 @@ use MapasCulturais\Entities\Registration;
 use OpportunityWorkplan\Entities\GoalDelivery;
 use OpportunityWorkplan\Entities\Workplan as EntitiesWorkplan;
 use OpportunityWorkplan\Entities\WorkplanGoal;
+use MapasCulturais\i;
 
 class Workplan extends \MapasCulturais\Controller
 {
@@ -17,9 +18,18 @@ class Workplan extends \MapasCulturais\Controller
         $registration = $app->repo(Registration::class)->find($this->data['id']);
         $workplan = $app->repo(EntitiesWorkplan::class)->findOneBy(['registration' => $registration->id]);
 
-        $this->json([
-            'workplan' => $workplan->jsonSerialize(),
-        ]);
+        $data = [
+            'workplan' => []
+        ];
+
+        if ($workplan) {
+            $data = [
+                'workplan' => $workplan->jsonSerialize(),
+            ];
+        }
+        
+
+        $this->json($data);
     }
 
     public function POST_save()
@@ -34,20 +44,21 @@ class Workplan extends \MapasCulturais\Controller
         if (!$workplan) {
             $workplan = new EntitiesWorkplan();
         }
+        $dataWorkplan = $this->data['workplan'];
 
-        if (array_key_exists('projectDuration', $this->data)) {
-            $workplan->projectDuration = $this->data['projectDuration'];
+        if (array_key_exists('projectDuration', $dataWorkplan)) {
+            $workplan->projectDuration = $dataWorkplan['projectDuration'];
         }
 
-        if (array_key_exists('culturalArtisticSegment', $this->data)) {
-            $workplan->culturalArtisticSegment = $this->data['culturalArtisticSegment'];
+        if (array_key_exists('culturalArtisticSegment', $dataWorkplan)) {
+            $workplan->culturalArtisticSegment = $dataWorkplan['culturalArtisticSegment'];
         }
     
         $workplan->registration = $registration;
         $workplan->save(true);
 
-        if (array_key_exists('goals', $this->data)) {
-            foreach ($this->data['goals'] as $g) {
+        if (array_key_exists('goals', $dataWorkplan)) {
+            foreach ($dataWorkplan['goals'] as $g) {
                 if ($g['id'] > 0) {
                     $goal = $app->repo(WorkplanGoal::class)->find($g['id']);
                 } else {
@@ -105,7 +116,6 @@ class Workplan extends \MapasCulturais\Controller
             $app->em->remove($goal);
             $app->em->flush(); 
         }
-
         $this->json(true);
     }
 

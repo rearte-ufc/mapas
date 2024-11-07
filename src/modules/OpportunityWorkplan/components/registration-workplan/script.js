@@ -96,10 +96,13 @@ app.component('registration-workplan', {
             // return this.registration.save(300, true);
 
             const api = new API('workplan');
-            
-            console.log();
 
-            const response = api.POST(`save`, this.workplan);
+            let data = {
+                registrationId: this.registration.id,
+                workplan: this.workplan,
+            };
+
+            const response = api.POST(`save`, data);
             response.then((res) => res.json().then((data) => {
                 this.workplan = data.workplan;
                 

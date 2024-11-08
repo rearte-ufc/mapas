@@ -7,13 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use MapasCulturais\App;
 
 /**
- * WorkplanGoalMeta
+ * GoalMeta
  *
  * @ORM\Table(name="registration_workplan_goal_meta")
  * @ORM\Entity
  * @ORM\entity(repositoryClass="MapasCulturais\Repository")
  */
-class WorkplanGoalMeta extends \MapasCulturais\Entity {
+class GoalMeta extends \MapasCulturais\Entity {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -36,9 +36,9 @@ class WorkplanGoalMeta extends \MapasCulturais\Entity {
     protected $value;
 
     /**
-     * @var \OpportunityWorkplan\Entities\WorkplanGoal
+     * @var \OpportunityWorkplan\Entities\Goal
      *
-     * @ORM\ManyToOne(targetEntity=\OpportunityWorkplan\Entities\WorkplanGoal::class)
+     * @ORM\ManyToOne(targetEntity=\OpportunityWorkplan\Entities\Goal::class)
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="object_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * })
@@ -48,29 +48,29 @@ class WorkplanGoalMeta extends \MapasCulturais\Entity {
 
     /** @ORM\PrePersist */
     public function _prePersist($args = null){
-        App::i()->applyHookBoundTo($this, 'entity(workplanGoal).meta(' . $this->key . ').insert:before');
+        App::i()->applyHookBoundTo($this, 'entity(goal).meta(' . $this->key . ').insert:before');
     }
     /** @ORM\PostPersist */
     public function _postPersist($args = null){
-        App::i()->applyHookBoundTo($this, 'entity(workplanGoal).meta(' . $this->key . ').insert:after');
+        App::i()->applyHookBoundTo($this, 'entity(goal).meta(' . $this->key . ').insert:after');
     }
 
     /** @ORM\PreRemove */
     public function _preRemove($args = null){
-        App::i()->applyHookBoundTo($this, 'entity(workplanGoal).meta(' . $this->key . ').remove:before');
+        App::i()->applyHookBoundTo($this, 'entity(goal).meta(' . $this->key . ').remove:before');
     }
     /** @ORM\PostRemove */
     public function _postRemove($args = null){
-        App::i()->applyHookBoundTo($this, 'entity(workplanGoal).meta(' . $this->key . ').remove:after');
+        App::i()->applyHookBoundTo($this, 'entity(goal).meta(' . $this->key . ').remove:after');
     }
 
     /** @ORM\PreUpdate */
     public function _preUpdate($args = null){
-        App::i()->applyHookBoundTo($this, 'entity(workplanGoal).meta(' . $this->key . ').update:before');
+        App::i()->applyHookBoundTo($this, 'entity(goal).meta(' . $this->key . ').update:before');
     }
     /** @ORM\PostUpdate */
     public function _postUpdate($args = null){
-        App::i()->applyHookBoundTo($this, 'entity(workplanGoal).meta(' . $this->key . ').update:after');
+        App::i()->applyHookBoundTo($this, 'entity(goal).meta(' . $this->key . ').update:after');
     }
 
     //============================================================= //

@@ -4,10 +4,9 @@ namespace OpportunityWorkplan\Controllers;
 
 use MapasCulturais\App;
 use MapasCulturais\Entities\Registration;
-use OpportunityWorkplan\Entities\GoalDelivery;
+use OpportunityWorkplan\Entities\Delivery;
 use OpportunityWorkplan\Entities\Workplan as EntitiesWorkplan;
-use OpportunityWorkplan\Entities\WorkplanGoal;
-use MapasCulturais\i;
+use OpportunityWorkplan\Entities\Goal;
 
 class Workplan extends \MapasCulturais\Controller
 {
@@ -60,9 +59,9 @@ class Workplan extends \MapasCulturais\Controller
         if (array_key_exists('goals', $dataWorkplan)) {
             foreach ($dataWorkplan['goals'] as $g) {
                 if ($g['id'] > 0) {
-                    $goal = $app->repo(WorkplanGoal::class)->find($g['id']);
+                    $goal = $app->repo(Goal::class)->find($g['id']);
                 } else {
-                    $goal = new WorkplanGoal();
+                    $goal = new Goal();
                 }
 
                 $goal->monthInitial = $g['monthInitial'] ?? null;
@@ -77,9 +76,9 @@ class Workplan extends \MapasCulturais\Controller
 
                 foreach ($g['deliveries'] as $d) {
                     if ($d['id'] > 0) {
-                        $delivery = $app->repo(GoalDelivery::class)->find($d['id']);
+                        $delivery = $app->repo(Delivery::class)->find($d['id']);
                     } else {
-                        $delivery = new GoalDelivery();
+                        $delivery = new Delivery();
                     }
     
                     $delivery->name = $d['name'] ?? null;
@@ -110,26 +109,28 @@ class Workplan extends \MapasCulturais\Controller
     {
         $app = App::i();
 
-        $goal = $app->repo(WorkplanGoal::class)->find($this->data['id']);
+        $goal = $app->repo(Goal::class)->find($this->data['id']);
 
         if ($goal) {
             $app->em->remove($goal);
             $app->em->flush(); 
+
+            $this->json(true);
         }
-        $this->json(true);
+        
     }
 
     public function DELETE_delivery()
     {
         $app = App::i();
 
-        $delivery = $app->repo(GoalDelivery::class)->find($this->data['id']);
+        $delivery = $app->repo(Delivery::class)->find($this->data['id']);
 
         if ($delivery) {
             $app->em->remove($delivery);
             $app->em->flush(); 
-        }
 
-        $this->json(true);
+            $this->json(true);
+        }
     }
 }

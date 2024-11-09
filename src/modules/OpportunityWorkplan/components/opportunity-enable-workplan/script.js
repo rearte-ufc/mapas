@@ -57,7 +57,6 @@ app.component('opportunity-enable-workplan', {
             this.entity.workplan_metaInformTheValueGoals = false;
             this.entity.workplan_metaLimitNumberOfGoals = false;
             this.entity.workplan_metaMaximumNumberOfGoals = 0;
-            this.entity.workplan_metaReportTheBudgetAction = false;
 
             this.entity.workplan_deliveryReportTheDeliveriesLinkedToTheGoals = false;
             

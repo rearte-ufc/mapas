@@ -56,13 +56,6 @@ class Module extends \MapasCulturais\Module{
             'type' => 'boolean',
             'default_value' => false
         ]);
-
-        $this->registerOpportunityMetadata('workplan_metaReportTheBudgetAction', [
-            'label' => i::__('Informar a ação orçamentária'),
-            'type' => 'boolean',
-            'default_value' => false
-        ]);
-
         
         $this->registerOpportunityMetadata('workplan_metaInformTheValueGoals', [
             'label' => i::__('Informar o valor da meta'),

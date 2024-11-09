@@ -53,12 +53,6 @@ $this->import('
 
                     <div class="field__group">
                         <label class="field__checkbox">
-                            <input type="checkbox" v-model="entity.workplan_metaReportTheBudgetAction" @click="autoSave()" /><?= i::__("Informar a ação orçamentária") ?>
-                        </label>
-                    </div>
-
-                    <div class="field__group">
-                        <label class="field__checkbox">
                             <input type="checkbox" v-model="entity.workplan_metaInformTheValueGoals" @click="autoSave()" /><?= i::__("Informar o valor da meta") ?>
                         </label>
                     </div>

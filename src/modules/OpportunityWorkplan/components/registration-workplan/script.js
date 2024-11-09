@@ -114,6 +114,41 @@ app.component('registration-workplan', {
         },
         range(start, end) {
             return Array.from({ length: end - start + 1 }, (_, i) => start + i);
-        }
+        },
+        enableNewGoal(workplan) {
+            if (!this.opportunity.workplan_metaLimitNumberOfGoals) {
+                return true;
+            }
+
+            if (this.opportunity.workplan_metaMaximumNumberOfGoals > workplan.goals.length) {
+                return_ = true;
+            } else {
+                return_ = false;
+            }
+
+            return return_;
+        },
+        enableNewDelivery(goal) {
+            let return_ = false;
+            if (this.opportunity.workplan_deliveryReportTheDeliveriesLinkedToTheGoals) {
+                return_ = true;
+                if (this.opportunity.workplan_deliveryLimitNumberOfDeliveries) {
+                    if (this.opportunity.workplan_deliveryMaximumNumberOfDeliveries > goal.deliveries.length) {
+                        return_ = true;
+                    } else {
+                        return_ = false;
+                    }
+                }
+            }
+            return return_;
+        },
+        totalValueForecastToCurrency(delivery, renevueQtd, unitValueForecast) {
+            let value = renevueQtd * unitValueForecast;
+            delivery.totalValueForecast = value;
+            return new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+              }).format(value);
+        },
     },
 })

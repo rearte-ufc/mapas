@@ -118,12 +118,11 @@ $this->import('
                         <label><?= i::esc_attr__('Tipo de entrega') ?></label>
                         <select v-model="delivery.type" @blur="save_">
                             <option value=""><?= i::esc_attr__('Selecione') ?></option>
-                            <option value="tipo1">Tipo 1</option>
-                            <option value="tipo2">Tipo 2</option>
+                            <option v-for="type in opportunity.workplan_monitoringInformDeliveryType" :key="type" :value="type">{{ type }}</option>
                         </select>
                     </div>
 
-                    <div class="field">
+                    <div v-if="opportunity.workplan_registrationInformCulturalArtisticSegment" class="field">
                         <label><?= i::esc_attr__('Segmento artístico cultural da entrega') ?></label>
                         <select v-model="delivery.segmentDelivery" @blur="save_">
                             <option value=""><?= i::esc_attr__('Selecione') ?></option>
@@ -132,7 +131,7 @@ $this->import('
                         </select>
                     </div>
 
-                    <div class="field">
+                    <div v-if="opportunity.workplan_registrationInformActionPAAR" class="field">
                         <label><?= i::esc_attr__('Ação orçamentária') ?></label>
                         <select v-model="delivery.budgetAction" @blur="save_">
                             <option value=""><?= i::esc_attr__('Selecione') ?></option>
@@ -141,34 +140,36 @@ $this->import('
                         </select>
                     </div>
 
-                    <div class="field">
+                    <div v-if="opportunity.workplan_registrationReportTheNumberOfParticipants" class="field">
                         <label><?= i::esc_attr__('Número previsto de pessoas') ?></label>
                         <input v-model="delivery.expectedNumberPeople" type="number" @blur="save_">
                     </div>
 
-                    <div class="field">
-                        <label><?= i::esc_attr__('A entrega irá gerar receita?') ?></label>
-                        <select v-model="delivery.generaterRevenue" @blur="save_">
-                            <option value=""><?= i::esc_attr__('Selecione') ?></option>
-                            <option value="true">Sim</option>
-                            <option value="false">Não</option>
-                        </select>
-                    </div>
-
-                    <div class="grid-12">
-                        <div class="field col-4 sm:col-12">
-                            <label><?= i::esc_attr__('Quantidade') ?></label>
-                            <input v-model="delivery.renevueQtd" type="text" @blur="save_">
+                    <div v-if="opportunity.workplan_registrationReportExpectedRenevue">
+                        <div class="field">
+                            <label><?= i::esc_attr__('A entrega irá gerar receita?') ?></label>
+                            <select v-model="delivery.generaterRevenue" @blur="save_">
+                                <option value=""><?= i::esc_attr__('Selecione') ?></option>
+                                <option value="true">Sim</option>
+                                <option value="false">Não</option>
+                            </select>
                         </div>
 
-                        <div class="field col-4 sm:col-12">
-                            <label><?= i::esc_attr__('Previsão de valor unitário') ?></label>
-                            <mc-currency-input v-model="delivery.unitValueForecast" @blur="save_"></mc-currency-input>
-                        </div>
+                        <div v-if="delivery.generaterRevenue == 'true'" class="grid-12">
+                            <div class="field col-4 sm:col-12">
+                                <label><?= i::esc_attr__('Quantidade') ?></label>
+                                <input v-model="delivery.renevueQtd" type="number" @blur="save_">
+                            </div>
 
-                        <div class="field col-4 sm:col-12">
-                            <label><?= i::esc_attr__(text: 'Previsão de valor total') ?></label>
-                            <mc-currency-input v-model="delivery.totalValueForecast" @blur="save_"></mc-currency-input>
+                            <div class="field col-4 sm:col-12">
+                                <label><?= i::esc_attr__('Previsão de valor unitário') ?></label>
+                                <mc-currency-input v-model="delivery.unitValueForecast" @blur="save_"></mc-currency-input>
+                            </div>
+
+                            <div class="field col-4 sm:col-12">
+                                <label><?= i::esc_attr__(text: 'Previsão de valor total') ?></label>
+                                <input readonly v-model="delivery.totalValueForecast" :value="totalValueForecastToCurrency(delivery, delivery.renevueQtd, delivery.unitValueForecast)">
+                            </div>
                         </div>
                     </div>
 
@@ -187,7 +188,7 @@ $this->import('
                     </div>
                 </div>
 
-                <div class="registration-workplan__new-delivery">
+                <div v-if="enableNewDelivery(goal)" class="registration-workplan__new-delivery">
                     <button class="button button--primary-outline" @click="newDelivery(goal)">
                         + <?= i::esc_attr__('Entrega') ?>
                     </button>
@@ -208,7 +209,7 @@ $this->import('
             </div>
         </div>
 
-        <div v-if="opportunity.workplan_metaLimitNumberOfGoals && opportunity.workplan_metaMaximumNumberOfGoals > workplan.goals.length" class="registration-workplan__new-goal">
+        <div v-if="enableNewGoal(workplan)" class="registration-workplan__new-goal">
             <button class="button button--primary" @click="newGoal">
                 + <?= i::esc_attr__('meta') ?>
             </button>

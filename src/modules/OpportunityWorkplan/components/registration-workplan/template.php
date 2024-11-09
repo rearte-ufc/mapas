@@ -86,7 +86,7 @@ $this->import('
                 </div>
 
                 <!-- Etapa do fazer cultural -->
-                <div class="field">
+                <div v-if="opportunity.workplan_metaInformTheStageOfCulturalMaking" class="field">
                     <label><?= i::esc_attr__('Etapa do fazer cultural') ?></label>
                     <select v-model="goal.culturalMakingStage" @blur="save_">
                         <option value=""><?= i::esc_attr__('Selecione') ?></option>
@@ -96,7 +96,7 @@ $this->import('
                 </div>
 
                 <!-- Valor da meta -->
-                <div class="field">
+                <div v-if="opportunity.workplan_metaInformTheValueGoals" class="field">
                     <label><?= i::esc_attr__('Valor da meta (R$)') ?></label>
                     <mc-currency-input v-model="goal.amount" @blur="save_"></mc-currency-input>
                 </div>
@@ -208,7 +208,7 @@ $this->import('
             </div>
         </div>
 
-        <div class="registration-workplan__new-goal">
+        <div v-if="opportunity.workplan_metaLimitNumberOfGoals && opportunity.workplan_metaMaximumNumberOfGoals > workplan.goals.length" class="registration-workplan__new-goal">
             <button class="button button--primary" @click="newGoal">
                 + <?= i::esc_attr__('meta') ?>
             </button>

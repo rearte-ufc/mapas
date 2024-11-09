@@ -11,8 +11,6 @@ app.component('registration-workplan', {
         },
     },
     data() {
-
-        console.log(this.registration.opportunity);
         this.getWorkplan();
 
         return {
@@ -32,12 +30,16 @@ app.component('registration-workplan', {
             
             const response = api.GET(`${this.registration.id}`);
             response.then((res) => res.json().then((data) => {
-                if (data != null) {
+                if (data.workplan != null) {
                     this.workplan = data.workplan;
                 }
             }));
         },
         async newGoal() {
+            if (!this.validateGoal()) {
+                return false;
+            }
+
             const objectGoal = {
                 id: null,
                 monthInitial: null,
@@ -49,6 +51,7 @@ app.component('registration-workplan', {
                 deliveries: [],
                 isCollapsed: true
             };
+
             this.workplan.goals.push(objectGoal);
         },
         async deleteGoal(goalId) {
@@ -60,6 +63,10 @@ app.component('registration-workplan', {
             }));
         },
         async newDelivery(goal) {
+            if (!this.validateDelivery(goal)) {
+                return false;
+            }
+
             const objectDelivery = {
                 id: null,
                 name: null,
@@ -73,6 +80,7 @@ app.component('registration-workplan', {
                 unitValueForecast: null,
                 totalValueForecast: null,
             };
+
             goal.deliveries.push(objectDelivery);
         },
         async deleteDelivery(deliveryId) {
@@ -90,9 +98,75 @@ app.component('registration-workplan', {
 
             }));
         },
-        async save_() {
-            // return this.registration.save(300, true);
+        validateGoal() {
+            const messages = useMessages();
 
+            let validationMessages = [];
+
+            this.workplan.goals.forEach((goal, index) => {
+                let emptyFields = [];
+                let position = index+1;
+        
+                // Verificar cada campo do objeto `goal`
+                if (goal.deliveries.length === 0) emptyFields.push("Entrega");
+                if (!goal.monthInitial) emptyFields.push("Mês inicial");
+                if (!goal.monthEnd) emptyFields.push("Mês final");
+                if (!goal.title) emptyFields.push("Título da meta");
+                if (!goal.description) emptyFields.push("Descrição");
+                if (this.opportunity.workplan_metaInformTheStageOfCulturalMaking && !goal.culturalMakingStage) emptyFields.push("Etapa do fazer cultural");
+                if (this.opportunity.workplan_metaInformTheValueGoals && goal.amount == null || goal.amount === "") emptyFields.push("Valor da meta (R$)");
+        
+                // Adicionar mensagem ao array se houver campos vazios
+                if (emptyFields.length > 0) {
+                    validationMessages.push(
+                        `A meta ${position} possui os seguintes campos vazios:<br><br> ${emptyFields.join("<br>")}`
+                    );
+                }
+            });
+        
+            if (validationMessages.length > 0) {
+                messages.error(validationMessages);
+                return false;
+            }
+            
+            return true;
+        },
+        validateDelivery(goal) {
+            const messages = useMessages();
+
+            let validationMessages = [];
+
+            goal.deliveries.forEach((delivery, index) => {
+                let emptyFields = [];
+                let position = index+1;
+        
+                if ('name' in delivery && !delivery.name) emptyFields.push("Nome da entrega");
+                if ('description' in delivery && !delivery.description) emptyFields.push("Descrição");
+                if ('type' in delivery && !delivery.type) emptyFields.push("Tipo de entrega");
+                if (this.opportunity.workplan_registrationInformCulturalArtisticSegment && 'segmentDelivery' in delivery && !delivery.segmentDelivery) emptyFields.push("Segmento artístico cultural da entrega");
+                if (this.opportunity.workplan_registrationInformActionPAAR && 'budgetAction' in delivery && !delivery.budgetAction) emptyFields.push("Ação orçamentária");
+                if (this.opportunity.workplan_registrationReportTheNumberOfParticipants && 'expectedNumberPeople' in delivery && !delivery.expectedNumberPeople) emptyFields.push("Número previsto de pessoas");
+                if (this.opportunity.workplan_registrationReportExpectedRenevue && 'generaterRevenue' in delivery && !delivery.generaterRevenue) emptyFields.push("A entrega irá gerar receita?");
+                if (delivery.generaterRevenue && 'renevueQtd' in delivery && !delivery.renevueQtd) emptyFields.push("Quantidade");
+                if (delivery.generaterRevenue && 'unitValueForecast' in delivery && !delivery.unitValueForecast) emptyFields.push("Previsão de valor unitário");
+                if (delivery.generaterRevenue && 'totalValueForecast' in delivery && !delivery.totalValueForecast) emptyFields.push("Previsão de valor total");
+                
+                if (emptyFields.length > 0) {
+                    validationMessages.push(
+                        `A entrega ${position} possui os seguintes campos vazios:<br><br> ${emptyFields.join("<br> ")}`
+                    );
+                }
+            });
+        
+            if (validationMessages.length > 0) {
+                messages.error(validationMessages);
+                return false;
+            }
+            
+            return true;
+        },
+        async save_() {    
+            const messages = useMessages();        
             const api = new API('workplan');
 
             let data = {
@@ -104,10 +178,8 @@ app.component('registration-workplan', {
             response.then((res) => res.json().then((data) => {
                 this.workplan = data.workplan;
                 
-                // this.messages.success('Modificações salvas');
-            }));
-
-            
+                messages.success('Modificações salvas');
+            }));    
         },
         toggleCollapse(index) {
             this.workplan.goals[index].isCollapsed = !this.workplan.goals[index].isCollapsed;
@@ -116,31 +188,24 @@ app.component('registration-workplan', {
             return Array.from({ length: end - start + 1 }, (_, i) => start + i);
         },
         enableNewGoal(workplan) {
+            if (workplan.projectDuration == null || workplan.culturalArtisticSegment == null) {
+                return false;
+            }
+
             if (!this.opportunity.workplan_metaLimitNumberOfGoals) {
                 return true;
             }
-
-            if (this.opportunity.workplan_metaMaximumNumberOfGoals > workplan.goals.length) {
-                return_ = true;
-            } else {
-                return_ = false;
-            }
-
-            return return_;
+            
+            return this.opportunity.workplan_metaMaximumNumberOfGoals > workplan.goals.length;
         },
         enableNewDelivery(goal) {
-            let return_ = false;
             if (this.opportunity.workplan_deliveryReportTheDeliveriesLinkedToTheGoals) {
-                return_ = true;
                 if (this.opportunity.workplan_deliveryLimitNumberOfDeliveries) {
-                    if (this.opportunity.workplan_deliveryMaximumNumberOfDeliveries > goal.deliveries.length) {
-                        return_ = true;
-                    } else {
-                        return_ = false;
-                    }
+                    return this.opportunity.workplan_deliveryMaximumNumberOfDeliveries > goal.deliveries.length;
                 }
+                return true;
             }
-            return return_;
+            return false;
         },
         totalValueForecastToCurrency(delivery, renevueQtd, unitValueForecast) {
             let value = renevueQtd * unitValueForecast;

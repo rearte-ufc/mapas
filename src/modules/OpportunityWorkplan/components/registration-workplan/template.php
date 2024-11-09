@@ -103,7 +103,7 @@ $this->import('
 
                 <div v-for="(delivery, index_) in goal.deliveries" :key="delivery.id" class="registration-workplan__goals__deliveries">
                     <h4 v-if="delivery.name" class="registration-workplan__goals-title">[{{ delivery.name }}]</h4>
-
+                    <h6><?= i::esc_attr__('Entrega') ?> {{ index_ + 1 }}</h6>
                     <div class="field">
                         <label><?= i::esc_attr__('Nome da entrega') ?></label>
                         <input v-model="delivery.name" type="text" @blur="save_">

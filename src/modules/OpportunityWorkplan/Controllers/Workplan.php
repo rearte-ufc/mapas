@@ -18,7 +18,7 @@ class Workplan extends \MapasCulturais\Controller
         $workplan = $app->repo(EntitiesWorkplan::class)->findOneBy(['registration' => $registration->id]);
 
         $data = [
-            'workplan' => []
+            'workplan' => null
         ];
 
         if ($workplan) {

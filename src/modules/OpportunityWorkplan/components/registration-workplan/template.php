@@ -21,12 +21,12 @@ $this->import('
         <p><?= i::esc_attr__('Descrição do plano de trabalho.') ?></p>
     </template>
     <template #content>
-        <!-- <entity-field :entity="registration" prop="workplan_projectDuration" :autosave="30000"></entity-field> -->
-        <!-- <entity-field :entity="registration" prop="workplan_culturalArtisticSegment" :autosave="30000"></entity-field> -->
-        
         <div class="field">
             <label><?= i::esc_attr__('Duração do projeto (meses)') ?></label>
-            <input v-model="workplan.projectDuration" type="number" @blur="save_">
+            <select v-model="workplan.projectDuration" @blur="save_">
+                <option value=""><?= i::esc_attr__('Selecione') ?></option>
+                <option v-for="n in opportunity.workplan_dataProjectmaximumDurationInMonths" :key="n" :value="n">{{ n }}</option>
+            </select>
         </div>
         
         <div class="field">
@@ -43,8 +43,8 @@ $this->import('
             <div @click="toggleCollapse(index)" class="registration-workplan__header-goals">
                 <h4 class="registration-workplan__goals-title">{{ goal.title }}</h4>
                 <span>
-                    <mc-icon v-if="goal.isCollapsed" name="arrowPoint-up"></mc-icon>
-                    <mc-icon v-if="!goal.isCollapsed" name="arrowPoint-down"></mc-icon>
+                    <!-- <mc-icon v-if="goal.isCollapsed" name="arrowPoint-up"></mc-icon>
+                    <mc-icon v-if="!goal.isCollapsed" name="arrowPoint-down"></mc-icon> -->
                 </span>
             </div>
             <h6><?= i::esc_attr__('Meta') ?> {{ index + 1 }}</h6>
@@ -59,14 +59,15 @@ $this->import('
                             <label><?= i::esc_attr__('Mês inicial') ?></label>
                             <select v-model="goal.monthInitial" id="mes-inicial" style="display: block;" @blur="save_">
                                 <option value=""><?= i::esc_attr__('Selecione') ?></option>
-                                <option v-for="mes in meses" :key="mes" :value="mes" >{{ mes }}</option>
+                                <option v-for="n in parseInt(workplan.projectDuration)" :key="n" :value="n">{{ n }}</option>
+
                             </select>
                         </div>
                         <div class="field">
                             <label for="mes-final"><?= i::esc_attr__('Mês final') ?></label>
                             <select v-model="goal.monthEnd" id="mes-final" style="display: block;" @blur="save_">
                                 <option value=""><?= i::esc_attr__('Selecione') ?></option>
-                                <option v-for="mes in meses" :key="mes" :value="mes">{{ mes }}</option>
+                                <option v-for="n in range(parseInt(goal.monthInitial), parseInt(workplan.projectDuration)) " :key="n" :value="n">{{ n }}</option>
                             </select>
                         </div>
                     </div>

@@ -12,9 +12,11 @@ app.component('registration-workplan', {
     },
     data() {
 
+        console.log(this.registration.opportunity);
         this.getWorkplan();
 
         return {
+            opportunity: this.registration.opportunity,
             workplan: {
                 id: null,
                 registrationId: this.registration.id,
@@ -22,10 +24,6 @@ app.component('registration-workplan', {
                 culturalArtisticSegment: null,
                 goals: []
             },
-            meses: [
-                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
-            ]
         };
     },
     methods: {
@@ -114,5 +112,8 @@ app.component('registration-workplan', {
         toggleCollapse(index) {
             this.workplan.goals[index].isCollapsed = !this.workplan.goals[index].isCollapsed;
         },
+        range(start, end) {
+            return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+        }
     },
 })

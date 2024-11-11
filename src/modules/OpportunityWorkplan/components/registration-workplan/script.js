@@ -111,7 +111,7 @@ app.component('registration-workplan', {
                 if (!goal.description) emptyFields.push("Descrição");
                 if (this.opportunity.workplan_metaInformTheStageOfCulturalMaking && !goal.culturalMakingStage) emptyFields.push("Etapa do fazer cultural");
                 if (this.opportunity.workplan_metaInformTheValueGoals && goal.amount == null || goal.amount === "") emptyFields.push("Valor da meta (R$)");
-                if (goal.deliveries.length === 0) emptyFields.push("Entrega");
+                if (this.opportunity.workplan_deliveryReportTheDeliveriesLinkedToTheGoals && goal.deliveries.length === 0) emptyFields.push("Entrega");
 
                 const validateDelivery = this.validateDelivery(goal);
                 if (validateDelivery.length > 0) {
@@ -210,6 +210,13 @@ app.component('registration-workplan', {
                 style: "currency",
                 currency: "BRL"
               }).format(value);
+        },
+        optionsProjectDurationData() {
+            if (this.opportunity.workplan_dataProjectlimitMaximumDurationOfProjects) {
+                return this.opportunity.workplan_dataProjectmaximumDurationInMonths;
+            } else {
+                return 60;
+            }
         },
     },
 })

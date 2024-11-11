@@ -18,7 +18,7 @@ class Module extends \MapasCulturais\Module{
                 $this->part('opportunity-workplan-config');
             });
 
-            $app->hook("component(registration-related-project):after", function(){
+            $app->hook("component(registration-form):after", function(){
                 $this->part('registration-workplan');
             });
 

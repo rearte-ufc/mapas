@@ -13,7 +13,13 @@ class Workplan extends \MapasCulturais\Controller
 {
     public function GET_index()
     {
+        $this->requireAuthentication();
+
         $app = App::i();
+
+        if (!$this->data['id']) {
+            $app->pass();
+        }
 
         $registration = $app->repo(Registration::class)->find($this->data['id']);
         $workplan = $app->repo(EntitiesWorkplan::class)->findOneBy(['registration' => $registration->id]);
@@ -34,9 +40,15 @@ class Workplan extends \MapasCulturais\Controller
 
     public function POST_save()
     {
+        $this->requireAuthentication();
+
         $app = App::i();
 
         $app->disableAccessControl();
+
+        if (!$this->data['registrationId']) {
+            $app->pass();
+        }
 
         $registration = $app->repo(Registration::class)->find($this->data['registrationId']);
         $workplan = $app->repo(EntitiesWorkplan::class)->findOneBy(['registration' => $registration->id]);
@@ -60,7 +72,13 @@ class Workplan extends \MapasCulturais\Controller
 
     public function DELETE_goal()
     {
+        $this->requireAuthentication();
+
         $app = App::i();
+
+        if (!$this->data['id']) {
+            $app->pass();
+        }
 
         $goal = $app->repo(Goal::class)->find($this->data['id']);
 
@@ -74,7 +92,13 @@ class Workplan extends \MapasCulturais\Controller
 
     public function DELETE_delivery()
     {
+        $this->requireAuthentication();
+
         $app = App::i();
+
+        if (!$this->data['id']) {
+            $app->pass();
+        }
 
         $delivery = $app->repo(Delivery::class)->find($this->data['id']);
 

@@ -48,8 +48,7 @@ app.component('registration-workplan', {
                 description: null,
                 culturalMakingStage: null,
                 amount: null,
-                deliveries: [],
-                isCollapsed: true
+                deliveries: []
             };
 
             this.workplan.goals.push(objectGoal);
@@ -180,9 +179,6 @@ app.component('registration-workplan', {
                 this.getWorkplan();
                 messages.success('Modificações salvas');
             }));    
-        },
-        toggleCollapse(index) {
-            this.workplan.goals[index].isCollapsed = !this.workplan.goals[index].isCollapsed;
         },
         range(start, end) {
             return Array.from({ length: end - start + 1 }, (_, i) => start + i);

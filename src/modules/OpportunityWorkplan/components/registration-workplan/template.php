@@ -216,7 +216,7 @@ $this->import('
         </div>
 
         <div v-if="enableNewGoal(workplan)" class="registration-workplan__new-goal">
-            <button class="button button--primary" @click="newGoal">
+            <button class="button button--primary-outline" @click="newGoal">
                 + <?= i::esc_attr__('meta') ?>
             </button>
         </div>

@@ -21,6 +21,25 @@ class Module extends \MapasCulturais\Module{
             $app->hook("component(registration-related-project):after", function(){
                 $this->part('registration-workplan');
             });
+
+            $app->hook("entity(Registration).sendValidationErrors", function (&$errorsResult) use($app) {
+                $registration = $this;
+
+                if ($registration->opportunity->enableWorkplan) {
+                    $workplan = $app->repo(Workplan::class)->findOneBy(['registration' => $registration->id]);
+
+                    $errors = [];
+                    if (!$workplan) {
+                        $errors['Workplan'] = ['Plano de trabalho obrigatório.'];
+                    }
+                   
+                    if ($workplan?->goals->isEmpty()) {
+                        $errors['WorkplanMeta'] = ['Meta do plano de trabalho obrigatório.'];
+                    }
+
+                    $errorsResult = [...$errors];
+                }               
+            });
         });
     }
 

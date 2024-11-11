@@ -7,6 +7,7 @@ use MapasCulturais\Entities\Registration;
 use OpportunityWorkplan\Entities\Delivery;
 use OpportunityWorkplan\Entities\Workplan as EntitiesWorkplan;
 use OpportunityWorkplan\Entities\Goal;
+use OpportunityWorkplan\Services\WorkplanService;
 
 class Workplan extends \MapasCulturais\Controller
 {
@@ -39,63 +40,15 @@ class Workplan extends \MapasCulturais\Controller
 
         $registration = $app->repo(Registration::class)->find($this->data['registrationId']);
         $workplan = $app->repo(EntitiesWorkplan::class)->findOneBy(['registration' => $registration->id]);
-
-        if (!$workplan) {
-            $workplan = new EntitiesWorkplan();
+        $app->em->beginTransaction();
+        try {
+            $workplanService = new WorkplanService();
+            $workplan = $workplanService->save($registration, $workplan, $this->data);
+            $app->em->commit();
+        } catch(\Exception $e) {
+            $app->em->rollback();
+            $this->json(['error' => $e->getMessage()], 400);
         }
-        $dataWorkplan = $this->data['workplan'];
-
-        if (array_key_exists('projectDuration', $dataWorkplan)) {
-            $workplan->projectDuration = $dataWorkplan['projectDuration'];
-        }
-
-        if (array_key_exists('culturalArtisticSegment', $dataWorkplan)) {
-            $workplan->culturalArtisticSegment = $dataWorkplan['culturalArtisticSegment'];
-        }
-    
-        $workplan->registration = $registration;
-        $workplan->save(true);
-
-        if (array_key_exists('goals', $dataWorkplan)) {
-            foreach ($dataWorkplan['goals'] as $g) {
-                if ($g['id'] > 0) {
-                    $goal = $app->repo(Goal::class)->find($g['id']);
-                } else {
-                    $goal = new Goal();
-                }
-
-                $goal->monthInitial = $g['monthInitial'] ?? null;
-                $goal->monthEnd = $g['monthEnd'] ?? null;
-                $goal->title = $g['title'] ?? null;
-                $goal->description = $g['description'] ?? null;
-                $goal->culturalMakingStage = $g['culturalMakingStage'] ?? null;
-                $goal->amount = $g['amount'] ?? null;
-                $goal->workplan = $workplan;
-                $goal->save(true);
-
-
-                foreach ($g['deliveries'] as $d) {
-                    if ($d['id'] > 0) {
-                        $delivery = $app->repo(Delivery::class)->find($d['id']);
-                    } else {
-                        $delivery = new Delivery();
-                    }
-    
-                    $delivery->name = $d['name'] ?? null;
-                    $delivery->description = $d['description'] ?? null;
-                    $delivery->type = $d['type'] ?? null;
-                    $delivery->segmentDelivery = $d['segmentDelivery'] ?? null;
-                    $delivery->budgetAction = $d['budgetAction'] ?? null;
-                    $delivery->expectedNumberPeople = $d['expectedNumberPeople'] ?? null;
-                    $delivery->generaterRevenue = $d['generaterRevenue'] ?? null;
-                    $delivery->renevueQtd = $d['renevueQtd'] ?? null;
-                    $delivery->unitValueForecast = $d['unitValueForecast'] ?? null;
-                    $delivery->totalValueForecast = $d['totalValueForecast'] ?? null;
-                    $delivery->goal = $goal;
-                    $delivery->save(true);
-                }  
-            }      
-        }          
         
         $app->enableAccessControl();
 
@@ -117,7 +70,6 @@ class Workplan extends \MapasCulturais\Controller
 
             $this->json(true);
         }
-        
     }
 
     public function DELETE_delivery()

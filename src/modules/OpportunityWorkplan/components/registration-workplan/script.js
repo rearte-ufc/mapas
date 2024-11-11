@@ -94,8 +94,6 @@ app.component('registration-workplan', {
                     }
                     return goal;
                 });
-
-
             }));
         },
         validateGoal() {
@@ -108,18 +106,23 @@ app.component('registration-workplan', {
                 let position = index+1;
         
                 // Verificar cada campo do objeto `goal`
-                if (goal.deliveries.length === 0) emptyFields.push("Entrega");
                 if (!goal.monthInitial) emptyFields.push("Mês inicial");
                 if (!goal.monthEnd) emptyFields.push("Mês final");
                 if (!goal.title) emptyFields.push("Título da meta");
                 if (!goal.description) emptyFields.push("Descrição");
                 if (this.opportunity.workplan_metaInformTheStageOfCulturalMaking && !goal.culturalMakingStage) emptyFields.push("Etapa do fazer cultural");
                 if (this.opportunity.workplan_metaInformTheValueGoals && goal.amount == null || goal.amount === "") emptyFields.push("Valor da meta (R$)");
+                if (goal.deliveries.length === 0) emptyFields.push("Entrega");
+
+                const validateDelivery = this.validateDelivery(goal);
+                if (validateDelivery.length > 0) {
+                    emptyFields.push(validateDelivery);
+                }
         
                 // Adicionar mensagem ao array se houver campos vazios
                 if (emptyFields.length > 0) {
                     validationMessages.push(
-                        `A meta ${position} possui os seguintes campos vazios:<br><br> ${emptyFields.join("<br>")}`
+                        `<br>A meta ${position} possui os seguintes campos vazios:<br> ${emptyFields.join(", ")}<br>`
                     );
                 }
             });
@@ -147,25 +150,23 @@ app.component('registration-workplan', {
                 if (this.opportunity.workplan_registrationInformActionPAAR && 'budgetAction' in delivery && !delivery.budgetAction) emptyFields.push("Ação orçamentária");
                 if (this.opportunity.workplan_registrationReportTheNumberOfParticipants && 'expectedNumberPeople' in delivery && !delivery.expectedNumberPeople) emptyFields.push("Número previsto de pessoas");
                 if (this.opportunity.workplan_registrationReportExpectedRenevue && 'generaterRevenue' in delivery && !delivery.generaterRevenue) emptyFields.push("A entrega irá gerar receita?");
-                if (delivery.generaterRevenue && 'renevueQtd' in delivery && !delivery.renevueQtd) emptyFields.push("Quantidade");
-                if (delivery.generaterRevenue && 'unitValueForecast' in delivery && !delivery.unitValueForecast) emptyFields.push("Previsão de valor unitário");
-                if (delivery.generaterRevenue && 'totalValueForecast' in delivery && !delivery.totalValueForecast) emptyFields.push("Previsão de valor total");
+                if (delivery.generaterRevenue == 'true' && 'renevueQtd' in delivery && !delivery.renevueQtd) emptyFields.push("Quantidade");
+                if (delivery.generaterRevenue == 'true' && 'unitValueForecast' in delivery && !delivery.unitValueForecast) emptyFields.push("Previsão de valor unitário");
+                if (delivery.generaterRevenue == 'true' && 'totalValueForecast' in delivery && !delivery.totalValueForecast) emptyFields.push("Previsão de valor total");
                 
                 if (emptyFields.length > 0) {
                     validationMessages.push(
-                        `A entrega ${position} possui os seguintes campos vazios:<br><br> ${emptyFields.join("<br> ")}`
+                        `<br>A entrega ${position} possui os seguintes campos vazios:<br> ${emptyFields.join(", ")}<br>`
                     );
                 }
             });
         
-            if (validationMessages.length > 0) {
-                messages.error(validationMessages);
-                return false;
-            }
-            
-            return true;
+            return validationMessages;
         },
         async save_() {    
+            if (!this.validateGoal()) {
+                return false;
+            }
             const messages = useMessages();        
             const api = new API('workplan');
 
@@ -175,9 +176,8 @@ app.component('registration-workplan', {
             };
 
             const response = api.POST(`save`, data);
-            response.then((res) => res.json().then((data) => {
-                this.workplan = data.workplan;
-                
+            response.then((res) => res.json().then((data) => {                
+                this.getWorkplan();
                 messages.success('Modificações salvas');
             }));    
         },

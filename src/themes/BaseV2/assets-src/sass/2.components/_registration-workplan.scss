@@ -18,6 +18,13 @@
         color: var(--mc-primary-500);
     }
 
+    &__header-deliveries {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        color: var(--mc-primary-500);
+    }
+
     &__goals-title {
         color: var(--mc-primary-500);
     }
@@ -35,7 +42,7 @@
     }
 
     &__delete-goal, &__delete-delivery {
-        margin-top: size(12);
+        // margin-top: size(12);
         display:flex;
         align-items:right;
         justify-content: flex-end;
@@ -57,6 +64,12 @@
     }
 
     &__new-goal {
+        margin-top: size(12);
+    }
+
+    &__save-goal {
+        display: flex;
+        justify-content: flex-end;
         margin-top: size(12);
     }
 

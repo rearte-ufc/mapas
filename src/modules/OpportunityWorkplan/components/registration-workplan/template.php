@@ -21,9 +21,13 @@ $this->import('
         <p><?= i::esc_attr__('Descrição do plano de trabalho.') ?></p>
     </template>
     <template #content>
+
+        <!-- <entity-field :entity="registration" prop="workplan_projectDuration" :autosave="30000"></entity-field> -->
+        <!-- <entity-field :entity="workplan" prop="culturalArtisticSegment" :autosave="30000"></entity-field> -->
+
         <div class="field">
             <label><?= i::esc_attr__('Duração do projeto (meses)') ?><span class="required">obrigatório*</span></label>
-            <select v-model="workplan.projectDuration" @blur="save_">
+            <select v-model="workplan.projectDuration" @blur="save_(false)">
                 <option value=""><?= i::esc_attr__('Selecione') ?></option>
                 <option v-for="n in optionsProjectDurationData()" :key="n" :value="n">{{ n }}</option>
             </select>
@@ -31,16 +35,15 @@ $this->import('
         
         <div class="field">
             <label><?= i::esc_attr__('Segmento artistico cultural') ?><span class="required">obrigatório*</span></label>
-            <select v-model="workplan.culturalArtisticSegment" @blur="save_">
+            <select v-model="workplan.culturalArtisticSegment" @blur="save_(false)">
                 <option value=""><?= i::esc_attr__('Selecione') ?></option>
-                <option value="Segmento1">Segmento 1</option>
-                <option value="Segmento2">Segmento 2</option>
+                <option v-for="n in workplanFields.culturalArtisticSegment.options" :key="n" :value="n">{{ n }}</option>
             </select>
         </div>
         
         <!-- Metas -->
         <div v-for="(goal, index) in workplan.goals" :key="index" class="registration-workplan__goals">
-            <div @click="toggleCollapse(index)" class="registration-workplan__header-goals">
+            <div class="registration-workplan__header-goals">
                 <h4 class="registration-workplan__goals-title">{{ goal.title }}</h4>
                 <!-- <mc-icon v-if="goal.isCollapsed" name="arrowPoint-up"></mc-icon>
                 <mc-icon v-if="!goal.isCollapsed" name="arrowPoint-down"></mc-icon> -->
@@ -66,15 +69,14 @@ $this->import('
                     <div class="registration-workplan__goals-months">
                         <div class="field">
                             <label><?= i::esc_attr__('Mês inicial') ?><span class="required">obrigatório*</span></label>
-                            <select v-model="goal.monthInitial" id="mes-inicial" style="display: block;" >
+                            <select v-model="goal.monthInitial" id="mes-inicial">
                                 <option value=""><?= i::esc_attr__('Selecione') ?></option>
                                 <option v-for="n in parseInt(workplan.projectDuration)" :key="n" :value="n">{{ n }}</option>
-
                             </select>
                         </div>
                         <div class="field">
                             <label for="mes-final"><?= i::esc_attr__('Mês final') ?><span class="required">obrigatório*</span></label>
-                            <select v-model="goal.monthEnd" id="mes-final" style="display: block;" >
+                            <select v-model="goal.monthEnd" id="mes-final" >
                                 <option value=""><?= i::esc_attr__('Selecione') ?></option>
                                 <option v-for="n in range(parseInt(goal.monthInitial), parseInt(workplan.projectDuration)) " :key="n" :value="n">{{ n }}</option>
                             </select>
@@ -99,8 +101,7 @@ $this->import('
                     <label><?= i::esc_attr__('Etapa do fazer cultural') ?><span class="required">obrigatório*</span></label>
                     <select v-model="goal.culturalMakingStage" >
                         <option value=""><?= i::esc_attr__('Selecione') ?></option>
-                        <option value="etapa1">Etapa 1</option>
-                        <option value="etapa2">Etapa 2</option>
+                        <option v-for="n in workplanFields.goal.culturalMakingStage.options" :key="n" :value="n">{{ n }}</option>
                     </select>
                 </div>
 
@@ -111,7 +112,7 @@ $this->import('
                 </div>
 
                 <div v-for="(delivery, index_) in goal.deliveries" :key="delivery.id" class="registration-workplan__goals__deliveries">
-                    <div @click="toggleCollapse(index)" class="registration-workplan__header-deliveries">
+                    <div class="registration-workplan__header-deliveries">
                         <h4 class="registration-workplan__goals-title">{{ delivery.name }}</h4>
                         <div v-if="delivery.id" class="registration-workplan__delete-delivery">
                             <mc-confirm-button @confirm="deleteDelivery(delivery.id)">
@@ -150,8 +151,7 @@ $this->import('
                         <label><?= i::esc_attr__('Segmento artístico cultural da entrega') ?><span class="required">obrigatório*</span></label>
                         <select v-model="delivery.segmentDelivery" >
                             <option value=""><?= i::esc_attr__('Selecione') ?></option>
-                            <option value="seg1">Seg 1</option>
-                            <option value="seg2">Seg 2</option>
+                            <option v-for="n in workplanFields.goal.delivery.segmentDelivery.options" :key="n" :value="n">{{ n }}</option>
                         </select>
                     </div>
 
@@ -159,8 +159,7 @@ $this->import('
                         <label><?= i::esc_attr__('Ação orçamentária') ?><span class="required">obrigatório*</span></label>
                         <select v-model="delivery.budgetAction" >
                             <option value=""><?= i::esc_attr__('Selecione') ?></option>
-                            <option value="acao1">Ação 1</option>
-                            <option value="acao2">Ação 2</option>
+                            <option v-for="n in workplanFields.goal.delivery.budgetAction.options" :key="n" :value="n">{{ n }}</option>
                         </select>
                     </div>
 
@@ -174,8 +173,7 @@ $this->import('
                             <label><?= i::esc_attr__('A entrega irá gerar receita?') ?><span class="required">obrigatório*</span></label>
                             <select v-model="delivery.generaterRevenue" >
                                 <option value=""><?= i::esc_attr__('Selecione') ?></option>
-                                <option value="true">Sim</option>
-                                <option value="false">Não</option>
+                                <option v-for="(n, i) in workplanFields.goal.delivery.generaterRevenue.options" :key="i" :value="i">{{ n }}</option>
                             </select>
                         </div>
 
@@ -192,7 +190,7 @@ $this->import('
 
                             <div class="field col-4 sm:col-12">
                                 <label><?= i::esc_attr__(text: 'Previsão de valor total') ?><span class="required">obrigatório*</span></label>
-                                <input readonly v-model="delivery.totalValueForecast" :value="totalValueForecastToCurrency(delivery, delivery.renevueQtd, delivery.unitValueForecast)">
+                                <input readonly :model="delivery.totalValueForecast" :value="totalValueForecastToCurrency(delivery, delivery.renevueQtd, delivery.unitValueForecast)">
                             </div>
                         </div>
                     </div>

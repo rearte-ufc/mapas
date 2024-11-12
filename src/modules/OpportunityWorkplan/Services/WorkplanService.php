@@ -31,7 +31,7 @@ class WorkplanService
 
         if (array_key_exists('goals', $dataWorkplan)) {
             foreach ($dataWorkplan['goals'] as $g) {
-                if ($g['id'] > 0) {
+                if (!empty($g['id'])) {
                     $goal = $app->repo(Goal::class)->find($g['id']);
                 } else {
                     $goal = new Goal();
@@ -48,7 +48,7 @@ class WorkplanService
 
 
                 foreach ($g['deliveries'] as $d) {
-                    if ($d['id'] > 0) {
+                    if (!empty($d['id']) > 0) {
                         $delivery = $app->repo(Delivery::class)->find($d['id']);
                     } else {
                         $delivery = new Delivery();

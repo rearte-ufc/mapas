@@ -13,15 +13,17 @@ app.component('registration-workplan', {
     data() {
         this.getWorkplan();
 
+        const entityWorkplan = new Entity('workplan');
+        entityWorkplan.id = null;
+        entityWorkplan.registrationId = this.registration.id;
+        entityWorkplan.projectDuration = null;
+        entityWorkplan.culturalArtisticSegment = null;
+        entityWorkplan.goals = [];
+
         return {
             opportunity: this.registration.opportunity,
-            workplan: {
-                id: null,
-                registrationId: this.registration.id,
-                projectDuration: null,
-                culturalArtisticSegment: null,
-                goals: []
-            },
+            workplan: entityWorkplan,
+            workplanFields: $MAPAS.EntitiesDescription.workplan
         };
     },
     methods: {
@@ -40,18 +42,17 @@ app.component('registration-workplan', {
                 return false;
             }
 
-            const objectGoal = {
-                id: null,
-                monthInitial: null,
-                monthEnd: null,
-                title: null,
-                description: null,
-                culturalMakingStage: null,
-                amount: null,
-                deliveries: []
-            };
+            const entityGoal = new Entity('goal');
+            entityGoal.id = null;
+            entityGoal.monthInitial = null;
+            entityGoal.monthEnd = null;
+            entityGoal.title = null;
+            entityGoal.description = null;
+            entityGoal.culturalMakingStage = null;
+            entityGoal.amount = null;
+            entityGoal.deliveries = [];
 
-            this.workplan.goals.push(objectGoal);
+            this.workplan.goals.push(entityGoal);
         },
         async deleteGoal(goalId) {
             const api = new API('workplan');
@@ -66,21 +67,20 @@ app.component('registration-workplan', {
                 return false;
             }
 
-            const objectDelivery = {
-                id: null,
-                name: null,
-                description: null,
-                type: null,
-                segmentDelivery: null,
-                budgetAction: null,
-                expectedNumberPeople: null,
-                generaterRevenue: null,
-                renevueQtd: null,
-                unitValueForecast: null,
-                totalValueForecast: null,
-            };
+            const entityDelivery = new Entity('delivery');
+            entityDelivery.id = null;
+            entityDelivery.name = null;
+            entityDelivery.description = null;
+            entityDelivery.type = null
+            entityDelivery.segmentDelivery = null;
+            entityDelivery.budgetAction = null;
+            entityDelivery.expectedNumberPeople = null
+            entityDelivery.generaterRevenue = null;
+            entityDelivery.renevueQtd = null;
+            entityDelivery.unitValueForecast = null;
+            entityDelivery.totalValueForecast = null;
 
-            goal.deliveries.push(objectDelivery);
+            goal.deliveries.push(entityDelivery);
         },
         async deleteDelivery(deliveryId) {
             const api = new API('workplan');
@@ -103,7 +103,7 @@ app.component('registration-workplan', {
             this.workplan.goals.forEach((goal, index) => {
                 let emptyFields = [];
                 let position = index+1;
-        
+
                 // Verificar cada campo do objeto `goal`
                 if (!goal.monthInitial) emptyFields.push("Mês inicial");
                 if (!goal.monthEnd) emptyFields.push("Mês final");
@@ -162,8 +162,8 @@ app.component('registration-workplan', {
         
             return validationMessages;
         },
-        async save_() {    
-            if (!this.validateGoal()) {
+        async save_(enableValidations = true) {    
+            if (enableValidations && !this.validateGoal()) {
                 return false;
             }
             const messages = useMessages();        
@@ -177,7 +177,7 @@ app.component('registration-workplan', {
             const response = api.POST(`save`, data);
             response.then((res) => res.json().then((data) => {                
                 this.getWorkplan();
-                messages.success('Modificações salvas');
+                messages.success(this.text('Modificações salvas'));
             }));    
         },
         range(start, end) {

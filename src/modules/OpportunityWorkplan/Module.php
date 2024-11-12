@@ -306,7 +306,14 @@ class Module extends \MapasCulturais\Module{
         $projectDuration = new Metadata('projectDuration', ['label' => \MapasCulturais\i::__('Duração do projeto (meses)')]);
         $app->registerMetadata($projectDuration, Workplan::class);
 
-        $culturalArtisticSegment = new Metadata('culturalArtisticSegment', ['label' => \MapasCulturais\i::__('Segmento artistico cultural')]);
+        $culturalArtisticSegment = new Metadata('culturalArtisticSegment', [
+            'label' => \MapasCulturais\i::__('Segmento artistico cultural'),
+            'type' => 'select',
+            'options' => array(
+                \MapasCulturais\i::__('Segmento 1'),
+                \MapasCulturais\i::__('Segmento 12'),
+            ),
+        ]);
         $app->registerMetadata($culturalArtisticSegment, Workplan::class);
 
         // metadados goal
@@ -322,7 +329,14 @@ class Module extends \MapasCulturais\Module{
         $description = new Metadata('description', ['label' => \MapasCulturais\i::__('Descrição')]);
         $app->registerMetadata($description, Goal::class);
 
-        $culturalMakingStage = new Metadata('culturalMakingStage', ['label' => \MapasCulturais\i::__('Etapa do fazer cultural')]);
+        $culturalMakingStage = new Metadata('culturalMakingStage', [
+            'label' => \MapasCulturais\i::__('Etapa do fazer cultural'),
+            'type' => 'select',
+            'options' => array(
+                \MapasCulturais\i::__('etapa 1'),
+                \MapasCulturais\i::__('etapa 12'),
+            ),
+        ]);
         $app->registerMetadata($culturalMakingStage, Goal::class);
 
         $amount = new Metadata('amount', ['label' => \MapasCulturais\i::__('Valor da meta (R$)')]);
@@ -338,17 +352,38 @@ class Module extends \MapasCulturais\Module{
         $type = new Metadata('type', ['label' => \MapasCulturais\i::__('Tipo de entrega')]);
         $app->registerMetadata($type, Delivery::class);
 
-        $segmentDelivery = new Metadata('segmentDelivery', ['label' => \MapasCulturais\i::__('Segmento artístico cultural da entrega')]);
+        $segmentDelivery = new Metadata('segmentDelivery', [
+            'label' => \MapasCulturais\i::__('Segmento artístico cultural da entrega'),
+            'type' => 'select',
+            'options' => array(
+                \MapasCulturais\i::__('seg 1'),
+                \MapasCulturais\i::__('seg 12'),
+            ),
+        ]);
         $app->registerMetadata($segmentDelivery, Delivery::class);
 
-        $budgetAction = new Metadata('budgetAction', ['label' => \MapasCulturais\i::__('Ação orçamentária')]);
+        $budgetAction = new Metadata('budgetAction', [
+            'label' => \MapasCulturais\i::__('Ação orçamentária'),
+            'type' => 'select',
+            'options' => array(
+                \MapasCulturais\i::__('a 1'),
+                \MapasCulturais\i::__('a 12'),
+            ),
+        ]);
         $app->registerMetadata($budgetAction, Delivery::class);
 
 
         $expectedNumberPeople = new Metadata('expectedNumberPeople', ['label' => \MapasCulturais\i::__('Número previsto de pessoas')]);
         $app->registerMetadata($expectedNumberPeople, Delivery::class);
 
-        $generaterRevenue = new Metadata('generaterRevenue', ['label' => \MapasCulturais\i::__('A entrega irá gerar receita?')]);
+        $generaterRevenue = new Metadata('generaterRevenue', [
+            'label' => \MapasCulturais\i::__('A entrega irá gerar receita?'),
+            'type' => 'select',
+            'options' => array(
+                'true' => \MapasCulturais\i::__('Sim'),
+                'false' => \MapasCulturais\i::__('Não'),
+            ),
+        ]);
         $app->registerMetadata($generaterRevenue, Delivery::class);
 
         $renevueQtd = new Metadata('renevueQtd', ['label' => \MapasCulturais\i::__('Quantidade')]);

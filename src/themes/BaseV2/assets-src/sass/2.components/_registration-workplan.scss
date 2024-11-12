@@ -76,4 +76,8 @@
     .field {
         margin-top: size(12);
     }
+
+    .is-invalid {
+        border: 3px solid red;
+    }
 }

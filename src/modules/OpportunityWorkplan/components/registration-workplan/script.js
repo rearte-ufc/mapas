@@ -115,13 +115,17 @@ app.component('registration-workplan', {
 
                 const validateDelivery = this.validateDelivery(goal);
                 if (validateDelivery.length > 0) {
+                    emptyFields.push("Entrega");
                     emptyFields.push(validateDelivery);
                 }
         
                 // Adicionar mensagem ao array se houver campos vazios
                 if (emptyFields.length > 0) {
+
+                    const emptyFieldsList = `<ul>${emptyFields.map(item => `<li>${item}</li>`).join('')}</ul>`;
+
                     validationMessages.push(
-                        `<br>A meta ${position} possui os seguintes campos vazios:<br> ${emptyFields.join(", ")}<br>`
+                        `<br>A meta ${position} possui os seguintes campos vazios:<br> ${emptyFieldsList}`
                     );
                 }
             });
@@ -154,8 +158,10 @@ app.component('registration-workplan', {
                 if (delivery.generaterRevenue == 'true' && 'totalValueForecast' in delivery && !delivery.totalValueForecast) emptyFields.push("Previsão de valor total");
                 
                 if (emptyFields.length > 0) {
+                    const emptyFieldsList = `<ul>${emptyFields.map(item => `<li>${item}</li>`).join('')}</ul>`;
+
                     validationMessages.push(
-                        `<br>A entrega ${position} possui os seguintes campos vazios:<br> ${emptyFields.join(", ")}<br>`
+                        `A entrega ${position} possui os seguintes campos vazios:<br> ${emptyFieldsList}<br>`
                     );
                 }
             });
